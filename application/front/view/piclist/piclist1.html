@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{$baseinfo['site_title'] ? $baseinfo['site_title'] : $baseinfo['name']}</title>
+  <meta name="keywords" content="{$baseinfo['site_keywords']}">
+  <meta name="description" content="{$baseinfo['site_description']}">
+  <link rel="stylesheet" href="/front/css/base1.css">
+  <link rel="stylesheet" href="/front/css/index1.css">
+  <link rel="stylesheet" href="/front/css/iconfont.css">
+  <link rel="stylesheet" href="/front/css/piclist1.css">
+  <script src="/front/js/jquery-3.2.1.js"></script>
+</head>
+<body>
+  <div id="web">
+    <div class="header">
+      <div class="title_list">
+        <div class="header_title">
+          <div class="header_name">
+            <a href="{:Url('Index/index')}?uniacid={$uniacid}">
+              <img src="{$baseinfo['pc_logo']}">
+            </a>
+          </div>
+          <div class="header_search">
+            <input class="search_input" type="text" placeholder="请输入搜索内容">
+            <a href="javascript:;" onclick="searchs()" class="search_a iconfont icon-x-sousuo1"></a>
+          </div>
+          <div class="erweima_img">
+            <div class="er_img1">
+              <div class="er_img2">
+                <div class="er_text">
+                  <p>扫码进入</p>
+                  <p>小程序或APP</p>
+                  <p>查看更多</p>
+                </div>
+                {foreach $baseinfo['pc_show_qrcode'] as $item}
+                {if $item}
+                <img src="{$item}">
+                {/if}
+                {/foreach}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header_list">
+          <ul class="li_list clearfix">
+            <li><a href="{:Url('Index/index')}?uniacid={$uniacid}" class="{if $now_cid == 0}active{/if}">首页</a></li>
+            {foreach $cates as $item}
+            <li>
+            {if $item['type'] == 'showArt'}
+              <a href="{:Url('Pclist/index')}?uniacid={$uniacid}&cid={$item['id']}&type={$item['type']}" class="{if $now_cid == $item['id']}active{/if}">{$item['name']}</a>
+              <ul>    
+                {foreach $item['subcates'] as $subitem}
+                <li><a href="{:Url('Pclist/index')}?uniacid={$uniacid}&cid={$subitem['id']}&type={$item['type']}">{$subitem['name']}</a></li>    
+                {/foreach}
+              </ul>
+            {else}
+              <a href="{:Url('Piclist/index')}?uniacid={$uniacid}&cid={$item['id']}&type={$item['type']}" class="{if $now_cid == $item['id']}active{/if}">{$item['name']}</a>
+              <ul>    
+                {foreach $item['subcates'] as $subitem}
+                <li><a href="{:Url('Piclist/index')}?uniacid={$uniacid}&cid={$subitem['id']}&type={$item['type']}">{$subitem['name']}</a></li>    
+                {/foreach}
+              </ul>
+            {/if}
+            </li>
+            {/foreach}
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="banner">
+      <div class="wrapper">
+        <div id="sliderBox">
+            {foreach $baseinfo['banner'] as $item}
+            {if $item}
+            <img src="{$item}">
+            {/if}
+            {/foreach}
+        </div>
+        <div class="btn01 btn" onclick="leftArrow()"><img src="/front/img/left.png"/></div>
+        <div class="btn02 btn" onclick="rightArrow()"><img src="/front/img/right.png"/></div>
+      </div>
+      
+    </div>
+
+    <script>
+      function searchs(){
+        var search_key = $(".search_input").val();
+        if(!search_key){
+          alert("请先输入搜索关键字！");
+          return false;
+        }
+        location.href = "{:Url('Searchs/index')}?uniacid={$uniacid}&title=" + search_key;
+      }
+
+      // 轮播
+      var parent = document.getElementById("sliderBox");
+      var children = parent.getElementsByTagName("img");    
+      function leftArrow() {
+        var firstChild = children[0];
+        var tmp = firstChild;
+        parent.removeChild(firstChild);
+        parent.appendChild(tmp);
+      }
+      
+      function rightArrow() {
+        var lastChild = children[children.length-1];
+        var tmp = lastChild;
+        parent.removeChild(lastChild);
+        parent.insertBefore(tmp,children[0]);
+      }
+      var timer = null;
+      function autoPlay () {
+          timer = setInterval(function () {
+              rightArrow();
+          },2000);
+      }
+      autoPlay();
+      
+      var wrapper = document.querySelector(".wrapper");
+      wrapper.onmouseenter = function () {
+          clearInterval(timer);
+      }
+      wrapper.onmouseleave = function () {
+          autoPlay();    
+      }
+    </script>
+
+    <div class="body">
+      <div class="body_box">
+        <div class="box_zutu">
+          {foreach $prolist as $item}
+          <div class="zutu_list">
+            <a href="javascript:;" onclick="showbox({$item['id']})" style="height: 250px;display: block;">
+              <img src="{$item['thumb']}" alt="">
+              <div class="zutu_num">{$item['num']}张</div>
+              <div class="zutu_title">{$item['title']}</div>
+            </a>
+          </div>
+          {/foreach}
+        </div>
+        <div class="box_fy">{$pros->render()}</div>
+      </div>
+    </div>
+
+    {include file="common/foot1" /}
+  </div> 
+
+  <!-- 弹框 -->
+  <div id="pro_bg" class="dis_none"></div>
+  <div id="pro_detail" class="dis_none">
+    <div class="close">
+      <a href="javascript:;" onclick="closeBox()" class="iconfont icon-x-guanbi"></a>
+    </div>
+    <div class="content">
+      <div class="con_imgs">
+        <div class="con_bigimg">
+          <img src="" id="b_img">
+        </div>
+        <div class="con_smallimg">
+          
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 弹框
+    function showbox(id) {
+      $.ajax({
+        url:"{:Url('Piclist/getPics')}?uniacid={$uniacid}",
+        dataType:'json',
+        type:'post',
+        data:{
+          id:id
+        },
+        success:function(res){
+          var str = "";
+          if(res.length > 0){
+            for(var i = 0; i < res.length; i++){
+              str += '<a class="smallings smpic'+i+'" data-src="' + res[i] + '" onclick="changePic('+ i +')">'+
+                      '<img src="' + res[i] + '" alt="">'+
+                    '</a>';
+            }
+            $("#b_img").attr('src', res[0]);
+          }
+          console.log(str)
+          $(".con_smallimg").html(str);
+        }
+      })
+
+      var ele=document.getElementById("pro_bg");
+      var ele1=document.getElementById("pro_detail");
+      ele.classList.remove('dis_none');
+      ele1.classList.remove('dis_none');
+    }
+    function closeBox() {
+      var ele=document.getElementById("pro_bg");
+      var ele1=document.getElementById("pro_detail");
+      ele.classList.add('dis_none');
+      ele1.classList.add('dis_none');
+    }
+
+    function changePic(i){
+      $("#b_img").attr('src', $(".smpic"+i).data('src'));
+    }
+  </script>
+</body>
+</html>

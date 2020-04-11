@@ -1,0 +1,233 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel12{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel12-2">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+				
+				<div style="float: left;height:32px;line-height: 32px;margin-right: 5px">搜索栏目:</div>
+				<div class="ssinput" style="margin-bottom: 10px; position: relative;width:70%;float:left;">
+					<select name="cid" class="span3 m-wrap" id="cid" style="width:200px;float:left;">
+						<option value="0">请选择栏目</option>
+						{if $cate}
+							{foreach $cate as $item}
+								<option value="{$item.0.id}"  {if isset($_GET['cid'])}{if $item.0.id == $_GET['cid']}selected="selected"{/if}{/if} >{$item.0.name}</option>
+								{if $item.data}
+									{foreach $item.data as $res}
+										<option value="{$res.id}" {if isset($_GET['cid'])}{if $res.id == $_GET['cid']}selected="selected"{/if}{/if} ><span style="margin-left:10px;" >|--{$res.name}</span></option>
+									{/foreach}
+								{/if}
+							{/foreach}
+						{/if}
+
+					</select>
+					<input type="text" placeholder="请输入商品标题关键字" class="skey" id="getnews" value="{if isset($_GET['key'])}{$_GET['key']}{/if}" style="width:200px;;float:left;margin:0 5px;height:32px;line-height:32px;padding:0 5px;border-color:#e5e5e5">
+					<button  onclick="search()" class="btn" style="float:left;background: #4385ff;color: #fff;margin-left: 30px;">
+						搜索 
+						</button>
+					</div>
+					<div style="content: '';display: block;clear: left"></div>
+				<div class="input-box" style="margin-bottom: 10px;">
+					<div class="btn-group">
+						<a href="{:Url('Reserve/addpro')}?appletid=<?php echo $_GET['appletid']?>&tableis=0" style="margin-right: 10px;">
+						<button id="sample_editable_1_new" class="btn" style="float:left;background: #4385ff;color: #fff;margin-right: 10px;text-align: center">
+						添加多规格预约
+						</button>
+						</a>						
+					</div>
+					<div class="btn-group">
+						<a href="{:Url('Reserve/addpro')}?appletid=<?php echo $_GET['appletid']?>&tableis=1" style="margin-right: 10px;">
+						<button id="sample_editable_1_new" class="btn green" style="background-color: #4385ff">
+						添加可占用预约
+						</button>
+						</a>
+					</div>
+					<div class="btn-group">
+						<button id="sample_editable_1_new" class="btn" style="float:left;background-color:rgba(67, 133, 255, 0.102);color: #4385ff;border:1px solid #4385ff;margin-right: 10px;text-align: center"  onclick="delall()">
+						批量删除
+						</button>
+					</div>
+
+				</div>
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							<th style="width: 70px;">
+								<input type="checkbox" id="all" />
+							</th>
+							<th style="width: 70px;">排序</th>
+
+							<th style="width: 70px;">ID</th>
+
+							<th style="width: 150px;">所属栏目</th>
+
+							<th style="width: 200px;">缩略图</th>
+
+							<th style="width: 300px;">标题</th>
+
+							<th>参数</th>
+
+							<th>类型</th>
+							
+							<th width="200px;">操作</th>
+							
+
+						</tr>
+
+					</thead>
+
+					<tbody>
+					{if $list}
+						{foreach $list as $item}
+							<tr>
+								<td>
+									<input type="checkbox" name="csb"  value="{$item.id}"/>
+								</td>
+								<td>
+									{$item.num}
+								</td>
+								<td><a href="javascript:;" data-clipboard-text="{$item.id}" onclick="copyid({$item.id})" class="label label-success ng-scope js-clip{$item.id}" style="background: #a9a9a9;min-width:30px;text-align: center;">{$item.id}</a></td>
+								<td>
+									{$item.lanmu}
+								</td>
+								<td>
+									<img src="{$item.thumb}" style="width:50px; height:30px;">
+								</td>
+								<td>
+									{$item.title}
+								</td>
+								<td>
+									门店价: {if $item.price}{$item.price}{else}0{/if}  真实销量:  {$item.sale_tnum}  虚拟销量: {$item.sale_num}
+								</td>
+								<td>
+									{if $item.tableis == 0}多规格预约{else}可占用预约{/if}
+								</td>
+								<td>
+									<a href="{:Url('Reserve/addpro')}?appletid=<?php echo $_GET['appletid']?>&newsid={$item.id}&tableis={$item.tableis}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">编辑</button></a>
+									<form action="{:Url('Reserve/delpro')}?appletid=<?php echo $_GET['appletid']?>&newsid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+									</form>
+									<a href="{:Url('Evaluate/index')}?appletid=<?php echo $_GET['appletid']?>&proid={$item.id}&type=3"><button style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">评论管理</button></a>
+								</td>
+								
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$list->render()}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+	        return false;
+	    }
+	}
+
+	function search(){
+        var cid=$("#cid option:selected").val();
+        var key = $("#getnews").val();
+        if(cid==false&&key==false){
+              alert("请选择栏目或填写标题关键字");
+		}else{
+            location.href = "{:Url('Reserve/pro')}?appletid=<?php echo $_GET['appletid']?>&key="+key+"&cid="+cid;
+		}
+
+    }
+
+    $('#all').on('click',function(){
+
+        if(this.checked) {
+            $.uniform.update($("input[name='csb']").attr("checked", true));
+        }else {
+            $.uniform.update($("input[name='csb']").attr("checked", false));
+        }
+    });
+    function delall(){
+        var array1=new Array();
+        $.each($("input[name='csb']"),function(){
+            if(this.checked){
+                array1.push($(this).val());
+            }
+        });
+        if(array1.length>0){
+            if(window.confirm('确定删除这些秒杀商品？')){
+                location.href = "{:Url('Reserve/delallpro')}?appletid=<?php echo $_GET['appletid']?>&mpros="+array1;
+            }else{
+                return false;
+            }
+        }else{
+            alert("您未选择删除对象");
+            return false;
+        }
+    }
+</script>
+
+
+
+
+{include file="public/foot_more" /}

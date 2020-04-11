@@ -1,0 +1,97 @@
+{include file="public/head" /}
+{include file="public/top" /}
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel7-4">
+<style type="text/css">
+.navModel7{
+	display: block !important;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+} 
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+
+
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Forum/setSave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data">
+
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">论坛相关设置</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">发布审核</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="release_audit" value="1" {if $set}{if $set.release_audit==1}checked=checked{/if}{/if} />
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="release_audit" value="0" {if $set}{if $set.release_audit==0}checked=checked{/if}{else}checked=checked{/if}/>
+							关闭
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">默认关闭，开启后需审核通过后显示</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">是否启用置顶</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="settop" value="1" {if $set}{if $set.settop==1}checked=checked{/if}{else}checked=checked{/if} />
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="settop" value="0" {if $set}{if $set.settop==0}checked=checked{/if}{/if}/>
+							关闭
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">默认启用，关闭后客户发布不可置顶</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">发布费用</label>
+						<div class="controls">
+							<input name="release_money" type="text" class="span3 m-wrap" value="{if $set}{$set.release_money}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">不填默认为0</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">置顶每日费用</label>
+						<div class="controls">
+							<input name="stick_money" type="text" class="span3 m-wrap" value="{if $set}{$set.stick_money}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">不填默认为10</span>
+						</div>
+					</div>
+
+
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background: #4385ff;color: #fff;">确定</button>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+{include file="public/foot_more" /}

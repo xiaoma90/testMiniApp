@@ -1,0 +1,144 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel5{
+		display: block !important;
+	}
+	form {
+	  margin: 0 !important; 
+	  display: inline-block !important;
+	}	
+	.border_green{
+		border: 1px solid #35aa47;
+		color: #35aa47;
+		background-color: #fff;
+		cursor: pointer;
+	}
+	.border_red{
+		border: 1px solid #d9534f;
+		color: #d9534f;
+		background-color: #fff;
+		cursor: pointer;
+	}
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel5-6">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							
+							<th style="width: 50px;">头像</th>
+							<th style="width: 50px;">昵称</th>
+							<th style="width: 50px;">退款订单号(商户订单号)</th>
+							<th style="width: 100px;">申请金额</th>
+							<th style="width: 50px;">申请时间</th>
+							<th style="width: 100px;">状态</th>
+						</tr>
+
+					</thead>
+
+					<tbody>
+						
+						{if $sqtx}
+							{foreach $sqtx as $item}
+								<tr>
+									<td>
+										<img src="{$item.userinfo.avatar}" style="width:50px; height:50px; ">
+							        	
+						        	</td>
+						        	<td>
+							        	{$item.userinfo.nickname}
+							        </td>
+							        <td>
+							        	{$item.ptorder}
+							        </td>
+									<td>
+										{$item.money}
+									</td>
+									<td>{$item.creattime}</td>
+									
+							        <td style="width:120px;text-align: center">
+										{if $item.flag == 1}
+							        		<span class="border_green" style="padding: 1px 5px;border-radius:4px" onclick="tongguo({$item['id']},2)">通过并打款</span>
+											<span class="border_red" style="padding: 1px 5px;border-radius:4px" onclick="tongguo({$item['id']},3)">不通过</span>
+							        	{/if}
+
+							        	{if $item.flag == 2}
+							        		已完成
+							        	{/if}
+
+							        	{if $item.flag == 3}
+							        		已拒绝
+							        	{/if}
+							        </td>
+	
+								</tr>
+							{/foreach}
+						{/if}
+						
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+				<div>
+                    <div class="fenye_right">
+                        {$sqtx_list->render()}
+                    </div>
+                </div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+	function tongguo(id,val){
+            if(window.confirm('确定要同意该退款操作吗？')){
+                location.href = "{:Url('Pt/tuikuan')}?appletid=<?php echo $_GET['appletid']?>&op=shenhe&id="+id+"&val="+val;
+            }else{
+                return false;
+            }
+	    }
+</script>
+
+
+
+{include file="public/foot_more" /}

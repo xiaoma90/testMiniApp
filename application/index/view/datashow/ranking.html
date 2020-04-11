@@ -1,0 +1,152 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="dataShow" class="dataShow3">
+
+<style type="text/css">
+    .page_content{
+		padding: 10px;
+	}
+    table{
+        max-width: 100%;
+        width: auto !important;
+    }
+    thead{background: #fafafa;}
+	th{height: 35px;}
+	th,td{border: 1px dashed #f0f0f0 !important;}
+    .shuk{
+        outline: none;
+        border: 1px solid #dedede;
+        width: 300px;
+    }
+    .cesd{
+        height: 28px;
+        line-height: 28px;
+        width: 28px;
+        display: inline-block;
+        vertical-align: top;
+        cursor: pointer;
+        border:1px solid #dedede;
+        padding: 0 10px;
+    }
+    .zzcc{
+        position: fixed;
+        top: 0; 
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0.4;
+        z-index: 100000;
+
+    }
+    .bbdd{
+        position: fixed;
+        z-index: 100001;
+        background-color: #ffffff;
+        width: 400px;
+        height: 220px;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -110px;
+        padding: 10px;
+        border:1px solid #e7e7e7;
+    }
+    .ddhh{
+        line-height: 30px;
+        position: relative;
+    }
+    .ddxx{
+        position: absolute;
+        right: 0;
+        top:0;
+        cursor:pointer
+    }
+
+
+</style>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box ">
+            <div class="portlet-body">
+                <form class="form-horizontal">
+                    <div style="margin-bottom:10px;">
+                        <div style="display: inline-block;margin-right: 10px">
+                            <select name="proType" id="protypes" style="width: 150px">
+                                <option value="duo" {if $proType == 'duo'}selected="selected"{/if}>商品</option>
+                                <option value="miaosha" {if $proType == 'miaosha'}selected="selected"{/if}>秒杀商品</option>
+                                <option value="yuyue" {if $proType == 'yuyue'}selected="selected"{/if}>预约预定商品</option>
+                            </select>
+                        </div>
+                        <div class="btn-group btn-group-sm" style="padding-right:0;padding-top: 10px">
+                            <input type="text" value="{$starts}"  name="starts"   readonly id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii" placeholder="" class="form-control ng-pristine ng-untouched ng-valid ng-empty" >
+                        </div>
+                        -
+                        <div class="btn-group btn-group-sm" style="padding-right:0;margin-right: 10px;padding-top:10px;">
+                            <input type="text"   value="{$end}" name="end" readonly id="datetimepicker2" data-date-format="yyyy-mm-dd hh:ii" placeholder="" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                        </div>
+                        <div style="display: inline-block;">
+                            <select name="type" id="type" style="width: 100px">
+                                <option value="0" {if $type==0}selected="selected"{/if}>销售额</option>
+                                <option value="1" {if $type==1}selected="selected"{/if}>销售量</option>
+                            </select>
+                        </div>   
+                        <div style="display: inline-block;">
+                            <input type="hidden" name="dataType" value="{$proType}">
+                            <a onclick="tijiao()" class="btn btn-success btn-sm" style="background-color: #4385ff;color:#ffffff">提交</a>
+                        </div> 
+                    </div>
+                </form>
+            </div>
+
+                <table class="table" id="sample_editable_1">
+                    <thead>
+                        <tr>
+                            <th style="width:100px;text-align:center;">排行</th>
+                            <th style="width:560px;">商品名称</th>
+                            <th style="width:200px;">销售量</th>
+                            <th style="width:200px;">销售额(元)</th>
+                        </tr> 
+                    </thead>
+                    {foreach $list as $kk => $item}
+                    <?php if($page > 1){ $kk = $kk + 10 * ($page - 1);} ?>
+                    <tr>
+                        <td style="text-align:center;"><span style="text-align: center;color:#fff">{if $kk < 3}<span style="border-radius: 2px;background: #eb6060 !important;width: 25px;height: 25px;line-height:25px;display: inline-block;"><?php echo ++$kk;?></span>{else}<span style="border-radius: 2px;background: #ccc !important;width: 25px;height: 25px;line-height:25px;display: inline-block;"><?php echo ++$kk;?></span>{/if}</span></td>
+                        <td>{$item['title']}</td>
+                        <td>{if $item['allnums']}{$item['allnums']}{else}0{/if}</td>
+                        <td>{if $item['allprices']}{$item['allprices']}{else}0{/if}</td>
+                    </tr>
+                    {/foreach}
+
+                </table>
+                <!-- 分页 -->
+                <div>
+                    <div class="fenye_right">
+                        {$render}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+
+    </div>
+
+</div>
+
+<script>
+    function tijiao(){
+        var proType = $("#protypes").val();
+        var type = $("#type").val();
+        var start_time = $("#datetimepicker").val();
+        var end_time = $("#datetimepicker2").val();
+        if((start_time != "" && end_time == "") || (start_time == "" && end_time != "")){
+            alert('请完善时间区间');
+            return false;
+        }
+
+        location.href = "{:Url('Datashow/ranking')}?appletid=<?php echo $_GET['appletid']?>&proType="+proType+"&type="+type+"&start_time="+start_time+"&end_time="+end_time;
+    }
+</script>
+
+{include file="public/foot_more" /}

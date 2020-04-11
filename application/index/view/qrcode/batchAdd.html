@@ -1,0 +1,156 @@
+{include file="public/head" /}
+{include file="public/top" /}
+
+<link href="__STATIC_ROOT__/js/searchableSelect/jquery.searchableSelect.css" rel="stylesheet" type="text/css">
+<script src="__STATIC_ROOT__/js/searchableSelect/jquery-1.11.1.min.js"></script>
+<script src="__STATIC_ROOT__/js/searchableSelect/jquery.searchableSelect.js"></script>
+
+<style>
+    .radio input[type="radio"], .checkbox input[type="checkbox"] {
+        margin-left: 0
+    }
+
+    .form_nobg {
+        background-color: #fff;
+        border-top: 0 !important;
+    }
+
+    .searchable-select-dropdown {
+        z-index: 1000;
+    }
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel17-3">
+<div class="row-fluid">
+
+    <div class="portlet box">
+        <div class="portlet-body form">
+
+            <form action="{:Url('QrBatch/addPost')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2"
+                  class="form-horizontal" method="post" enctype="multipart/form-data">
+
+                <input value="{$_GET['appletid']}" id="appletid" style="display: none;">
+
+                <div class="control-group">
+                    <label class="control-label">识别码 <span>*</span></label>
+                    <div class="controls">
+                        <textarea name="codes" class="span6 m-wrap" style="min-height: 350px !important;"></textarea>
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">请扫码传入识别码</span>
+                    </div>
+                </div>
+
+                <div class="control-group" style="display: inline-block">
+                    <label class="control-label">绑定产品 <span>*</span></label>
+                    <div class="controls">
+                        <select id="product_id" name="product_id" class="span3 m-wrap">
+                            <option value="0">请选择产品</option>
+                            {foreach $products as $item}
+                            <option value="{$item.id}">{$item.title}</option>
+                            {/foreach}
+                        </select>
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">请选择商品</span>
+                    </div>
+                </div>
+
+                <div id="moreValue">
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">绑定商户</label>
+                    <div class="controls">
+                        <select name="shop_id" class="span3 m-wrap">
+                            <option value="0">请选择商户</option>
+                            {foreach $shops as $item}
+                            <option value="{$item.id}">{$item.name}</option>
+                            {/foreach}
+                        </select>
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">请选择商户</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">生产日期</label>
+                    <div class="controls">
+                        <input type="text" name="produce_time" readonly id="datetimepicker"
+                               data-date-format="yyyy-mm-dd hh:ii">
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">
+                请选择商品生产日期，空表示不设置
+                </span>
+                    </div>
+                </div>
+
+                <div class="form-actions form_nobg" style="padding-top: 40px;">
+                    <button type="submit" class="btn" style="color: #fff;background-color: #6671e4;margin-left:45%">确定
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+
+
+</style>
+
+
+<script>
+    $(function () {
+        $('#product_id').searchableSelect();
+    });
+
+
+    $("#product_id").change(function () {
+        _id = $("#product_id").val();
+        getMore(_id)
+    });
+    function getMore(id) {
+        // var id = $(obj).val();
+        var appletid = $('#appletid').val();
+        $("#moreValue").empty()
+        if (id) {
+            $.ajax({
+                url: "{:Url('QrBatch/moreValue')}", type: "post", dataType: 'json',
+                data: {
+                    id: id,
+                    appletid: appletid
+                }, success: function (res) {
+                    if (!res.length) {
+                        return
+                    }
+                    let addHtm = ''
+                    let types = []
+                    res.forEach(function (value, key) {
+                        let htmS = "                <div class=\"control-group\">\n" +
+                            "                    <label class=\"control-label\">选择" + value.key + "</label>\n" +
+                            "                    <div class=\"controls\">\n" +
+                            "                        <select name='" + value.key + "' class=\"span3 m-wrap\">\n" +
+                            "                            <option value=\"0\">请选择" + value.key + "</option>\n"
+
+                        let htmM = ''
+                        value.value.forEach((text) => {
+                            htmM += "<option value='" + text + "'>" + text + "</option>\n"
+                        })
+
+                        let htmE = "                        </select>\n" +
+                            "                        <span style=\"color:#999999; line-height:40px; margin-left:20px;\">请选择" + value.key + "</span>\n" +
+                            "                    </div>\n" +
+                            "                </div>"
+
+                        addHtm += (htmS + htmM + htmE)
+
+                        types[key] = value.key
+
+                    })
+                    let typeInput = "<input name='types' value='"+JSON.stringify(types)+"' style='display: none'>"
+                    console.log(typeInput)
+                    $("#moreValue").append(addHtm+typeInput)
+                }
+            })
+        }
+    }
+</script>
+
+{include file="public/foot_more" /}

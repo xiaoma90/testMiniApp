@@ -1,0 +1,820 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel14{
+		display: block !important;
+	}
+ tr .prev .icon-angle-left{
+		background-image: url(/image/glyphicons-halflings.png) !important;
+		background-position: 37px 85px !important;
+	}
+	tr .next .icon-angle-right{
+		background-image: url(/image/glyphicons-halflings.png) !important;
+		background-position: 13px 85px !important;
+	}
+	.editors{
+		max-width: 770px;
+		min-height: 600px;
+	}
+	.w-e-text-container{
+		min-height: 600px !important;
+	}
+	.weiz{
+		margin-left:20px;
+		margin-top: 40px;
+		margin-bottom: 20px;
+	}
+	.chongdingy{
+		background-color: #f9f9f9;
+		padding: 10px 0;
+		border-radius: 5px;
+	}
+
+	.chongdingywz{
+		text-align: left !important;
+		font-size: 16px;
+		padding-left: 20px;
+	}
+	.dels{
+		position: absolute;
+		right: 10px;
+		top: 7px;
+		cursor:pointer;
+	}
+
+.waic1{
+	border:1px solid #dedede; margin-top:20px; padding:10px;
+}
+.waic2{
+	background-color:#eeeeee;; line-height:30px; padding:0 10px; position:relative;
+	height: 30px;
+}
+.waic3{
+	position: relative; margin-top:10px;
+}
+.ggzbtn3{
+	border-right: 1px solid #dedede;
+	border-top: 1px solid #dedede;
+	border-bottom: 1px solid #dedede;
+	text-align: center !important;
+	height: 34px;
+	line-height: 34px;
+	padding-top: 0 !important;
+	background-color: #eeeeee;
+	position: absolute;
+	width: 60px;
+	cursor:pointer;
+	right:0px;
+	top: 0;
+}
+.yandd{
+	display: inline-block;
+	border: 1px solid #dedede;
+	padding: 3px 5px;
+	margin-top: 10px;
+	margin-right: 5px;
+}
+.ssnd{
+	cursor:pointer;
+	padding: 0 5px;
+}
+.biaotou{
+	text-align: center;
+	padding: 8px 0;
+	font-weight: bold;
+}
+.tds{
+	text-align: center;
+	padding: 8px 0;
+}
+.shukdd{
+	width: 100px;
+	padding: 4px 5px;
+	border: 1px solid #dedede;
+}
+.sddds{
+	position: relative;
+}
+.ggsx{
+	border: 1px solid #dedede;
+	width: 60px;
+	text-align: center;
+	padding: 2px;
+	position: absolute;
+	right: 5px;
+	top: 6px;
+	cursor:pointer;
+}
+.ggzbcaa{
+	position: relative;
+	height: 30px;
+	margin-top: 10px;
+}
+.ggzbc{
+	border: 1px solid #dedede;
+	background-color: #eeeeee;
+	width: 120px;
+	padding: 5px;
+	position: absolute;
+	left: 50%;
+	margin-left: -60px;
+	text-align: center;
+	cursor:pointer;
+}
+.sdhd{
+	line-height: 35px;
+}
+.xuzndt{
+	border: 1px solid #dedede;
+	width: 40%;
+	display: inline-block;
+	text-align: center;
+	padding: 3px 0px;
+	cursor:pointer;
+}
+.xuzndd{
+	width: 50px;
+	max-height: 50px;
+	margin-top: 5px;
+	margin-left: 10%;
+}
+.xuzndd img{
+	width: 100%;
+	max-height: 50px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+.back_go{
+	border-bottom: 1px solid #eee;
+  padding: 15px 15px 10px;
+}
+.add_imgs{
+	display: inline-block;
+	width: 67px;
+	height: 67px;
+	box-sizing: border-box;
+	border: 1px dashed #dfe4e7;
+	background: #f9f9f9;
+	border-radius: 3px;
+	text-align: center;
+	color: #DFE4E7;
+	font-size: 12px;
+}
+.commonchangepic{
+	cursor: pointer;
+}
+</style>
+<link rel="stylesheet" href="__STATIC_ROOT__/css/select2.css">
+<script type="text/javascript">
+    var a = {
+        "themeCss": ".select2-container--krajee",
+        "sizeCss": "",
+        "doReset": true,
+        "doToggle": true,
+        "doOrder": false
+    };
+    window.b = {
+        "theme": "krajee",
+        "width": "415px",
+        "placeholder": "请选择自取门店，可多选",
+        "language": "zh-CN"
+    };
+</script>
+<input type="hidden" id="nowhtml" value="navModel" class="navModel14-3">
+
+	<div class="row-fluid">
+		<div class="back_go">
+			<a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">添加商品</span></a>
+		</div>
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Bargain/savepro')}?appletid=<?php echo $_GET['appletid']?>&pid={$id}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<input type="hidden" id="onlyid" name="onlyid" value="{if $id > 0}{$products.onlyid}{/if}">
+					<div class="control-group">
+						<label class="control-label">排序</label>
+						<div class="controls">
+							<input name="num" type="text" class="span1 m-wrap" value="{if $products}{$products.num}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">序号越大越靠前</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 所属栏目</label>
+						<div class="controls">
+							<select name="cid" class="span3 m-wrap" id="cid">
+								<option value="0">请选择所属栏目</option>
+								{if $cateAll}
+									{foreach $cateAll as $cateP}
+										{if $products}
+											<option value="{$cateP.id}" {if $cateP.id==$products.cateId}selected{/if}>{$cateP.title}</option>
+				         				{else}
+											<option value="{$cateP.id}" >{$cateP.title}</option>
+										{/if}
+									{/foreach}
+								{/if}
+							</select>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">选择所属栏目</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 标题</label>
+						<div class="controls">
+							<input name="title" type="text" class="span5 m-wrap" value="{if $products}{$products.title}{/if}" />
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">请填写标题</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">是否上架</label>
+						<div class="controls">
+							<label class="radio">
+								<input type="radio" name="status" value="1" {if $products}{if $products.status==1}checked=checked{/if}{else}checked=checked{/if}/>
+								上架
+							</label>
+							<label class="radio">
+								<input type="radio" name="status" value="2" {if $products}{if $products.status==2}checked=checked{/if}{/if}/>
+								下架
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">上架后，此商品可展示在商品列表</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">是否推荐</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="hot" value="1" {if $products}{if $products.hot==1}checked=checked{/if}{/if}/>
+							不推荐
+							</label>
+							<label class="radio">
+							<input type="radio" name="hot" value="2" {if $products}{if $products.hot==2}checked=checked{/if}{else}checked=checked{/if}/>
+							推荐
+							</label> 
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">取商品方式</label>
+						<div class="controls">
+							<label class="radio">
+								<input type="radio" name="kuaidi" value="1" {if $products}{if $products.kuaidi==1}checked=checked{/if}{/if}/>
+								快递
+							</label>
+							<label class="radio">
+								<input type="radio" name="kuaidi" value="2" {if $products}{if $products.kuaidi==2}checked=checked{/if}{/if}/>
+								到店自取
+							</label>
+							<label class="radio">
+								<input type="radio" name="kuaidi" value="3" {if $products}{if $products.kuaidi==3}checked=checked{/if}{else}checked=checked{/if}/>
+								全部
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">不设置默认全部</span>
+						</div>
+					</div>
+					<div class="control-group" id="shops_list" style="display:{if $products}{if $products.kuaidi != 1} block{else}none{/if}{else}block{/if};">
+						<label class="control-label" style="margin-right:15px">自取门店</label>
+						<div class="controls" id="shops">
+							<span id="parent-s2-togall-w1" style="display:none">
+	            	           <span id="s2-togall-w1" class="s2-togall-button s2-togall-select">
+	            		          <span class="s2-select-label"><i class="glyphicon glyphicon-unchecked"></i>全选</span>
+				                  <span class="s2-unselect-label"><i class="glyphicon glyphicon-check"></i>全不选</span>
+				                </span>
+				            </span>
+							<input id="mengdian" name="stores" type="hidden"/>
+						       	<div class="kv-plugin-loading loading-w1">&nbsp;</div>
+							    <select id="w1" class="form-control"  multiple size="4" placeholder="请选择自取门店，可多选" data-s2-options="a" data-krajee-select2="b" style="display:none">
+									{if $stores}
+									{foreach $stores as $items}
+									    <?php
+											$storeid = $items['id'];
+											$storetitle = $items['title'];
+											if($products && $products['stores']){
+											    $stores_arr = explode(",",$products['stores']);
+												if(in_array($items['id'],$stores_arr)){
+													echo '<option value="'.$storeid.'" selected="selected">'.$storetitle.'</option>';
+													}else{
+														echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+													}
+											}else{
+											   echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+											}
+									    ?>
+									{/foreach}
+									{/if}
+								 </select>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">订单下单可选自取门店；可不选</span>
+								 
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">运费模板</label>
+						<div class="controls">
+		                    <select name="freightId" class="span3 m-wrap">
+		                        <option value="0">选择运费模板</option>
+		                        {if $yunfei_gg_list}
+			                        {foreach $yunfei_gg_list as $vs}
+			                        <option value="{$vs['id']}" {if $products}{if $vs['id'] == $products['freightId']}selected{/if}{/if}>{$vs['name']}</option>
+			                        {/foreach}
+		                        {/if}
+		                    </select>
+		                </div>
+					</div>
+					<div class="control-group"  style="display: block;">
+						<label class="control-label" style="margin-right:15px">万能表单</label>
+						<div class="controls" >
+							<select name="form_id" class="span3 m-wrap" id="form_id" >
+								<option value="0">==不使用==</option>
+								{if $forms}
+								{foreach $forms as $hh}
+								<option value="{$hh['id']}" {if $products}<?php if($products['form_id'] == $hh['id']){echo 'selected';} ?> {/if}>{$hh['formtitle']}</option>
+								{/foreach}
+								{/if}
+							</select>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 售价</label>
+						<div class="controls">
+							<input name="price" id="price" type="text" class="span3 m-wrap" value="{if $products}{$products.price}{/if}"  onkeyup="clearNoNum(this)"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 库存</label>
+						<div class="controls">
+							<input name="kc" id="kc" type="number" min="0" class="span3 m-wrap" value="{if $products}{$products.kc}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">虚拟销量 </label>
+						<div class="controls">
+							<input name="virtualSaleVolume" id="virtualSaleVolume" type="number" min="0" class="span3 m-wrap" value="{if $products}{$products.virtualSaleVolume}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">真实已售 </label>
+						<div class="controls">
+							<input name="realSaleVolume" id="realSaleVolume" type="number" min="0" class="span3 m-wrap"  disabled="true" value="{if $products}{$products.realSaleVolume}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">缩略图</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic1" style="width:67px;height:67px;">
+									{if $products && $products.thumb}
+									<img src="{$products.thumb}"/>
+									{else}
+									<img src="__STATIC_ROOT__/image/noimage_1.png" alt="" />
+									{/if}
+								</div>
+								<div class="fileupload-preview fileupload-exists thumbnail" style="width:67px;height:67px;">
+								</div>
+								<div class="add_imgs">
+									<span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic1" ></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">分享图</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic2" style="width:67px;height:67px;">
+									{if $products && $products.shareThumb}
+									<img src="{$products.shareThumb}"/>
+									{else}
+									<img src="__STATIC_ROOT__/image/noimage_1.png" alt="" />
+									{/if}
+								</div>
+								<div class="fileupload-preview fileupload-exists thumbnail" style="width:67px;height:67px;">
+								</div>
+								<div class="add_imgs">
+									<span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic2" ></span>
+								</div>
+							</div>
+							<span style="color:#c7cddb">不设置将使用缩略图，建议使用比例为1:1的图片</span>
+						</div>
+					</div>
+					<div class="control-group" style="margin-bottom:20px !important">
+						<label class="control-label"><span>*</span> 商品主图</label>
+						<div class="controls" style="display: flex;">
+							<div class="commonuploadslide" id="imgzs" style="font-size:0">
+								{if $allimg}
+								{foreach  $allimg as $res}
+									<div class="paiwei" onmousemove="xians(this)" onmouseout="gb(this)" id="li{$res.id}">
+										<img src="{$res.url}" style="width:67px;height:67px;">
+										<div class="beijingys">
+										</div>
+										<div class="sancann" onclick="del({$res.id})">
+											<span class="cancel" style="background-image: url(__STATIC_ROOT__/webuploader/css/images/icons.png)">删除</span>
+										</div>
+									</div>
+								{/foreach}
+								{/if}
+							</div>
+							<div class="add_imgs">
+								<div id="xztpan" class="commonchangepic" data-type="2">
+									<div style="font-size: 26px;line-height: 36px;">+</div>选择图片
+									<input type="hidden" name="commonuploadslide">
+								</div>
+							</div>
+						</div>
+						<span style="color:#c7cddb;line-height:40px;margin-left:180px;">建议尺寸不小于350*350，支持png、jpg、jpeg格式，大小不超过1M</span>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">简介</label>
+						<div class="controls">
+							<textarea class="span3 m-wrap" style="height:150px;" name="descs">{if $products}{$products.descs}{/if}</textarea>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">商品标签</label>
+						<div class="controls">
+							<input name="labels" type="text" class="span5 m-wrap" value="{if $products}{$products.labels}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">设置商品标签，多个用英文","隔开</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 商品详情</label>
+						<div class="controls">
+						    <div class="editors">
+								<script id="editor" name="texts" type="text/plain">{if $products}{$products.texts}{/if}</script>
+						    </div>
+						</div>
+					</div>
+			        <div class="control-group">
+			            <label class="control-label">商品视频</label>
+			            <div class="controls">
+			                <input name="video" type="text" class="span5 m-wrap" value="{if $products}{$products.video}{/if}" />
+			                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">在商品详情页轮播图一点击播放图标播放</span>
+			            </div>
+			        </div>
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">会员购买设置</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">开启单独会员购买设置</label>
+						<div class="controls">
+							<label class="radio">
+
+							<input type="radio" name="set1" value="1" 
+							{if $products}{if $products['vipConfig']}{if $products['vipConfig']['set1']==1}checked=checked{/if}{/if}{/if}
+							/>
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="set1" value="0" {if $products}{if $products['vipConfig']}{if $products['vipConfig']['set1']==0}checked=checked{/if}{else}checked=checked{/if}{else}checked=checked{/if}/>
+							关闭
+							</label> 
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">开启后必须开通会员才可购买该商品</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">会员购买设置</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="set2" value="1" {if $products}{if $products['vipConfig']}{if $products['vipConfig']['set2']==1}checked=checked{/if}{/if}{/if}/>
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="set2" value="0" {if $products}{if $products['vipConfig']}{if $products['vipConfig']['set2']==0}checked=checked{/if}{else}checked=checked{/if}{else}checked=checked{/if}/>
+							关闭
+							</label> 
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">开启后必须开通会员才可购买该商品</span>
+						</div>
+					</div>
+					<div class="control-group set3" style="display: {if $products}{if $products['vipConfig']['set2']==1}block{else}none{/if}{else}none{/if};">
+			            <label class="control-label">购买等级</label>
+			            <div class="controls">
+			                <select name="set3" id="set3" class="span3 m-wrap">
+			                    {foreach $grade_arr as $i}
+			                        <option value="{$i['grade']}" {if $products}{if $products['vipConfig']['set3'] == $i['grade']}selected='selected'{/if}{/if}>{$i['name']}({$i['grade']}级)</option>
+			                    {/foreach}
+			                </select> 
+			                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">购买开始等级,如大众会员(1级)，即1,2,3,4..级都可购买</span>
+			            </div>
+			        </div>
+
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">砍价设置</label>
+					</div>
+			
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 最低价</label>
+						<div class="controls">
+							<input name="miniPrice" id="miniPrice" type="text" class="span5 m-wrap" value="{if $products}{$products.miniPrice}{/if}"  onkeyup="clearNoNum(this)"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">砍到最低价将停止砍价</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 开始时间</label>
+						<div class="controls">
+							<input type="text" value="{if $products}{if $products.activeBinTime != 0}{$products.activeBinTime|date='Y-m-d H:i:s',###}{else}{/if}{/if}"  name="activeBinTime"   readonly id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii">
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 结束时间</label>
+						<div class="controls">
+							<input type="text" value="{if $products}{if $products.activeEndTime != 0}{$products.activeEndTime|date='Y-m-d H:i:s',###}{else}{/if}{/if}"  name="activeEndTime"   readonly id="datetimepicker2" data-date-format="yyyy-mm-dd hh:ii">
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 砍价时间</label>
+						<div class="controls">
+							<input name="activeHours" id="activeHours" type="text" class="span1 m-wrap" value="{if $products}{$products['activeHours']}{/if}"/>
+							<span style="line-height: 35px"> 小时 </span>
+
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 参与人数</label>
+						<div class="controls">
+							<input name="aPersons" id="aPersons" type="text" class="span1 m-wrap" value="{if $products}{$products['activeRule']['aPersons']}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">达到填写人数时砍价完成；人数包括发起者本人</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<span style="line-height: 33px">前</span>
+							<input style="width:200px;" name="aBinPersons" id="aBinPersons" type="text" class="span1 m-wrap" value="{if $products}{$products['activeRule']['aBinPersons']}{/if}"/>
+							<span style="line-height: 33px"> 人砍价 </span>
+							<input style="width:200px;" name="aBargainOne" id="aBargainOne" type="text" class="span1 m-wrap"  onkeyup="clearNoNum(this)" value="{if $products}{$products['activeRule']['aBargainOne']}{/if}"/>
+							<span style="line-height: 33px"> - </span>
+							<input style="width:200px;" name="aBargainTwo" id="aBargainTwo" type="text" class="span1 m-wrap"  onkeyup="clearNoNum(this)" value="{if $products}{$products['activeRule']['aBargainTwo']}{/if}"/>
+							<span style="line-height: 33px">元</span>
+							<div style="margin-top:10px;">
+								<span>剩余砍价</span>
+								<input style="width:200px;" name="aBargainThree" id="aBargainThree" type="text" class="span1 m-wrap"  onkeyup="clearNoNum(this)" value="{if $products}{$products['activeRule']['aBargainThree']}{/if}"/>
+								<span style="line-height: 33px"> - </span>
+								<input style="width:200px;" name="aBargainFour" id="aBargainFour" type="text" class="span1 m-wrap"  onkeyup="clearNoNum(this)" value="{if $products}{$products['activeRule']['aBargainFour']}{/if}"/>
+								<span style="line-height: 33px">元</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="color: #fff;background-color: #4385ff;">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+		.panel{
+			margin-bottom: 20px;
+		    background-color: #fff;
+		    border: 1px solid #e7e7e7;
+		    border-radius: 4px;
+		}
+		.panel-heading{
+			padding: 0 15px;
+		    border-bottom: 1px solid #e7e7e7;
+		    border-top-left-radius: 3px;
+		    border-top-right-radius: 3px;
+		}
+		.sddds{
+			position: relative;
+		}
+		.panel-title{
+			margin-top: 0;
+		    margin-bottom: 0;
+		    font-size: 16px;
+		    color: inherit;
+		}
+		.modal{
+			width: 795px !important;
+			margin-left: -397px !important;
+			min-height: 290px !important;
+		}
+	</style>
+	<div id="stack2" class="modal fade" tabindex="-1" data-focus-on="input:first" style="width:795px !important; margin-left:-400px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			<h3>图片上传</h3>
+		</div>
+		<div class="controls">
+			<div class="uploader-list-container" >
+				<div class="queueList">
+					<div id="dndArea" class="placeholder">
+						<div id="filePicker-2"></div>
+					</div>
+				</div>
+				<div class="statusBar" style="display:none;">
+					<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+					<div class="info"></div>
+					<div class="btns">
+						<div id="filePicker2"></div>
+						<div class="uploadBtn">开始上传</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<form id='myupload' action="{:Url('Pt/imgupload')}?uniacid=<?php echo $_GET['appletid'];?>" method='post' enctype='multipart/form-data'>
+		<input type="file" id="uploadphoto" name="uploadfile" value="请点击上传图片"   style="display:none" />
+	</form>
+
+
+	<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/jquery.min.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/select2.full.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/select2-krajee.min.js"> </script>
+	<script type="text/javascript" src="__STATIC_ROOT__/webuploader/js/webuploader.min.js"></script>
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.form.js"></script>
+    <script>
+        if(jQuery('#w1').data('select2')) {
+            jQuery('#w1').select2('destroy');
+        }
+        jQuery.when(jQuery('#w1').select2(b)).done(initS2Loading('w1', 'a'));
+	</script>
+    <script type="text/javascript">
+    function clearNoNum(obj){  
+      obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+      if(obj.value.charAt(0,1) == "."){
+        obj.value = "";
+      }
+      obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的   
+      obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");  
+      obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数   
+      if(obj.value.indexOf(".")< 0 && obj.value !=""){
+       obj.value= parseFloat(obj.value);  
+      }  
+    }
+    $('input[name="set2"]').each(function(){
+        $(this).click(function(){
+            if($(this).val()==1){
+                $('.set3').show()
+            }else{
+                $('.set3').hide()
+            }
+        })
+    })
+    
+	$('input[name="kuaidi"]').each(function(){
+        $(this).click(function(){
+            if($(this).val()!=1){
+                $('#shops_list').show()
+            }else{
+                $('#shops_list').hide()
+            }
+        })
+    })
+    var imgid = 0;
+	function getd(id){
+    	imgid = id;
+    }
+    $(function(){
+    	$("#uploadphoto").change(function(){
+	       	$("#myupload").ajaxSubmit({ 
+	          dataType:  'json', //数据格式为json 
+	          success: function(data) {
+	            var url = $.parseJSON(data)['url'];
+	            $("#imgurl"+imgid).val(url);
+	            var imgxs = "#imgxs"+imgid;
+	            $(imgxs+" img").html("");
+	            var imgurl = "<img src="+url+">";
+	            $(imgxs).html(imgurl);
+	          }
+	      	}); 
+		});
+    })
+	
+
+
+        $(function() {
+	    	var ue = UE.getEditor('editor');
+		});
+    	function checkinfo(){
+    		$("#mengdian").val($("#w1").val());
+    		var lanmu = $("#cid").val();
+			if(lanmu==0){
+        		alert("请选择所属栏目");
+        		return false;
+        	}
+
+            var title=$("input[name='title']").val();
+            if(!title){
+        		alert("请输入标题");
+        		return false;
+        	}
+
+            var price=$("#price").val();
+			if(!price){
+        		alert("请输入售价");
+        		return false;
+        	}
+        	var kc=$("#kc").val();
+			if(!kc){
+        		alert("请输入库存");
+        		return false;
+        	}
+        	var texts = $("#ueditor_textarea_texts").val();
+    		if(!texts){
+        		alert("请输入商品详情");
+        		return false;
+        	}
+        	var miniPrice = $("#miniPrice").val();
+	        if(miniPrice == 0 || !miniPrice || parseFloat(price) <= parseFloat(miniPrice)){
+	            alert("请输入最低价且最低价必须大于0小于"+price+"元");
+	            return false;
+	        }
+
+        	var activeBinTime=$("#datetimepicker").val();
+			if(!activeBinTime){
+        		alert("请选择开始时间");
+        		return false;
+        	}
+        	var activeEndTime=$("#datetimepicker2").val();
+			if(!activeEndTime){
+        		alert("请选择结束时间");
+        		return false;
+        	}
+        	var activeHours = $("#activeHours").val();
+	        if(activeHours == 0 || !activeHours){
+	            alert("请输入砍价时间且必须大于0");
+	            return false;
+	        }
+			var aPersons = $("input[name='aPersons']").val();
+	        var aBinPersons = $("input[name='aBinPersons']").val();
+	        var aBargainOne = $("input[name='aBargainOne']").val();
+	        var aBargainTwo = $("input[name='aBargainTwo']").val();
+	        var aBargainThree = $("input[name='aBargainThree']").val();
+	        var aBargainFour = $("input[name='aBargainFour']").val();
+	        if(!aPersons || !aBinPersons || !aBargainOne || !aBargainTwo || !aBargainThree || !aBargainFour ){
+	            alert("请补全参与人数规则");
+	            return false;
+	        }
+	        if(parseInt(aBinPersons) >= parseInt(aPersons)){
+	            alert("参与人数规则设置前几人不能大于等于总人数");
+	            return false;
+	        }
+	        if(aBinPersons == 0 || aBargainOne == 0 || aBargainTwo == 0 || aBargainThree == 0 || aBargainFour == 0 ){
+	            alert("参与人数规则除参与人数外都不能为空或0");
+	            return false;
+	        }
+	        if((aBargainOne.toFixed(2) > aBargainTwo.toFixed(2)) || (aBargainThree.toFixed(2) > aBargainFour.toFixed(2))){
+	            alert("参与人数规则砍价区间第一个值不能大于第二个值");
+	            return false;
+	        }
+            $(".shukdd").attr("name","");
+	    }
+        // 多图上传
+        var date = new Date();
+    	var stronly = String(date.getFullYear())+String(date.getMonth())+String(date.getDate())+String(date.getHours())+String(date.getMinutes())+String(date.getSeconds())+String(Math.floor(Math.random()*1000+1));
+    	//判断URL中有没有栏目ID
+    	var newsid = {$id};
+    	
+
+    	if(newsid==0){
+    		$("#onlyid").val(stronly);
+    	}
+
+        function del(id){
+			if(confirm('你确定要删除这张图片嘛?')){
+				$("#li"+id).remove();
+				$.post("{:Url('Pt/del_img')}",{"id":id, "appletid":<?php echo $_GET['appletid']?>},function(data){
+				})
+			}else{
+		        return false;
+		    }
+		}
+		function xians(me){
+			var b = $(me).find("div[class='beijingys']");
+			var s = $(me).find("div[class='sancann']");
+			$(b).show();
+			$(s).show();
+		}
+		function gb(me){
+			var b = $(me).find("div[class='beijingys']");
+			var s = $(me).find("div[class='sancann']");
+			$(b).hide();
+			$(s).hide();
+		}
+
+    </script>
+{include file="public/foot_more" /}

@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>万能门店小程序</title>
+<!-- Stylesheets -->
+<link href="/hone/css/bootstrap.css" rel="stylesheet">
+<link href="/com/css/head_foot.css" rel="stylesheet">
+<link href="/db/css/style.css" rel="stylesheet" type="text/css"/>
+<script src="/db/js/jquery.min.js"></script>
+<link href="/hone/css/style.css" rel="stylesheet">
+<link href="/hone/css/responsive.css" rel="stylesheet">
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+</head>
+<div class="page-wrapper">
+
+<!-- Preloader -->
+<div class="preloader"></div>
+
+<!-- Main Header-->
+<header class="main-header">
+  
+  <!--Header-Upper-->
+  <div class="header-upper">
+    <div class="auto-container">
+      <div class="clearfix">
+        <div class="pull-left logo-box">
+          <div class="logo"><a href="/"><img class="nav_left block fl" src="{$sbase.logo}" style="width:150px;height:60px"/></a></div>
+        </div>
+        <div class="nav-outer clearfix">
+          
+          <!-- Main Menu -->
+          <nav class="main-menu navbar-expand-md">
+            <div class="navbar-header">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+              <ul class="navigation clearfix">
+                <li class="current"><a href="/">首页</a></li>
+                <li class="dropdown"><a href="/comhome/functionshow/index.html">多功能</a>
+                  <ul>
+                    <li><a target="_blank" href="/comhome/functionshow/index.html">多功能列表</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a href="/comhome/cases/index.html">行业案例</a>
+                  <ul>
+                    <li><a href="/comhome/cases/index.html">案例演示</a></li>
+                    <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/weixinnews/weixinnew/">更多案例</a></li>
+                  </ul>
+                </li>
+                 <li class="dropdown"><a href="/comhome/news/index.html">动态</a>
+                  <ul>
+                    <li><a href="/comhome/news/update.html">更新日记</a></li>
+                    <li><a href="/comhome/news/gg.html">公告</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/forum.php?gid=1">产品中心</a></li>
+                <li class="dropdown"><a href="/comhome/solution/index.html">解决方案</a>
+                  <ul>
+                    <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/weixin/servicemarket/weixin/">开发交流</a></li>
+                    <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/weixin/developers/">学习教程</a></li>
+                    <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/portal.php?mod=list&catid=21">新闻动态</a></li>
+                    <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/weixin/weixin/">行业资讯</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a href="/comhome/about/index.html">关于我们</a></li>
+                <li><a href="/Index/login/index.html">立即制作</a>
+                  <ul>
+                    <li><a href="/Index/login/index.html">立即登录</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown"><a target="_blank" href="https://xiaoyuan.xjjxzl.cn">官方论坛</a>
+              </ul>
+            </div>
+          </nav>
+          <!--Option Box-->
+          <div class="option-box">
+            
+            <!--Search Box-->
+            <div class="search-box-outer">
+              <div class="dropdown">
+                <button class="search-box-btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-search"></span></button>
+                <ul class="dropdown-menu pull-right search-panel" aria-labelledby="dropdownMenu1">
+                  <li class="panel-outer">
+                    <div class="form-container">
+                      <form method="post" target="_blank" action="https://xiaoyuan.xjjxzl.cn/search.php?mod=forum">
+                        <div class="form-group">
+                          <input type="search" name="field-name" value="" placeholder="立即搜索" required>
+                          <button type="submit" class="search-btn"><span class="fa fa-search"></span></button>
+                        </div>
+                      </form>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="nav-btn"><span class="icon flaticon-menu"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Header Upper-->
+  
+</header>
+<!--Form Back Drop-->
+<div class="form-back-drop"></div>
+
+<!--Appointment Box-->
+<section class="appointment-box">
+  <div class="inner-box">
+    <div class="cross-icon"><span class="flaticon-cancel"></span></div>
+    <div class="title">
+      <h2>官方网站</h2>
+    </div>
+    
+    <!--Appointment Form-->
+    <div class="appointment-form">
+      <form method="post" target="_blank" action="https://xiaoyuan.xjjxzl.cn/">
+        <div class="form-group">
+          
+          
+        </div>
+        <div class="form-group">
+          <button type="submit" class="theme-btn btn-style-one"><span class="txt">立即访问</span></button>
+        </div>
+      </form>
+    </div>
+    
+    <!--Contact Info Box-->
+    <div class="contact-info-box">
+      <ul class="info-list">
+        <li><a href="mailto:admin@123.com">admin@123.com</a></li>
+        <li><a href="tel:+15096677027">+15096677027</a></li>
+      </ul>
+      <ul class="social-list clearfix">
+        <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/forum.php?gid=1">产品中心</a></li>
+        <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/news/">升级动态</a></li>
+        <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/weixinnews/">案例演示</a></li>
+        <li><a target="_blank" href="https://xiaoyuan.xjjxzl.cn/weixin/">开放社区</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!--End Consulting Form-->
+
+<!--Main Slider-->
+<section class="main-slider">
+  <div class="main-slider-carousel owl-carousel owl-theme">
+    <div class="slide" style="background-image:url(/hone/images/main-slider/content-image-3.png)">
+      <div class="auto-container">
+        <div class="clearfix">
+          <div class="content">
+            <h2>微信小程序联盟</h2>
+            <div class="text">企业微信小程序解决方案 一站式小程序制作系统</div>
+            <div class="link-box"><a target="_blank" href="tencent://message/?uin=258190749&amp;Site=&amp;Menu=yes" class="theme-btn btn-style-two"><span class="txt">帮助服务</span></a><a target="_blank" href="/Index/login/index.html" class="theme-btn btn-style-three"><span class="txt">开始制作</span></a></div>
+          </div>
+          <div class="image-box">
+            <div class="image"><img src="/hone/images/main-slider/content-image.png" alt="" title=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="auto-container">
+        <div class="optimize-content">
+          <h2 class="vertical-anim">支持多行业小程序使用 后台一键切换版本</h2>
+          <div class="text vertical-anim">后台一键扫码上传提交审核小程序，无需登录开发者工具上传审核.</div>
+          <div class="opimized-form vertical-anim">
+            <!--Optimized Form-->
+            
+            <div class="optimized-form">
+              <div class="row clearfix">
+                <div class="form-group col-lg-6 col-md-6 col-sm-12"></div>
+                <div class="form-group col-lg-3 col-md-3 col-sm-12"></div>
+                <div class="form-group col-lg-3 col-md-3 col-sm-12"></div>
+              </div>
+            </div>
+          </div>
+          <div class="image vertical-anim"><img src="/hone/images/main-slider/content-image-2.png" alt="" title=""></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url(/hone/images/main-slider/content-image-3.png)">
+      <div class="auto-container">
+        <div class="clearfix">
+          <div class="content">
+            <h2 class="vertical-anim">搭载4核心服务器即可使用</h2>
+            <div class="text vertical-anim">轻量后台采用Thinkphp框架搭建完成，助力提升小程序速度</div>
+            <div class="link-box vertical-anim"><a href="/Index/login/index.html" class="theme-btn btn-style-three"><span class="txt">立即创建</span></a></div>
+          </div>
+          <div class="image-box">
+            <div class="image"><img src="/hone/images/main-slider/content-image-1.png" alt="" title=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Main Slider-->
+
+<!--Services Section-->
+<section class="services-section">
+  <div class="auto-container">
+    <!--Sec Title-->
+    <div class="sec-title centered">
+      <div class="title-icon"><span class="icon"><img src="/hone/images/icons/separater.png" alt="" /></span></div>
+      <div class="title">一站式行业解决方案</div>
+      <h2>提供100+行业解决方案，覆盖多样化行业场景<br>
+      </h2>
+    </div>
+    <div class="clearfix">
+      
+      <!--Services Block-->
+      <div class="services-block col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/icon-one.png" alt=""/></span></div>
+          <div class="lower-content">
+            <h3><a href="services-full.html">助你轻松玩转互联网营销</a></h3>
+            <div class="text">轻松转发各大区媒体广告联盟 采用大数据引流转换.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!--Services Block-->
+      <div class="services-block col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1500ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/icon-two.png" alt=""/></span></div>
+          <div class="lower-content">
+            <h3><a href="services-full.html">覆盖多样化行业场景使用</a></h3>
+            <div class="text">新零售 餐饮 生活服务 公司企业 连锁平台.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!--Services Block-->
+      <div class="services-block col-lg-4 col-md-12 col-sm-12">
+        <div class="inner-box wow fadeInUp" data-wow-delay="600ms" data-wow-duration="1500ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/icon-three.png" alt=""/></span></div>
+          <div class="lower-content">
+            <h3><a href="services-full.html">DIY设计更方便快捷</a></h3>
+            <div class="text">无需编辑代码后台拖拽装修，简单实用节省时间.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Services Section-->
+
+<!--Services Section-->
+<section class="services-section-two">
+  <div class="auto-container">
+    <!--Sec Title-->
+    <div class="sec-title centered">
+      <div class="title-icon"><span class="icon"><img src="/hone/images/icons/separater.png" alt="" /></span></div>
+      <h2>全网应用为不同行业提供小程序核心功能</h2>
+      <div class="text">针对不同行业，提供30+核心功能，一键生成小程序，创建智慧商业<br>
+        O2O电商 新零售 餐饮外卖 预约服务 商圈平台 智慧营销</div>
+    </div>
+    <div class="row clearfix">
+      
+      <!-- Services Block Two -->
+      <div class="services-block-two col-lg-6 col-md-12 col-sm-12">
+        <div class="inner-box wow slideInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="content">
+            <div class="icon-box"><span class="icon"><img src="/hone/images/icons/1.png" alt="" /></span></div>
+            <h3><a href="services-full.html">O2O电商</a></h3>
+            <div class="text">覆盖多行业提高营销转化 多样化物流体系全面覆盖购买场景 权益多样互动频繁培养忠诚用户 丰富电商场景，优化用户购买体验.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Services Block Two -->
+      <div class="services-block-two col-lg-6 col-md-12 col-sm-12">
+        <div class="inner-box wow slideInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="content">
+            <div class="icon-box"><span class="icon"><img src="/hone/images/icons/2.png" alt="" /></span></div>
+            <h3><a href="services-full.html">新零售</a></h3>
+            <div class="text">线上线下一体化推动零售进入智能时代 线下消费，扫码支付，快速完成结算流程，避免排队拥挤，提升用户体验，降低人力成本.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Services Block Two -->
+      <div class="services-block-two col-lg-6 col-md-12 col-sm-12">
+        <div class="inner-box wow slideInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="content">
+            <div class="icon-box"><span class="icon"><img src="/hone/images/icons/3.png" alt="" /></span></div>
+            <h3><a href="services-full.html">餐饮外卖</a></h3>
+            <div class="text">前厅订单直通后厨菜品自动分类打印，提升服务效率 团购餐、充值返现多重优惠券等方式，实现更高流水.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Services Block Two -->
+      <div class="services-block-two col-lg-6 col-md-12 col-sm-12">
+        <div class="inner-box wow slideInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="content">
+            <div class="icon-box"><span class="icon"><img src="/hone/images/icons/4.png" alt="" /></span></div>
+            <h3><a href="services-full.html">预约服务</a></h3>
+            <div class="text">多种时间规则，深耕行业场景 前端样式改版，契合用户习惯 多规格预约服务，提升用户体验 订单统一管理，高效配置资源.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Services Block Two -->
+      <div class="services-block-two col-lg-6 col-md-12 col-sm-12">
+        <div class="inner-box wow slideInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="content">
+            <div class="icon-box"><span class="icon"><img src="/hone/images/icons/5.png" alt="" /></span></div>
+            <h3><a href="services-full.html">商圈平台</a></h3>
+            <div class="text">本地生活是一款专为商家提供综合生活服务信息、本地头条资讯、同城生活社区的独立商圈小程序，同城生活商圈与个体商户均可入驻，整合多行业资源，共享商圈精确流量，满足商家实现高效运营管理。.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Services Block Two -->
+      <div class="services-block-two col-lg-6 col-md-12 col-sm-12">
+        <div class="inner-box wow slideInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="content">
+            <div class="icon-box"><span class="icon"><img src="/hone/images/icons/6.png" alt="" /></span></div>
+            <h3><a href="services-full.html">社区团购</a></h3>
+            <div class="text">社区团购是以社区、写字楼等小范围地理位置为单位，
+              
+              构建的一种区域化、社群化、本地化的新型团购形式，通过依托团长的社交关系搭建销售网络，
+              
+              以社群为渠道进行产品销售，从而实现销量与口碑的同步增长.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Services Section-->
+
+<!--Seo Section-->
+<section class="seo-section">
+  <div class="outer-container">
+    <div class="clearfix">
+      
+      <!--Content Column-->
+      <div class="content-column">
+        <div class="inner-column">
+          <!--Sec Title-->
+          <div class="sec-title">
+            <div class="title-icon"><span class="icon"><img src="/hone/images/icons/separater.png" alt="" /></span></div>
+            <div class="title">最简便的制作，3分钟生成小程序</div>
+            <h2>海量模板随意套用一键生成小程序</h2>
+          </div>
+          <div class="text">
+            <p>电商模块、资讯模块等任意组合自由搭配. 30+功能组件可视化拖曳玩转个性化制作.</p>
+            <p>智能管理后台，一键提升运营效率.</p>
+          </div>
+          <!-- List Style One -->
+          <ul class="list-style-one">
+            <li><span class="icon"><img src="/hone/images/icons/7.png" alt="" /></span>模板套用</li>
+            <li><span class="icon"><img src="/hone/images/icons/8.png" alt="" /></span>模块拼装</li>
+            <li><span class="icon"><img src="/hone/images/icons/9.png" alt="" /></span>自定义编辑</li>
+          </ul>
+          <a href="/index/login/index.html" class="theme-btn btn-style-two"><span class="txt">立即制作小程序</span></a></div>
+      </div>
+      
+      <!--Image Column-->
+      <div class="image-column wow slideInRight">
+        <div class="inner-column clearfix">
+          <div class="big-image"><img src="/hone/images/resource/image-1.png" alt="" />
+            <div class="small-image"><img src="/hone/images/resource/seo.png" alt="" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Seo Section-->
+
+<!--Competitor Section-->
+<section class="competitor-section">
+  <div class="auto-container">
+    <div class="row clearfix">
+      
+      <!-- Column / Feature Block -->
+      <div class="column col-lg-4 col-md-6 col-sm-12">
+        <div class="feature-block wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="inner-box">
+            <div class="icon-box">
+              <div class="step">Step 1</div>
+              <span class="icon"><img src="/hone/images/icons/10.png" alt="" /></span></div>
+            <h3><a href="services-full.html">小程序开放平台</a></h3>
+            <div class="text">提供以共享开发为基础的开放性小程序插件平台以及服务市场，用户可在云平台享受基于小程序生态的一系列服务及解决方案.</div>
+            <ul class="list-style-two">
+              <li>政务民生</li>
+              <li>生活服务</li>
+              <li>电商平台</li>
+              <li>社交平台</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Column / Feature Block -->
+      <div class="column col-lg-4 col-md-6 col-sm-12">
+        <div class="feature-block">
+          <div class="inner-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+            <div class="icon-box">
+              <div class="step">Step 2</div>
+              <span class="icon"><img src="/hone/images/icons/11.png" alt="" /></span></div>
+            <h3><a href="services-full.html">小程序商圈平台</a></h3>
+            <div class="text">专注为用户提供综合生活服务信息、本地资讯头条、同城生活社区的独立商圈。商家一键入驻，共享商圈流量，实现低投入高回报.</div>
+            <ul class="list-style-two">
+              <li>门店列表</li>
+              <li>营销体系</li>
+              <li>资讯头条</li>
+              <li>打造商圈</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Column / Video Column -->
+      <div class="column video-column col-lg-4 col-md-12 col-sm-12">
+        <div class="video-boxed">
+          <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+            <h2>智能管理后台，一键提升运营效率<br>
+            </h2>
+            <a  target="_blank" href="https://xiaoyuan.xjjxzl.cn/forum.php?mod=forumdisplay&fid=39" class="lightbox-image play-btn wow zoomInStable" data-wow-delay="500ms" data-wow-duration="2000ms"><span class="icon flaticon-play-button-3"></span><i class="ripple"></i></a>
+            <h3>立即查阅</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Competitor Section-->
+
+<!--Rules Section-->
+<section class="rules-section">
+  <div class="auto-container">
+    <div class="row clearfix">
+      
+      <!--Image Column-->
+      <div class="image-column col-lg-5 col-md-12 col-sm-12">
+        <div class="inner-column wow slideInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <div class="image"><a href="/hone/images/resource/image-2.png" data-fancybox="rule" data-caption=""><img src="/hone/images/resource/image-2.png" alt="" /></a></div>
+        </div>
+      </div>
+      
+      <!--Content Column-->
+      <div class="content-column col-lg-7 col-md-12 col-sm-12">
+        <div class="inner-column wow slideInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+          <!--Sec Title-->
+          <div class="sec-title">
+            <div class="title-icon"><span class="icon"><img src="/hone/images/icons/separater.png" alt="" /></span></div>
+            <div class="title">腾讯社交广告</div>
+            <h2>海量媒体资源</h2>
+          </div>
+          <div class="text">
+            <p>每天有超过8亿用户使用微信、QQ、QQ空间等众多腾讯产品及第三方应用，他们分享自己感兴趣的内容，浏览商业信息。我们帮助您与这些受众建立联系，将优质商业信息推送给真正需要的人。.</p>
+            <p>百度、腾讯、阿里妈妈、优酷土豆、微博、爱奇艺和今日头条等45+渠道，聚合海量优质媒体资源和丰富广告样式，全面触达用户，确保广告投放质量与品牌安全.</p>
+          </div>
+          <a  target="_blank" href="https://xiaoyuan.xjjxzl.cn/weixin/developers/" class="theme-btn btn-style-three"><span class="txt">学习文案</span></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Rules Section-->
+
+<!--Performing Section-->
+<section class="performing-section" style="background-image:url(/hone/images/background/2.jpg)">
+  <div class="auto-container">
+    <!--Title Box-->
+    <div class="title-box">
+      <h2>精准&定向能力</h2>
+      <div class="text">提供了众多广告定向条件，可以从中选择适合达成您商业目标的条件锁定人群，包括人口属性、商业兴趣、地理位置、使用设备、天气环境等等。</div>
+    </div>
+    
+    <!--Report Form-->
+    <div class="report-form">
+      <div class="form-inner wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+        <form method="post" action="contact-form">
+          <div class="row clearfix">
+            <div class="form-group col-lg-6 col-md-6 col-sm-12">
+              <input type="text" name="text" value="" placeholder="Your website URL" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-12">
+              <input type="email" name="email" value="" placeholder="Email" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-12">
+              <button type="submit" class="theme-btn report-btn"><span class="txt">Get Free Report</span></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--End Report Form-->
+    
+  </div>
+</section>
+<!--End Performing Section-->
+
+<!--Feature Section-->
+<section class="featured-section">
+  <div class="auto-container">
+    <!--Sec Title-->
+    <div class="sec-title centered">
+      <div class="title-icon"><span class="icon"><img src="/hone/images/icons/separater.png" alt="" /></span></div>
+      <h2>海量广告资源</h2>
+      <div class="text">贯穿顾客24小时真实生活 百度推广凭借强大的用户产品优势，每天数十亿次搜索请求、超过1亿用户浏览百度信息流、800亿次定位服务请求，为客户提供全系列产品广告资源覆盖用户生活十大场景。信息流广告是在百度APP、百度首页、贴吧、百度手机浏览器等平台的资讯流中穿插展现的原生广告，广告即是内容。.</div>
+    </div>
+    <div class="row clearfix">
+      
+      <!--Feature Block Two-->
+      <div class="feature-block-two col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1000ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/13.png" alt="" /></span></div>
+          <h3><a href="services-full.html">什么是微信公众号广告</a></h3>
+          <div class="text">微信公众号广告是基于微信公众号生态体系，以文章内容的形式出现在公众号文章中，提供公众号关注、移动应用下载、卡券分发、品牌活动广告等支持多维度组合定向投放，实现高效率转化.</div>
+        </div>
+      </div>
+      
+      <!--Feature Block Two-->
+      <div class="feature-block-two col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeIn" data-wow-delay="500ms" data-wow-duration="1000ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/14.png" alt="" /></span></div>
+          <h3><a href="services-full.html">什么是微信朋友圈广告</a></h3>
+          <div class="text">微信朋友圈广告是基于微信公众号生态体系，以类似朋友的原创内容形式在朋友圈中展示的原生广告可以通过点赞、评论等方式进行互动，并依托社交关系链传播，为品牌推广带来加成效应，按曝光次数计费。.</div>
+        </div>
+      </div>
+      
+      <!--Feature Block Two-->
+      <div class="feature-block-two col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeIn" data-wow-delay="1000ms" data-wow-duration="1000ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/15.png" alt="" /></span></div>
+          <h3><a href="services-full.html">什么是QQ广告</a></h3>
+          <div class="text">QQ智能终端拥有6.4亿活跃帐户，QQ客户端广告可以支持人群属性标签、LBS、场景定向等多种灵活、精准的人群触达方式，是适用于移动应用下载、电商购买、品牌活动等多种广告目标的原生社交广告.</div>
+        </div>
+      </div>
+      
+      <!--Feature Block Two-->
+      <div class="feature-block-two col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeIn" data-wow-delay="0ms" data-wow-duration="1000ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/16.png" alt="" /></span></div>
+          <h3><a href="services-full.html">什么是QQ空间广告</a></h3>
+          <div class="text">QQ空间拥有活跃账户5.68亿，是一种融入在用户UGC中的原生社交广告，拥有用户天然、无违和感的关注，非常适合品牌在社交场景与年轻人沟通。.</div>
+        </div>
+      </div>
+      
+      <!--Feature Block Two-->
+      <div class="feature-block-two col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeIn" data-wow-delay="500ms" data-wow-duration="1000ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/17.png" alt="" /></span></div>
+          <h3><a href="services-full.html">什么是腾讯新闻广告</a></h3>
+          <div class="text">腾讯新闻是一款主打“事实派”的资讯类APP，根据用户属性、历史浏览行为和兴趣爱好进行精准定向投放。目前支持网页推广、移动应用推广和电商推广。.</div>
+        </div>
+      </div>
+      
+      <!--Feature Block Two-->
+      <div class="feature-block-two col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeIn" data-wow-delay="1000ms" data-wow-duration="1000ms">
+          <div class="icon-box"><span class="icon"><img src="/hone/images/icons/18.png" alt="" /></span></div>
+          <h3><a href="services-full.html">什么是今日头条广告</a></h3>
+          <div class="text">移动互联网超巨型流量入口，多样广告资源覆盖亿级活跃用户，一站式解决本地商家推广、活动推广、APP下载、电话预约等营销诉求。.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Feature Section-->
+
+<!--Fun Facts Section-->
+<div class="fact-counter-section">
+  <div class="fact-counter">
+    <div class="auto-container">
+      <div class="row clearfix">
+        
+        <!--Column-->
+        <div class="column counter-column col-lg-3 col-md-6 col-sm-12">
+          <div class="inner">
+            <div class="count-outer count-box"><span class="count-text" data-speed="1500" data-stop="120">0</span>
+              <h4 class="counter-title">Projects in Queue</h4>
+            </div>
+          </div>
+        </div>
+        
+        <!--Column-->
+        <div class="column counter-column col-lg-3 col-md-6 col-sm-12">
+          <div class="inner">
+            <div class="count-outer count-box"><span class="count-text" data-speed="2000" data-stop="475">0</span>
+              <h4 class="counter-title">Registered Clients</h4>
+            </div>
+          </div>
+        </div>
+        
+        <!--Column-->
+        <div class="column counter-column col-lg-3 col-md-6 col-sm-12">
+          <div class="inner">
+            <div class="count-outer count-box"><span class="count-text" data-speed="3000" data-stop="839">0</span>
+              <h4 class="counter-title">Web Analytics Done</h4>
+            </div>
+          </div>
+        </div>
+        
+        <!--Column-->
+        <div class="column counter-column col-lg-3 col-md-6 col-sm-12">
+          <div class="inner">
+            <div class="count-outer count-box"><span class="count-text" data-speed="2000" data-stop="2.6">0</span>K
+              <h4 class="counter-title">Rankings Achieved</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Fun Facts Section-->
+
+<!--Visitors Section-->
+<section class="visitors-section">
+  <div class="auto-container">
+    <!--Sec Title-->
+    <div class="sec-title light centered">
+      <div class="title-icon"><span class="icon"><img src="/hone/images/icons/separater.png" alt="" /></span></div>
+      <div class="title">为何选择微信小程序</div>
+      <h2>新型O2O架构 新型营销通道 新型电商模式<br>
+        新型流量入口 新型用户来源 新型用户体验</h2>
+    </div>
+    
+    <!--Emailed Form-->
+    <div class="emailed-form">
+      <form method="post" action="contact.html">
+        <div class="form-group clearfix">
+
+        </div>
+      </form>
+    </div>
+    <!--End Emailed Form-->
+    
+    <!--Image Box-->
+    <div class="image-box">
+      <div class="image"><a href="/hone/images/background/3.png" data-fancybox="visitors" data-caption=""><img src="/hone/images/background/3.png" alt="" /></a></div>
+    </div>
+    <!--End Image Box-->
+    
+  </div>
+</section>
+<!--End Visitors Section-->
+
+<!--Sponsors Section-->
+<section class="sponsors-section">
+  <div class="auto-container">
+    <!--Title Box-->
+    <div class="title-box">
+      <h2>零技术也可以搞定所有小程序</h2>
+    </div>
+    <div class="carousel-outer">
+      <!--Sponsors Slider-->
+      <ul class="sponsors-carousel owl-carousel owl-theme">
+        <li>
+          <div class="image-box"><a href="#"><img src="/hone/images/clients/1.jpg" alt=""></a></div>
+        </li>
+        <li>
+          <div class="image-box"><a href="#"><img src="/hone/images/clients/2.jpg" alt=""></a></div>
+        </li>
+        <li>
+          <div class="image-box"><a href="#"><img src="/hone/images/clients/3.jpg" alt=""></a></div>
+        </li>
+        <li>
+          <div class="image-box"><a href="#"><img src="/hone/images/clients/4.jpg" alt=""></a></div>
+        </li>
+        <li>
+          <div class="image-box"><a href="#"><img src="/hone/images/clients/1.jpg" alt=""></a></div>
+        </li>
+        <li>
+          <div class="image-box"><a href="#"><img src="/hone/images/clients/2.jpg" alt=""></a></div>
+        </li>
+        <li>
+          <div class="image-box"><a href="#"><img src="/hone/images/clients/3.jpg" alt=""></a></div>
+        </li>
+        <li>
+          <div class="image-box"><a href="#"><img src="/hone/images/clients/4.jpg" alt=""></a></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!--End Sponsors Section-->
+
+<!--Testimonial Section-->
+<section class="testimonial-section">
+  <div class="outer-container">
+    <div class="clearfix">
+      
+      <!--Image Column-->
+      <div class="image-column clearfix">
+        <div class="big-image"><img src="/hone/images/background/4.png" alt=""></div>
+        <div class="inner-column clearfix">
+          <!--Sec Title-->
+          <div class="sec-title centered">
+            <div class="title-icon"><span class="icon"><img src="/hone/images/icons/separater.png" alt="" /></span></div>
+            <h2>为何选择微信小程序</h2>
+          </div>
+          <div class="image image-one"><img src="/hone/images/resource/author-1.jpg" alt="" /></div>
+          <div class="image image-two"><img src="/hone/images/resource/author-3.jpg" alt="" /></div>
+          <div class="image image-three"><img src="/hone/images/resource/author-2.jpg" alt="" /></div>
+          <div class="image image-four"><img src="/hone/images/resource/author-4.jpg" alt="" /></div>
+          <div class="image image-five"><img src="/hone/images/resource/author-5.jpg" alt="" /></div>
+          <div class="image image-six"><img src="/hone/images/resource/author-6.jpg" alt="" /></div>
+          <div class="image image-seven"><img src="/hone/images/resource/author-7.jpg" alt="" /></div>
+        </div>
+      </div>
+      
+      <!--Carousel Column-->
+      <div class="carousel-column">
+        <div class="inner-column">
+          <div class="two-item-carousel owl-carousel owl-theme">
+            
+            <!-- Testimonial Block -->
+            <div class="testimonial-block">
+              <div class="inner-box">
+                <div class="text">3种个性化制作模式10秒 一键授权快速上传 5分钟立即生成小程序 无需代码 直接制作</div>
+                <div class="author">一键生成快速制作<span>DIY</span></div>
+              </div>
+            </div>
+            
+            <!-- Testimonial Block -->
+            <div class="testimonial-block">
+              <div class="inner-box">
+                <div class="text">100＋行业模板直接套用 提供一站式行业解决方案 助力企业打造互联网营销闭环.</div>
+                <div class="author">可自定义可编辑丰富的模板<span>编辑</span></div>
+              </div>
+            </div>
+            
+            <!-- Testimonial Block -->
+            <div class="testimonial-block">
+              <div class="inner-box">
+                <div class="text">线下代理商培训 一对一视频解决疑难问题 让企业轻松玩转微信小程序.</div>
+                <div class="author">全国运营支持 完善的服务<span>全网</span></div>
+              </div>
+            </div>
+            
+            <!-- Testimonial Block -->
+            <div class="testimonial-block">
+              <div class="inner-box">
+                <div class="text">多家品牌合作用户 技术实力行业顶级 产品业务更新最快 客户支持最全.</div>
+                <div class="author">行业龙头企业 业内标杆<span>企业</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End Testimonial Section-->
+
+<!--News Section-->
+<section class="news-section">
+  <div class="auto-container">
+    <!--Sec Title-->
+    <div class="sec-title centered">
+      <div class="title-icon"><span class="icon"><img src="/hone/images/icons/separater.png" alt="" /></span></div>
+      <h2>开放性插件平台 开发者生态</h2>
+      <div class="text">全球首个开放的小程序 服务平台 致力于开发者与小程序主提供基于<br>
+        应用的各类开放能力及解决方案</div>
+    </div>
+    <div class="row clearfix">
+      
+      <!--News Block-->
+      <div class="news-block col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1000ms">
+          <div class="image"><a href="blog-single.html"><img src="/hone/images/resource/news-1.jpg" alt="" /></a></div>
+          <div class="lower-content">
+            <ul class="post-meta">
+              <li>经典案例展示</li>
+              <li>更多增值服务，帮助商家突破瓶颈</li>
+            </ul>
+            <h3><a href="blog-single.html">从上线到运营多对一专属服务</a></h3>
+            <div class="text">全域社交平台广告，流量抓取精准投放 品牌客户官方曝光 运营大咖干货分享，市场动态提前知晓 紧跟风向收割红利...</div>
+            <a href="blog-single.html" class="read-more">流量支持<span class="arrow flaticon-next-5"></span></a></div>
+        </div>
+      </div>
+      
+      <!--News Block-->
+      <div class="news-block col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeInUp" data-wow-delay="300ms" data-wow-duration="1000ms">
+          <div class="image"><a href="blog-single.html"><img src="/hone/images/resource/news-2.jpg" alt="" /></a></div>
+          <div class="lower-content">
+            <ul class="post-meta">
+              <li>模板案例</li>
+              <li>搭建个性化线上商城，线上线下互相导流</li>
+            </ul>
+            <h3><a href="blog-single.html">行业电商平台展示</a></h3>
+            <div class="text">多种电商模板可供商家一键套用，快速生成小程序；搭建个性化线上商城，利用会员营销体系实现线上线下互相导流，建立完整的营销闭环...</div>
+            <a href="blog-single.html" class="read-more">更多案例<span class="arrow flaticon-next-5"></span></a></div>
+        </div>
+      </div>
+      
+      <!--News Block-->
+      <div class="news-block col-lg-4 col-md-6 col-sm-12">
+        <div class="inner-box wow fadeInUp" data-wow-delay="600ms" data-wow-duration="1000ms">
+          <div class="image"><a href="blog-single.html"><img src="/hone/images/resource/news-3.jpg" alt="" /></a></div>
+          <div class="lower-content">
+            <ul class="post-meta">
+              <li>场景分析</li>
+              <li>丰富电商场景，优化用户购买体验</li>
+            </ul>
+            <h3><a href="blog-single.html">营销工具助力，解决拉新裂变瓶颈</a></h3>
+            <div class="text">三大配送方式，多种支付操作，覆盖全场景 建立本地社区关系链，满足社区居民消费需求 扫码自助结算，简化支付流程，实现高效运营...</div>
+            <a href="blog-single.html" class="read-more">行业案例<span class="arrow flaticon-next-5"></span></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--End News Section-->
+
+<!--Main Footer-->
+<footer class="main-footer">
+<!--Widgets Section-->
+<div class="auto-container">
+<title>万能官网底部信息</title>
+<div class="cloud-banner">
+  <div class="cloud-bubble-one"></div>
+  <div class="cloud-bubble-two"></div>
+  <div class="cloud-bubble-three"></div>
+  <div class="cloud-bubble-text">为您免费提供使用小程序制作系统一年尊贵服务</div>
+  <div class="cloud-bubble-link"><a href="tencent://message/?uin=258190749&amp;Site=&amp;Menu=yes">立即制作</a></div>
+</div>
+<div class="cloud-footer">
+  <div class="cloud-footer-box">
+    <div class="cloud-footer-feature">
+      <ul class="clearfix">
+        <li class="feature-item002"><a href="#"><span>免费配置服务器</span></a></li>
+        <li class="feature-item003"><a href="#"><span>免费修复bug</span></a></li>
+        <li class="feature-item004"><a href="#"><span>定制功能</span></a></li>
+        <li class="feature-item001"><a href="#"><span>12小时客户服务</span></a></li>
+      </ul>
+    </div>
+    <div class="cloud-footer-nav clearfix">
+      <div class="cloud-footer-nav-logo">
+        <div class="cloud-comm">
+          <div class="cloud-comm-logo"><span></span></div>
+          <div class="cloud-info">
+            <p>万能科技有限公司</p>
+            <li>QQ：{$sbase.qq}</li>
+            <li>TEl:{$sbase.hotline}</li>
+            <p>QQ群:{$sbase.qq}</p>
+          </div>
+        </div>
+        <div class="cloud-share">
+          <p class="wei-xin"><span class="corner wx-corner"></span></p>
+          <p class="wei-bo"><span class="corner wx-corner"></span></p>
+          <ul class="clearfix">
+            <li><a href="#"><span class="icon-blog"></span></a></li>
+            <li><a href="#"><span class="icon-wei"></span></a></li>
+            <li><a href="#"><span class="icon-qq"></span></a></li>
+            <li><a href="#"><span class="icon-mail"></span></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="cloud-footer-nav-list clearfix">
+        <ul>
+          <li class="list-title">核心功能</li>
+          <li><a href="/comhome/functionshow/show.html?id=8">可拖拽DIY</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=32">分销模块</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=28">文章管理系统</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=5">多规格商城</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=6">付费视频系统</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=30">万能表单</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=27">预约报名</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=7">多门店系统</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=34">付费预约</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=35">优惠券系统</a></li>
+        </ul>
+        <ul>
+          <li class="list-title">营销系统</li>
+          <li><a href="/comhome/functionshow/show.html?id=37">店内点餐小程序</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=36">拼团商城小程序</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=33">秒杀商城小程序</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=39">积分签到小程序</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=41">积分兑换商城</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=14">手机客服小程序</a></li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/forum.php?mod=forumdisplay&fid=37">同城小程序</a></li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/forum.php?mod=forumdisplay&fid=40">视频小程序</a></li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/forum.php?mod=forumdisplay&fid=39">企业名片小程序</a></li>
+        </ul>
+        <ul>
+          <li class="list-title">解决方案</li>
+          <li><a href="/comhome/functionshow/show.html?id=3">智慧商城</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=2">智慧餐饮</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=4">智慧美业</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=10">同城服务</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=7">智慧家装</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=5">智慧旅游</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=8">智慧教育</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=9">婚纱摄影</a></li>
+          <li><a href="/comhome/functionshow/show.html?id=6">智慧休娱</a></li>
+        </ul>
+        <ul>
+          <li class="list-title">万能资讯</li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/weixin/servicemarket/weixin/">开发交流</a></li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/weixin/developers/">学习教程</a></li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/portal.php?mod=list&catid=21">新闻动态</a></li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/weixin/weixin/">行业文章</a></li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/weixinnews/">更多案例</a></li>
+          <li><a href="https://xiaoyuan.xjjxzl.cn/news/">升级动态</a></li>
+          <li><a href="/comhome/about/index.html">关于我们</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <ul class="bottom2_ul1">
+    <li><a href="https://xiaoyuan.xjjxzl.cn/">万能论坛</a></li>
+    <li>·</li>
+    <li><a href="https://mi.baidu.com/">万能系统</a></li>
+    <li>·</li>
+    <li><a href="https://xiaoyuan.xjjxzl.cn/">万能模板</a></li>
+    <li>·</li>
+    <li><a href="https://baidu.com/">万能科技</a></li>
+    <li>·</li>
+    <li><a href="https://mp.weixin.qq.com/cgi-bin/wx">微信小程序</a></li>
+  </ul>
+  <div class="cloud-copyright cloud-copyright-about">
+    <p class="bottom2_p">{$sbase.name}&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$sbase.copyright}</p>
+    <p>《增值电信业务经营许可证》京ICP备906178号-3 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#">万能科技有限公司</a>地址：北京市海淀区</p>
+  </div>
+</div>
+<script type="text/javascript">
+            
+            $(".icon-blog").mouseenter(function() {
+                $(".wei-bo").show()
+            }).mouseleave(function() {
+                $(".wei-bo").hide()
+            });
+            $(".icon-wei").mouseenter(function() {
+                $(".wei-xin").show()
+            }).mouseleave(function() {
+                $(".wei-xin").hide()
+            });
+        
+        </script>
+<body>
+<script src="/hone/js/jquery.js"></script> 
+<script src="/hone/js/popper.min.js"></script> 
+<script src="/hone/js/bootstrap.min.js"></script> 
+<script src="/hone/js/jquery.fancybox.js"></script> 
+<script src="/hone/js/appear.js"></script> 
+<script src="/hone/js/owl.js"></script> 
+<script src="/hone/js/wow.js"></script> 
+<script src="/hone/js/jquery-ui.js"></script> 
+<script src="/hone/js/script.js"></script>
+</body>
+</html>

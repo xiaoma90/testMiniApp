@@ -1,0 +1,137 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel3{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel3-1">
+
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<div class="input-box" style="margin-bottom: 10px;">
+
+					<div class="btn-group">
+
+						<a href="{:Url('Exchangescore/cateadd')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn" style="background: #4385ff;color:#fff">
+						新增分类
+						</button>
+						</a>
+
+					</div>
+				</div>
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							
+							<th style="width: 50px;">ID</th>
+							<th style="width: 50px;">排序</th>
+							<th style="width: 200px;">标题</th>
+							<th style="width: 100px;">图片</th>
+							<th width="100px;">操作</th>
+
+						</tr>
+
+					</thead>
+
+					<tbody>
+						
+						{if $cates}
+							{foreach $cates as $item}
+								<tr>
+									<td><a href="javascript:;" href="javascript:;" data-clipboard-text="{$item.id}" onclick="copyid({$item.id})" class="label label-success ng-scope js-clip{$item.id}" style="background: #a9a9a9;min-width:30px;text-align: center;">{$item.id}</a></td>
+									<td>{$item.num}</td>
+									<td style="font-weight:bold">{$item.name}</td>
+									<td>
+									<img src="{$item.catepic}" alt="" style="width:60px;">
+									
+									</td>
+									<td>
+										<a href="{:Url('Exchangescore/cateadd')}?appletid=<?php echo $_GET['appletid']?>&cateid={$item.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">编辑</button></a>
+
+										<form action="{:Url('Exchangescore/catedel')}?appletid=<?php echo $_GET['appletid']?>&cateid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del({$item.id})">
+											<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+										</form>
+									</td>
+								</tr>
+							{/foreach}
+						{/if}
+						
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+					</div>
+					<div class="fenye_right">
+						{$cates_list->render()}
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+	function del(id,count){
+		if(count>0){
+			alert("该栏目中还存在子集栏目，请先删除所有子集栏目后再删除！");
+			return false;
+		}
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+</script>
+
+
+
+{include file="public/foot_more" /}

@@ -1,0 +1,1 @@
+<template name="ff78435c"><view class="_view {{ h[ 0 ].rcl }}"><view class="_view mask"></view><view class="_view maskCon"><view class="_view userTit">您是第一次访问，需要显示您的微信头像方可继续操作</view><button class="_button userBtn" open-type="getUserInfo" data-cid="{{ _c || c }}" data-hid="{{ 5 }}" onGetuserinfo="_pe">一键获取</button></view></view></template>

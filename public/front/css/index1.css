@@ -1,0 +1,276 @@
+.body{
+  width: 100%;
+  margin-top: 10px;
+	margin-bottom: 50px;
+}
+.body_box{
+  width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.body_left{
+  float: left;
+  width: 210px;
+  height: 100%;
+}
+.bleft_title{
+  margin-top: 5px;
+  width: 210px;
+  height: 45px;
+  background-color: #3d3d3d;
+}
+.bleft_title_more{
+  float: right;
+  height: 45px;
+  line-height: 45px;
+  margin-right: 10px;
+}
+.round_icon{
+  width:20px;
+  height:20px;
+  line-height:20px;
+  margin-top:13px;
+  background-color:#fff;
+  border-radius:50%;
+}
+.iconfont{
+  color: #3d3d3d;
+  margin-left: 5px;
+  font-size: 12px !important;
+}
+.bleft_content{
+  background-color: #f6f6f6;
+}
+.bleft_content ul{
+  max-height: 560px;
+  overflow-y: hidden;
+}
+.bleft_content ul a:hover li{
+	color: #3d3d3d;
+}
+.bleft_content_news{
+  border-bottom: 1px dashed #d9d9d9;
+  box-sizing: border-box;
+  height: 40px;
+  margin: 5px;
+  color: #666;
+  font-size: 14px;
+  padding: 10px 5px;
+}
+.bleft_content_newsl{
+  float: left;
+  width:120px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.bleft_content_newsr{
+  float: right;
+  font-size: 12px;
+}
+.bleft_content_text{
+  margin: 5px;
+  height: 160px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #666;
+}
+.body_right{
+  float: left;
+  width: 990px;
+  height: 100%;
+}
+.body_right_title{
+  box-sizing: border-box;
+  margin: 0 10px;
+  border-bottom: 1px solid #d9d9d9;
+}
+.bright_title{
+  position: relative;
+  height: 35px;
+  box-sizing: border-box;
+  margin: 15px 20px 0;
+  color: #3d3d3d;
+}
+.bright_title_text::before{
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: -15px;
+  width: 5px;
+  height: 16px;
+  background: #3d3d3d;
+}
+.bright_content{
+  margin: 15px;
+	font-size: 14px;
+}
+.cont_box{
+  box-sizing: border-box;
+  display: inline-block;
+  width: 265px;
+  height: 270px;
+  padding: 5px 5px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px #d8d8d8;
+  margin: 10px 48px 20px 20px;
+}
+.cont_box:nth-child(3n+0){
+  margin-right: 0px;
+}
+.cont_box_img{
+  width: 253px;
+  height: 197px;
+  overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.cont_box_img img{
+  width: 253px;
+  height: 190px;
+}
+.cont_box_text p{
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin: 0 5px 0;
+  width: 244px;
+  height: 57px;
+}
+
+/* 组图 */
+.qimo8{ 
+  overflow:hidden; 
+  width:1200px;
+  margin: 0 auto;
+  margin-top: 20px;
+  height: 190px;
+  padding: 15px 0;
+  box-sizing: border-box;
+}
+.qimo8 .qimo {
+  /*width:99999999px;*/
+  width:8000%; 
+  height:30px;
+}
+.qimo8 .qimo div{ 
+  float:left;
+}
+.qimo8 .qimo ul{
+  float:left; 
+  overflow:hidden; 
+  zoom:1; 
+}
+.qimo8 .qimo ul li{ 
+  text-align: center; 
+  width: 160px; 
+  float:left; 
+  line-height:30px; 
+  list-style:none; 
+  margin-right:18px;
+}
+.qimo8 .qimo ul li img {
+  width: 160px;
+  height: 130px;
+}
+.qimo8 li a{
+  color:#444444;
+}
+
+.duo_picture{
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+}
+
+/* 弹框 */
+#pro_bg{
+  height: 100%;
+  width: auto;
+  background-color: #7b7b7b;
+  opacity: 0.8;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+}
+#pro_detail{
+  position: fixed;
+  height: 525px;
+  width: 850px;
+  background-color: #fff;
+  top: 20%;
+  left: 25%;
+  z-index: 501;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 10px;
+}
+.dis_none{
+  display:none;
+}
+.close{
+  text-align: right;
+  margin: 5px;
+}
+.icon-x-guanbi:before{
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+}
+.content{
+  box-sizing: border-box;
+  padding: 20px;
+  display: flex;
+}
+.con_imgs{
+  width: 100%;
+  text-align: center;
+}
+.con_bigimg{
+  width: 480px;
+  height: 350px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.con_bigimg img{
+  width: 100%;
+  height: auto;
+  min-height: 350px;
+}
+.con_smallimg{
+  margin-top: 20px;
+  height: 65px;
+  overflow-x: auto;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+.con_smallimg::-webkit-scrollbar {
+  height: 14px;
+}
+.con_smallimg::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #DCDCDC;
+}
+.con_smallimg::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #FFF;
+}
+.smallings{
+  display: inline-block;
+  width: 70px;
+  height: 50px;
+  overflow: hidden;
+  margin-right: 10px;
+  border: 1px solid #eee;
+}
+.smallings img{
+  width: 100%;
+  height: 100%;
+  min-height: 52px;
+}

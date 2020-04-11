@@ -1,0 +1,189 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+form {
+	margin: 0 !important; 
+	display: inline-block !important;
+}	
+thead{
+	background: #fafafa;
+}
+table{
+	text-align: center;
+	border: 1px solid #f0f0f0;
+}
+th,td{
+	border: 1px dashed #f0f0f0;
+	text-align: center;
+}
+th{
+	height: 45px;
+	/* line-height: 45px; */
+}
+td{
+	height: 62px;
+}
+</style>
+
+<input type="hidden" id="nowhtml" value="navCon"  class="navCon7">
+
+<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+				<div style="float: left;height:32px;line-height: 32px;margin-right: 5px">搜索栏目:</div>
+				<div class="ssinput" style="margin-bottom: 10px; position: relative;width:70%;float:left;">
+					<select name="cid" class="span3 m-wrap" id="cid" style="width:200px;float:left;">
+						<option value="0">请选择栏目</option>
+						{if $cate}
+						{foreach $cate as $item}
+						<option value="{$item.id}" {if $cid==$item.id}selected='selected'{/if}>{$item.name}</option>
+						{if $item.data}
+						{foreach $item.data as $res}
+						<option value="{$res.id}" {if $cid==$res.id}selected='selected'{/if} ><span style="margin-left:10px;" >|--{$res.name}</span></option>
+						{/foreach}
+						{/if}
+						{/foreach}
+						{/if}
+					</select>
+					<div style="float: left;height:32px;line-height: 32px;margin:0 8px 0 30px">关键字:</div>
+					<input type="text" placeholder="请输入标题关键字" class="skey" value='{$key}' id="getnews" style="width:200px;;float:left;margin:0 5px;height:32px;line-height:32px;padding:0 5px;border-color:#e5e5e5">
+					<button  onclick="search()" class="btn" style="float:left;background: #4385ff;color: #fff;margin-left: 30px;">
+					搜索 
+					</button>
+				</div>
+				<div style="content: '';display: block;clear: left"></div>
+				<div class="input-box" style="margin-bottom: 10px;">		
+					<div class="btn-group">
+						<a href="{:Url('Pictures/add')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn" style="float:left;background: #4385ff;color: #fff;margin-right: 10px;text-align: center">
+						添加图片
+						</button>
+						</a>
+					</div>
+					<div class="btn-group">
+						<button id="sample_editable_1_new" class="btn" style="float:left;background-color:rgba(67, 133, 255, 0.102);color:#4385ff;border:1px solid #4385ff;margin-right: 10px;text-align: center"  onclick="delall()">
+						批量删除
+						</button>
+					</div>
+				</div>
+
+				<table id="sample_editable_1" style="border-collapse: collapse;">
+					<thead>
+						<tr>
+							<th style="width: 70px;">
+								<input type="checkbox" id="all" />
+							</th>
+							<th style="width: 80px;">排序</th>
+							<th style="width: 90px;">ID</th>
+
+							<th style="width: 164px;">所属栏目</th>
+							<th style="width: 142px;">缩略图</th>
+							<th style="width: 342px;">标题</th>
+							<th style="width: 339px;">操作</th>						
+						</tr>
+					</thead>
+
+					<tbody>
+					{if $list}
+						{foreach $list as $item}
+							<tr>
+								<td>
+									<input type="checkbox" name="csb"  value="{$item.id}"/>
+								</td>
+								<td>
+									{$item.num}
+								</td>
+								<td><a href="javascript:;" data-clipboard-text="{$item.id}" onclick="copyid({$item.id})" class="label label-success ng-scope js-clip{$item.id}" style="background: #a9a9a9;min-width:30px;text-align: center;padding: 2px 16px;box-sizing: border-box;">{$item.id}</a></td>
+								<td>
+									{$item.lanmu}
+								</td>
+								<td>
+									<img src="{$item.thumb}" style="width:50px;height:30px;">
+								</td>
+								<td>
+									{$item.title}
+								</td>
+								<td>
+									<a href="{:Url('Pictures/add')}?appletid=<?php echo $_GET['appletid']?>&newsid={$item.id}"><button class="btn" style="color: #438cdd;border:1px solid #438cdd;background:#fff;padding: 1px 6px;">编辑</button></a>
+									<form action="{:Url('Pictures/del')}?appletid=<?php echo $_GET['appletid']?>&newsid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button class="btn" style="color: #d9534f;border:1px solid #d9534f;background:#fff;padding: 1px 6px;" type="submit">删除</button>
+									</form>
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$news->render()}
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	function search(){
+        var cid=$("#cid option:selected").val();
+        var key = $("#getnews").val();
+        if(cid==false&&key==false){
+              alert("请选择栏目或填写标题关键字");
+		}else{
+            location.href = "{:Url('Pictures/index')}?appletid=<?php echo $_GET['appletid']?>&key="+key+"&cid="+cid;
+		}
+
+    }
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+	        return false;
+	    }
+	}
+
+    $('#all').on('click',function(){
+
+        if(this.checked) {
+            $.uniform.update($("input[name='csb']").attr("checked", true));
+        }else {
+            $.uniform.update($("input[name='csb']").attr("checked", false));
+        }
+    });
+    
+    function delall(){
+        var array1=new Array();
+        $.each($("input[name='csb']"),function(){
+            if(this.checked){
+                array1.push($(this).val());
+            }
+        });
+        if(array1.length>0){
+            if(window.confirm('确定删除这些组图？')){
+                location.href = "{:Url('Pictures/delall')}?appletid=<?php echo $_GET['appletid']?>&pictures="+array1;
+            }else{
+                return false;
+            }
+        }else{
+            alert("您未选择删除对象");
+            return false;
+        }
+    }
+
+
+</script>
+
+{include file="public/foot_more" /}

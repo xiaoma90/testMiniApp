@@ -1,0 +1,1 @@
+<template name="5838893a"><view class="_view title2 {{ h[ 0 ].rcl }}"><view class="_view title2_line" style="{{ h[ 1 ].st }}"></view>{{ h[ 2 ].t }}<text class="_text" style="margin-left:8rpx">{{ h[ 4 ].t }}</text></view></template>

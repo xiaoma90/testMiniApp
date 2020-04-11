@@ -1,0 +1,181 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel7-1">
+
+<style type="text/css">
+	.navModel7{
+		display: block !important;
+	}
+	.chongdingy{
+		background-color: #f9f9f9;
+		padding: 10px 0;
+		border-radius: 5px;
+	}
+	.chongdingywz{
+		text-align: left !important;
+		font-size: 16px;
+		padding-left: 20px;
+	}
+	.form_nobg{
+		background-color: #fff;
+		position: fixed;
+		bottom: 0;
+		left: 216px;
+		right: 0;
+		height: 52px;
+		line-height: 52px;
+		box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+		text-align: center;
+		padding: 0 !important;
+		margin: 0 !important;
+		z-index: 1000;
+	}
+	.content_head_title{display:none}
+	.page_content{top:0;padding: 0;}
+	.back_go{
+		border-bottom: 1px solid #eee;
+		padding: 15px 15px 10px;
+	}
+	.add_imgs{
+		display: inline-block;
+		width: 67px;
+		height: 67px;
+		box-sizing: border-box;
+		border: 1px dashed #dfe4e7;
+		background: #f9f9f9;
+		border-radius: 3px;
+		text-align: center;
+		color: #DFE4E7;
+		font-size: 12px;
+	}
+	.commonchangepic{
+		cursor: pointer;
+	}
+</style>
+	<div class="row-fluid">
+		<div class="back_go">
+			<a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">添加分类</span></a>
+		</div>
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Forum/funcSave')}?appletid=<?php echo $_GET['appletid']?>&func_id={$func_id}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">分类基础内容</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">排序</label>
+						<div class="controls">
+							<input name="num" type="text" class="span1 m-wrap" value="{if $func}{$func.num}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">序号越大越靠前</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">启用</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="status" value="1" {if $func}{if $func.status==1}checked=checked{/if}{else}checked=checked{/if} />
+							启用
+							</label>
+							<label class="radio">
+							<input type="radio" name="status" value="2" {if $func}{if $func.status==2}checked=checked{/if}{/if}/>
+							不启用
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">启用后，分类方可在小程序端显示，不选默认启用。</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 分类名称</label>
+						<div class="controls">
+							<input name="title" type="text" class="span3 m-wrap" value="{if $func}{$func.title}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">分类名称</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 分类缩略图</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic" style="width:67px;height:67px;">
+									{if $func && $func.func_img}
+									<img src="{$func.func_img}"/>
+									{else}
+									<img src="__STATIC_ROOT__/image/noimage_1.png" alt="" />
+									{/if}
+								</div>
+								<div class="add_imgs">
+									<span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" value="{if $func}{$func.func_img}{/if}" name="commonuploadpic" ></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 发布列表页面布局</label>
+						<div class="controls">
+							<label class="radio">
+								<input type="radio" name="page_type" value="1" {if $func}{if $func.page_type==1}checked=checked{/if}{else}checked=checked{/if} />
+								<div>
+									<img src="__STATIC_ROOT__/diypage/img/2.jpg" alt="" style="width:150px;border:1px solid #eee">
+								</div>
+							</label>
+							<label class="radio">
+								<input type="radio" name="page_type" value="2" {if $func}{if $func.page_type==2}checked=checked{/if}{/if} />
+								<div>
+									<img src="__STATIC_ROOT__/diypage/img/1.jpg" alt="" style="width:150px;border:1px solid #eee">
+								</div>
+								</label>
+							</label>
+							<label class="radio">
+								<input type="radio" name="page_type" value="3" {if $func}{if $func.page_type==3}checked=checked{/if}{/if} />
+								<div>
+									<img src="__STATIC_ROOT__/diypage/img/3.jpg" alt="" style="width:150px;border:1px solid #eee">
+								</div>
+								</label>
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="color: #fff;background-color: #4385ff;">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		function checkinfo(){
+			var title = $("input[name='title']").val();
+			if(title == ""){
+				alert("分类名称不能为空");
+				return false;
+			}
+			var flag = true;
+			$.ajax({
+				async: false,  //设置为同步  
+				url:"{:Url('Forum/checktitle')}",
+				type:'post',dataType:'json',
+				data:{
+                    title : title,
+                    func_id: <?php $is = isset($_GET['func_id']); if($is){ echo $_GET['func_id']; }else{ echo 0;}?>,
+                    uniacid:<?php echo $_GET['appletid']?>
+                },success:function (res) {
+                	if(res == 1){
+                		alert("分类名称重复，请修改！");
+                		flag = false;
+                	}
+                }
+			})
+			if(!flag){
+				return false;
+			}
+			var pic = $("input[name='commonuploadpic']").val();
+			if(pic == ""){
+				alert("图片不能为空");
+				return false;
+			}
+			var type = $("input[name='page_type']:checked").val();
+			if(type == undefined){
+				alert("请选择页面列表布局");
+				return false;
+			}
+		}
+	</script>
+{include file="public/foot_more" /}

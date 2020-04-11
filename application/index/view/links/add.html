@@ -1,0 +1,231 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navSystem" class="navSystem19">
+<style type="text/css">
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+.back_go{
+	border-bottom: 1px solid #eee;
+  padding: 15px 15px 10px;
+}
+.controls input{
+  width: 412px !important;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+
+<div class="row-fluid">
+  <div class="back_go">
+    <a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">地址编辑</span></a>
+  </div>
+  <div class="portlet box">
+    <div class="portlet-body form">
+      <form action="{:Url('Returnadd/save')}?appletid=<?php echo $_GET['appletid']?>&id={$id}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+
+        <div class="control-group">
+          <label class="control-label"><span>*</span> 姓名</label>
+          <div class="controls">
+            <input name="name" id="name" type="text" class="span3 m-wrap"  style="height: 35px !important;"  value="{if $info}{$info.name}{/if}" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label"><span>*</span> 联系方式</label>
+          <div class="controls">
+            <input name="mobile" id="mobile" type="text" class="span3 m-wrap"  style="height: 35px !important;"  value="{if $info}{$info.mobile}{/if}" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label"><span>*</span> 省市区</label>
+          <div class="controls">
+            <input type="hidden" name="pro" id="pro" value="{if $info}{$info.province}{/if}">
+            <input type="hidden" name="cit" id="cit" value="{if $info}{$info.city}{/if}">
+            <input type="hidden" name="are" id="are" value="{if $info}{$info.area}{/if}">
+            <select class="small m-wrap" name="province" id="province" onchange="city_get()">
+              <option value="0">==省==</option>
+            </select>
+            <select class="small m-wrap" name="city" id="city" onchange="area_get()" >
+              <option value="0">==市==</option>
+            </select>
+            <select class="small m-wrap" name="area" id="area" onchange="setarea()" >
+              <option value="0">==区/市/县==</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label"><span>*</span> 详细地址</label>
+          <div class="controls">
+            <input name="more_address" id="more_address" type="text" class="span3 m-wrap"  style="height: 35px !important;"  value="{if $info}{$info.more_address}{/if}" />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label"><span>*</span> 备注</label>
+          <div class="controls">
+            <input name="remark" id="remark" type="text" class="span3 m-wrap"  style="height: 35px !important;"  value="{if $info}{$info.remark}{/if}" />
+            <span style="color:#c7cddb; line-height:40px; margin-left:20px;">售后订单选择退货地址时显示的文字</span>
+          </div>
+        </div>
+
+        <div class="form-actions form_nobg">
+          <button type="submit" class="btn" style="background: #4385ff;color:#fff;text-align:center;">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  //省市区三级联动
+  $(function(){
+    get_province();
+  })
+  function get_province(){
+    var id = {$id};
+    if(id>0){
+      var province = "{if $info}{$info.proid}{/if}";
+      var city = "{if $info}{$info.cityid}{/if}";
+      var area = "{if $info}{$info.areaid}{/if}";
+    }else{
+      var province = 0;
+      var city = 0;
+      var area = 0;
+    }
+    $.getJSON('<?php echo STATIC_ROOT; ?>' + "/json/province.json", function (datas){
+      var str="";
+      for(var i=0; i<datas.length; i++){
+        if(datas[i]['ProID'] == province){
+          str+="<option value="+datas[i]['ProID']+" selected>"+datas[i]['name']+"</option>";
+        }else{
+          str+="<option value="+datas[i]['ProID']+">"+datas[i]['name']+"</option>";
+        }
+      }
+      $("#province").append(str);
+    })
+    if(province!=0){
+      $.getJSON('<?php echo STATIC_ROOT; ?>' + "/json/city.json", function (citydatas){
+        var strcity="";
+        for(var i=0; i<citydatas.length; i++){
+          if(citydatas[i]['ProID'] == province){
+            if(citydatas[i]['CityID'] == city){
+              strcity+="<option value="+citydatas[i]['CityID']+" selected>"+citydatas[i]['name']+"</option>";
+            }else{
+              strcity+="<option value="+citydatas[i]['CityID']+">"+citydatas[i]['name']+"</option>";
+            }
+          }
+        }
+        $("#city").append(strcity);
+      })
+    }
+    if(area!=0){
+      $.getJSON('<?php echo STATIC_ROOT; ?>' + "/json/area.json", function (datas){
+        var strarea="";
+        for(var i=0; i<datas.length; i++){
+          if(datas[i]['CityID'] == city){
+            if(datas[i]['Id'] == area){
+              strarea+="<option value="+datas[i]['Id']+" selected>"+datas[i]['DisName']+"</option>";
+            }else{
+              strarea+="<option value="+datas[i]['Id']+">"+datas[i]['DisName']+"</option>";
+            }
+          }
+        }
+        $("#area").append(strarea);
+      })
+    }
+  }
+  function city_get(){
+    $("#city").html("<option value='0'>==市==</option>");
+    var pid = $("#province").val();
+    $.getJSON('<?php echo STATIC_ROOT; ?>' + "/json/city.json", function (datas){
+      var str="";
+      for(var i=0; i<datas.length; i++){
+        if(datas[i]['ProID'] == pid){
+          str+="<option value="+datas[i]['CityID']+">"+datas[i]['name']+"</option>";
+        }
+      }
+      $("#city").append(str);
+    })
+  }
+  function area_get(){
+    $("#area").html("<option value='0'>==区/市/县==</option>");
+    var pid = $("#city").val();
+    $.getJSON('<?php echo STATIC_ROOT; ?>' + "/json/area.json", function (datas){
+      var str="";
+      for(var i=0; i<datas.length; i++){
+        if(datas[i]['CityID'] == pid){
+          str+="<option value="+datas[i]['Id']+">"+datas[i]['DisName']+"</option>";
+        }
+      }
+      $("#area").append(str);
+    })
+  }
+  function setarea(){
+    var pro = $("#province option:selected").text();
+    var cit = $("#city option:selected").text();
+    var are = $("#area option:selected").text();
+    $("#pro").val(pro);
+    $("#cit").val(cit);
+    $("#are").val(are);
+  }
+
+  function checkinfo(){
+    var name = $("#name").val();
+    var mobile = $("#mobile").val();
+    var pro = $("#province").val();
+    if(pro == 0){
+      alert('请选择省');
+      return false;
+    }
+    var cit = $("#city").val();
+    if(cit == 0){
+      alert('请选择市');
+      return false;
+    }
+    var are = $("#area").val();
+    if(are == 0){
+      alert('请选择区/市/县');
+      return false;
+    }
+    var more_address = $("#more_address").val();
+    var remark = $("#remark").val();
+    if(!name){
+      alert('请输入收件人姓名！');
+      return false;
+    }
+    if(!mobile){
+      alert("请输入收件人号码！");
+      return false;
+    // }else{
+    //   var re = /^1[3456789]{1}\d{9}$/;
+    //   if (!re.test(mobile)) {
+    //     alert("手机号格式错误！");
+    //     return false;
+    //   }
+    }
+    if(!more_address){
+      alert('请输入详细地址！');
+      return false;
+    }
+    if(!remark){
+      alert('请输入备注！');
+      return false;
+    }
+  }
+</script>
+
+{include file="public/foot_more" /}

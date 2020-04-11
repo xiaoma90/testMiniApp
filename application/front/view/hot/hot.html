@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/base1.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/banner.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/base2.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/tiao.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/header.css"/>
+		<script src="/js/jquery.js" type="text/javascript"></script>
+	</head>
+	<body class="g_body g_locale2052 g_cusSiteWidth">
+		<div class="header">
+		<div class="container1">
+		  <div class="tmooc-logo pull-left">
+		    <h1 class="titleWrapper" style="font-weight: bold;font-size: 1.75rem;">
+		    	<font size="" color="#FFC001">{$mpname}
+		    	
+		    </font>
+		    </h1>
+		  </div>
+		  <ul class="slide-nav pull-left clearfix">
+		  <li><a href="{:Url('index/index')}?uniacid=<?php echo $_GET['uniacid']?>">首页</a></li>
+		  <li><a href="#" class="active">产品推荐</a></li>
+			<li><a href="{:Url('news/index')}?uniacid=<?php echo $_GET['uniacid']?>">新闻中心</a></li>
+			<li><a href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>">微同城</a></li>
+		</ul>
+		</div>
+		</div>
+		<div id="g_main" class="g_main g_co12" style="top:0;width: 100%;">
+			<div id="web" class="g_web">
+				<div class="wrapper">
+					<div id="sliderBox">
+						{foreach $images as $item}
+				    	<img src="{$item}" alt="">
+				    	{/foreach}
+					</div>
+					<div class="btn01 btn" onclick="leftArrow()"><img src="/fornt/img/left.png"/></div>
+					<div class="btn02 btn" onclick="rightArrow()"><img src="/fornt/img/right.png"/></div>
+				</div>
+				<script>
+				    function leftArrow() {
+				    	var parent = document.getElementById("sliderBox");
+				    	var children = parent.getElementsByTagName("img");
+				    	var firstChild = children[0];
+				    	var tmp = firstChild;
+				    	parent.removeChild(firstChild);
+				    	parent.appendChild(tmp);
+				    }
+				    
+				    function rightArrow() {
+				    	var parent = document.getElementById("sliderBox");
+				    	var children = parent.getElementsByTagName("img");
+				    	var lastChild = children[children.length-1];
+				    	var tmp = lastChild;
+				    	parent.removeChild(lastChild);
+				    	parent.insertBefore(tmp,children[0]);
+				    }
+				    var timer = null;
+				    function autoPlay () {
+				        timer = setInterval(function () {
+				            rightArrow();
+				        },2000);
+				    }
+				    autoPlay();
+				    
+				    var wrapper = document.querySelector(".wrapper");
+				    wrapper.onmouseenter = function () {
+				        clearInterval(timer);
+				    }
+				    wrapper.onmouseleave = function () {
+				        autoPlay();    
+				    }
+
+				    function changePro(cid, res){
+				    	$(".selec").each(function(){
+				    		$(this).css({"color": "", "background": ""});
+				    	})
+
+				    	$(res).css({"color": "#fff", "background": "#FFC001"});
+
+				    	$.ajax({
+				    		url: "{:Url('index/changePro')}?uniacid=<?php echo $_GET['uniacid']?>",
+				    		type: "post",
+				    		dataType: "json",
+				    		data: {
+				    			cate: cid
+				    		},
+				    		success: (res) => {
+				    			//console.log(res);
+				    			let content = "";
+				    			$.each(res, (k, v)=>{
+				    				content += '<li class="list2">\
+													<div id="rexiao">\
+														<a href="javascript:;" onclick="showDetail('+v.id+')"><img src="'+v.thumb+'" ></a>\
+														<p>'+v.title+'</p>\
+													</div>\
+												</li>';
+				    			})
+				    			$("#products").html(content);
+				    			
+				    		}
+				    	})
+				    }
+
+				    function showDetail(pid){
+				    	document.getElementById('fk').style.display='block';
+
+				    	$.ajax({
+				    		url: "{:Url('index/getPro')}?uniacid=<?php echo $_GET['uniacid']?>",
+				    		type: "post",
+				    		dataType: "json",
+				    		data: {
+				    			pid: pid
+				    		},
+				    		success: (res) => {
+				    			$(".productName").html(res.title);
+				    			$("#desc").html(res.desc);
+				    			$("#price").html(res.price);
+				    			$("#pro_thumb").attr("src", res.thumb);
+				    			let images = "";
+				    			for(let i=0; i<res.text.length; i++){
+				    				images += "<li><a href='javascript:;'><img src='"+res.text[i]+"' ></a></li>";
+				    			}
+				    			$("#pro_banner").html(images);
+				    		}
+				    	})
+
+				    }
+				</script>
+				<div id="fullmeasureTopForms" class="fullmeasureContainer forms fk-fullmeasureForms fullmeasureForms fullmeasureTopForms" style="margin-top: 50px;">
+					<div id="hot" class="form formhot" style="height: 47.5rem;">
+						<div id="hotContainer">
+							<div id="hotcontent">
+								<div id="product">
+									<div id="product1" style="text-align: center;">
+											<span id="" style="font-size: 0.75rem;position: absolute;top: 0;left: 45%;color: #FFC001;">PRODUCT</span>
+											<span style="position: absolute;top: 1.25rem;left: 22%;"><font style="color: rgb(227, 227, 227);" color="#e3e3e3">————</font><b class="font-span"> 热销产品&nbsp;</b><font style="color: rgb(227, 227, 227);" color="#e3e3e3">————</font></span>
+									</div>
+								</div>
+								<div id="lizi" style="height: 5.8125rem;width: 100%;margin: 0 auto;">
+									<ul class="title2">
+										<li><a href="javascript:;" class="selec" style="background: #FFC001;color: #FFFFFF;" onclick="changePro(0, this)">全部产品</a></li>
+										{foreach $cates as $item}
+										<li><a href="javascript:;" class="selec" onclick="changePro({$item.id}, this)">{$item.name}</a></li>
+										{/foreach}
+									</ul>
+								</div>
+								<div id="tu">
+									<ul class="title3" id="products">
+										{foreach $products as $item}
+										<li class="list2">
+											<div id="rexiao">
+												<a href="javascript:;" onclick="showDetail({$item.id})"><img src="{$item.thumb}" ></a>
+												<p>{$item.title}</p>
+											</div>
+										</li>
+										{/foreach}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div id="foot" style="margin-top: 50px;">
+					<div id="foot1">
+						<p style="color: #FFFFFF;font-size: 28px;margin-top: 54px;margin-bottom: 20px;position: absolute;left: 40%;top: 0;">STATIONERY DESIGN</p>
+						<ul style="margin-top: 20px;margin-bottom: 20px;position: absolute;top: 100px;left: 39%;padding: 0;height: 22px;">
+							<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+							<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('news/index')}?uniacid=<?php echo $_GET['uniacid']?>">新闻中心</a></li>
+							<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>">微同城</a></li>
+						</ul>
+						<p style="margin-bottom: 45px;height: 1px;background-color: transparent;color: rgb(102,102,102);position: absolute;top: 160px;left: 37%;"><span style="font-size: 16px;">————————————————————————</span></p>
+						<p style="color: rgb(102,102,102);font-size: 14px;position: absolute;
+top: 205px;left: 42%;">©2019 网站模板—文具 版权所有</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="fk" class="fk" style="display: none;">
+			<div id="contentbg"></div>
+			<div id="fcontent">
+				<div id="innercontent">
+					<div id="multiContent">
+						<a href="javascript:;"><img id="pro_thumb" src="" /></a>
+						<div id="you">
+							<p class="productName"></p>
+							<p><font style="color: rgb(227, 227, 227);" color="#e3e3e3">—————————————————————————————</font></p>
+							<div class="f-propListContent J_productProp">
+								<div class="f-propContent ">
+									<div class="f-propName" style="width:82px">简介<span class="f-colon">:</span>
+								</div>
+								<div class="f-propValue" id="desc"></div>
+								</div>
+								<div class="f-propContent J_mallPriceClass"><div class="f-propName" title="价格" style="width:82px">价格<span class="f-colon">:</span></div>
+								<div class="f-propValue g_stress mallPriceBig f-mallPriceWrap">	<span class="f-currencyVal">￥</span>
+									<span class="mallPrice" id="price"></span>
+								</div>
+								</div>
+								<div class="f-propContent J_mallPriceClass">
+				                  <div class="f-propName" title="价格" style="width:110px;float: none;">扫描二维码购买</div>
+				                  <div style="margin-left: 80px; margin-top: 10px;">
+				                    {if $showimg}
+				                      <img style="width: 140px; height: 140px;" src="{$showimg}">
+				                    {else}
+				                      <img style="width: 140px; height: 140px;" src="/image/noimage_1.png">
+				                    {/if}
+				                  </div>
+				                </div>
+							</div>
+						</div>
+					</div>
+					<div id="slideForProduct">
+						<div class="slider">
+							<ul class="ul-slider" id="pro_banner">
+								<li><a href="javascript:;"><img src="img/AD0Ii4nmBhACGAAg-Iv9ygUo7rz1pAMwrgI4oQI.jpg" ></a></li>
+								<li><a href="javascript:;"><img src="img/AD0Ii4nmBhACGAAg-Iv9ygUo7rz1pAMwrgI4oQI.jpg" ></a></li>
+								<li><a href="javascript:;"><img src="img/AD0Ii4nmBhACGAAg-Iv9ygUo7rz1pAMwrgI4oQI.jpg" ></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<a href="javascript:;" class="f-close" title="关闭" hidefocus="true" onclick="document.getElementById('fk').style.display='none'">关闭</a>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,97 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.navSale8{
+	display: block !important;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.control-group_c{
+	width: 100%;
+	min-height: 35px;
+	margin-bottom: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale8-1">
+	
+	<div class="row-fluid">
+		<div class="portlet box" style="margin-bottom:40px;">
+			
+			<div class="portlet-body form">
+				<form action="{:Url('Order/setbxiang')}?appletid=<?php echo $_GET['appletid']?>&id=<?php echo $_GET['id']?>"  class="form-horizontal"  method="post" enctype="multipart/form-data">
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">详细信息</label>
+					</div>
+					<div class="control-group_c">
+						<label class="control-label" style="color:#666666">标题</label>
+						<div class="controls" style="line-height:35px;">
+							<?php 
+							if($item['type'] == 'diy'){
+								echo "DIY-".$item['source']."-".$item['formtitle'];
+							}else if($item['type'] == 'VIP申请'){
+								echo "会员申请-".$item['source']."-".$item['formtitle'];
+							}else if($item['type'] == 'duo'){
+								echo "商品-".$item['source']."-".$item['formtitle'];
+							}else if($item['type'] == 'showArt' || $item['type'] == 'bargain' || $item['type'] == 'miaosha' || $item['type'] == 'pt' || $item['type'] == 'duoShop'){
+								echo $item['title']."-".$item['source']."-".$item['formtitle'];
+							}
+							?>
+						</div>
+					</div>
+					<div class="control-group_c">
+						<label class="control-label" style="color:#666666">提交时间</label>
+						<div class="controls" style="line-height:35px;">
+							{$item['creattime']}
+						</div>
+					</div>
+                     {$item['val']}
+					<div class="control-group_c">
+						<label class="control-label" style="color:#666666">查看时间</label>
+						<div class="controls" style="line-height:35px;">
+							{if $item['vtime'] == ""}<span class="btn red dx">未查看</span>{else}{$item['vtime']}{/if}
+						</div>
+					</div>
+
+					<div class="control-group_c">
+						<label for="" class="control-label" style="color:#666666">备注</label>
+						<div class="controls" style="line-height:35px;">
+							<input type="text" name="beizhu" value="{$item['beizhu']}" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  placeholder="" autocomplete="off">
+						</div>
+					</div>
+
+					{if $item['flag'] == '0'}
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background: #4385ff;color: #fff;text-align: center;">设置已查看/审核并返回</button>
+					</div>
+					{/if}
+				</form>
+
+
+
+
+			</div>
+		</div>
+	</div>
+{include file="public/foot_more" /}

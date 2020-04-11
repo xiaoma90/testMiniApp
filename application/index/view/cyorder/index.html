@@ -1,0 +1,257 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel2{
+		display: block !important;
+	}
+	tr .prev .icon-angle-left{
+		background-image: url(/image/glyphicons-halflings.png) !important;
+		background-position: 37px 85px !important;
+	}
+	tr .next .icon-angle-right{
+		background-image: url(/image/glyphicons-halflings.png) !important;
+		background-position: 13px 85px !important;
+	}
+	form {
+	     margin: 0 !important; 
+	    display: inline-block !important;
+	}	
+	.btn-success{color: #fff;background-color: #5cb85c;border-color: #4cae4c;}
+	.btn-success:hover{color: #fff;background-color: #449d44;border-color: #398439;}
+	.btn-warning{color: #fff;background-color: #f0ad4e;border-color: #eea236;}
+	.btn-warning:hover{color: #fff;background-color: #ec971f;border-color: #d58512;}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel2-5">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+				<div class="form-horizontal">
+					<div style="margin-bottom: 10px; ">
+					<form class="form-horizontal">
+											<div style="margin-bottom:10px;">
+												状态：
+												<div style="display: inline-block;margin-right: 10px">
+													<select name="search_flag" id="search_flag" style="width: 120px">
+															<option value="">全部</option>
+															<option value="-2" {if $search_flag==
+															'-2'}selected="selected"{/if}>订单无效</option>
+															<option value="-1" {if $search_flag==
+															'-1'}selected="selected"{/if}>已关闭</option>
+															<option value="0" {if $search_flag==
+															'0'}selected="selected"{/if}>未支付</option>
+															<option value="1" {if $search_flag==
+															'1'}selected="selected"{/if}>已支付</option>
+															<option value="2" {if $search_flag==
+															'2'}selected="selected"{/if}>已完成</option>
+															<option value="3" {if $search_flag==
+															'3'}selected="selected"{/if}>已过期</option>
+														</select>
+	                        </div>
+	                        下单时间：
+	                        <div class="btn-group btn-group-sm" style="padding-right:0;padding-top: 10px">
+	                            <input type="text" value="{$start_get}" name="start_get" readonly id="datetimepicker"
+	                                   data-date-format="yyyy-mm-dd hh:ii" placeholder=""
+	                                   class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+	                        </div>
+	                        -
+	                        <div class="btn-group btn-group-sm"
+	                             style="padding-right:0;margin-right: 10px;padding-top:10px;">
+	                            <input type="text" value="{$end_get}" name="end_get" readonly id="datetimepicker2"
+	                                   data-date-format="yyyy-mm-dd hh:ii" placeholder=""
+	                                   class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+	                        </div>
+
+	                        <div style="display: inline-block;padding-top:10px;">
+	                            订单号：
+	                        </div>
+	                        <div class="btn-group btn-group-sm" style="padding-right:0;padding-top:10px;">
+	                            <input type="text" name="search_keys" id="search_keys" value="{$search_keys}"
+	                                   style="width: 150px" class="form-control ng-pristine ng-untouched ng-valid ng-empty"
+	                                   placeholder="搜索关键字" autocomplete="off">
+	                        </div>
+	                        <div style="display: inline-block;">
+														<div class="btn" id="filter" style="display: inline-block;font-size: 12px;background: #4385ff;color: #fff;margin-right: 10px;text-align: center;margin-left: 30px;"
+	                                 onclick="search()">
+	                            提交
+														</div>
+														<div class="btn" id="filter" style="font-size: 12px;background-color:rgba(67, 133, 255, 0.102);color: #4385ff;text-align: center;border:1px solid #4385ff;padding:5px 14px;"
+	                             onclick="daochu()">
+	                        		导出
+	                    			</div>
+	                       
+	                    		</div>
+	                </form>
+				    </div>
+			
+			        <script type="text/javascript">
+			            function search(){
+					        var search_flag = $("#search_flag").val();
+					        var search_keys = $("#search_keys").val();
+					        var start_get = $("#datetimepicker").val();
+					        var end_get = $("#datetimepicker2").val();
+
+					        location.href = "{:Url('Cyorder/index')}?appletid=<?php echo $_GET['appletid']?>&search_flag=" + search_flag + "&search_keys=" + search_keys + "&start_get=" + start_get + "&end_get=" + end_get;
+					    }
+
+					    function daochu(){
+					    	var search_flag = $("#search_flag").val();
+					        var search_keys = $("#search_keys").val();
+					        var start_get = $("#datetimepicker").val();
+					        var end_get = $("#datetimepicker2").val();
+
+					        location.href = "{:Url('Cyorder/orderdown')}?appletid=<?php echo $_GET['appletid']?>&search_flag=" + search_flag + "&search_keys=" + search_keys + "&start_get=" + start_get + "&end_get=" + end_get;
+					    }
+
+
+				      
+				        function xiaofei(id){
+
+				            if(window.confirm('确定核销该订单？')){
+				                var newurl = document.URL+"&op=hx&order="+id;
+				                location.href = newurl;
+				            }else{
+				            	return false;
+				            }
+
+				        }
+
+				        function queren(id){
+				            if(window.confirm('确定该订单？')){
+				                var newurl = document.URL+"&op=qr&order="+id;
+				                location.href = newurl;
+				            }else{
+				            	return false;
+				            }
+				        }
+
+			        </script>
+			    </div>
+	
+
+			<table class="table " id="sample_editable_1" style="border: 1px solid #f2f2f2">
+
+					<thead>
+
+						<tr style="background:#f8f8f8;">
+							
+							<td style="width: 200px;text-align:center;">商品</td>
+							<td style="width: 50px;text-align:center;">规格单价</td>
+							<td style="width: 50px;text-align:center;">数量</td>
+							<td style="width: 50px;text-align:center;">规格总价</td>
+							<td style="width: 50px;text-align:center;">金额详情</td>
+							<td style="width: 50px;text-align:center;">姓名</td>
+							<td style="width: 50px;text-align:center;">联系方式</td>
+							<td style="width: 50px;text-align:center;">状态</td>
+							
+						</tr>
+
+					</thead>
+					<tbody">
+					{volist name="$cates" id="vo"}
+						<tr style="height: 20px;"></tr>
+								<tr class="trorder">
+										<td colspan="8" style="border:0;background:#f9f9f9;padding: 10px 24px;">
+												下单时间：{:date("Y-m-d H:i:s",$vo['creattime'])} <span class="dingdan" style="margin-left: 45px;">订单编号：<span style="color: #4385ff">{$vo['order_id']}</span></span>
+										</td>
+									<!-- <td colspan="2">
+
+					                订单编号: {$vo['order_id']}                              
+
+					                </td>
+					                <td colspan="4" style="text-align:right;font-size:12px;" class="aops">                     
+						                <span style="float: right;">下单时间：{:date("Y-m-d H:i:s",$vo['creattime'])} </span>
+						            </td> -->
+								</tr>
+								{volist name="$vo['val']" id="vi"}
+								<tr>
+									<td style="line-height: 24px;border: none;padding-left: 24px;">
+										<img src="{if $vi['thumb']}{$vi['thumb']}{/if}" alt="" style="width:60px;margin-right: 20px">{$vi[2]}
+									</td>
+									<td style="text-align:center;border: none;">￥{$vi[1]}</td>
+									<td style="text-align:center;border: none;">{$vi[3]}</td>
+									<td style="text-align:center;border: none;">￥{$vi['totalPay']}</td>
+									<td style="text-align:center;border: none;">
+									{if $vo['wx_price']}
+										{if $vo['paytype'] == 1}微信支付：{elseif $vo['paytype'] == 2}支付宝支付：{elseif $vo['paytype'] == 4}QQ支付：{else}百度支付： {/if}{$vo['wx_price']}元<br>
+									{/if}
+									{if $vo['yue_price']}
+										余额支付：{$vo['yue_price']}元<br>
+									{/if}
+									{if $vo['score_info']}积分抵扣：{$vo['score_info']['score']}积分抵扣{$vo['score_info']['score_money']}元<br>{/if}
+									</td>
+									<td style="text-align:center;border: none;">{$vo['username']}</td>
+									<td style="text-align:center;border: none;">{$vo['usertel']}</td>
+									<td style="border:none;border-right:1px solid #f0f0f0;text-align:center;">
+									
+				                		{if $vo['flag'] ==0}<span style="color: #969696;border:1px solid #969696;background:#fff;border-radius: 4px;padding: 1px 4px;">未支付</span>{/if}
+
+				                        {if $vo['flag'] ==1}
+
+				                            <span style="color: #969696;border:1px solid #969696;background:#fff;border-radius: 4px;padding: 1px 4px;">已支付</span>
+
+				                        {/if}
+
+										{if $vo['flag'] ==2} <span style="color: #969696;border:1px solid #969696;background:#fff;border-radius: 4px;padding: 1px 4px;">已完成</span>{/if}
+
+				                        {if $vo['flag'] ==-1} <span style="color: #969696;border:1px solid #969696;background:#fff;border-radius: 4px;padding: 1px 4px;">已关闭</span>{/if}
+
+				                        {if $vo['flag'] ==-2} <span style="color: #969696;border:1px solid #969696;background:#fff;border-radius: 4px;padding: 1px 4px;">订单无效</span>{/if}
+
+				                        {if $vo['flag'] ==3} <span style="color: #969696;border:1px solid #969696;background:#fff;border-radius: 4px;padding: 1px 4px;">已过期</span>{/if}
+									</td>
+								</tr>
+								{/volist}
+
+								<tr style="font-size:12px;background:#f9f9f9;width:100%;">
+									<td colspan="4" style="height:40px;padding:0;border-top: 1px dashed #f0f0f0;border-right: 1px dashed #f0f0f0;padding: 0 24px;">
+										订单备注：{if $vo['userbeiz']}{$vo['userbeiz']}{else}暂无备注{/if}
+									</td>
+									<td colspan="4" style="height:40px;padding:0;border-top: 1px dashed #f0f0f0;border-right: 1px solid #f0f0f0;padding: 0 24px;">
+										预约时间：{$vo['usertime']}<span style="padding: 0 20px"></span>地址：{$vo['address']}<span style="padding: 0 20px"></span>
+									</td>
+								</tr>
+					{/volist}
+					</tbody>
+				</table>
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$page}
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+	function del(id,count){
+		if(count>0){
+			alert("该栏目中还存在子集栏目，请先删除所有子集栏目后再删除！");
+			return false;
+		}
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+</script>
+
+
+
+{include file="public/foot_more" /}

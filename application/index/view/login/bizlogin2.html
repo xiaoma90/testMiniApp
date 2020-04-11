@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登陆界面</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .login{
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow: hidden;
+        }
+        .login>div{
+            flex: 1;
+            height: 100%;
+        }
+        .login_img{
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: relative;
+        }
+        .login_img>img:first-child{
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .login_img>img:last-child{
+            position: absolute;
+            top: 46px;
+            left: 80px;display: block;
+        }
+        .login_main{
+            position: relative;
+            text-align: center;
+        }
+        .login_main_content{
+            position: absolute;
+            width: 460px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .login_main_content h1{
+            margin-bottom: 32px;
+        }
+        .login_main_content label{
+            display: block;
+            width: 100%;
+            height: 56px;
+            line-height: 56px;
+            border-radius: 6px;
+            margin: 9px 0;
+            text-align: left;
+            position: relative;
+        }
+        .login_main_content button{
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background-color: #a7acb1;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 20px;
+            margin: 9px auto;
+        }
+        .login_main_content button::after{
+            border: none;
+        }
+        .login_main_content button:focus{
+            background-color: #75828d;
+            outline: none;
+            border: none;
+        }
+        .login_main_content input{
+            width: 330px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 90px;
+            display: block;
+            border: none;
+            color: #434343;
+            font-size: 14px;
+        }
+        .login_main_content input:focus{
+            outline: none;
+            border: none;
+        }
+        .login_main_content span{
+            width: 70px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 15px;
+            display: block;
+            font-size: 14px;
+            color: #969696;
+        }
+        .login_main_content label>img{
+            width: 22px;
+            height: 22px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 15px;
+            display: block;
+            margin-top: 17px;
+        }
+        .prompt{
+            margin: 17px auto;
+            width: 100%;
+            height: 40px;
+            background-color: #fde9e9;
+            border: 1px dashed #eb1016;
+            border-radius: 6px; 
+            overflow: hidden;
+            line-height: 40px;
+            text-align: left;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+        .prompt>img{
+            width: 18px;
+            height: 18px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .prompt>label{
+            display: inline;
+            height: 40px;
+            line-height: 40px;
+            color: #eb1016;
+        }
+        .infocus {
+            border: 1px solid #b5b5b5;
+        }
+
+        .inblur {
+            border: 1px solid #e5e5e5;
+        }
+
+        .inerr {
+            border: 1px solid #eb1016;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+        <div class="login_img">
+            <img src="/image/login.jpg" alt="">
+            <img src="/image/zhiwang.png" alt="">
+        </div>
+        <div class="login_main">
+            <div class="login_main_content">
+                <form action="" method="post" >
+                    <h1>商铺管理登录</h1>
+                    <label class="inblur" id="user">
+                        <span>用 户 名</span>
+                        <input type="text" value="" name="username" id="username">
+                        <img src="/image/delete_gray.png" alt="" onclick="clearinput('username')" id="user_er_img">
+                    </label>
+                    <!-- <label class="inblur" id="sid">
+                        <span>系统编号</span> 
+                        <input type="text" value="" name="sysid" id="sysid">
+                        <img src="/image/delete_gray.png" alt="" onclick="clearinput('sysid')" id="sysid_er_img">
+                    </label> -->
+                    <label class="inblur" id="pwd">
+                        <span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                        <input type="password" value="" name="password" id="password">
+                        <img src="/image/delete_gray.png" alt="" onclick="clearinput('password')" id="pwd_er_img">                        
+                    </label>
+                    <div class="prompt" id="errinfo" style="display: none;">
+                        <img src="/image/delete_red.png" alt="">
+                        <label id="errmsg">系统编号错误,请重新输入</label>
+                    </div>
+                </form>
+                     <button type="button" onclick="dologin()">确定</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/new-index.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$("input").focus(function(){
+    $(this).parent().removeClass();
+    $(this).parent().addClass('infocus');
+    var e_img = $(this).next();
+    $(e_img).attr('src', '/image/delete_gray.png');
+    $("#errinfo").hide();
+
+})
+
+$("input").blur(function(){
+    $(this).parent().removeClass();
+    $(this).parent().addClass('inblur');
+
+})
+
+function clearinput(id){
+    $("#"+id).val('');
+}
+
+
+    function dologin(){
+        // var sysid = $("#sysid").val();
+        var username = $("#username").val();
+        var password = $("#password").val();
+        // if(!sysid){
+        //     alert('请输入系统编号!');
+        //     return false;
+        // }
+
+        if(!username){
+            alert('请输入用户名!');
+            return false;
+        }
+
+        if(!password){
+            alert('请输入用户密码!');
+            return false;
+        }
+        var domain = document.domain;
+        $.ajax({
+            url: "{:Url('Login/bizlogin')}",
+            type:'POST',
+            data:{
+                op:'login',
+                username: username,
+                password: password
+            },
+            dataType: "json",
+            success: function(res){
+                if(res['errorno'] == 1){
+                    $("#errmsg").html(res['msg']);
+                    $("#errinfo").show();
+                }
+
+                if(res['errorno'] == 2){
+                    confirm("登录成功");
+                    window.location.href="{:Url('Bizlogin/index')}";
+                }
+
+                if(res['errorno'] == 0){
+                    $("#errmsg").html(res['msg']);
+                    $("#errinfo").show();
+                }
+               
+            }
+        })
+
+    }
+
+
+</script>
+
+
+</html>

@@ -1,0 +1,163 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel14{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel14-2">
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<div class="input-box" style="margin-bottom: 10px;">
+
+					<div class="btn-group">
+
+						<a href="{:Url('Bargain/addcate')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn" style="background: #4385ff;color:#fff">
+						新增栏目
+						</button>
+						</a>
+					</div>
+				</div>
+
+
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+
+
+							<th style="width: 50px;">ID</th>
+
+							<th style="width: 200px;">栏目名称</th>
+
+							<th width="200px;">操作</th>
+							<!-- <th>
+
+								<input type="checkbox" id="all" />全选&nbsp;&nbsp;
+								<button class="btn green"  onclick="delall()">批量删除</button>
+							</th> -->
+						</tr>
+
+					</thead>
+
+					<tbody>
+						
+						{if $cates}
+							{foreach $cates as $item}
+									<td><a href="javascript:;" href="javascript:;" data-clipboard-text="{$item.id}" onclick="copyid({$item.id})" class="label label-success ng-scope js-clip{$item.id}" style="background: #a9a9a9;min-width:30px;text-align: center;">{$item.id}</a></td>
+									<td style="font-weight:bold">{$item.title}</td>
+									<td>
+										<a href="{:Url('Bargain/addcate')}?appletid=<?php echo $_GET['appletid']?>&cateid={$item.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">编辑</button></a>
+
+										<form action="{:Url('Bargain/delcate')}?appletid=<?php echo $_GET['appletid']?>&cateid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del({$item.id})">
+											<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+										</form>
+									</td>
+								</tr>
+							{/foreach}
+						{/if}
+						
+					</tbody>
+
+				</table>
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$cates->render()}
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+	function del(id){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+    $('#all').on('click',function(){
+
+        if(this.checked) {
+            $.uniform.update($("input[name='csb']").attr("checked", true));
+        }else {
+            $.uniform.update($("input[name='csb']").attr("checked", false));
+        }
+    });
+	function delall(){
+	    var array1=new Array();
+		$.each($("input[name='csb']"),function(){
+			if(this.checked){
+				array1.push($(this).val());
+			}
+		});
+         if(array1.length>0){
+             if(window.confirm('确定删除这些栏目？')){
+                 location.href = "{:Url('Cate/delall')}?appletid=<?php echo $_GET['appletid']?>&cateids="+array1;
+             }else{
+                 return false;
+             }
+		 }else{
+             alert("您未选择删除对象");
+             return false;
+		 }
+
+
+	}
+
+
+</script>
+
+
+
+{include file="public/foot_more" /}

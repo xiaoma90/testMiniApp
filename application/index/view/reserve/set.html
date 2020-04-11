@@ -1,0 +1,141 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel12-4">
+
+<style type="text/css">
+.navModel12{
+	display: block !important;
+}
+.chongdingy {
+    background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+
+.chongdingywz {
+    text-align: left !important;
+    font-size: 16px;
+    padding-left: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 216px;
+    right: 0;
+    height: 52px;
+    line-height: 52px;
+    box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.controls_style{
+    text-align: center;
+    margin-right: 20px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 40px;
+}
+.img_phone{
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 250px;
+    height: 485px;
+    position: relative;
+}
+.img_phone img{
+    position: absolute;
+    top: 41px;
+    left: 19px;
+    width: 213px;
+}
+</style>
+<div class="row-fluid">
+    <div class="portlet box">
+        <div class="portlet-body form">
+            <form action="{:Url('Reserve/setSave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2"
+                  class="form-horizontal" method="post" enctype="multipart/form-data"  >
+                <div class="control-group chongdingy">
+                    <label class="control-label chongdingywz">预约预定商品基础设置</label>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">订单邮件提醒</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="send_mail" value="1" {if $baseInfo}{if
+                                   $baseInfo.send_mail==1}checked=checked{/if}{else}checked=checked{/if}/>
+                            关闭
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="send_mail" value="2" {if $baseInfo}{if
+                                   $baseInfo.send_mail==2}checked=checked{/if}{/if}/>
+                            开启
+                        </label>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">默认关闭，开启后此功能需完善系统->邮箱配置</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">未支付订单关闭时间</label>
+                    <div class="controls">
+                        <input name="order_close_time" type="text" class="span3 m-wrap" value="{if $baseInfo}{$baseInfo.order_close_time}{/if}" />
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">单位：分钟 默认30分钟，0表示不关闭</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">自动核销时间</label>
+                    <div class="controls">
+                        <input name="queren_time" type="text" class="span3 m-wrap"
+                               value="{if $baseInfo}{$baseInfo.queren_time}{/if}"/>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">单位：天 默认7天，0表示不核销收货</span>
+                    </div>
+                </div>
+
+                <div class="control-group chongdingy">
+                    <label class="control-label chongdingywz">栏目设置</label>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">栏目风格</label>
+                    <div class="controls">
+                        <div class="controls_style">
+                            <label class="radio">
+                                <div class="img_phone" style="background-image: url(__STATIC_ROOT__/image/bg_style.png);">
+                                    <img src="__STATIC_ROOT__/image/style2.jpg" alt="">
+                                </div>
+                                <input  type="radio" name="catestyle" value="2" {if $catestyle==2}checked=checked{/if}/>风格1
+                            </label>
+                        </div>
+                        <div class="controls_style">
+                            <label class="radio">
+                                <div class="img_phone" style="background-image: url(__STATIC_ROOT__/image/bg_style.png);">
+                                    <img src="__STATIC_ROOT__/image/style3.jpg" alt="">
+                                </div>
+                                <input  type="radio" name="catestyle" value="3" {if $catestyle==3}checked=checked{/if}/>风格2
+                            </label>
+                        </div>
+                        <div class="controls_style">
+                            <label class="radio">
+                                <div class="img_phone" style="background-image: url(__STATIC_ROOT__/image/bg_style.png);">
+                                    <img src="__STATIC_ROOT__/image/style4.jpg" alt="">
+                                </div>
+                                <input  type="radio" name="catestyle" value="4" {if $catestyle==4}checked=checked{/if}/>风格3
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions form_nobg">
+                    <button type="submit" class="btn" style="background: #4385ff;color: #fff;" >确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+</script>
+{include file="public/foot_more" /}

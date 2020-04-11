@@ -1,0 +1,123 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel10{
+		display: block !important;
+	}
+	form {
+	  margin: 0 !important; 
+	  display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel10-3">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+ 
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+						<tr>
+							<th style="width: 70px;">ID</th>
+							<th style="width: 200px;">评论人昵称</th>
+							<th style="width: 100px;">评论人头像</th>
+							<th>评论内容</th>
+							<th>发布人回复内容</th>
+							<th style="width:200px">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+					{if $commentList}
+						{foreach $commentList as $item}
+							<tr>
+								<td><a href="javascript:;" data-clipboard-text="{$item.rid}" onclick="copyid({$item.rid})" class="label label-success ng-scope js-clip{$item.rid}" style="background: #a9a9a9;min-width:30px;text-align: center;">{$item.rid}</a></td>
+								<td>
+									{$item.nickname}
+								</td>
+								<td>
+									<img src="{$item.avatar}" style="width:50px;">
+								</td>
+								<td>
+									{$item.content}
+								</td>
+								<td>
+									{foreach $item.reply as $reply}
+										<div>
+											{$reply.content} <span style="font-size: 10px">{$reply.createtime}</span>
+										</div>
+									{/foreach}
+								</td>
+								<td>
+									<form action="{:Url('Forum/commentDel')}?appletid=<?php echo $_GET['appletid']?>&comment_id={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+									</form>
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$comment->render()}
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+</script>
+
+
+
+{include file="public/foot_more" /}

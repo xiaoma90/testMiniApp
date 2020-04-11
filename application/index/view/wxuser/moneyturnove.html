@@ -1,0 +1,151 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navVIP" class="navVIP2">
+<style>
+	.Menubox{
+    width:100%;
+    border-bottom:1px solid #4385ff;
+    height:42px;
+    line-height:42px; 
+		border-top: none;
+		margin-bottom: 20px;
+  }
+  .Menubox li{
+    float:left;
+    display:block;
+    cursor:pointer;
+    width:114px;
+    height:41px;
+    line-height:41px; 
+    text-align:center;
+    color:#333;
+    border-left:1px solid #eee ;
+    border-top: 1px solid #eee; 
+    border-right: 1px solid #eee;
+    border-radius: 6px 6px 0 0;
+    margin-right: 16px;
+	}
+	.Menubox li a{
+		width: 100%;
+		display: inline-block;
+	}
+  .Menubox li.hover{
+    background:#4385ff;
+    width:116px;
+    color:#fff;
+    height:41px;
+    line-height:41px;
+    border-top: 1px solid #4385ff; 
+	}
+	.Menubox li.hover a{
+		color: #fff;
+	}
+  .Contentbox{
+    width:100%;
+    clear:both;
+    height:auto;
+    padding-top:20px;
+	}
+	
+thead{
+	background: #fafafa;
+}
+table{
+	margin-bottom: 20px;
+	width: 100%;
+	text-align: center;
+	border: 1px solid #f0f0f0;
+}
+th,td{
+	border: 1px dashed #f0f0f0;
+	text-align: center;
+}
+th{
+	height: 45px;
+	/* line-height: 45px; */
+}
+td{
+	height: 62px;
+}
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+</style>
+<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+				<div class="Menubox">
+					<ul>
+						<li id="two1" class="{if $op=='display'}hover{/if}"><a href="{:Url('Wxuser/moneyturnove')}?appletid=<?php echo $_GET['appletid']?>&op=display">全部</a></li>
+						<li id="two2" class="{if $op=='get'}hover{/if}"><a href="{:Url('Wxuser/moneyturnove')}?appletid=<?php echo $_GET['appletid']?>&op=get">获取记录</a></li>
+						<li id="two3" class="{if $op=='spend'}hover{/if}"><a href="{:Url('Wxuser/moneyturnove')}?appletid=<?php echo $_GET['appletid']?>&op=spend">消费记录</a></li>
+						<li id="two4" class="{if $op=='store'}hover{/if}"><a href="{:Url('Wxuser/moneyturnove')}?appletid=<?php echo $_GET['appletid']?>&op=store">店内支付</a></li>
+						<li id="two5" class="{if $op=='forum'}hover{/if}"><a href="{:Url('Wxuser/moneyturnove')}?appletid=<?php echo $_GET['appletid']?>&op=forum">微同城流水</a></li>
+					</ul>
+				</div>
+
+				<table id="sample_editable_1">
+					<thead>
+						<tr>
+							<th>用户信息</th>
+							<th>金额</th>
+							<th>类型</th>
+							<th>说明</th>
+							<th>订单号</th>
+							<th>时间</th>
+						</tr>
+					</thead>
+					<tbody>
+					{if $scorelist}
+						{foreach $scorelist as $item}
+							<tr>
+								<td>
+				                    <img src="{$item.avatar}" style="width:30px; height:30px;">
+									{$item.nickname}
+				                </td> 
+								<td>
+									{$item.score}
+								</td>
+								<td>
+									{if $item.type == "add"}
+					                    <span class="btn  btn-success border_huode">获得</span>
+					                {else}
+					                    <span class="btn  btn-primary border_xiaofei">消费</span>
+					                {/if}
+								</td>
+								<td>
+									{$item.message}
+								</td>
+								<td>
+									{$item.orderid}
+								</td>
+								<td>
+									{:date("Y-m-d H:i:s",$item.creattime)}
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据
+					</div>
+					<div class="fenye_right">
+						{$page}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	
+</script>
+
+{include file="public/foot_more" /}

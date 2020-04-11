@@ -1,0 +1,92 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.navSale8{
+	display: block !important;
+}
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.chongdingy{
+	background-color:#fff; 
+	border-bottom: 1px solid #eee;
+	padding:10px 0;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.jscolor{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+	border-top: 0 !important;
+}
+</style>
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale8-5">
+
+	<style type="text/css">
+		.sss{
+			display: inline-block;
+		}
+	</style>
+
+	<div class="row-fluid">
+
+		<div class="portlet box">
+
+			
+			<div class="portlet-body form">
+
+
+				<form action="{:Url('Order/emailsave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+				
+					<div class="control-group">
+
+						<label class="control-label">收件人邮箱</label>
+
+						<div class="controls">
+
+							<input name="mail_sendto" id="mail_sendto" type="text" class="span5 m-wrap"  style="height: 35px !important;"   value="{if $formset}{$formset.mail_sendto}{/if}" />
+
+						</div>
+
+					</div>
+
+
+					<div class="form-actions form_nobg" style="padding-top: 40px;">
+						<button type="submit" class="btn" style="background: #6671e4;color: #fff;margin-left: 45%">确定</button>
+					</div>
+
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+{include file="public/foot_more" /}
+

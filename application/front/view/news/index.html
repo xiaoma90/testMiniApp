@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/base1.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/banner.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/base2.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/header.css"/>
+		<script src="/js/jquery.js" type="text/javascript"></script>
+	</head>
+	<body class="g_body g_locale2052 g_cusSiteWidth">
+		<div class="header">
+		<div class="container1">
+		  <div class="tmooc-logo pull-left">
+		    <h1 class="titleWrapper" style="font-weight: bold;font-size: 1.75rem;">
+		    	<font size="" color="#FFC001">{$mpname}
+		    	
+		    </font>
+		    </h1>
+		  </div>
+		  <ul class="slide-nav pull-left clearfix">
+		  <li><a href="{:Url('index/index')}?uniacid=<?php echo $_GET['uniacid']?>">首页</a></li>
+		  <li><a href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+			<li><a href="#" class="active">新闻中心</a></li>
+			<li><a href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>">微同城</a></li>
+		</ul>
+		</div>
+		</div>
+		<div id="g_main" class="g_main g_co12" style="top:0;width: 100%;">
+			<div id="web" class="g_web">
+				<div class="wrapper">
+					<div id="sliderBox">
+						{foreach $images as $item}
+				    	<img src="{$item}" alt="">
+				    	{/foreach}
+					</div>
+					<div class="btn01 btn" onclick="leftArrow()"><img src="/fornt/img/left.png"/></div>
+					<div class="btn02 btn" onclick="rightArrow()"><img src="/fornt/img/right.png"/></div>
+				</div>
+				<script>
+				    function leftArrow() {
+				    	var parent = document.getElementById("sliderBox");
+				    	var children = parent.getElementsByTagName("img");
+				    	var firstChild = children[0];
+				    	var tmp = firstChild;
+				    	parent.removeChild(firstChild);
+				    	parent.appendChild(tmp);
+				    }
+				    
+				    function rightArrow() {
+				    	var parent = document.getElementById("sliderBox");
+				    	var children = parent.getElementsByTagName("img");
+				    	var lastChild = children[children.length-1];
+				    	var tmp = lastChild;
+				    	parent.removeChild(lastChild);
+				    	parent.insertBefore(tmp,children[0]);
+				    }
+				    var timer = null;
+				    function autoPlay () {
+				        timer = setInterval(function () {
+				            rightArrow();
+				        },2000);
+				    }
+				    autoPlay();
+				    
+				    var wrapper = document.querySelector(".wrapper");
+				    wrapper.onmouseenter = function () {
+				        clearInterval(timer);
+				    }
+				    wrapper.onmouseleave = function () {
+				        autoPlay();    
+				    }
+
+				    function todetail(id){
+				    	window.location.href = "{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid=" + id;
+				    }
+				</script>
+				<div id="fullmeasureTopForms" class="fullmeasureContainer forms fk-fullmeasureForms fullmeasureForms fullmeasureTopForms" style="margin-top: 50px;">
+					<div id="hot" class="form formhot" style="height: 40.5rem;">
+						<div id="hotContainer">
+							<div id="hotcontent">
+								<div id="product">
+									<div id="product1" style="text-align: center;">
+											<span id="" style="font-size: 0.75rem;position: absolute;top: 0;left: 45%;color: #FFC001;"> NEWS</span>
+											<span style="position: absolute;top: 1.25rem;left: 22%;"><font style="color: rgb(227, 227, 227);" color="#e3e3e3">————</font><b class="font-span"> 新闻资讯&nbsp;</b><font style="color: rgb(227, 227, 227);" color="#e3e3e3">————</font></span>
+									</div>
+								</div>
+								<div id="tu">
+									<ul class="title3">
+										{foreach $topThree as $item}
+										<li class="kuang" onclick="todetail({$item.id})">
+											<div id="" class="kuang1">
+												<a href="javascript:;"><img src="{$item.thumb}" ></a>
+												<div id="d1">
+													<a href="javascript:;" class="a1 a2">{$item.title}</a>
+													<p>{$item.desc}</p>
+												</div>
+											</div>
+										</li>
+										{/foreach}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="xia">
+						<div id="nei">
+							{volist name="others" key="k" id="item"}
+							<div id="dan">
+								<a href="javascript:;" class="a3">
+									<p style="font-size: 28px;">{$item.day}</p>
+									<p>{$item.year}/{$item.month}</p>
+								</a>
+								<a id="pang" href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$item.id}">
+									<p class="p1">{$item.title}</p>
+									<p class="p2">{$item.desc}</p>
+								</a>
+							</div>
+							{if $k != $lastone}
+							<div class="separatorLine" style="animation: none 0s ease 0s 1 normal none running;"></div>
+							{/if}
+							{/volist}
+							
+						</div>
+					</div>
+				<div id="foot" style="margin-top: 50px;">
+									<div id="foot1">
+										<p style="color: #FFFFFF;font-size: 28px;margin-top: 54px;margin-bottom: 20px;position: absolute;left: 40%;top: 0;">STATIONERY DESIGN</p>
+										<ul style="margin-top: 20px;margin-bottom: 20px;position: absolute;top: 100px;left:39%;padding: 0;height: 22px;">
+											<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+											<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('news/index')}?uniacid=<?php echo $_GET['uniacid']?>">新闻中心</a></li>
+											<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>">微同城</a></li>
+										</ul>
+										<p style="margin-bottom: 45px;height: 1px;background-color: transparent;color: rgb(102,102,102);position: absolute;top: 160px;left: 37%;"><span style="font-size: 16px;">————————————————————————</span></p>
+										<p style="color: rgb(102,102,102);font-size: 14px;position: absolute;
+				top: 205px;left: 42%;">©2019 网站模板—文具 版权所有</p>
+									</div>
+								</div>
+			</div>
+		</div>
+	</body>
+</html>

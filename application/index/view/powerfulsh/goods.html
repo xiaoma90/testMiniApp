@@ -1,0 +1,228 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+    .navModel6{
+        display: block !important;
+    }
+    form {
+        margin: 0 !important;
+        display: inline-block !important;
+    }
+    thead{
+		background: #fafafa;
+	}
+	table{
+        width: 100%;
+        margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+<script type="text/javascript">
+    function search(){
+        var sid=$("#cid option:selected").val();
+        var key = $("#getnews").val();
+        if(sid==false&&key==false){
+              alert("请选择栏目或填写标题关键字");
+        }else{
+            location.href = "{:Url('Powerfulsh/goods')}?appletid=<?php echo $_GET['appletid']?>&key="+key+"&sid="+sid;
+        }
+    }
+</script>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel6-3">
+
+<div class="row-fluid">
+
+    <div class="span12">
+
+
+        <div class="portlet box ">
+
+
+            <div class="portlet-body">
+                <div style="float: left;height:32px;line-height: 32px;margin-right: 5px">搜索商品:</div>
+                <div class="ssinput" style="margin-bottom: 10px; position: relative;width:70%;float:left;">
+                    <select name="cid" class="span3 m-wrap" id="cid" style="width:200px;float:left;">
+                        <option value="0">请选择店铺</option>
+                        {if $shop}
+                            {foreach $shop as $item}
+                                <option value="{$item.id}" {if isset($_GET['sid'])}{if $_GET['sid']==$item.id}selected="selected"{/if}{/if}>{$item.name}</option>
+                            {/foreach}
+                        {/if}
+                    </select>
+                    <input type="text" placeholder="请输入商品关键字" class="skey" id="getnews" value="{if isset($_GET['key'])}{$_GET['key']}{/if}" style="width:200px;;float:left;margin:0 5px;height:32px;line-height:32px;padding:0 5px;border-color:#e5e5e5">
+                    <button  onclick="search()" class="btn" style="float:left;background: #4385ff;color: #fff;margin-left: 30px;">
+                    搜索 
+                    </button>
+                </div>
+                <div style="content: '';display: block;clear: left"></div>
+
+                <div class="input-box" style="margin-bottom: 10px;">
+
+                    <div class="btn-group">
+
+                        <a href="{:Url('Powerfulsh/goodsadd')}?appletid=<?php echo $_GET['appletid']?>" >
+                            <button id="sample_editable_1_new" class="btn" style="float:left;background: #4385ff;color: #fff;margin-right: 10px;text-align: center">
+                                添加商品
+                            </button>
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <table id="sample_editable_1">
+
+                    <thead>
+
+                    <tr>
+
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 50px;">商品标题</th>
+                        <th style="width: 50px;">缩略图</th>
+                        <th style="width: 50px;">所属店铺</th>
+                        <th style="width: 50px;">访问量</th>
+                        <th style="width: 50px;">真实销量</th>
+                        <th style="width: 50px;">售价</th>
+                        <th style="width: 50px;">库存量</th>
+                        <th style="width: 50px;">状态</th>
+                        <th style="width: 50px;">操作</th>
+
+                        <!--<th>访问量</th>-->
+
+                        <!--<th width="50px;">操作</th>-->
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+                    {if $goodslist}
+                    {foreach $goodslist as $item}
+                    <tr>
+                        <td>{$item.id}</td>
+                        <td>{$item.title}</td>
+                        <td>
+                        <img src="{$item.thumb}" alt="" style="width: 55px;height: 55px">
+                        </td>
+                        <td>{$item.shopname}</td>
+                        <td>{$item.pageview}</td>
+                        <td>{$item.rsales}</td>
+                        <td>{$item.sellprice}</td>
+                        <td>{$item.storage}</td>
+                        <td>
+                            {if $item.flag == 1 && $item.status == 1}
+                            上架
+                            {/if}
+                            {if $item.flag == 2 && $item.status == 1}
+                            下架
+                            {/if}
+                            {if $item.status == 0}
+                            待审核
+                            {/if}
+                            {if $item.status == 2}
+                            审核不通过
+                            {/if}
+                        </td>
+                        <td>
+                            {if $item.status == 1}
+                            <a href="{:Url('Powerfulsh/goodsadd')}?appletid=<?php echo $_GET['appletid']?>&goodsid={$item.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">编辑</button></a>
+                            <form action="{:Url('Powerfulsh/goodsdel')}?appletid=<?php echo $_GET['appletid']?>&goodsid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del({$item.id})">
+                                <button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+                            </form>
+                            {elseif $item.status == 0}
+                            <form action="{:Url('Powerfulsh/goodspass')}?appletid=<?php echo $_GET['appletid']?>&goodsid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return pass({$item.id})">
+                                <button style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">审核通过</button>
+                            </form>
+                            <form action="{:Url('Powerfulsh/goodscancel')}?appletid=<?php echo $_GET['appletid']?>&goodsid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return pass({$item.id})">
+                                <button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">审核不通过</button>
+                            </form>
+                            {else}
+                            <form action="{:Url('Powerfulsh/goodsdel')}?appletid=<?php echo $_GET['appletid']?>&goodsid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del({$item.id})">
+                                <button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+                            </form>
+                            {/if}
+                        </td>
+                    </tr>
+                    {/foreach}
+                    {/if}
+                    </tbody>
+
+                </table>
+
+
+                <!-- 分页 -->
+                <div>
+                    <div class="fenye_left">
+                        <!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+                    </div>
+                    <div class="fenye_right">
+                        {$goods->render()}
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    function del(){
+        if(confirm('该删除操作不可逆，请谨慎操作?')){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function pass(id,val){
+        if(confirm('此操作不可恢复，确认吗？')){
+            retun true;
+        }else{
+            return false;
+        }
+    }
+
+    
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{include file="public/foot_more" /}

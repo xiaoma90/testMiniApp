@@ -1,0 +1,141 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navSystem" class="navSystem19">
+<style type="text/css">
+  form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+		margin-bottom: 20px;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="portlet box ">
+  
+      <div class="portlet-body">
+        <div class="input-box" style="margin-bottom: 10px;">
+          <div class="btn-group">					
+            <a href="{:Url('Returnadd/add')}?appletid=<?php echo $_GET['appletid']?>" >
+            <button id="sample_editable_1_new" class="btn full_btn">
+            新增地址
+            </button>
+            </a>						
+          </div>
+          <div class="btn-group">					
+            <button id="sample_editable_1_new" class="btn hollow_btn" onclick="delall()">
+            批量删除
+            </button>					
+          </div>
+        </div>
+
+        <table id="sample_editable_1">
+          <thead>
+            <tr>
+              <th style="width: 70px;">
+                <input type="checkbox" id="all" />
+              </th>
+              <th style="width: 90px;">ID</th>
+              <th style="width: 170px;">收件人姓名</th>
+              <th style="width: 170px;">手机号</th>
+              <th style="width: 400px;">详细地址</th>
+              <th style="width: 450px">备注</th>              
+              <th style="width: 150px">操作</th>              
+            </tr>
+          </thead>
+  
+          <tbody>
+            {foreach $list as $item}
+              <tr>
+                <td>
+                  <input type="checkbox" name="csb" value="{$item.id}"/>
+                </td>
+                <td>{$item.id}</td>
+                <td>{$item.name}</td>
+                <td>{$item.mobile}</td>
+                <td>{$item.province}{$item.city}{$item.area}<span>{$item.more_address}</span></td>
+                <td>
+                  {$item.remark}
+                </td>
+                <td>
+                  <a href="{:Url('Returnadd/add')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}">
+                    <button style="color: #4385ff;border:1px solid #4385ff;background:#fff;border-radius: 4px">编辑</button>
+                  </a>
+                  <form action="{:Url('Returnadd/del')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del({$item.id})">
+                    <button style="color: #e72b2b;border:1px solid #e72b2b;background:#fff;border-radius: 4px" type="submit">删除</button>
+                  </form>
+                </td>
+              </tr>
+            {/foreach}
+          </tbody>
+        </table>
+
+        <div>
+          <div class="fenye_left">
+          </div>
+          <div class="fenye_right">
+            {$lists->render()}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#all').on('click',function(){
+    if(this.checked) {
+      $.uniform.update($("input[name='csb']").attr("checked", true));
+    }else {
+      $.uniform.update($("input[name='csb']").attr("checked", false));
+    }
+  });
+  function delall(){
+    var array1=new Array();
+    $.each($("input[name='csb']"),function(){
+      if(this.checked){
+        array1.push($(this).val());
+      }
+    });
+    if(array1.length>0){
+      if(window.confirm('确定删除这些地址？')){
+        location.href = "{:Url('Returnadd/delall')}?appletid=<?php echo $_GET['appletid']?>&ids="+array1;
+      }else{
+        return false;
+      }
+    }else{
+        alert("您未选择删除对象");
+        return false;
+    }
+  }
+
+  function del(id){
+		if(confirm('是否确定删除该地址?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+</script>
+
+{include file="public/foot_more" /}

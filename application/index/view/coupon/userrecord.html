@@ -1,0 +1,221 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navSale1{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important;
+		display: inline-block !important;
+	}
+	thead{
+		background: #fafafa;
+	}
+	table{
+		margin-bottom: 20px;
+		width: 100%;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+		/* line-height: 45px; */
+	}
+	td{
+		height: 62px;
+	}
+	.page_content{
+		padding: 10px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navSale1-3">
+<form class="form-horizontal" action="" method="post">
+	<div>
+		<div style="display: inline-block;margin: 10px 0;">
+			领取时间:
+			<div class="btn-group btn-group-sm" style="padding-right:0;">
+				<input type="text" name="start_get" value="{$start_get}" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii" style="width: 170px" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off">
+			</div>
+			-
+			<div class="btn-group btn-group-sm" style="padding-right:0;margin-right: 30px">
+				<input type="text" name="end_get" value="{$end_get}" id="end_datetimepicker" data-date-format="yyyy-mm-dd hh:ii" style="width: 170px" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off">
+			</div>
+			使用时间:
+			<div class="btn-group btn-group-sm" style="padding-right:0;">
+				<input type="text" name="start_use" value="{$start_use}" id="datetimepicker2" data-date-format="yyyy-mm-dd hh:ii" style="width:170px" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off">
+			</div>
+			-
+			<div class="btn-group btn-group-sm" style="padding-right:0;margin-right: 30px;">
+				<input type="text" name="end_use" value="{$end_use}" id="end_datetimepicker2" data-date-format="yyyy-mm-dd hh:ii" style="width: 170px" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off">
+			</div>
+		</div>
+		<div style="display: inline-block;margin: 10px 0;">
+			<div style="display: inline-block;">
+
+				<select id="search_flag" style="width: 100px;margin-right: 10px"">
+				<!-- 0待使用 1已使用 2已过期 3全部-->
+				<option value="3" {if $search_flag != ''}{if $search_flag == '3'}selected="selected"{/if}{else}selected="selected"{/if}>全部</option>
+				<option value="0" {if $search_flag == '0'}selected="selected"{/if}>待使用</option>
+				<option value="1" {if $search_flag == '1'}selected="selected"{/if}>已使用</option>
+				<option value="2" {if $search_flag == '2'}selected="selected"{/if}>已过期</option>
+				</select>
+			</div>
+			<div style="display: inline-block;margin-right: 10px">
+				<select id="search_type" style="width: 120px">
+					<!-- 0待使用 1已使用 2已过期 3全部-->
+					<option value="1" {if $search_type != ''}{if $search_type == '1'}selected="selected"{/if}selected="selected"{/if}>优惠券标题</option>
+					<option value="2" {if $search_type == '2'}selected="selected"{/if}>用户昵称</option>
+				</select>
+			</div>
+			<div class="btn-group btn-group-sm" style="padding-right:0;">
+				<input type="text" id="search_keys" value="{$search_keys}" style="width: 150px" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  placeholder="搜索关键字" autocomplete="off">
+			</div>
+			<div style="display: inline-block;">
+				<input type="hidden" id="uid" value="{$uid}">
+				<div class="btn" style="background: #4385ff;color: #fff;margin-left: 30px;display: inline-block;font-size: 12px;" id="filter" onclick="search()">搜索</div>
+			</div>
+			<div class="btn-group" style="display: inline-block">
+				<a href="{:Url('Coupon/coupondown')}?appletid=<?php echo $_GET['appletid']?>">
+					<button id="sample_editable_1_new" class="btn" style="background-color:rgba(67, 133, 255, 0.102);color:#4385ff;margin-right:10px;text-align:center;border:1px solid #4385ff;">
+						导出
+					</button>
+				</a>
+			</div>
+		<!--<div class="btn btn-primary" style="display: inline-block;font-size: 12px" id="excel" onclick="window.location.href = window.location.href + '&opt=excel';" >excel导出</div>-->
+		</div>
+	</div>
+</form>
+
+<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+					<tr>
+
+						<th style="width: 100px;">优惠券id</th>
+
+						<th style="width: 276px">标题</th>
+
+						<th style="width:250px;">用户昵称</th>
+						<th style="width: 200px;">领取时间</th>
+						<th style="width: 200px;">过期时间</th>
+						<th style="width: 200px;">使用时间</th>
+						<th style="width: 150px;">状态</th>
+
+						<th width="200px;">操作</th>
+
+					</tr>
+
+					</thead>
+
+
+					{if $coupontwo}
+					{foreach $coupontwo as $item}
+					<tr>
+						<td>
+							{$item.id}
+						</td>
+						<td>
+							{$item.title}
+						</td>
+						<td>
+							{$item.nickname}
+						</td>
+						<td>
+							{$item.ltime}
+						</td>
+						<td>
+							{if $item.etime > 0}{:date('Y-m-d H:i:s', $item.etime)}{else}永久可用{/if}
+						</td>
+						<td>
+							{$item.utimetwo}
+						</td>
+						<td>
+							{if $item.flag == 0}
+							<span class="btn green">未使用</span>
+							{/if}
+							{if $item.flag == 1}
+							<span class="btn ">已使用</span>
+							{/if}
+							{if $item.flag == 2}
+							<span class="btn  ">已过期</span>
+							{/if}
+						</td>
+						<td>
+							{if $item.flag == 0}
+							<form action="{:Url('coupon/userrecordhx')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return hx()">
+								<button style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 6px;" type="submit" >核销</button>
+							</form>
+							{/if}
+							<form action="{:Url('coupon/userrecorddel')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+								<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 6px;" type="submit">删除</button>
+							</form>
+						</td>
+					</tr>
+					{/foreach}
+					{/if}
+				</table>
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$coupon->render()}
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+    function del(){
+        if(confirm('该删除操作不可逆，请谨慎操作?')){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function hx(){
+        if(confirm('确定核销吗？该操作不可逆，请谨慎操作！')){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function search() {
+		var start_get=$("#datetimepicker").val();
+		var end_get=$("#end_datetimepicker").val();
+		var start_use=$("#datetimepicker2").val();
+		var end_use=$("#end_datetimepicker2").val();
+		var search_flag=$("#search_flag").val();
+		var search_type=$("#search_type").val();
+		var search_keys=$("#search_keys").val();
+        var uid = $("#uid").val();
+        location.href = "{:Url('coupon/userrecord')}?appletid=<?php echo $_GET['appletid']?>&start_get="+start_get+"&end_get="+end_get+"&start_use="+start_use+"&end_use="+end_use+"&search_flag="+search_flag+'&search_type='+search_type+'&search_keys='+search_keys+'&uid='+uid;
+    }
+
+</script>
+
+{include file="public/foot_more" /}

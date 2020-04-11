@@ -1,0 +1,159 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel5-1">
+
+<style type="text/css">
+.navModel5{
+	display: block !important;
+}
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+
+
+	<div class="row-fluid" style="padding:10px;box-sizing:border-box;margin-bottom:40px;">
+		<div class="span12">
+			<form action="{:Url('Pt/setsave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+				<div class="control-group chongdingy">
+					<label class="control-label chongdingywz">拼团基础设置</label>
+				</div>
+				<div class="control-group">
+					<label class="control-label">显示样式</label>
+					<div class="controls">
+						<label class="radio">
+						<input type="radio" name="types" value="1" {if $pintuan}{if $pintuan.types==1}checked=checked{/if}{else}checked=checked{/if}/>
+						单行带简介
+						</label>
+						<label class="radio">
+						<input type="radio" name="types" value="2" {if $pintuan}{if $pintuan.types==2}checked=checked{/if}{/if}/>
+						二列样式
+						</label> 
+						<label class="radio">
+						<input type="radio" name="types" value="3" {if $pintuan}{if $pintuan.types==3}checked=checked{/if}{/if}/>
+						三列样式
+						</label> 
+						<label class="radio">
+						<input type="radio" name="types" value="4" {if $pintuan}{if $pintuan.types==4}checked=checked{/if}{/if}/>
+						大图带头像
+						</label> 
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">自动成团</label>
+					<div class="controls">
+						<label class="radio">
+						<input type="radio" name="is_pt" value="1" {if $pintuan}{if $pintuan.is_pt==1}checked=checked{/if}{else}checked=checked{/if}/>
+						不开启
+						</label>
+						<label class="radio">
+						<input type="radio" name="is_pt" value="2" {if $pintuan}{if $pintuan.is_pt==2}checked=checked{/if}{/if}/>
+						开启
+						</label> 
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">成团后是否可退款</label>
+					<div class="controls">
+						<label class="radio">
+						<input type="radio" name="is_tuikuan" value="1" {if $pintuan}{if $pintuan.is_tuikuan==1}checked=checked{/if}{else}checked=checked{/if}/>
+						可以
+						</label>
+						<label class="radio">
+						<input type="radio" name="is_tuikuan" value="2" {if $pintuan}{if $pintuan.is_tuikuan==2}checked=checked{/if}{/if}/>
+						不可以
+						</label> 
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">拼团时间</label>
+					<div class="controls">
+						<input name="pt_time" id="pt_time" type="text" class="span1 m-wrap" value="{if $pintuan}{$pintuan.pt_time}{else}24{/if}"><span style="color:#5c6270; line-height:40px; margin-left:10px;">小时</span>
+						<span style="color:#c7cddb; line-height:40px; margin-left:20px;">设置成团的有效时间，默认24小时</span>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">自动收货</label>
+					<div class="controls">
+						<input name="fahuo" type="text" class="span1 m-wrap" value="{if $pintuan.fahuo}{$pintuan.fahuo}{else}7{/if}"><span style="color:#5c6270; line-height:40px; margin-left:10px;">天</span>
+						<span style="color:#c7cddb; line-height:40px; margin-left:20px;">设置自动收货时间，默认7天</span>
+					</div>
+				</div>
+
+				<div class="control-group chongdingy">
+					<label class="control-label chongdingywz">拼团规则</label>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label"><span>*</span> 规则内容</label>
+					<div class="controls">
+						<div class="editors">
+							<script id="editor" name="content" type="text/plain">{if $pintuan}{$pintuan.guiz}{/if}</script>
+						</div>
+					</div>
+				</div>
+				
+				<div class="weiz form_nobg">
+					<input type="submit" value="确定" class="btn" style="color:#fff;background-color:#4385ff;">
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript">
+    	$(function() {
+	    	var ue = UE.getEditor('editor');
+		});
+    	function checkinfo(){
+    		val = $("#ueditor_textarea_content").val();
+    		if(!val){
+        		alert("请输入拼团规则");
+        		return false;
+        	}else{
+        		$("#content").val(val);
+        	}
+	    }
+    </script>
+
+
+{include file="public/foot_more" /}

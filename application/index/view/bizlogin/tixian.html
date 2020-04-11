@@ -1,0 +1,141 @@
+{include file="public/head" /}
+{include file="public/bizlogintop" /}
+<!-- <div class="page-container">
+<div style="margin:25px">
+<div class="page-content" id="container"> -->
+<style>
+.btn_hov{
+	background-color: #6671e4;
+	color: #fff;
+}
+.form-actions .btn_hov:hover{
+	background-color: #d8d8d8 !important;
+	color: #fff;
+}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel"  class="navModel6-3">
+
+<div class="row-fluid">
+    <div class="portlet">
+        <div class="portlet-body form">
+            <form action="{:Url('Bizlogin/txshenq')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+                <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding: 10px 0; height: 30px;">
+                    <label style="float: left;width: 160px;padding-top: 5px;text-align: right;text-align: left !important;font-size: 16px;padding-left: 20px; overflow: hidden;display: block;">提现申请</label>
+                </div>
+                <div class="control-group">
+                    <div class="controls" style="font-size: 18px;">可提金额 : <text style="color:red">{$tixian}</text>元  <font style="margin-left: 100px;">最低提现 : <text style="color:red">{$minimum}</text>元</font></div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">提现方式</label>
+                    <div class="controls">
+                        <select name="type" class="span3 m-wrap" id="type" onchange="cardshow()">
+                            {volist name="type" id="vo"}
+                            <option value="{$vo}">{$vo == 1? '微信': ($vo == 2 ? '支付宝' : '银行卡')}</option>
+                            {/volist}
+                        </select>
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">选择后则可提交信息</span>
+                    </div>
+                </div>
+
+                <div class="control-group" {if isset($_COOKIE['choose_type'])}{if $_COOKIE['choose_type'] == 3}{else}style="display: none;"{/if}{else}style="display: none;"{/if} id="cardshow">
+                    <label class="control-label">开户行</label>
+                    <div class="controls">
+                        <input name="card" id="card" type="text" class="span2 m-wrap" value=""  style="height: 35px !important;" /> 元
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">银行卡开户行</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">账号</label>
+                    <div class="controls">
+                        <input name="account" id="account" type="text" class="span2 m-wrap" value=""  style="height: 35px !important;" /> 元
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">打款账号</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">金额</label>
+                    <div class="controls">
+                        <input name="money" id="money" type="text" class="span2 m-wrap" value=""  style="height: 35px !important;" /> 元
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">提现金额</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">备注</label>
+                    <div class="controls">
+                        <input name="beizhu" type="text" class="span2 m-wrap" value=""  style="height: 35px !important;" /> 元
+                        <span style="color:#999999; line-height:40px; margin-left:20px;">备注</span>
+                    </div>
+                </div>
+
+                <div class="form-actions" style="overflow: hidden;display: block;background-color: #fff;border: 0;">
+                    <button type="submit" class="btn btn_hov">确定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="__STATIC_ROOT__/js/jquery.js"></script>
+
+<script type="text/javascript" src="__STATIC_ROOT__/webuploader/js/webuploader.min.js"></script>
+
+<script type="text/javascript">
+
+    function cardshow(){
+        var type = $("#type").val();
+        document.cookie = "choose_type =" + type;
+        if(type == 3){
+            $("#cardshow").show();
+        }else{
+            $("#cardshow").hide();
+        }
+    }
+
+    function checkinfo(){
+        var type = $("#type").val();
+        var card = $("#card").val();
+        var account = $("#account").val();
+        var money = $("#money").val();
+        console.log('<?php echo $minimum; ?>')
+
+        if(!type){
+            alert('请选择提现方式!');
+            return false;
+        }
+        if(type == 3){
+            if(!card){
+                alert('请输入银行卡开户行!');
+                return false;
+            }
+        }
+        if(!account){
+            alert('请输入账号!');
+            return false;
+        }
+        if(!money){
+            alert('请输入提现金额!');
+            return false;
+        }else{
+            if(isNaN(money)){
+                alert('请输入正确的提现金额!');
+                return false;
+            }else{
+                if(parseFloat(money) > parseFloat('<?php echo $tixian; ?>')){
+                    alert('您的可提现额度不足, 请重新填写提现金额!');
+                    return false;
+                }else if(parseFloat(money) < parseFloat('<?php echo $minimum; ?>')){
+                    alert('您的提现金额低于最低提现额, 请重新填写!');
+                    return false;
+                }
+            }
+        }
+    }
+</script>
+
+
+{include file="public/foot_more" /}

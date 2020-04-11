@@ -1,0 +1,18 @@
+<xml><appid><![CDATA[wxb609b816ee093308]]></appid>
+<attach><![CDATA[pt|the formId is no longer available in develop or trial version of this mini program|7]]></attach>
+<bank_type><![CDATA[OTHERS]]></bank_type>
+<cash_fee><![CDATA[20]]></cash_fee>
+<fee_type><![CDATA[CNY]]></fee_type>
+<is_subscribe><![CDATA[N]]></is_subscribe>
+<mch_id><![CDATA[1543057481]]></mch_id>
+<nonce_str><![CDATA[4vnci03ndaourr2tkepm9y2ltmmi9okp]]></nonce_str>
+<openid><![CDATA[ol7qf4s64Ki65L3P67npj2idmHQk]]></openid>
+<out_trade_no><![CDATA[202002182100157797]]></out_trade_no>
+<result_code><![CDATA[SUCCESS]]></result_code>
+<return_code><![CDATA[SUCCESS]]></return_code>
+<sign><![CDATA[413060E4DDADD0A8198695910258CFD2]]></sign>
+<time_end><![CDATA[20200218210022]]></time_end>
+<total_fee>20</total_fee>
+<trade_type><![CDATA[JSAPI]]></trade_type>
+<transaction_id><![CDATA[4200000521202002186669672209]]></transaction_id>
+</xml>

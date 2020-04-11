@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="__STATIC_ROOT__/css/index.css">
+<link rel="stylesheet" href="__STATIC_ROOT__/css/web-icons/web-icons.css">
+<style>
+ul{margin:0;}
+.btncolor{background: #ffffff;color:#333333;border:1px solid #e7e7e7;}
+.aside2_title{
+  background: #6464dd;
+}
+</style>
+<div class="asidebox clearfix">
+  <div class="aside1">
+      <a class="logo" href="javascript:;">
+      <img src="__STATIC_ROOT__/image/logo2.png" class="logoimg"></a>
+      <nav class="aside1_nav">
+        <ul>
+          <!-- <li class="showtop1">
+            <a class="aside1_nav_a1" href="{:Url('Bizlogin/index')}?appletid={$applet.id}">
+              <i class="wb-pie-chart"></i>总览</a>
+          </li> -->
+          <li class="showtop5">
+            <a class="aside1_nav_a1" href="{:Url('Bizlogin/shopset')}?appletid={$applet.id}">
+              <i class="wb-home"></i>店铺</a>
+          </li>
+          <li class="showtop2">
+            <a class="aside1_nav_a1" href="{:Url('Bizlogin/goods')}?appletid={$applet.id}">
+              <i class="wb-list"></i>商品</a>
+          </li>
+          <li class="showtop3">
+            <a class="aside1_nav_a1" href="{:Url('Bizlogin/order')}?appletid={$applet.id}">
+              <i class="wb-order"></i>订单</a>
+          </li>
+          <li class="showtop6">
+            <a class="aside1_nav_a1" href="{:Url('Bizlogin/turnover')}?appletid={$applet.id}">
+              <i class="wb-stats-bars"></i>流水</a>
+          </li>
+          <li class="showtop4">
+            <a class="aside1_nav_a1" href="{:Url('Bizlogin/withdraw')}?appletid={$applet.id}">
+              <i class="wb-dashboard"></i>提现</a>
+          </li>
+        </ul>
+      </nav>
+  </div>
+  <div class="aside2 sidebar-2">
+    <div class="aside2_title" >商户平台管理</div>
+    <nav class="aside2_nav dataShow">
+      <ul>
+        <!-- <li class="show1" style="display: none">
+          <i></i>
+          <a href="javascript:;">数据预览</a>
+        </li> -->
+        <li class="show2" style="display: none">
+          <i></i>
+          <a href="javascript:;">商品列表</a>
+        </li>
+        <li class="show3" style="display: none">
+          <i></i>
+          <a href="javascript:;">订单列表</a>
+        </li>
+        <li class="show6" style="display: none">
+          <i></i>
+          <a href="javascript:;">收支流水</a>
+        </li>
+        <li class="show4" style="display: none">
+          <i></i>
+          <a href="javascript:;">提现记录</a>
+        </li>
+        <li class="show5" style="display: none">
+          <i></i>
+          <a href="javascript:;">店铺设置</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="aside_user">v{$Think.session.versions}</div>
+</div>
+<script>
+$(function(){
+  var page = {$page};
+  for(var i=1;i<=5;i++){
+    $(".showtop"+i).removeClass("active1");
+    $(".show"+i).hide();
+  }
+  $(".showtop"+page).addClass("active1");
+  $(".show"+page).addClass("active2");
+  $(".show"+page).show();
+});
+</script>
+
+<div class="contentbox">
+    <div class="content_head clearfix navbar" style="margin-bottom: 0;background: #6671e4;">
+      <!-- <div class="content_head_left"></div> -->
+      <ul class="nav pull-right">
+
+        <li class="dropdown user">
+          <a href="{:Url('index/login/bizlogin')}" style="color: #fff;padding-top: 15px">
+          <i class="fa fa-sign-out"></i>退出
+          </a>
+        </li>
+      </ul>
+    </div>

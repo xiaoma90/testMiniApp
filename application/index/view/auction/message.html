@@ -1,0 +1,135 @@
+{include file="public/head" /}
+
+{include file="public/top" /}
+
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+
+<style type="text/css">
+
+	.chongdingy{
+
+		background-color:#f5f5f5; 
+
+		padding:10px 0;
+
+	}
+
+	.chongdingywz{
+
+		text-align: left !important;
+
+		font-size: 16px;
+
+		padding-left: 20px;
+
+	}
+
+
+
+	.jscolor{
+
+		width: 30px;
+
+		height: 30px;
+
+		border: 1px solid #dedede;
+
+		outline: none;
+
+	}
+
+	.m-wrap{
+
+		outline: none;
+
+		padding-left: 10px;
+
+	}
+
+
+
+</style>
+
+
+
+<input type="hidden" id="nowhtml" value="navModel"  class="navModel9-4">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet box ">
+				<div class="portlet-body">
+					<form action="{:Url('Auction/msgsave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data">
+						<div class="control-group chongdingy" style="background-color:#fcf8e3; margin-bottom:20px !important">
+							<label class="chongdingywz" style="background-color:#fcf8e3; color:#8a6d3b;">模板消息相关设置，操作步骤，点击链接<a href="https://shimo.im/docs/7jf0rUiF1tUGd54X" target="_blank">[模板消息设置操作步骤]</a>查看</label>
+						</div>
+						<div class="control-group chongdingy" style="background-color:#fcf8e3; margin-bottom:20px !important">
+							<label class="control-label chongdingywz" style="background-color:#fcf8e3; color:#8a6d3b;width:50%">注：如不需要发送模板消息的请留空。</label>
+						</div>
+						<div class="control-group">
+							<label class="control-label">预约/提醒消息</label>
+							<div class="controls">
+								<input name="mid1" type="text" class="span4 m-wrap" value="{$one.mid}"  style="height: 35px !important;" />
+								<span style="color:#999999; line-height:40px; margin-left:20px;">ID:AT1358  <span style="margin:0 10px">名称:拍卖进展</span> 通知字段:物品名称、备注</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">跳转页面路径</label>
+							<div class="controls">
+								<input name="url1" type="text" class="span4 m-wrap" value="{$one.url}" placeholder="默认/sudu8_page/index/index" style="height: 35px !important;" />
+							</div>
+						</div>
+						<div style="border-bottom:1px dotted #eee; margin-bottom:40px;"></div>
+						<div class="control-group">
+							<label class="control-label">支付保证金提醒</label>
+							<div class="controls">
+								<input name="mid2" type="text" class="span4 m-wrap" value="{$two.mid}"  style="height: 35px !important;" />
+								<span style="color:#999999; line-height:40px; margin-left:20px;">ID:AT1358  <span style="margin:0 10px">名称:拍卖进展</span> 通知字段:物品名称、备注</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">跳转页面路径</label>
+							<div class="controls">
+								<input name="url2" type="text" class="span4 m-wrap" value="{$two.url}" placeholder="默认/sudu8_page/index/index" style="height: 35px !important;" />
+							</div>
+						</div>
+						<div style="border-bottom:1px dotted #eee; margin-bottom:40px;"></div>
+						<div class="control-group">
+							<label class="control-label">保证金退款提醒</label>
+							<div class="controls">
+								<input name="mid3" type="text" class="span4 m-wrap" value="{$three.mid}"  style="height: 35px !important;" />
+								<span style="color:#999999; line-height:40px; margin-left:20px;">ID:AT0036 <span style="margin:0 10px">名称:退款</span> 通知字段:订单编号、退款金额、退款原因</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">跳转页面路径</label>
+							<div class="controls">
+								<input name="url3" type="text" class="span4 m-wrap" value="{$three.url}" placeholder="默认/sudu8_page/index/index" style="height: 35px !important;" />
+							</div>
+						</div>
+						<div style="border-bottom:1px dotted #eee; margin-bottom:40px;"></div>
+						<div class="control-group">
+							<label class="control-label">预约/提醒消息id</label>
+							<div class="controls">
+								<input name="mid4" type="text" class="span4 m-wrap" value="{$four.mid}"  style="height: 35px !important;" />
+								<span style="color:#999999; line-height:40px; margin-left:20px;">ID:AT1359 <span style="margin:0 10px">名称:拍卖成功</span> 通知字段:拍品名称、成交价、获拍时间、备注</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">跳转页面路径</label>
+							<div class="controls">
+								<input name="url4" type="text" class="span4 m-wrap" value="{$four.url}" placeholder="默认/sudu8_page/index/index" style="height: 35px !important;" />
+							</div>
+						</div>
+						<div class="form-actions">
+							<button type="submit" class="btn green">确定</button>
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+{include file="public/foot_more" /}

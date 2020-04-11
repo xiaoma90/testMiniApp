@@ -1,0 +1,143 @@
+{include file="common/header1" /}
+    <div class="body">
+      <div class="body_box clearfix">
+        <div class="body_left">
+          <div>
+            <div class="bleft_title">
+              <h4 style="display:inline-block;color:#fff;font-weight:normal;height:45px;line-height:45px;margin-left:10px;">最新</h4>
+            </div>
+            <div class="bleft_content">
+              <ul>
+              {foreach $art_new as $item}
+                <a href="{:Url('Pcdetail/index')}?uniacid={$uniacid}&type={$item['type']}&id={$item['id']}">
+                  <li class="bleft_content_news">
+                    <span class="bleft_content_newsl">{$item['title']}</span>
+                    <span class="bleft_content_newsr">{$item['ctime']}</span>
+                  </li>
+                </a>
+              {/foreach}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="body_right">
+          <div class="body_right_title">
+            <div class="bright_title">
+              <div class="bright_title_text">推荐</div>
+            </div>
+          </div>
+          <div class="bright_content">
+            {foreach $art_hots as $item}
+            <div class="cont_box">
+              <a href="{:Url('Pcdetail/index')}?uniacid={$uniacid}&type={$item['type']}&id={$item['id']}">
+                <div class="cont_box_img">
+                  <img src="{$item['thumb']}" alt="">
+                </div>
+                <div class="cont_box_text">
+                  <p>{$item['desc']}</p>  
+                  <a href="javascript:;"><img src="/front/img/more.jpg" alt=""></a>
+                </div>
+              </a>
+            </div>
+            {/foreach}
+          </div>
+        </div>
+      </div>
+      <div id="demo" class="qimo8">
+        <div class="qimo">
+          <div id="demo1">
+            <ul>
+              {foreach $pic_hots as $item}
+              <li> 
+                <a href="javascript:;" onclick="showbox({$item['id']})" style="height: 250px;display: block;"> 
+                  <img src="{$item['thumb']}" /> <br />{$item['title']}
+                </a>
+              </li>
+              {/foreach}
+            </ul>
+          </div>
+          <div id="demo2"></div>
+        </div>
+      </div>
+    </div>
+  {include file="common/foot1" /}
+  </div> 
+  <!-- 弹框 -->
+  <div id="pro_bg" class="dis_none"></div>
+  <div id="pro_detail" class="dis_none">
+    <div class="close">
+      <a href="javascript:;" onclick="closeBox()" class="iconfont icon-x-guanbi"></a>
+    </div>
+    <div class="content">
+      <div class="con_imgs">
+        <div class="con_bigimg">
+          <img src="" id="b_img">
+        </div>
+        <div class="con_smallimg">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <script>
+    // 组图
+    var demo = document.getElementById("demo");
+    var demo1 = document.getElementById("demo1");
+    var demo2 = document.getElementById("demo2");
+    demo2.innerHTML=document.getElementById("demo1").innerHTML;
+    function Marquee(){
+      if(demo.scrollLeft-demo2.offsetWidth>=0){
+        demo.scrollLeft-=demo1.offsetWidth;
+      }
+      else{
+        demo.scrollLeft++;
+      }
+    }
+    var myvar=setInterval(Marquee,30);
+    demo.onmouseout=function (){myvar=setInterval(Marquee,20);} 
+    demo.onmouseover=function (){clearInterval(myvar);} 
+
+    // 弹框
+    function showbox(id) {
+      $.ajax({
+        url:"{:Url('Piclist/getPics')}?uniacid={$uniacid}",
+        dataType:'json',
+        type:'post',
+        data:{
+          id:id
+        },
+        success:function(res){
+          var str = "";
+          if(res.length > 0){
+            for(var i = 0; i < res.length; i++){
+              str += '<a class="smallings smpic'+i+'" data-src="' + res[i] + '" onclick="changePic('+ i +')">'+
+                      '<img src="' + res[i] + '" alt="">'+
+                    '</a>';
+            }
+            $("#b_img").attr('src', res[0]);
+          }
+          console.log(str)
+          $(".con_smallimg").html(str);
+        }
+      })
+
+      var ele=document.getElementById("pro_bg");
+      var ele1=document.getElementById("pro_detail");
+      ele.classList.remove('dis_none');
+      ele1.classList.remove('dis_none');
+    }
+    function closeBox() {
+      var ele=document.getElementById("pro_bg");
+      var ele1=document.getElementById("pro_detail");
+      ele.classList.add('dis_none');
+      ele1.classList.add('dis_none');
+    }
+
+    function changePic(i){
+        $("#b_img").attr('src', $(".smpic"+i).data('src'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+    .navModel2{
+        display: block !important;
+    }
+	form {
+	    margin: 0 !important; 
+	    display: inline-block !important;
+	}
+    thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+	/* 弹出框 */
+#pro_bg{
+    height: 100%;
+    width: auto;
+    background-color: #7b7b7b;
+    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 500;
+}
+#pro_detail{
+    position: fixed;
+    height: 500px;
+    width: 850px;
+    background-color: #fff;
+    top: 20%;
+    left: 25%;
+    z-index: 501;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+.dis_none{
+    display:none;
+}
+.close_box{
+    background-color: #f4f5f9;
+    border-bottom: 0;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+.icon-x-guanbi:before{
+    font-size: 24px;
+    font-weight: bold;
+    color: #aaa;
+}
+.content{
+    padding: 10px 15px;
+    height: 378px;
+}
+.modal-title{
+    text-align: left;
+    font-size: 14px;
+}
+.cont-footer{
+    background-color: #f4f5f9;
+    border-top: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 10px 20px 20px;
+    box-sizing: border-box;
+}
+.img_erweima{
+    background: #eee;
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+}
+.img_erweima img{
+    width: auto;
+    height: 100%;
+}
+.btn_erweima{
+    margin-top: 15px;
+}
+.btn_erweima button{
+    border: 0;
+    background-color: #4385ff;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+.nav-tabs>li>a{
+    font-size: 14px;
+    color: #76838f;
+}
+.nav-tabs>li.active>a,.nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover{
+    color: #fff;
+    background-color: #4385ff;
+    border-color: transparent;
+    border-bottom-color: #38f;
+}	
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel"  class="navModel2-3">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<div class="input-box" style="margin-bottom: 10px;">
+
+					<div class="btn-group">
+
+						<a href="{:Url('Cytablenum/add')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn" style="background: #4385ff;color: #fff;">
+						新增桌号
+						</button>
+						</a>
+
+					</div>
+				</div>
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							
+							<th style="width: 50px;">ID</th>
+
+							<!-- <th style="width: 120px;">二维码</th> -->
+
+							<th style="width: 200px;">大厅名称</th>
+
+							<th style="width: 100px;">桌号</th>
+							
+							<th width="100px;">操作</th>
+
+						</tr>
+
+					</thead>
+
+					<tbody>
+						
+						{if $cates}
+							{foreach $cates as $item}
+								<tr>
+									<td><a href="javascript:;" href="javascript:;" data-clipboard-text="{$item.id}" onclick="copyid({$item.id})" class="label label-success ng-scope js-clip{$item.id}" style="background: #a9a9a9;min-width:30px;text-align: center;">{$item.id}</a></td>
+									<!-- <td><img src="{$item.thumb}" alt="" style="width:100px;height:100px"></td> -->
+									<td style="font-weight:bold">{$item.title}</td>
+									<td>{$item.tnum}</td>
+									<td>
+										<a href="{:Url('Cytablenum/add')}?appletid=<?php echo $_GET['appletid']?>&cateid={$item.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">编辑</button></a>
+
+										<form action="{:Url('Cytablenum/del')}?appletid=<?php echo $_GET['appletid']?>&cateid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del({$item.id})">
+											<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+										</form>
+										<!-- <a href="{:Url('Cytablenum/index')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}&tnum={$item.tnum}&op=ewm"><button style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">查看二维码</button></a> -->
+										<a href="#"><button onclick="showbox({$item.id})" style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">查看二维码</button></a>
+									</td>
+								</tr>
+							{/foreach}
+						{/if}
+						
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+                <div>
+                    <div class="fenye_right">
+                        {$cates_list->render()}
+                    </div>
+                </div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+<!-- 弹框 -->
+<div id="pro_bg" class="dis_none"></div>
+<div id="pro_detail" class="dis_none">
+    <div class="close_box">
+        <div class="modal-title">二维码</div>
+        <div onclick="closeBox()" style="float: right;margin-top: -21px;color: #000;opacity: 0.2;font-size: 16px;cursor: pointer;">x</div>
+    </div>
+    <div class="content">
+        <ul class="nav nav-tabs" id="selectUrlTab">
+            <li class="active tabs"><a class="box_wx" href="javascript:;">微信</a></li>
+            <!-- <li class="tabs"><a class="box_baidu" href="javascript:;">百度</a></li> -->
+            <li class="tabs"><a class="box_alipay" href="javascript:;">支付宝</a></li>
+            <li class="tabs"><a class="box_bdance" href="javascript:;">头条</a></li>
+            <li class="tabs"><a class="box_h5" href="javascript:;">H5</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="box_wx">
+                <div class="img_erweima">
+                    <img src="__STATIC_ROOT__/image/img_default.png" alt="">
+                </div>
+                <div class="btn_erweima">
+                    <button onclick="makeEwm('wx')">生成二维码</button>
+                    <button class="download_wx" onclick="downloadimg('wx')">下载二维码</button>
+                    <!-- <button class="download_wx">下载二维码</button> -->
+                </div>
+            </div>
+            <div class="tab-pane" id="box_baidu">
+                <div class="img_erweima">
+                    <img src="__STATIC_ROOT__/image/img_default.png" alt="">
+                </div>
+                <div class="btn_erweima">
+                    <button onclick="makeEwm('baidu')">生成二维码</button>
+                    <button class="download_wx" onclick="downloadimg('baidu')">下载二维码</button>
+                    <!-- <button class="download_baidu">下载二维码</button> -->
+                </div>
+            </div>
+            <div class="tab-pane" id="box_alipay">
+                <div class="img_erweima">
+                    <img src="__STATIC_ROOT__/image/img_default.png" alt="">
+                </div>
+                <div class="btn_erweima">
+                    <button onclick="makeEwm('alipay')">生成二维码</button>
+                    <button class="download_wx" onclick="downloadimg('alipay')">下载二维码</button>
+                    <!-- <button class="download_alipay">下载二维码</button> -->
+                </div>
+            </div>
+            <div class="tab-pane" id="box_bdance">
+                <div class="img_erweima">
+                    <img src="__STATIC_ROOT__/image/img_default.png" alt="">
+                </div>
+                <div class="btn_erweima">
+                    <button onclick="makeEwm('bdance')">生成二维码</button>
+                    <button class="download_wx" onclick="downloadimg('bdance')">下载二维码</button>
+                    <!-- <button class="download_bdance">下载二维码</button> -->
+                </div>
+            </div>
+            <div class="tab-pane" id="box_h5">
+                <div class="img_erweima">
+                    <img src="__STATIC_ROOT__/image/img_default.png" alt="">
+                </div>
+                <div class="btn_erweima">
+                    <button onclick="makeEwm('h5')">生成二维码</button>
+                    <button class="download_wx" onclick="downloadimg('h5')">下载二维码</button>
+                    <!-- <button class="download_h5">下载二维码</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cont-footer">
+        <button data-dismiss="modal" class="btn btn-default" type="button" onclick="closeBox()">关闭</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+	var tableid = 0;
+    // 弹框
+    function showbox(id) {
+        tableid = id
+        var box=document.getElementById("pro_bg");
+        var box1=document.getElementById("pro_detail");
+        box.classList.remove('dis_none');
+        box1.classList.remove('dis_none');
+    }
+    function closeBox() {
+        tableid = 0
+        var box=document.getElementById("pro_bg");
+        var box1=document.getElementById("pro_detail");
+        box.classList.add('dis_none');
+        box1.classList.add('dis_none');
+    }
+    $('.tabs').click(function () {
+        var getClass = $(this).attr('class');
+        //判断当前样式
+        if(getClass == 'active tabs'){
+            $(this).removeClass('active')
+        }else if(getClass == 'tabs'){
+            //增加样式前先删除掉其它li标签的样式
+            $(this).siblings('li').removeClass('active')
+            $(this).addClass('active')
+        }
+        var subclass = $("li.active a").attr("class");
+        $(".tab-pane").removeClass('active');
+        $("#"+subclass).addClass('active')
+    })
+    function makeEwm(str){
+        $.ajax({
+            url:"{:Url('Powerfulsh/qrcode')}",
+            dataType:"json",
+            type:"post",
+            data:{
+                str:str,
+                tableid:tableid,
+                appletid:<?php echo $_GET['appletid']?>
+            },
+            success:function(res){
+                console.log(res)
+                if(res.indexOf('http') !== -1){ //判断是否为正常图片网址
+                    if(str == 'wx'){
+                        $("#box_wx .img_erweima img").attr("src", res);
+                    }else if(str == 'baidu'){
+                        $("#box_baidu .img_erweima img").attr("src", res);
+                    }else if(str == 'alipay'){
+                        $("#box_alipay .img_erweima img").attr("src", res);
+                    }else if(str == 'bdance'){
+                        $("#box_bdance .img_erweima img").attr("src", res);
+                    }else if(str == 'h5'){
+                        $("#box_h5 .img_erweima img").attr("src", res);
+                    }
+                }
+            }
+        })
+    }
+	function del(id,count){
+		if(count>0){
+			alert("该栏目中还存在子集栏目，请先删除所有子集栏目后再删除！");
+			return false;
+		}
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+    function downloadimg(type){
+        if(type == 'wx'){
+            var src = $("#box_wx .img_erweima img")[0].src
+        }else if(type == 'baidu'){
+            var src = $("#box_baidu .img_erweima img")[0].src
+        }else if(type == 'alipay'){
+            var src = $("#box_alipay .img_erweima img")[0].src
+        }else if(type == 'bdance'){
+            var src = $("#box_bdance .img_erweima img")[0].src
+        }else if(type == 'h5'){
+            var src = $("#box_h5 .img_erweima img")[0].src
+        }
+
+        if(src.indexOf("img_default") != -1){
+            alert('请先获取二维码！');
+            return false;
+        }
+
+        src = src.replace('https://', '');
+
+        location.href = "{:Url('Powerfulsh/downloadimg')}?appletid=<?php echo $_GET['appletid']?>&src="+src+"&type="+type;
+
+    } 
+    
+</script>
+
+
+
+{include file="public/foot_more" /}

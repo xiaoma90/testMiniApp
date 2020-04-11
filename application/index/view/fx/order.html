@@ -1,0 +1,334 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navFx" class="navFx6">
+
+<style type="text/css">
+.shuk{
+	outline: none;
+	border: 1px solid #dedede;
+	width: 300px;
+}
+.cesd{
+	height: 28px;
+	line-height: 28px;
+	width: 28px;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+	border:1px solid #dedede;
+	padding: 0 10px;
+}
+.border_green{
+	border: 1px solid #35aa47;
+	color: #35aa47;
+	background-color: #fff;
+	cursor: pointer;
+}
+.border_red{
+	border: 1px solid #d9534f;
+	color: #d9534f;
+	background-color: #fff;
+	cursor: pointer;
+}
+.border_333{
+	border: 1px solid #969696;
+	color: #969696;
+	background-color: #fff;
+}
+.border_333:hover{
+	background-color: #fff !important;
+	color: #969696 !important;
+}
+tr,td{
+	border: 0 !important;
+}
+.trbody td{
+	background: #fff !important;
+}
+.sp_gg{
+	margin-left: 30px;
+}
+.dj_sl,.sp_gg{
+	display: inline-block;
+	vertical-align: middle;
+}
+</style>
+
+<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+				<form class="form-horizontal">
+										<div style="margin-bottom:10px;">
+												状态：
+                        <div style="display: inline-block;margin-right: 10px">
+                            <select name="search_flag" id="search_flag" style="width: 120px">
+                                <option value="0">全部</option>
+                                <option value="1" {if $search_flag== '1'}selected="selected"{/if}>待分成</option>
+                                <option value="2" {if $search_flag== '2'}selected="selected"{/if}>已分成</option>
+                                <option value="3" {if $search_flag== '3'}selected="selected"{/if}>取消分成</option>
+                            </select>
+                        </div>
+                        下单时间：
+                        <div class="btn-group btn-group-sm" style="padding-right:0;padding-top: 10px">
+                            <input type="text" value="{$start_get}" name="start_get" readonly id="datetimepicker"
+                                   data-date-format="yyyy-mm-dd hh:ii" placeholder=""
+                                   class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                        </div>
+                        -
+                        <div class="btn-group btn-group-sm"
+                             style="padding-right:0;margin-right: 10px;padding-top:10px;">
+                            <input type="text" value="{$end_get}" name="end_get" readonly id="datetimepicker2"
+                                   data-date-format="yyyy-mm-dd hh:ii" placeholder=""
+                                   class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                        </div>
+
+                        <div style="display: inline-block;padding-top:10px;">
+                            订单号
+                        </div>
+                        <div class="btn-group btn-group-sm" style="padding-right:0;padding-top:10px;">
+                            <input type="text" name="search_keys" id="search_keys" value="{$search_keys}"
+                                   style="width: 150px" class="form-control ng-pristine ng-untouched ng-valid ng-empty"
+                                   placeholder="搜索关键字" autocomplete="off">
+                        </div>
+                        <div style="display: inline-block;">
+                            <div class="btn" id="filter" style="display: inline-block;font-size: 12px;background: #4385ff;color: #fff;margin-right: 10px;text-align: center;margin-left: 30px;"
+                                 onclick="search()"/>
+                            提交
+                        </div>
+		            </div>
+	            </form>
+				<table class="table table-striped table-hover" id="sample_editable_1" style="border: 1px solid #f2f2f2">
+					<thead>
+						<tr style="background:#f8f8f8;">
+							<th style="width:25%;text-align: center">商品</th>
+							<th style="width:25%;text-align: center">单价/数量</th>
+							<th style="width:25%;text-align: center">实付金额</th>
+							<th style="width:25%;text-align: center">状态</th>
+						</tr>
+					</thead>
+
+					<tbody>
+					{if $orders}
+					{foreach $orders as $item}
+
+					<tr style="height: 20px;"></tr>
+					<tr>
+						<td colspan="4" style="border:0;background:#f9f9f9;padding: 10px 24px;">
+							下单时间：{$item.creattime} 订单编号: {$item.order_id}
+						</td>
+					</tr>
+					{if $item['datas']&&$item['type']==1}{foreach $item['datas'] as $index => $val}
+					<tr class="trbody">
+
+						<td style="overflow:hidden;" >
+							<img src="{$val['baseinfo']['thumb']}" style="width:50px;height:50px;border:1px solid #ccc; padding:1px;" onerror="">
+							<div class="sp_gg">{$val['baseinfo']['title']} <br> {$val['proinfo']['ggz']} </div>
+						</td>
+
+						<td style="text-align: center;overflow:hidden;border-left:none;">
+							<!-- <div class="gg_dj_sl">{$val['baseinfo']['title']} <br> {$val['proinfo']['ggz']} </div> -->
+							<div class="dj_sl">{$val['proinfo']['price']}</div>
+							<div class="dj_sl">/</div>
+							<div class="dj_sl">{$val['num']}</div>
+						</td>
+
+						<!-- <td style="text-align:center;border-left:none; border-right:1px solid #dedede">
+							{$val['proinfo']['price']}x{$val['num']}
+						</td> -->
+
+						{if $index == 0}
+						<td style="text-align:center;border-left:none;" {if $item['counts'] > 0}rowspan="{$item['counts']}"{/if}>
+							总价：{$item['order']['price']}
+						</td>
+
+						
+
+						<td style="text-align:center;border-left:none;border-right:1px solid #dedede;" {if $item['counts'] > 0}rowspan="{$item['counts']}"{/if}>
+
+							{if $item['flag'] ==1} <span class="border_red" style="padding: 1px 5px;border-radius: 4px">待分成</span> {/if}
+							{if $item['flag'] ==2} <span class="border_green" style="padding: 1px 5px;border-radius: 4px">已分成</span> {/if}
+							{if $item['flag'] ==3} <span class="border_333" style="padding: 1px 5px;border-radius: 4px">取消分成</span> {/if}
+						</td>
+						{/if}
+
+					</tr>
+					{/foreach}{/if}
+
+					<style type="text/css">
+						.ssdd{
+							width: 200px;
+							border: 1px solid #dedede;
+							padding: 20px 10px;
+						}
+					</style>
+
+					<tr style="border-bottom:1px solid #dedede;background:#f9f9f9;">
+						<td colspan="1" style="text-align:left;border-left:1px solid #dedede;">
+							<div  style="margin-bottom:10px;">
+								该商品购买：
+								{if $item['types'] == 'ext|jd'}
+									京东下单
+								{elseif $item['types'] == 'ext|pdd'}
+									拼多多下单
+								{else}
+									<img src="{$item['gmz']['avatar']}" style="width:50px; height:50px;">
+									{$item['gmz']['nickname']}
+								{/if}
+								
+							</div>
+							{if $item['v1']}
+							<div style="margin-bottom:10px;">
+								一级分销商：
+								<img src="{$item['v1']['avatar']}" style="width:50px; height:50px;">
+								{$item['v1']['nickname']}
+							</div>
+							{/if}
+							{if $item['v2']}
+							<div style="margin-bottom:10px;">
+								二级分销商：
+								<img src="{$item['v2']['avatar']}" style="width:50px; height:50px;">
+								{$item['v2']['nickname']}
+							</div>
+							{/if}
+							{if $item['v3']}
+							<div style="margin-bottom:10px;">
+								三级分销商：
+								<img src="{$item['v3']['avatar']}" style="width:50px; height:50px;">
+								{$item['v3']['nickname']}
+							</div>
+							{/if}
+						</td>
+
+						<td colspan="3" style="text-align:left;border-left:1px solid #dedede;">
+							<div  style="margin-bottom:10px;height: 50px;">
+							</div>
+							{if $item['v1']}
+							<div style="margin-bottom:10px;height: 50px;line-height: 50px;">
+								{if $item['flag'] == 1 }
+								预计获得分成： {$item['v1']['hmoney']}
+								{/if}
+								{if $item['flag'] == 2 }
+								已经获得分成： {$item['v1']['hmoney']}
+								{/if}
+								{if $item['flag'] == 3 }
+								订单无效，未获得分成
+								{/if}
+							</div>
+							{/if}
+							{if $item['v2']}
+							<div style="margin-bottom:10px;height: 50px;line-height: 50px;">
+								{if $item['flag'] == 1 }
+								预计获得分成： {$item['v2']['hmoney']}
+								{/if}
+								{if $item['flag'] == 2 }
+								已经获得分成： {$item['v2']['hmoney']}
+								{/if}
+								{if $item['flag'] == 3 }
+								订单无效，未获得分成
+								{/if}
+							</div>
+							{/if}
+							{if $item['v3']}
+							<div style="margin-bottom:10px;height: 50px;line-height: 50px;">
+								{if $item['flag'] == 1 }
+								预计获得分成： {$item['v3']['hmoney']}
+								{/if}
+								{if $item['flag'] == 2 }
+								已经获得分成： {$item['v3']['hmoney']}
+								{/if}
+								{if $item['flag'] == 3 }
+								订单无效，未获得分成
+								{/if}
+							</div>
+							{/if}
+						</td>
+			
+					</tr>
+
+					{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+				<div id="fenye">
+                    <div class="fenye_right">
+                        {$orderlist->render()}
+                    </div>
+
+	            </div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    function heixiao(){
+
+        if(confirm('你确定要核销该订单嘛?')){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    function queren(){
+
+        if(confirm('你确定要确认该订单嘛?')){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    function search(){
+
+        var order = $("#getorder").val();
+        if(!order){
+            alert("请输入订单号");
+            return;
+        }
+        if(isNaN(order)){
+            alert("请输入正确的订单号格式");
+            return;
+        }
+        location.href = "{:Url('Orderlist/index')}?appletid=<?php echo $_GET['appletid']?>&order="+order;
+
+    }
+    function search() {
+
+        var search_flag = $("#search_flag").val();
+        var search_keys = $("#search_keys").val();
+        if(search_keys && isNaN(search_keys)){
+            alert("请输入正确的订单号格式");
+            return;
+        }
+        var start_get = $("#datetimepicker").val();
+        var end_get = $("#datetimepicker2").val();
+
+        location.href = "{:Url('Fx/order')}?appletid=<?php echo $_GET['appletid']?>&search_flag=" + search_flag + "&search_keys=" + search_keys + "&start_get=" + start_get + "&end_get=" + end_get;
+
+    }
+
+
+
+</script>
+
+
+
+
+
+
+{include file="public/foot_more" /}

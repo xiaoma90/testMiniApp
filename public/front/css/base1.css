@@ -1,0 +1,269 @@
+*{margin: 0;padding: 0}
+ul,li,a{
+  list-style: none;
+  text-decoration: none;
+}
+#web{
+  background: none;
+  height: 100%;
+}
+a{
+  color: #222222;
+}
+/* 头部 */
+.header{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+.title_list{
+  box-sizing: border-box;
+  width: 100%;
+}
+.header_title{
+  margin: 20px auto;
+  width: 1200px;
+  height: 95px;
+  display: flex;
+  flex-direction:row; 
+  line-height: 95px;
+}
+.header_name,.header_search{
+  width: 35%;
+}
+.header_name{
+  /*color:#222222;
+  font-size: 36px;*/
+  overflow: hidden;
+}
+.header_name img{
+  max-width: 300px;
+}
+.header_search{
+  text-align: left;
+  line-height: 95px;
+  position: relative;
+}
+.header_search .search_input{
+  border:1px solid #3d3d3d;
+  background: none;
+  width: 370px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 40px 0 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.header_search .search_a{
+  display: inline-block;
+  background: #3d3d3d;
+  color: #fff;
+  width: 40px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 24px;
+  box-sizing: border-box;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  position: absolute;
+  top: 34px;
+  right: 51px;
+}
+.erweima_img{
+  display: flex;
+  width: 340px;
+  height: 150px;
+  box-sizing: border-box;
+  margin-top: -28px;
+}
+.er_img1{
+  display: inline-block;
+  width: 80%;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+.er_img1 img{
+  width: 70px;
+  height: 70px;
+  margin: auto;
+}
+.er_img2{
+  display: flex;
+  padding: 10px;
+  height: 110px;
+  line-height: 110px;
+  background: #3d3d3d;
+  box-sizing: border-box;
+  border-radius: 15px;
+  box-shadow:5px 5px 4px #d8d8d8;
+}
+.er_text{
+  color: #fff;
+  font-size: 14px;
+  width: auto;
+  height: 70px;
+  line-height: 22px;
+  margin: auto;
+}
+.er_text p{
+  height: 33%;
+}
+
+/* 导航 */
+.header_list{
+  background-color: #3d3d3d;
+}
+.li_list{
+  width: 1200px;
+  height: 51px;
+  margin: 0 auto;
+}
+.clearfix::after{
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  overflow: hidden;
+}
+.li_list li{
+  float: left;
+  text-align: center;
+  position:relative;
+}
+.li_list li:hover{
+  background:#fff;
+}
+.li_list li a{
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 15px 5px;
+  width: 120px;
+  color: #a9a9a9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.li_list li ul li a{
+  font-size: 14px;
+  white-space: nowrap;
+  display: inline-block;
+  width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.li_list li a.active,.li_list li a:hover{
+  color: #a9a9a9;
+  background: #fff;
+}
+.header_list ul li ul{
+  display:none;
+} 
+.header_list ul li:hover ul{
+  display:block;
+  position: absolute; 
+  left: 0px; 
+  top: 51px;
+  z-index: 1;
+  background: #3d3d3d;
+}
+
+/* 轮播图 */
+.banner{
+  width: 100%;
+  position: relative;
+}
+.wrapper {
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+}
+.wrapper img{
+  width: 100%;
+  height: 510px;
+}
+#sliderBox img{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.btn01 img,.btn02 img{
+  width: 70px;
+  height: 70px;
+}
+.btn01 {
+  position: absolute;
+  top: 40%;
+  left: 2%;
+  display: none;
+}
+.btn02 {
+  position: absolute;
+  top: 40%;
+  right: 2%;
+  display: none;
+}
+.banner:hover .btn{
+  display: block;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 6px;
+}
+
+/* 底部 */
+.footer{
+  margin-top: 20px;
+  width: 100%;
+  height: 64px;
+  background: #3d3d3d;
+}
+.foot{
+  width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 32px;
+}
+.f_l{
+  color: #fff;
+  font-size: 12px;
+}
+.f_r{
+  float: right;
+  color: #fff;
+  font-size: 12px;
+}
+
+/* 分页 */
+.box_fy{
+  margin: 30px 0;
+  text-align: center;
+}
+.fenye_main{
+  text-align: center;
+}
+.pagination_list a,.pagination_list span{
+  display: inline-block;
+  margin: 0 7px 0 0;
+  border: 1px solid #E9E9E9;
+  color: #999;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 3px;
+  width: 35px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+}
+.disabled,.active_page{
+  display: inline-block;
+}
+.pagination_list a:hover{
+  background: #3d3d3d;
+  color: #fff;
+  border-color: #3d3d3d;
+}
+.active_page span{
+  background: #3d3d3d;
+  color: #fff;
+  border-color: #3d3d3d;
+}

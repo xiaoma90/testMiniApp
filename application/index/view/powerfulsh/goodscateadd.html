@@ -1,0 +1,121 @@
+{include file="public/head" /}
+
+{include file="public/top" /}
+
+<style type="text/css">
+.navModel6{
+    display: block !important;
+}
+.editors{
+    max-width: 770px;
+    min-height: 600px;
+}
+
+.w-e-text-container{
+    min-height: 600px !important;
+}
+.weiz{
+    margin-left:20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.chongdingy{
+    background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+    text-align: left !important;
+    font-size: 16px;
+    padding-left: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 216px;
+    right: 0;
+    height: 52px;
+    line-height: 52px;
+    box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+.back_go{
+	border-bottom: 1px solid #eee;
+    padding: 15px 15px 10px;
+}
+
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel6-7">
+
+<div class="row-fluid">
+    <div class="back_go">
+        <a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">添加商品栏目</span></a>
+    </div>
+    <div class="portlet box">
+        <div class="portlet-body form">
+            <form action="{:Url('Powerfulsh/goodscatesave')}?appletid=<?php echo $_GET['appletid']?>&cateid={$cateid}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+                <div class="control-group">
+                    <label class="control-label">排序</label>
+                    <div class="controls">
+                        <input name="num" type="text" class="span1 m-wrap" value="{if $cate}{$cate.num}{/if}"/>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">序号越大越靠前，不填默认为1</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">启用</label>
+                    <div class="controls">
+                        <label class="radio" >
+                            <input type="radio" name="flag" value="1" style="margin-left: 5px" checked=checked>
+                            启用
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="flag" value="0" style="margin-left: 5px"{if $cate}{if $cate.flag==0}checked=checked{/if}{/if}/>
+                            不启用
+                        </label>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">启用后方可显示</span>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">父级栏目</label>
+                    <div class="controls">
+                        <select name="cid" class="span3 m-wrap" >
+                            <option value="0">--顶级分类--</option>
+                            {if $cates}
+                            {foreach $cates as $item}
+                            <option value="{$item.id}" {if $cate}{if $cate.cid == $item.id}selected=selected{/if}{/if}>{$item.name}</option>
+                            {/foreach}
+                            {/if}
+                        </select>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">选择所属栏目，不选为无父级分类</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">栏目名称</label>
+                    <div class="controls">
+                        <input name="name" type="text" class="span5 m-wrap" value="{if $cate}{$cate.name}{/if}"/>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">栏目名称</span>
+                    </div>
+                </div>
+
+                <div class="form-actions form_nobg">
+                    <button type="submit" class="btn" style="color: #fff;background-color: #4385ff;">提交</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{include file="public/foot_more" /}

@@ -1,0 +1,241 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel9-3">
+<style type="text/css">
+	.shuk{
+		outline: none;
+		border: 1px solid #dedede;
+		width: 300px;
+	}
+	.cesd{
+		height: 28px;
+		line-height: 28px;
+	    width: 28px;
+	    display: inline-block;
+	    vertical-align: top;
+	    cursor: pointer;
+	    border:1px solid #dedede;
+	    padding: 0 10px;
+	}
+	.zzcc{
+        position: fixed;
+        top: 0; 
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0.4;
+        z-index: 100000;
+
+    }
+	.bbdd{
+        position: fixed;
+        z-index: 100001;
+        background-color: #ffffff;
+        width: 400px;
+        height: 220px;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -110px;
+        padding: 10px;
+        border:1px solid #e7e7e7;
+    }
+    .ddhh{
+        line-height: 30px;
+        position: relative;
+    }
+    .ddxx{
+        position: absolute;
+        right: 0;
+        top:0;
+        cursor:pointer
+    }
+
+
+</style>
+
+<script type="text/javascript">
+    function shoscc(id){
+        $("#orderfh").val(id);
+        console.log(id);
+        $(".loader").show();
+        $(".la-ball-clip-rotate").hide();
+        //$('body').append('<div class="zzcc" id="zzcc" style="display:none"></div>');
+        $("#bbdd").show();
+    }
+    function ycc(){
+        $(".loader").hide();
+        $("#bbdd").hide();
+    }
+    function tijiao(){
+        var kuaidihao = $("#kuaidihao").val();
+        if(kuaidihao == 0){
+            alert("快递单号不能为空！");
+            return false;
+        }
+        var order = $("#orderfh").val();
+        var kuaidi = $("#kuaidi").val();
+        console.log(order);
+        location.href = "{:Url('Orderlist/order')}?appletid=<?php echo $_GET['appletid']?>&op=fahuo&orderid="+order+"&kuaidi="+kuaidi+"&kuaidihao="+kuaidihao;
+    }
+    function hexiao(id){
+    	var orderid = id; 
+    	location.href = "{:Url('Orderlist/order')}?appletid=<?php echo $_GET['appletid']?>&op=hx&orderid="+orderid;
+    }
+
+    function quxiao(id){
+    	var orderid = id;
+    	if(confirm('确定允许客户取消该笔订单？退款将直接到账?')){
+			location.href = "{:Url('Orderlist/order')}?appletid=<?php echo $_GET['appletid']?>&op=confirmtk&orderid="+orderid;
+		}else{
+			return false;
+		}
+    }
+
+</script>
+
+<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+				<div class="input-box" style="margin-bottom: 10px; position: relative; text-align:center; margin-top:20px; margin-bottom:40px; ">
+					请输入订单号：
+					<input type="text" placeholder="请输入搜索订单号" value="{$order}" class="shuk" id="getorder">
+					<div class="cesd" onclick="search()">
+						搜索
+					</div>
+				</div>
+				<div class="btn-group" style="float:right">
+					<a href="{:Url('Auction/excel')}?appletid=<?php echo $_GET['appletid']?>">
+						<button id="sample_editable_1_new" class="btn green">
+						导出订单列表 
+						</button>
+					</a>
+				</div>
+				<div style="clear: both"></div>
+				<table class="table table-striped table-hover table-bordered" id="sample_editable_1" style="margin-top: 10px">
+
+					<thead>
+
+						<tr>
+							
+							<th>拍卖品</th>
+				            <th>价格</th>
+				       <!--      <th>购买人</th>    
+				            <th>订单时间</th> -->
+				            <th>状态</th>
+				            <th>操作</th>
+						</tr>
+
+					</thead>
+
+					<tbody>
+					{if $d}
+						{foreach $d as $item}
+							<tr>
+								<td colspan="2">订单编号: {$item.id}</td>
+								<td colspan="2" style="text-align:right">下单时间：{$item.created_at}</td>
+							</tr>
+							<tr>
+								<td colspan="1">
+									<img src="{$item.img}" onerror="this.src='__STATIC_ROOT__/image/noimage.jpg'" style="width:50px; height:50px; border:1px solid #ccc; padding:1px;">      {$item.name}
+								</td>
+								<td style="text-align:center;border-left:none;" rowspan="1">总价：￥{$item['cost']}</td>
+
+						        <td colspan="1"  style="text-align:center;border-left:none;" rowspan="1">
+
+						              {if $item['stat']==0}
+						              <span class="btn btn-default btn-sm" id="{$item['id']}" >待付款</span>
+
+						              {elseif $item['stat']==1}
+						              <span class="btn btn-danger btn-sm" id="{$item['id']}" onclick="showstat(this)">待发货</span>
+
+						              {elseif $item['stat']==2}
+						              <span class="btn btn-primary btn-sm">已发货</span>
+
+						              {elseif $item['stat']==3}
+						              <span class="btn btn-success btn-sm" id="{$item['id']}" >已签收</span>
+
+						              {elseif $item['stat']==4}
+						              <span class="btn btn-warning btn-sm" id="{$item['id']}" >订单超时</span>
+						              {/if}
+
+						        </td>
+						        <td colspan="1"  style="text-align:center;border-left:none;border-right:1px solid #dedede;" rowspan="1">
+						          <a onclick="deletes({$item['id']})" class="btn btn-danger">删除</a>
+						        </td>
+							</tr>
+							<style type="text/css">
+						        .ssdd{
+						            width: 200px;
+						            border: 1px solid #dedede;
+						            padding: 20px 10px;
+						        }
+						    </style>
+						    <tr style="border-bottom:none;background:#f9f9f9;">
+						      {if $item['fast']==1}
+						      	<td colspan="2" style="text-align:left;border:none;border-left:1px solid #dedede;color:rgb(204, 20, 20)">
+						        用户催单！！！</td>
+						      {else}
+						        <td colspan="2" style="text-align:left;border:none;border-left:1px solid #dedede;color:rgb(204, 20, 20)"></td>
+						      {/if}
+						        <td colspan="2" style="text-align:right;border:none;">买家留言：{$item['userother']}</td>
+						    </tr>
+						    <tr>
+						    	<td colspan="4" style="height:20px;padding:8px;border-top:none;border-left:1px solid #dedede;border-bottom:1px solid #dedede;">
+						    		姓名：{$item['nickname']}<br>
+						    		电话：{$item['phone']}<br>
+						    		地址：{$item['address']}{$item['address_more']}<br>
+						    	</td>
+						    </tr>
+						    <tr>
+						    	<td colspan="4" style="height:20px;padding:0;border-top:none;">&nbsp;</td>
+						    </tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据
+					</div>
+					<div class="fenye_right">
+						{$list->render()}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+function deletes(id){
+  if(confirm('确定要删除该订单？删除后不可恢复！')){
+      location.href = "{:Url('Auction/deletes')}?appletid=<?php echo $_GET['appletid']?>&orderid="+id;
+  }
+}
+
+function search(){
+    var getorder=$("#getorder").val();
+	location.href = "{:Url('Auction/orders')}?appletid=<?php echo $_GET['appletid']?>&order="+getorder;
+}
+
+
+</script>
+
+
+
+
+
+
+{include file="public/foot_more" /}

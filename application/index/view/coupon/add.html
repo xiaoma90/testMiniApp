@@ -1,0 +1,496 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.navSale1{
+	display: block !important;
+}
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.jscolor{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+.back_go{
+	border-bottom: 1px solid #eee;
+  padding: 15px 15px 10px;
+}
+tr .prev .icon-angle-left{
+	background-image: url(/image/glyphicons-halflings.png) !important;
+	background-position: 37px 85px !important;
+}
+tr .next .icon-angle-right{
+	background-image: url(/image/glyphicons-halflings.png) !important;
+	background-position: 13px 85px !important;
+}
+</style>
+<link rel="stylesheet" href="__STATIC_ROOT__/css/select2.css">
+
+<script type="text/javascript">
+    var a = {
+        "themeCss": ".select2-container--krajee",
+        "sizeCss": "",
+        "doReset": true,
+        "doToggle": true,
+        "doOrder": false
+    };
+    window.b = {
+        "theme": "krajee",
+        "width": "415px",
+        "placeholder": "请选择类目，可多选",
+        "language": "zh-CN"
+    };
+</script>
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale1-1">
+
+	<div class="row-fluid">
+		<div class="back_go">
+			<a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">添加优惠券</span></a>
+		</div>
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Coupon/save')}?appletid=<?php echo $_GET['appletid']?>&couponid={$couponid}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+	
+					<div class="control-group">
+						<label class="control-label">排序</label>
+						<div class="controls">
+							<input name="num" type="text" class="span1 m-wrap" value="{if $couponinfo && $couponinfo['num']}{$couponinfo['num']}{else}0{/if}" />
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">序号越大越靠前</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 领取场景</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="give_type" value="0" {if $couponinfo && $couponinfo['give_type']==0}checked="true"{/if}{if $couponinfo}disabled="true"{else}checked=checked{/if} />
+							全部
+							</label>
+							<label class="radio">
+							<input type="radio" name="give_type" value="1" {if $couponinfo && $couponinfo['give_type']==1}checked="true"{/if}{if $couponinfo}disabled="true"{/if}/>
+							系统发放
+							</label> 
+							<label class="radio">
+							<input type="radio" name="give_type" value="2" {if $couponinfo && $couponinfo['give_type']==2}checked="true"{/if}{if $couponinfo}disabled="true"{/if}/>
+							自助领取
+							</label> 
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">新增优惠券后编辑不可修改</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">优惠券状态</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="flag" value="1" {if $couponinfo}{if $couponinfo && $couponinfo['flag']==1}checked{/if}{else}checked=checked{/if}/>
+							上架
+							</label> 
+							<label class="radio">
+							<input type="radio" name="flag" value="0" {if $couponinfo && $couponinfo['flag']==0}checked{/if}/>
+							下架
+							</label>
+						</div>
+					</div>
+	
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 优惠券名称</label>
+						<div class="controls">
+							<input name="title" type="text" class="span5 m-wrap" id="title" value="{if $couponinfo && $couponinfo['title']}{$couponinfo['title']}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">请填写优惠券名称</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 优惠券</label>
+						<div class="controls">
+							<span style="line-height: 33px">满</span>
+							<input name="pay_money" style="width:187px;" id="price2" type="text" class="span1 m-wrap" {if $couponinfo}readonly=true{/if} onkeyup="clearNoNum(this)" value="{if $couponinfo}{$couponinfo['pay_money']}{/if}"/>
+							<span style="line-height: 33px"> 减 </span>
+							<input name="price" style="width:187px;" id="price" type="text" class="span1 m-wrap" {if $couponinfo}readonly=true{/if} onkeyup="clearNoNum(this)" value="{if $couponinfo}{$couponinfo['price']}{/if}"/>
+							<span style="line-height: 33px">元</span>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">可设置为0，为0则为无门槛优惠券；设置后不可更改</span>
+						</div>
+					</div>
+					<!-- <div class="control-group">
+						<label class="control-label">优惠券颜色</label>
+						<div class="controls">
+							<button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+							</button>
+							<input id="chosen-value" value="{if $couponinfo && $couponinfo['color']}{$couponinfo['color']}{/if}" class="span2 m-wrap" name="color">
+						</div>
+					</div> -->
+
+					<div class="control-group">
+						<label class="control-label">优惠券总数</label>
+						<div class="controls">
+							<input name="counts" type="text" class="span1 m-wrap" value="{if $couponinfo && $couponinfo['counts']}{$couponinfo['counts']}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">请设置优惠券总数,-1不限制</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">已领数量</label>
+						<div class="controls">
+							<input name="nownum" type="text" class="span1 m-wrap" value="{if $couponinfo && $couponinfo['nownum']}{$couponinfo['nownum']}{else}0{/if}" readonly="true" />
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">已领取数量</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">每人限领数</label>
+						<div class="controls">
+							<input name="xz_count" type="number" min="0" class="span1 m-wrap" value="{if $couponinfo && $couponinfo['xz_count']}{$couponinfo['xz_count']}{else}0{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">请设置每人限领数,0不限制</span>
+						</div>
+
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 使用限制</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="use_type" value="0" {if $couponinfo}{if $couponinfo && $couponinfo['use_type']==0}checked{/if}{else}checked=checked{/if}/>
+							固定时间有效
+							</label> 
+							<input name="use_btime" id="btimes" type="text" class="span1 m-wrap" value="{if $couponinfo && $couponinfo['use_type']==0 && $couponinfo['use_time']['use_btime']!=0}{$couponinfo['use_time']['use_btime']|date='Y-m-d',###}{else}{/if}"  readonly data-date-format="yyyy-mm-dd" style="width:180px;" />
+							<span style="line-height: 33px"> - </span>
+							<input name="use_etime" id="etimes" type="text" class="span1 m-wrap" value="{if $couponinfo && $couponinfo['use_type']==0 && $couponinfo['use_time']['use_etime']!=0}{$couponinfo['use_time']['use_etime']|date='Y-m-d',###}{else}{/if}"  readonly data-date-format="yyyy-mm-dd" style="width:180px;" />
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">空表示不限制</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="use_type" value="1" {if $couponinfo && $couponinfo['use_type']==1}checked{/if}/>
+							领取当日
+							</label> 
+							<input name="today_after" id="today_after" type="text" class="span1 m-wrap" value="{if $couponinfo && $couponinfo['use_type']==1}{$couponinfo['use_time']}{/if}"/>
+							<span style="line-height: 33px"> 天内有效 </span>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">1表示领取当日有效</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="use_type" value="2" {if $couponinfo && $couponinfo['use_type']==2}checked{/if}/>
+							领取次日
+							</label> 
+							<input name="yes_after" id="yes_after" type="text" class="span1 m-wrap" value="{if $couponinfo && $couponinfo['use_type']==2}{$couponinfo['use_time']}{/if}"/>
+							<span style="line-height: 33px"> 天内有效 </span>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">1表示领取次日有效</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 可使用场景</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="use_goods_type" value="0" {if $couponinfo}{if $couponinfo && $couponinfo['use_goods_contents']['type']==0}checked{/if}{else}checked=checked{/if}/>
+							全店
+							</label>
+							<label class="radio">
+							<input type="radio" name="use_goods_type" value="1" {if $couponinfo && $couponinfo['use_goods_contents']['type']==1}checked{/if}/>
+							指定类目
+							</label> 
+						</div>
+					</div>
+					<div class="control-group" id="shops_list" style="display:{if $couponinfo && $couponinfo['use_goods_contents']['type']==1}block{else}none{/if};">
+						<label class="control-label" style="margin-right:15px"><span>*</span> 选择类目</label>
+						<div class="controls" id="shops">
+							<span id="parent-s2-togall-w1" style="display:none">
+								<span id="s2-togall-w1" class="s2-togall-button s2-togall-select">
+									<span class="s2-select-label"><i class="glyphicon glyphicon-unchecked"></i>全选</span>
+									<span class="s2-unselect-label"><i class="glyphicon glyphicon-check"></i>全不选</span>
+								</span>
+							</span>
+							<input id="mengdian" name="stores" type="hidden"/>
+					       	<div class="kv-plugin-loading loading-w1">&nbsp;</div>
+						    <select id="w1" class="form-control"  multiple size="4" placeholder="请选择类目，可多选" data-s2-options="a" data-krajee-select2="b" style="display:none">
+								{foreach $cate_duo as $items}
+								    <?php
+										$storeid = 'a'.$items['id'];
+										$storetitle = $items['name'];
+
+										if($couponinfo && $couponinfo['use_goods_contents']['type'] == 1){
+										    $cates = explode(",",$couponinfo['use_goods_contents']['contents']);
+											if(in_array($storeid, $cates)){
+												echo '<option value="'.$storeid.'" selected="selected">'.$storetitle.'</option>';
+											}else{
+												echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+											}
+										}else{
+											echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+										}
+								    ?>
+								{/foreach}
+								{foreach $cate_miaosha as $items}
+								    <?php
+										$storeid = 'b'.$items['id'];
+										$storetitle = $items['name'];
+
+										if($couponinfo && $couponinfo['use_goods_contents']['type'] == 1){
+										    $cates = explode(",",$couponinfo['use_goods_contents']['contents']);
+											if(in_array($storeid, $cates)){
+												echo '<option value="'.$storeid.'" selected="selected">'.$storetitle.'</option>';
+											}else{
+												echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+											}
+										}else{
+											echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+										}
+								    ?>
+								{/foreach}
+								{foreach $cate_yuyue as $items}
+								    <?php
+										$storeid = 'c'.$items['id'];
+										$storetitle = $items['name'];
+
+										if($couponinfo && $couponinfo['use_goods_contents']['type'] == 1){
+										    $cates = explode(",",$couponinfo['use_goods_contents']['contents']);
+											if(in_array($storeid, $cates)){
+												echo '<option value="'.$storeid.'" selected="selected">'.$storetitle.'</option>';
+											}else{
+												echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+											}
+										}else{
+											echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+										}
+								    ?>
+								{/foreach}
+								{foreach $cate_pt as $items}
+								    <?php
+										$storeid = 'd'.$items['id'];
+										$storetitle = $items['title'];
+
+										if($couponinfo && $couponinfo['use_goods_contents']['type'] == 1){
+										    $cates = explode(",",$couponinfo['use_goods_contents']['contents']);
+											if(in_array($storeid, $cates)){
+												echo '<option value="'.$storeid.'" selected="selected">'.$storetitle.'</option>';
+											}else{
+												echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+											}
+										}else{
+											echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+										}
+								    ?>
+								{/foreach}
+								{foreach $cate_shops as $items}
+								    <?php
+										$storeid = 'e'.$items['id'];
+										$storetitle = $items['name'];
+
+										if($couponinfo && $couponinfo['use_goods_contents']['type'] == 1){
+										    $cates = explode(",",$couponinfo['use_goods_contents']['contents']);
+											if(in_array($storeid, $cates)){
+												echo '<option value="'.$storeid.'" selected="selected">'.$storetitle.'</option>';
+											}else{
+												echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+											}
+										}else{
+											echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+										}
+								    ?>
+								{/foreach}
+								<?php
+									if($couponinfo && $couponinfo['use_goods_contents']['type'] == 1){
+									    $cates = explode(",",$couponinfo['use_goods_contents']['contents']);
+										if(in_array("gpay", $cates)){
+											echo '<option value="gpay" selected="selected">店内支付</option>';
+										}else{
+											echo '<option value="gpay">店内支付</option>';
+										}
+									}else{
+										echo '<option value="gpay">店内支付</option>';
+									}
+							    ?>
+							 </select>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">选择类目</span>
+								 
+						</div>
+					</div>
+
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background: #4385ff;color: #fff;">确定</button>
+					</div>
+		
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/jquery.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/select2.full.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/select2-krajee.min.js"> </script>
+<script>
+    if(jQuery('#w1').data('select2')) {
+        jQuery('#w1').select2('destroy');
+    }
+    jQuery.when(jQuery('#w1').select2(b)).done(initS2Loading('w1', 'a'));
+
+</script>
+
+<script type="text/javascript">
+	$('input[name="use_goods_type"]').each(function(){
+        $(this).click(function(){
+            if($(this).val() > 0){
+                $('#shops_list').show()
+            }else{
+                $('#shops_list').hide()
+            }
+        })
+    })
+	
+
+
+   	function clearNoNum(obj){  
+      obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+      if(obj.value.charAt(0,1) == "."){
+        obj.value = "";
+      }
+      obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的   
+      obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");  
+      obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数   
+      if(obj.value.indexOf(".")< 0 && obj.value !=""){
+       obj.value= parseFloat(obj.value);  
+      }  
+    }
+
+
+
+   	function checkinfo(){
+   		var give_type = $("input[name='give_type']:checked").val();
+   		if(!give_type){
+   			alert("请选择领取场景");
+   			$("input[name='give_type']").focus();
+   			return false;
+   		}
+   		var title = $("#title").val();
+        var price2= $("#price2").val();
+   		var price = $("#price").val();
+
+   		if(!title){
+   			alert("优惠券名称不能为空！");
+   			return false;
+   		}
+
+   		if(!price2){
+   			alert("优惠券使用条件不能为空");
+   			return false;
+   		}
+   		if(!price || price <= 0){
+   			alert("优惠券减免金额不能为空且大于0");
+   			return false;
+   		}
+   		var use_type = $("input[name='use_type']:checked").val();
+   		if(!use_type){
+   			alert("请选择使用限制");
+   			$("input[name='give_type']").focus();
+   			return false;
+   		}
+   		if(use_type == 1){
+			var today_after = $("#today_after").val();
+   			if(!today_after){
+   				alert("请输入有效天数");
+   				$("#today_after").focus();
+   				return false;
+   			}
+   		}else if(use_type == 2){
+			var yes_after = $("#yes_after").val();
+   			if(!yes_after){
+   				alert("请输入有效天数");
+   				$("#yes_after").focus();
+   				return false;
+   			}
+   		}
+   		var use_goods_type = $("input[name='use_goods_type']:checked").val();
+   		if(!use_goods_type ){
+   			alert("请选择可使用场景");
+   			$("input[name='use_goods_contents']").focus();
+   			return false;
+   		}
+   		if(use_goods_type == 1 && !$("#w1").val()){
+   			alert("请选择类目");
+   			return false;
+   		}
+   		$("#mengdian").val($("#w1").val());
+   	}
+
+
+
+
+
+</script>
+{include file="public/foot_more" /}
+
+<script>
+$.fn.datetimepicker.dates['zh-CN'] = {  
+        days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],  
+        daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],  
+        daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],  
+        months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],  
+        monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],  
+        today: "今天",  
+        suffix: [],  
+        meridiem: ["上午", "下午"]  
+	}; 
+   	$('#btimes').datetimepicker({
+   		language:  'zh-CN',
+   		minView: "month",
+   		autoclose:true,
+   		startDate: new Date()
+   	});
+
+   	$('#etimes').datetimepicker({
+   		language:  'zh-CN',
+   		minView: "month",
+   		autoclose:true,
+   		startDate: new Date()
+   	});
+</script>

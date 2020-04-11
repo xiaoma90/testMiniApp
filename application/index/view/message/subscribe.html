@@ -1,0 +1,384 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navSystem" class="navSystem20">
+<style type="text/css">
+  .Menubox{
+    width:100%;
+    border-bottom:1px solid #4385ff;
+    height:42px;
+    line-height:42px; 
+    border-top: none;
+  }
+  .Menubox li{
+    float:left;
+    display:block;
+    cursor:pointer;
+    width:114px;
+    height:41px;
+    line-height:41px; 
+    text-align:center;
+    color:#333;
+    border-left:1px solid #eee ;
+    border-top: 1px solid #eee; 
+    border-right: 1px solid #eee;
+    border-radius: 6px 6px 0 0;
+    margin-right: 16px;
+  }
+  .Menubox li.hover{
+    background:#4385ff;
+    width:116px;
+    color:#fff;
+    height:41px;
+    line-height:41px;
+    border-top: 1px solid #4385ff; 
+  }
+  .Contentbox{
+    width:100%;
+    clear:both;
+    height:auto;
+    padding-top:20px;
+  }
+.chongdingy{
+	background-color:#f9f9f9; 
+	padding:10px 0;
+  border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 14px;
+	padding-left: 30px;
+	box-sizing: border-box;
+}
+.chongdingywz_top{
+  text-align: left !important;
+	font-size: 14px;
+	padding-left: 20px;
+  box-sizing: border-box;
+  color: #5C6270;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+form{
+  margin-bottom: 40px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+/* .form_nobg .btn_hov:hover{
+	background-color: #d8d8d8 !important;
+} */
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+.cont_none{
+  font-size: 16px;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+</style>
+<div>
+
+
+	<div class="row-fluid">
+
+
+
+		<div class="span12">
+
+
+
+			<div class="portlet box ">
+
+
+
+				<div class="portlet-body">
+					<div class="control-group chongdingy" style="background-color:#fcf8e3; margin-bottom:20px !important">
+						<label class="chongdingywz_top">模板消息相关设置，操作步骤，点击链接<a href="https://shimo.im/docs/7jf0rUiF1tUGd54X" target="_blank">[模板消息设置操作步骤]</a>查看</label>
+            <label class="chongdingywz_top">注：如不需要发送模板消息的请留空。</label>
+					</div>
+					<div class="Menubox">
+						<ul>
+							<li id="two1" class="hover">微信</li>
+						</ul>
+					</div>
+					<form action="{:Url('Message/savesubscribe')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data">
+						<div class="Contentbox">
+						    <div id="con_two_1" >
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">发货提醒</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid1" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag1']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：办公/文具</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url1" type="text" class="span4 m-wrap" value="{$wx['url_flag1']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">确认收货通知</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid2" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag2']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：效率</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url2" type="text" class="span4 m-wrap" value="{$wx['url_flag2']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">退款提醒</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid3" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag3']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：效率</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url3" type="text" class="span4 m-wrap" value="{$wx['url_flag3']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">拼团成功通知</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid4" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag4']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：效率</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url4" type="text" class="span4 m-wrap" value="{$wx['url_flag4']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">拼团失败通知</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid5" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag5']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：办公/文具</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url5" type="text" class="span4 m-wrap" value="{$wx['url_flag5']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">申请审核通知</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid6" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag6']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：效率</span>
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url6" type="text" class="span4 m-wrap" value="{$wx['url_flag6']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">分销审核通知</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid7" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag7']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：办公/文具</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url7" type="text" class="span4 m-wrap" value="{$wx['url_flag7']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">会员开通成功提醒</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid8" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag8']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：在线教育</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url8" type="text" class="span4 m-wrap" value="{$wx['url_flag8']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">提现审核通知</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid9" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag9']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：效率</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url9" type="text" class="span4 m-wrap" value="{$wx['url_flag9']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+
+								<div class="control-group chongdingy">
+									<label class="control-label chongdingywz">积分变动提醒</label>
+								</div>
+								<div class="control-group">
+									<label class="control-label">模板消息id</label>
+									<div class="controls">
+										<input name="wx_mid10" type="text" class="span4 m-wrap" readonly="true" value="{$wx['mid_flag10']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">类目：在线教育</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">跳转页面路径</label>
+									<div class="controls">
+										<input name="wx_url10" type="text" class="span4 m-wrap" value="{$wx['url_flag10']}"  style="height: 35px !important;" />
+										<span style="color:#999999; line-height:40px; margin-left:20px;">例：/pages/index/index 跳转首页，可带参数</span>
+									</div>
+								</div>
+						    </div>
+						</div>
+						<div class="form_nobg">
+							<a href="javascript:;" class="btn green btn_hov" style="color:#4385ff;border:1px solid #4385ff;background:rgba(67, 133, 255, 0.102);padding:5px 14px;margin-right:12px;" onclick="set()">一键生成</a>
+							<button type="submit" class="btn green btn_hov" style="background: #4385ff;">确定</button>
+						</div>
+					</form>
+					<style>
+					.reset_psw{
+						display: none;
+					    width: 100%;
+					    height: 100%;
+					    position: fixed;
+					    left: 0;
+					    top: 0;
+					    background-color: rgba(0,0,0,0.5);
+					    z-index: 9000;
+					}
+					.reset_box{
+						position: absolute;
+					    margin: auto;
+					    left: 0;
+					    top: 300px;
+					    right: 0;
+					    bottom: 0;
+					    width: 626px;
+					    overflow: hidden;
+					}
+					.reset_head{
+						padding: 0 30px;
+					    background: #6D7187;
+					    height: 60px;
+					    font-size: 20px;
+					    color: #fff;
+					    font-weight: 700;
+					    line-height: 60px;
+					    position: relative;
+					}
+					.reset_head img{
+					    right: 22px;
+					    position: absolute;
+					    top: 24px;
+					    display: block;
+					}
+					.reset_content{
+						background: #fff;
+						padding: 30px;
+						font-size: 24px;
+						text-align: center;
+					}
+					</style>
+					<div class="reset_psw">
+						<div class="reset_box">
+							<div class="reset_content">
+								生成中，请不要刷新/跳转页面
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+  function set(){
+  	$('.reset_psw').show();
+  	$.ajax({
+  		url: "{:Url('Message/set')}?appletid=<?php echo $_GET['appletid']?>",
+  		dataType: 'json',
+  		type: 'post',
+  		data:{},
+  		success:(res)=>{
+  			var res = $.parseJSON(res)
+  			if(res.errcode == 0){
+  				$.each(res.data,function(index,value){
+  					$("input[name='"+index+"']").val(value)
+				});
+  				$('.reset_psw').hide();
+  			}else{
+  				alert('生成失败，错误原因：'+ res.errmsg);
+  				$('.reset_psw').hide();
+  			}
+  		}
+  	})
+  }
+</script>
+
+{include file="public/foot_more" /}

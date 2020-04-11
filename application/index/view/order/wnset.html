@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<head>
+
+	<meta charset="utf-8" />
+	<title>{$Think.APP_COMPANY}</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="always" name="referrer" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+	<link href="__STATIC_ROOT__/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__STATIC_ROOT__/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__STATIC_ROOT__/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__STATIC_ROOT__/css/style-metro.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__STATIC_ROOT__/css/style.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__STATIC_ROOT__/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+
+	<link href="__STATIC_ROOT__/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/bootstrap-fileupload.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/jquery.gritter.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/chosen.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/select2_metro.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/jquery.tagsinput.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/clockface.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/bootstrap-wysihtml5.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/datepicker.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/timepicker.css" />
+
+	<link rel="stylesheet" href="__STATIC_ROOT__/css/iconfont.css">
+
+	<link href="__STATIC_ROOT__/css/new_icon.css" rel="stylesheet" type="text/css"/>
+
+	<!--<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/colorpicker.css" />-->
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/bootstrap-toggle-buttons.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/daterangepicker.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/datetimepicker.css" />
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/multi-select-metro.css" />
+
+	<link href="__STATIC_ROOT__/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+
+	<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/webuploader/css/webuploader.css" />
+
+	<link href="__STATIC_ROOT__/css/wnmh.css" rel="stylesheet" type="text/css"/>
+
+	<script src="__STATIC_ROOT__/js/jquery.js" type="text/javascript"></script>
+	
+	<script src="__STATIC_ROOT__/js/clipboard.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="__STATIC_ROOT__/diyform/css/formbuilder.css">
+  <link rel="stylesheet" href="__STATIC_ROOT__/diyform/css/vendor.css">
+</head>
+
+
+{include file="public/top" /}
+<!-- <link rel="stylesheet" href="__STATIC_ROOT__/css/drag.css"> -->
+<script src="__STATIC_ROOT__/js/drag.js"></script>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale8-2">
+<input type="hidden" id="static_root" value="__STATIC_ROOT__" >
+
+<style>
+	.navSale8{
+		display: block !important;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		/* box-sizing: border-box; */
+	}
+	.fb-main {
+		width:70%;
+		padding-bottom: 70px;
+		display: flex;
+		flex-direction: row;
+		background-color: #fff;
+		border-radius: 5px;
+		height: 100%;
+	}
+
+	input[type=text] {
+		height: 30px;
+		margin-bottom: 3px;
+	}
+
+	select {
+		margin-bottom: 20px;
+		font-size: 14px;
+	}
+	.biaodan_right{
+		display: inline-block;
+		width: 68px;
+    text-align: right;
+	}
+</style>
+
+	<div class="row-fluid">
+
+		<div class="portlet box">
+
+			<div class="portlet-body form" style="display: flex">
+
+
+				<div class="fb-main">
+
+
+						
+				</div>
+				<div class='fb-right-form'>
+					<div class='form-box'> 
+						<div class='form-text'>
+							<div class='form-maketext'>基础设置</div>
+						</div> 
+						<div class='form-inputsname'>
+							<span class="biaodan_right"><span style="color:red;">*</span> 表单名称</span>
+							<input type='text' name='formtitle' value="{$formtitle}">
+							<span class='form-tishi'>后台表单名称</span>
+						</div> 
+						<div class='form-inputsname'>
+							<span class="biaodan_right">表单标题</span>
+							<input type='text' name='formname' value="{$formname}">
+							<span class='form-tishi'>小程序端标题</span>
+						</div>
+						<div class='form-inputsname'>
+							<span class="biaodan_right">表单说明</span>
+							<textarea class='shuom-texts' type='text' name='descs' value="{$descs}">{$descs}</textarea> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+		</div>
+	</div>
+</div>
+<input type="hidden" id="handle_status">
+<script>
+var formid = {$formid};
+var tp_text = '{$forms['tp_text']}';
+var payload1 = '';
+var status_info = [{
+            "label": "Medical history",
+            "field_type": "file",
+            "required": true,
+            "field_options": {},
+			"cid": "c14"
+          }];
+if(tp_text != "这是空啦"){
+	// status_info = JSON.parse("{$forms['tp_text']}");
+	status_info = {$forms['tp_text']};
+}
+$(function(){
+  fb = new Formbuilder({
+    selector: '.fb-main',
+    bootstrapData: status_info
+  });
+
+  fb.on('save', function(payload){
+  		payload1 = payload;
+  		save(1);
+  })
+
+  $(".form-inputsname input").change(function () {
+  		save(2);
+  	})
+
+  $(".form-inputsname textarea").change(function () {
+  		save(2);
+  	})
+  
+});
+
+function save(type){ //type 1表单模块 2标题模块
+	var formtitle = $.trim($("input[name=formtitle]").val());
+	if(formtitle == ''){
+		alert("自动保存失败，请先设置表单名称");
+		return false;		
+	}
+  	var formname = $.trim($("input[name=formname]").val());
+  	var descs = $.trim($("textarea[name=descs]").val());
+	if(payload1 == '' && tp_text == '这是空啦'){
+		payload1 = '';
+	}else if(payload1 == ''){
+		payload1 = status_info;
+	}
+    $.ajax({
+    	url:"{:Url('order/wnsave')}?uniacid=<?php echo $_GET['appletid']?>",
+    	type:'post',
+    	dataType:'json',
+    	data:{
+    		datas:payload1,
+    		formid:formid,
+    		formtitle:formtitle,
+    		formname:formname,
+    		descs:descs,
+    		type:type
+    	},
+    	success:function(res){
+			formid = res
+    	}
+    })
+}
+
+
+
+function copyid(id){
+	var clipboard = new Clipboard('.js-clip'+id);
+	clipboard.on('success', function(e) {
+	    alert("ID复制成功");
+	    e.clearSelection();
+	});
+
+	clipboard.on('error', function(e) {
+	    alert("ID复制失败");
+	});
+}
+</script>
+
+	
+
+	<script src="__STATIC_ROOT__/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+
+	<script src="__STATIC_ROOT__/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>      
+
+	<script src="__STATIC_ROOT__/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<script src="__STATIC_ROOT__/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+
+	<script src="__STATIC_ROOT__/js/jquery.blockui.min.js" type="text/javascript"></script>  
+
+	<script src="__STATIC_ROOT__/js/jquery.cookie.min.js" type="text/javascript"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-fileupload.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/chosen.jquery.min.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/select2.min.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/wysihtml5-0.3.0.js"></script> 
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-wysihtml5.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.tagsinput.min.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.toggle.buttons.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-datepicker.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-datetimepicker.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/clockface.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/date.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/daterangepicker.js"></script> 
+
+	<!--<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-colorpicker.js"></script>  -->
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-timepicker.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.inputmask.bundle.min.js"></script>   
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.input-ip-address-control-1.0.min.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.multi-select.js"></script>   
+
+	<script src="__STATIC_ROOT__/js/bootstrap-modal.js" type="text/javascript" ></script>
+
+	<script src="__STATIC_ROOT__/js/bootstrap-modalmanager.js" type="text/javascript" ></script> 
+
+	<script src="__STATIC_ROOT__/js/app.js"></script>
+	<script src="__STATIC_ROOT__/diyform/js/vendor.js"></script>
+  <script src="__STATIC_ROOT__/diyform/js/formbuilder.js"></script>
+	
+	<script src="__STATIC_ROOT__/js/form-components.js"></script>   
+
+	<script src="__STATIC_ROOT__/js/ui-modals.js"></script>
+	<script src="__STATIC_ROOT__/js/layer/layer.js"></script>  
+	<link href="__STATIC_ROOT__/js/layer/theme/default/layer.css" rel="stylesheet" type="text/css"/>
+	
+	</body>
+	<script type="text/javascript">
+		$('.content_left_single').click(function(){
+		$('.content_left_single').removeClass('content_left_single_on');
+		$(this).addClass('content_left_single_on')
+	})
+	$('.content_right_single').each(function(){
+		$(this).click(function(){
+			if($(this).hasClass('content_right_single_on')){
+				$(this).removeClass('content_right_single_on')
+			}else{
+				$(this).addClass('content_right_single_on')
+			}
+		})
+	})
+	$('.creatphoto').click(function(){
+		$('.cjxcalertbox').show()
+	})
+	$('.cjxc_btn_close').click(function(){
+		$('.cjxcalertbox').hide()
+	})
+	$('.cjxcalert_head_right').click(function(){
+		$('.cjxcalertbox').hide()
+	})
+	$('.cjxc_btn_creat').click(function(){
+		var val = $('.cjxcalert_input').val();
+		var html = $('.content_left').html();
+		html += '<div class="content_left_single hbj"><div class="content_left_single_div1">'+val+'</div><div style="flex: 1;"></div><div class="content_left_single_div2">0</div></div>';
+		$('.content_left').html(html);
+		 $('.cjxcalert_input').val("");
+	})
+	</script>
+
+	</body>
+</html>

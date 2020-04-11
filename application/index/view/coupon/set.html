@@ -1,0 +1,100 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navSale1{
+		display: block !important;
+	}
+	.editors{
+		max-width: 770px;
+		min-height: 600px;
+	}
+	.w-e-text-container{
+		min-height: 600px !important;
+	}
+	.weiz{
+		margin-left:20px;
+		margin-top: 40px;
+		margin-bottom: 20px;
+	}
+
+	.chongdingy{
+		background-color:#f5f5f5; 
+		padding:10px 0;
+	}
+	.chongdingywz{
+		text-align: left !important;
+		font-size: 16px;
+		padding-left: 20px;
+	}
+
+	.jscolor{
+		width: 30px;
+		height: 30px;
+		border: 1px solid #dedede;
+		outline: none;
+	}
+	.m-wrap{
+		outline: none;
+		padding-left: 10px;
+	}
+</style>
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale1-2">
+
+	<div class="row-fluid">
+
+		<div class="portlet box">
+
+			
+			<div class="portlet-body form">
+
+
+				<form action="{:Url('Coupon/setsave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					
+							
+
+					<div class="control-group">
+
+						<label class="control-label">是否开启验证</label>
+
+						<div class="controls">
+
+							<label class="radio">
+
+							<input type="radio" name="flag" value="1" {if $set && $set['flag']==1}checked{else}checked{/if}/>
+
+							关闭
+
+							</label>
+
+							<label class="radio">
+
+							<input type="radio" name="flag" value="2" {if $set && $set['flag']==2}checked{/if}/>
+
+							开启
+
+							</label> 
+
+						</div>
+
+					</div>
+
+					<div class="form-actions">
+
+						<button type="submit" class="btn green">确定</button>
+
+					</div>
+
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+{include file="public/foot_more" /}
+</script>

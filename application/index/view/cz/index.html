@@ -1,0 +1,131 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.navSale3{
+	display: block !important;
+}
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.chongdingy{
+	background-color:#fff; 
+	border-bottom: 1px solid #eee;
+	padding:10px 0;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.jscolor{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+	border-top: 0 !important;
+}
+</style>
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale3-1">
+
+	<style type="text/css">
+		.sss{
+			display: inline-block;
+		}
+	</style>
+
+	<div class="row-fluid">
+
+		<div class="portlet box">
+
+			
+			<div class="portlet-body form">
+
+
+				<form action="{:Url('Cz/save')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					
+				
+					<div class="control-group">
+
+						<label class="control-label">充值活动名称</label>
+
+						<div class="controls">
+
+							<input name="title" id="title" type="text" class="span3 m-wrap"  style="height: 35px !important;"  value="{if $rechargeconf}{$rechargeconf.title}{/if}" />
+
+						</div>
+
+					</div>
+					<!-- <div class="control-group">
+
+						<label class="control-label">店内支付最大抵用积分</label>
+
+						<div class="controls">
+
+							<input name="score_shoppay" id="score_shoppay" type="number" mini="0" class="span3 m-wrap"  style="height: 35px !important;"  value="{if $rechargeconf}{$rechargeconf.score_shoppay}{/if}" />
+
+						</div>
+
+					</div> -->
+
+					<div class="form-actions form_nobg" style="padding-top: 40px;">
+						<button type="submit" class="btn" style="background: #6671e4;color: #fff;text-align: center;margin-left: 45%">确定</button>
+					</div>
+
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+{include file="public/foot_more" /}
+
+
+<script type="text/javascript">
+
+
+   	function checkinfo(){
+
+   		var title = $("#title").val();
+   		// var score = $("#score").val();
+   		// var money = $("#money").val();
+   		// var score_shoppay = $("#score_shoppay").val();
+
+   		if(!title){
+   			alert("充值活动名称不能为空！");
+   			return false;
+   		}
+
+
+   		// if(!score_shoppay){
+   		// 	alert("店内支付最大抵用积分不能为空！");
+   		// 	return false;
+   		// }
+   	}
+
+
+
+
+
+</script>

@@ -1,0 +1,773 @@
+{include file="public/head" /}
+
+{include file="public/top" /}
+
+<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_626828_1a44blybf66.css" />
+
+<script type="text/javascript" src="__STATIC_ROOT__/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.form.js"></script>
+
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+
+<style type="text/css">
+#selectUrl,#selectIcon{width:auto;}
+#selectUrl .modal-content,#selectUrl .modal-header{
+	border-radius: 10px;
+}
+#selectUrl .modal-header{background: #f4f5f9}
+#selectUrl .modal-title{font-size:14px}
+#selectUrl.modal{margin-left: -465px}
+.close{background: none!important}
+#selectUrl .form-control{
+	display: block;
+	width: 100%;
+	height: 26px;
+	padding: 4px 12px;
+	font-size: 12px;
+	line-height: 1.6;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #e4eaec;
+	border-radius: 3px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+}
+.input-group{
+	position: relative;width:100%;
+	display: table;
+	border-collapse: separate;
+}
+#selectUrl .input-group .form-control{
+	border-color: #e7e7eb;
+	border-radius: 0;
+	text-shadow: 0 0 0;
+	color: #98999a!important;
+	-webkit-box-shadow: 0 0 0;
+	box-shadow: 0 0 0;
+	position: relative;
+	z-index: 2;
+	float: left;
+	width: 90.3%;
+	margin-bottom: 0;
+	border-radius: 3px 0 0 3px;
+	box-sizing: content-box;
+}
+.input-group-addon{
+	border-radius: 0!important;
+	float: left;
+  color: #98999a;
+	text-align: center;
+  background-color: #f3f7f9;
+  border: 1px solid #e4eaec;
+	width: auto;
+	margin: 0;
+	padding: 6px 12px;
+}
+.nav-tabs>li>a{    padding: 10px 20px;
+	line-height: 1.3;
+	color: #76838f;
+	-webkit-transition: .25s;
+	-o-transition: .25s;
+	transition: .25s;}
+.modal-footer{text-align: center}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+	color: #fff;
+	background-color: #4385ff;
+	border-color: transparent;
+	border-bottom-color: #38f;
+	}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.jscolor{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+
+<form id='myupload' action="{:Url('Diypage/imgupload')}?uniacid=<?php echo $_GET['appletid']?>" method='post' enctype='multipart/form-data'>
+    <input type="file" id="uploadphoto" name="uploadfile" value="请点击上传图片"   style="display:none" />
+</form>
+
+<input type="hidden" id="nowhtml" value="navDIY" class="navDIY5">
+<input type="hidden" name="staticroot" id="staticroot" value="__STATIC_ROOT__" />
+
+	<div class="row-fluid">
+
+
+
+		<div class="portlet box">
+
+
+
+			
+
+			<div class="portlet-body form">
+
+
+
+				<div class="control-group chongdingy" style="background-color:#FCF8E3; margin-bottom:20px !important">
+
+
+
+					<label class="control-label chongdingywz" style="background-color:#FCF8E3;color:#5C6270;font-size:14px;">菜单不启用的则不显示，样式会根据数量自动调整。</label>
+
+
+
+				</div>
+
+
+
+				<form action="{:Url('Menu/savenew')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data">
+
+
+
+					
+
+					<div class="control-group chongdingy">
+
+
+
+						<label class="control-label chongdingywz">底部菜单样式</label>
+
+
+
+					</div>
+
+
+
+					<div class="control-group">
+
+
+
+						<label class="control-label">启用底部菜单</label>
+
+
+
+						<div class="controls">
+
+
+
+							<label class="radio">
+
+
+
+							<input style="margin-left:0" type="radio"  name="tabbar_t" value="0" {if $bases}{if $bases.tabbar_t==0}checked=checked{/if}{/if}/>
+
+
+
+							不启用
+
+
+
+							</label> 
+
+
+
+							<label class="radio">
+
+
+
+							<input style="margin-left:0" type="radio"  name="tabbar_t" value="1" {if $bases}{if $bases.tabbar_t==1}checked=checked{/if}{else}checked=checked{/if}/>
+
+
+
+							启用
+
+
+
+							</label> 
+
+
+
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">默认启用</span>
+
+						</div>
+
+
+
+					</div>
+
+
+
+
+
+					<div class="control-group">
+
+
+
+						<label class="control-label">菜单栏背景色</label>
+
+
+
+						<div class="controls">
+
+
+
+							<button class="jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+
+							</button>
+
+							<input id="chosen-value" value="{if $bases}{$bases.tabbar_bg}{else}FFFFFF{/if}" class="span2 m-wrap" name="tabbar_bg">
+
+
+
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">菜单栏背景颜色，建议设置成ffffff</span>
+
+
+
+						</div>
+
+
+
+					</div>
+
+
+
+					<div class="control-group">
+
+
+
+						<label class="control-label">菜单栏横线颜色</label>
+
+
+
+						<div class="controls">
+
+
+
+							<button class="jscolor {valueElement:'chosen-value_t', onFineChange:'setTextColor(this)'}">
+
+							</button>
+
+							<input id="chosen-value_t" value="{if $bases}{$bases.color_bar}{else}CCCCCC{/if}" class="span2 m-wrap" name="color_bar">
+
+
+
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">白色背景建议设置为cccccc，其他颜色背景自选，不填则不显示</span>
+
+
+
+						</div>
+
+
+
+					</div>
+
+
+
+					<div class="control-group">
+
+
+
+						<label class="control-label">菜单栏文字颜色</label>
+
+
+
+						<div class="controls">
+
+
+
+							<button class="jscolor {valueElement:'chosen-value_r', onFineChange:'setTextColor(this)'}">
+
+							</button>
+
+							<input id="chosen-value_r" value="{if $bases}{$bases.tabbar_tc}{else}222222{/if}" class="span2 m-wrap" name="tabbar_tc">
+
+
+
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">建议设置成222222</span>
+
+
+
+						</div>
+
+
+
+					</div>
+
+
+
+					<div class="control-group">
+
+
+
+						<label class="control-label">选中文字颜色</label>
+
+
+
+						<div class="controls">
+
+
+
+							<button class="jscolor {valueElement:'chosen-value_ra', onFineChange:'setTextColor(this)'}">
+
+							</button>
+
+							<input id="chosen-value_ra" value="{if $bases}{$bases.tabbar_tca}{else}FF4444{/if}" class="span2 m-wrap" name="tabbar_tca">
+
+
+
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">尽量与样式DIY中“突出色”保持一致，防止杂乱</span>
+
+
+
+						</div>
+
+
+
+					</div>
+
+					<div class="control-group chongdingy">
+
+
+
+						<label class="control-label chongdingywz">底部菜单</label>
+
+
+
+					</div>
+
+
+					<style>
+						.btn_img{position: absolute;left: 0;bottom: 0px;font-size:12px;text-align: center;background: rgba(0,0,0,.5);color: #fff;width: 100%;}
+						.btn_icon_text{width:53px;height:20px;line-height:20px;text-align:center;position:absolute;bottom: 1px;left:0;font-size: 12px;background: rgba(0,0,0,.5);color:#fff;cursor: pointer;}
+					</style>
+
+					<div class="control-group" id="tab1">
+
+
+
+						<label class="control-label">按钮①内容</label>
+
+
+
+						<div class="controls">
+							
+							<span  style=" line-height:30px; margin-left:20px;vertical-align: top">
+
+								名称：
+							</span>
+
+							<input name="tabbar1_name" type="text" class="span2 m-wrap" value="{if $item1}{$item1['tabbar_name']}{/if}" style="width:135px;"/>
+
+							<span style=" line-height:30px; margin-left:20px;line-height:30px; margin-left:20px;vertical-align: top">
+
+								链接：
+
+							</span>
+
+							<input name="tabbar1_url" id="titlelink1" type="text" class="span2 m-wrap" value="{if $item1}{$item1['tabbar_url']}{/if}" style="width:250px;"/>
+							<input type="hidden" class="form-control input-sm diy-bind" name="tabbar1_linktype" placeholder=""  value="{if $item1}{$item1['tabbar_linktype']}{/if}" id="linktype1">
+							<span style="line-height:33px;padding-right:10px;display: inline-block;width:70px;margin-left: -5px;padding: 0;border-radius: 0!important;background:#f0f0f0;font-size:12px;vertical-align: top" class="btn" data-input="#titlelink1" data-linktype="#linktype1" data-toggle="selectUrl" data-uniacid="<?php echo $_GET['appletid']?>">
+								选择链接
+							</span>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar1" value="1" {if $item1}{if $item1['tabbar']==1}checked="checked"{/if}{else}checked="checked"{/if} onclick="imgicon1(1)">
+								图片
+							</label>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar1" value="2" {if $item1}{if $item1['tabbar']==2}checked="checked"{/if}{/if} onclick="imgicon1(2)">
+								图标
+							</label>
+							<div style="display: inline-block;">
+
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item1}{if $item1['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block{/if}" class="imgicon1_1 commonuploadpic1">
+									<img src="{if $item1}{if $item1['tabbar']==1}{$item1['tabimginput_1']}{/if}{/if}"  alt="" class="btnimgurl1" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选择图片<input type="hidden" name="commonuploadpic1" value="{if $item1}{if $item1['tabbar']==1}{$item1['tabimginput_1']}{/if}{/if}"></div>
+								</div>
+					
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item1}{if $item1['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block{/if}" class="imgicon1_1 commonuploadpic2">
+									<img src="{if $item1}{if $item1['tabbar']==1}{$item1['tabimginput_2']}{/if}{/if}"  alt="" class="btnimgurl2" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选中图片<input type="hidden" name="commonuploadpic2" value="{if $item1}{if $item1['tabbar']==1}{$item1['tabimginput_2']}{/if}{/if}"></div>
+								</div>
+								<div style="overflow:hidden;position: relative;width:54px;height:54px;{if $item1}{if $item1['tabbar']==2}display: inline-block;{else}display: none{/if}{else}display: none;{/if}" class="imgicon1_2 commonuploadpic2">
+									<input type="hidden" id="tabiconinput1_1" value="{if $item1}{if $item1['tabbar']==2}{$item1['tabimginput_1']}{/if}{/if}"  data-bind-init="true" name="tabimginput1_3">
+	                                <span class="iconfont {if $item1}{if $item1['tabbar']==2}{$item1['tabimginput_1']}{/if}{/if}" id="icon_1_1" style="width:50px;height:50px;font-size:40px;text-align:center;display: inline-block;border:1px solid #c0c0c0;padding-top: 15px;"></span>
+	                                <span data-input="#tabiconinput1_1" data-element="#icon_1_1" data-toggle="selectIcon" class="btn_icon_text" style="cursor: pointer;">选择图标</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="control-group" id="tab1">
+						<label class="control-label">按钮②内容</label>
+						<div class="controls">
+							
+							<span  style=" line-height:30px; margin-left:20px;vertical-align: top;">
+
+								名称：
+							</span>
+
+
+							<input name="tabbar2_name" type="text" class="span2 m-wrap" value="{if $item2}{$item2['tabbar_name']}{/if}" style="width:135px;"/>
+
+							<span style=" line-height:30px; margin-left:20px;line-height:30px; margin-left:20px;vertical-align: top;">
+
+								链接：
+
+							</span>
+
+							<input name="tabbar2_url" id="titlelink2" type="text" class="span2 m-wrap" value="{if $item2}{$item2['tabbar_url']}{/if}" style="width:250px;"/>
+							<input type="hidden" class="form-control input-sm diy-bind" name="tabbar2_linktype"  placeholder="" value="{if $item2}{$item2['tabbar_linktype']}{/if}" id="linktype2">
+							<span style="line-height:33px;display: inline-block;width:70px;padding: 0;border-radius: 0!important;background:#f0f0f0;margin-left: -5px;font-size:12px;vertical-align: top;" class="btn" data-input="#titlelink2" data-linktype="#linktype2" data-toggle="selectUrl" data-uniacid="<?php echo $_GET['appletid']?>">
+								选择链接
+							</span>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar2" value="1" {if $item2}{if $item2['tabbar']==1}checked="checked"{/if}{else}checked="checked"{/if} onclick="imgicon2(1)">
+								图片
+							</label>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar2" value="2" {if $item2}{if $item2['tabbar']==2}checked="checked"{/if}{/if} onclick="imgicon2(2)">
+								图标
+							</label>
+					
+							<div style="display: inline-block;">
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item2}{if $item2['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block;{/if}" class="imgicon2_1 commonuploadpic3">
+									<img src="{if $item2}{if $item2['tabbar']==1}{$item2['tabimginput_1']}{/if}{/if}"  alt="" class="btnimgurl3" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选择图片<input type="hidden" name="commonuploadpic3" value="{if $item2}{if $item2['tabbar']==1}{$item2['tabimginput_1']}{/if}{/if}"></div>
+								</div>
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item2}{if $item2['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block;{/if}" class="imgicon2_1 commonuploadpic4">
+									<img src="{if $item2}{if $item2['tabbar']==1}{$item2['tabimginput_2']}{/if}{/if}"  alt="" class="btnimgurl4" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选中图片<input type="hidden" name="commonuploadpic4" value="{if $item2}{if $item2['tabbar']==1}{$item2['tabimginput_2']}{/if}{/if}"></div>
+								</div>
+				
+								<div style="overflow:hidden;position: relative;width:54px;height:54px;{if $item2}{if $item2['tabbar']==2}display: inline-block;{else}display: none{/if}{else}display: none;{/if}" class="imgicon2_2">
+									<input type="hidden" id="tabiconinput2_1" value="{if $item2}{if $item2['tabbar']==2}{$item2['tabimginput_1']}{/if}{/if}"  data-bind-init="true" name="tabimginput2_3">
+	                                <span class="iconfont {if $item2}{if $item2['tabbar']==2}{$item2['tabimginput_1']}{/if}{/if}" id="icon_2_1" style="width:50px;height:50px;font-size:40px;text-align:center;display: inline-block;border:1px solid #c0c0c0;padding-top: 15px;"></span>
+	                                <span data-input="#tabiconinput2_1" data-element="#icon_2_1" class="btn_icon_text" data-toggle="selectIcon">选择图标</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="control-group" id="tab1">
+
+
+
+						<label class="control-label">按钮③内容</label>
+
+
+
+						<div class="controls">
+							
+							<span  style=" line-height:30px; margin-left:20px;vertical-align: top;">
+
+								名称：
+							</span>
+
+
+							<input name="tabbar3_name" type="text" class="span2 m-wrap" value="{if $item3}{$item3['tabbar_name']}{/if}" style="width:135px;"/>
+
+							<span style=" line-height:30px; margin-left:20px;line-height:30px; vertical-align: top;">
+
+								链接：
+
+							</span>
+
+							<input name="tabbar3_url" id="titlelink3" type="text" class="span2 m-wrap" value="{if $item3}{$item3['tabbar_url']}{/if}" style="width:250px;"/>
+							<input type="hidden" class="form-control input-sm diy-bind" name="tabbar3_linktype" placeholder="" value="{if $item3}{$item3['tabbar_linktype']}{/if}" id="linktype3">
+							<span style="line-height:33px;padding-right:10px;display: inline-block;width:70px;vertical-align: top;padding: 0;margin-left: -5px;border-radius: 0!important;background:#f0f0f0;font-size:12px" class="btn" data-input="#titlelink3" data-linktype="#linktype3" data-toggle="selectUrl" data-uniacid="<?php echo $_GET['appletid']?>">
+								选择链接
+							</span>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar3" value="1" {if $item3}{if $item3['tabbar']==1}checked="checked"{/if}{else}checked="checked"{/if} onclick="imgicon3(1)">
+								图片
+							</label>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar3" value="2" {if $item3}{if $item3['tabbar']==2}checked="checked"{/if}{/if} onclick="imgicon3(2)">
+								图标
+							</label>
+					
+							<div style="display: inline-block;">
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item3}{if $item3['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block;{/if}" class="imgicon3_1 commonuploadpic5">
+									<img src="{if $item3}{if $item3['tabbar']==1}{$item3['tabimginput_1']}{/if}{/if}"  alt="" class="btnimgurl5" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选择图片<input type="hidden" name="commonuploadpic5" value="{if $item3}{if $item3['tabbar']==1}{$item3['tabimginput_1']}{/if}{/if}"></div>
+								</div>
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item3}{if $item3['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block;{/if}" class="imgicon3_1 commonuploadpic6">
+									<img src="{if $item3}{if $item3['tabbar']==1}{$item3['tabimginput_2']}{/if}{/if}"  alt="" class="btnimgurl6" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选中图片<input type="hidden" name="commonuploadpic6" value="{if $item3}{if $item3['tabbar']==1}{$item3['tabimginput_2']}{/if}{/if}"></div>
+								</div>
+	
+								<div style="overflow:hidden;position: relative;width:54px;height:54px;{if $item3}{if $item3['tabbar']==2}display: inline-block;{else}display: none{/if}{else}display: none;{/if}" class="imgicon3_2">
+									<input type="hidden" id="tabiconinput3_1" value="{if $item3}{if $item3['tabbar']==2}{$item3['tabimginput_1']}{/if}{/if}"  data-bind-init="true" name="tabimginput3_3">
+										<span class="iconfont {if $item3}{if $item3['tabbar']==2}{$item3['tabimginput_1']}{/if}{/if}" id="icon_3_1" style="width:50px;height:50px;font-size:40px;text-align:center;display: inline-block;border:1px solid #c0c0c0;padding-top: 15px;"></span>
+										<span data-input="#tabiconinput3_1" data-element="#icon_3_1" data-toggle="selectIcon" class="btn_icon_text">选择图标</span>
+								</div>
+					
+							</div>
+						</div>
+					</div>
+					<div class="control-group" id="tab1">
+
+
+
+						<label class="control-label">按钮④图标</label>
+
+
+
+						<div class="controls">
+							
+							<span  style=" line-height:30px; margin-left:20px;vertical-align: top;">
+
+								名称：
+							</span>
+
+
+							<input name="tabbar4_name" type="text" class="span2 m-wrap" value="{if $item4}{$item4['tabbar_name']}{/if}" style="width:135px;"/>
+
+							<span style=" line-height:30px; margin-left:20px;line-height:30px; margin-left:20px;vertical-align: top;">
+
+								链接：
+
+							</span>
+
+							<input name="tabbar4_url" id="titlelink4" type="text" class="span2 m-wrap" value="{if $item4}{$item4['tabbar_url']}{/if}" style="width:250px;"/>
+							<input type="hidden" class="form-control input-sm diy-bind" name="tabbar4_linktype" placeholder="" value="{if $item4}{$item4['tabbar_linktype']}{/if}" id="linktype4">
+							<span style="line-height:33px;display: inline-block;width:70px;vertical-align: top;margin-left: -5px;padding: 0;border-radius: 0!important;background:#f0f0f0;font-size:12px" class="btn" data-input="#titlelink4" data-linktype="#linktype4" data-toggle="selectUrl" data-uniacid="<?php echo $_GET['appletid']?>">
+								选择链接
+							</span>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar4" value="1" {if $item4}{if $item4['tabbar']==1}checked="checked"{/if}{else}checked="checked"{/if} onclick="imgicon4(1)">
+								图片
+							</label>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar4" value="2" {if $item4}{if $item4['tabbar']==2}checked="checked"{/if}{/if} onclick="imgicon4(2)">
+								图标
+							</label>
+					
+							<div style="display: inline-block;">
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item4}{if $item4['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block;{/if}" class="imgicon4_1 commonuploadpic7">
+									<img src="{if $item4}{if $item4['tabbar']==1}{$item4['tabimginput_1']}{/if}{/if}"  alt="" class="btnimgurl7" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选择图片<input type="hidden" name="commonuploadpic7" value="{if $item4}{if $item4['tabbar']==1}{$item4['tabimginput_1']}{/if}{/if}"></div>
+								</div>
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item4}{if $item4['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block;{/if}" class="imgicon4_1 commonuploadpic8">
+									<img src="{if $item4}{if $item4['tabbar']==1}{$item4['tabimginput_2']}{/if}{/if}"  alt="" class="btnimgurl8" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选中图片<input type="hidden" name="commonuploadpic8" value="{if $item4}{if $item4['tabbar']==1}{$item4['tabimginput_2']}{/if}{/if}"></div>
+								</div>
+			
+								<div style="overflow:hidden;position: relative;width:54px;height:54px;{if $item4}{if $item4['tabbar']==2}display: inline-block;{else}display: none{/if}{else}display: none;{/if}" class="imgicon4_2">
+									<input type="hidden"  value="{if $item4}{if $item4}{$item4['tabimginput_1']}{/if}{/if}" id="tabiconinput4_1"  data-bind-init="true" name="tabimginput4_3">
+	                                <span class="iconfont {if $item4}{if $item4}{$item4['tabimginput_1']}{/if}{/if}" id="icon_4_1" style="width:50px;height:50px;font-size:40px;text-align:center;display: inline-block;border:1px solid #c0c0c0;padding-top: 15px;"></span>
+	                                <span data-input="#tabiconinput4_1" data-element="#icon_4_1" data-toggle="selectIcon" class="btn_icon_text">选择图标</span>
+								</div>
+					
+							</div>
+						</div>
+					</div>
+					<div class="control-group" id="tab1">
+
+
+
+						<label class="control-label">按钮⑤内容</label>
+
+
+
+						<div class="controls">
+							
+							<span  style=" line-height:30px; margin-left:20px;vertical-align: top;">
+
+								名称：
+							</span>
+
+
+							<input name="tabbar5_name" type="text" class="span2 m-wrap" value="{if $item5}{$item5['tabbar_name']}{/if}" style="width:135px;"/>
+
+							<span style=" line-height:30px; margin-left:20px;line-height:30px; margin-left:20px;vertical-align: top;">
+
+								链接：
+
+							</span>
+
+							<input name="tabbar5_url" id="titlelink5" type="text" class="span2 m-wrap" value="{if $item5}{$item5['tabbar_url']}{/if}" style="width:250px;"/>
+							<input type="hidden" class="form-control input-sm diy-bind" name="tabbar5_linktype" placeholder="" value="{if $item5}{$item5['tabbar_linktype']}{/if}" id="linktype5">
+							<span style="line-height:33px;display: inline-block;width:70px;vertical-align: top;padding: 0;margin-left: -5px;border-radius: 0!important;background:#f0f0f0;font-size:12px" class="btn" data-input="#titlelink5" data-linktype="#linktype5" data-toggle="selectUrl" data-uniacid="<?php echo $_GET['appletid']?>">
+								选择链接
+							</span>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar5" value="1" {if $item5}{if $item5['tabbar']==1}checked="checked"{/if}{else}checked="checked"{/if} onclick="imgicon5(1)">
+								图片
+							</label>
+							<label class="radio" style="vertical-align: top;">
+								<input style="margin-left:0" type="radio"  name="tabbar5" value="2" {if $item5}{if $item5['tabbar']==2}checked="checked"{/if}{/if} onclick="imgicon5(2)">
+								图标
+							</label>
+					
+							<div style="display: inline-block;">
+
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item5}{if $item5['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block;{/if}" class="imgicon5_1 commonuploadpic9">
+									<img src="{if $item5}{if $item5['tabbar']==1}{$item5['tabimginput_1']}{/if}{/if}"  alt="" class="btnimgurl9" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选择图片<input type="hidden" name="commonuploadpic9" value="{if $item5}{if $item5['tabbar']==1}{$item5['tabimginput_1']}{/if}{/if}"></div>
+
+								</div>
+								<div style="overflow:hidden;position: relative;width:52px;height:52px;border:1px solid #ddd;{if $item5}{if $item5['tabbar']==1}display: inline-block;{else}display: none{/if}{else}display: inline-block;{/if}" class="imgicon5_1 commonuploadpic-10">
+									<img src="{if $item5}{if $item5['tabbar']==1}{$item5['tabimginput_2']}{/if}{/if}"  alt="" class="btnimgurl10" style="width: 52px;height: 52px;">
+									<div class="btn_img commonchangepic" data-type="1" style="cursor: pointer;">选中图片<input type="hidden" name="commonuploadpic-10" value="{if $item5}{if $item5['tabbar']==1}{$item5['tabimginput_2']}{/if}{/if}"></div>
+
+								</div>
+
+								<div style="overflow:hidden;position: relative;width:54px;height:54px;{if $item5}{if $item5['tabbar']==2}display: inline-block;{else}display: none{/if}{else}display: none;{/if}" class="imgicon5_2">
+									<input type="hidden"  value="{if $item5}{if $item5['tabbar']==2}{$item5['tabimginput_1']}{/if}{/if}" id="tabiconinput5_1"  data-bind-init="true" name="tabimginput5_3">
+	                                <span class="iconfont {if $item5}{if $item5['tabbar']==2}{$item5['tabimginput_1']}{/if}{/if}" id="icon_5_1" style="width:50px;height:50px;font-size:40px;text-align:center;display: inline-block;border:1px solid #c0c0c0;padding-top: 15px;"></span>
+	                                <span data-input="#tabiconinput5_1" data-element="#icon_5_1" data-toggle="selectIcon" class="btn_icon_text">选择图标</span>
+								</div>
+		
+							</div>
+						</div>
+					</div>
+
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background:#4385ff;color:#fff;text-align:center;">确定</button>
+					</div>
+
+				</form>
+
+
+
+			</div>
+
+
+
+		</div>
+
+
+
+	</div>
+
+<script type="text/javascript" src="__STATIC_ROOT__/diypage/resource/js/require.js"></script>
+<script>
+var imgid = 0;
+function getd(id){
+    imgid = id;
+}
+$(function(){
+    $("#uploadphoto").change(function(){
+        $("#myupload").ajaxSubmit({ 
+          dataType:  'json', //数据格式为json 
+          success: function(data) {
+          	var _input = $('#uploadphoto');
+          	_input.val('');
+            var url = $.parseJSON(data)['url'];
+            $(".btnimg"+imgid).val(url).change();
+            $(".btnimgurl"+imgid).attr("src",url);
+            $(".btnimgurl"+imgid).css("border","1px solid #ddd");
+          }
+        }); 
+    });
+});
+</script>
+<script type="text/javascript">
+
+    if(typeof $.fn.tooltip != 'function' || typeof $.fn.tab != 'function' || typeof $.fn.modal != 'function' || typeof $.fn.dropdown != 'function') {
+
+        require(['bootstrap'], function ($) {
+
+            $('[data-toggle="tooltip"]').tooltip({
+
+                container: $(document.body)
+
+            });
+
+            $('[data-toggle="popover"]').popover({
+
+                container: $(document.body)
+
+            });
+
+        });
+
+    }
+
+    require(['init'],function(){});
+
+
+
+
+</script>
+<script>
+                function imgicon1(i){
+                    if(i==1){
+                        $(".imgicon1_1").css("display","inline-block");
+                        $(".imgicon1_2").hide();
+                    }
+                    if(i==2){
+                        $(".imgicon1_2").show();
+                        $(".imgicon1_1").hide();
+                    }
+                }
+                function imgicon2(i){
+                    if(i==1){
+                        $(".imgicon2_1").css("display","inline-block");
+                        $(".imgicon2_2").hide();
+                    }
+                    if(i==2){
+                        $(".imgicon2_2").show();
+                        $(".imgicon2_1").hide();
+                    }
+                }
+                function imgicon3(i){
+                    if(i==1){
+                        $(".imgicon3_1").css("display","inline-block");
+                        $(".imgicon3_2").hide();
+                    }
+                    if(i==2){
+                        $(".imgicon3_2").show();
+                        $(".imgicon3_1").hide();
+                    }
+                }
+
+                function imgicon4(i){
+                    if(i==1){
+                        $(".imgicon4_1").css("display","inline-block");
+                        $(".imgicon4_2").hide();
+                    }
+                    if(i==2){
+                        $(".imgicon4_2").show();
+                        $(".imgicon4_1").hide();
+                    }
+                }function imgicon5(i){
+                    if(i==1){
+                        $(".imgicon5_1").css("display","inline-block");
+                        $(".imgicon5_2").hide();
+                    }
+                    if(i==2){
+                        $(".imgicon5_2").show();
+                        $(".imgicon5_1").hide();
+                    }
+                }
+
+            
+            </script>
+
+{include file="public/foot_more" /}

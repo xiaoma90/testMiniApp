@@ -1,0 +1,255 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel12{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important;
+		display: inline-block !important;
+	}
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+<input type="hidden" id="nowhtml" value="navModel" class="navModel12-1">
+	
+	<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+				<div class="input-box" style="margin-bottom: 10px;">
+					<div class="btn-group">
+						<a href="{:Url('Reserve/add')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn" style="color: #fff;background-color: #4385ff">
+						新增栏目
+						</button>
+						</a>
+					</div>
+				</div>
+				<table id="sample_editable_1">
+					<thead>
+						<tr>
+							<th style="width: 50px;">排序</th>
+							<th style="width: 50px;">ID</th>
+							<th style="width: 100px;">栏目图片</th>
+							<th style="width: 200px;">栏目名称</th>
+							<th style="width: 150px;">状态/参数</th>
+							<th style="width: 300px;">样式</th>
+							<th width="200px;">操作</th>
+					<!-- 		<th>
+								<input type="checkbox" id="all" />全选&nbsp;&nbsp;
+								<button class="btn green"  onclick="delall()">批量删除</button>
+							</th> -->
+						</tr>
+					</thead>
+					<tbody>
+						{if $cates}
+							{foreach $cates as $item}
+									<td>{$item.0.num}</td>
+									<td><a href="javascript:;" data-clipboard-text="{$item.0.id}" onclick="copyid({$item.0.id})" class="label label-success ng-scope js-clip{$item.0.id}" style="background: #a9a9a9;min-width:30px;text-align: center;">{$item.0.id}</a></td>
+									<td><img src="{$item.0.catepic}" style="width:30px; height:30px;"></td>
+									<td style="font-weight:bold">   {$item.0.name}</td>
+									<td>
+										<!-- 启用状态 -->
+										{if $item.0.statue == 0}
+											<span class="btn red dx" title="是否启用">关</span>
+										{else}
+											<span class="btn green dx" title="是否启用">启</span>
+										{/if}
+										<!-- 栏目类型 -->
+										{if $item.0.type == "showArt"}
+											<span class="btn green dx" title="栏目类型">文章</span>
+										{elseif $item.0.type == "showPic"}
+											<span class="btn yellow dx" title="栏目类型">图片</span>
+										{elseif $item.0.type == "showPro"}
+											<span class="btn blue dx" title="栏目类型">商品</span>
+										{/if}
+										<!-- 是否首页显示 -->
+										{if $item.0.show_i == 1}
+											<span class="btn green dx" title="是否首页显示">首</span>
+										{/if}
+									</td>
+									<td>
+										<!-- 列表类型 -->
+										{if $item.0.list_type == 0}
+											<span class="btn red dx" title="列表类型">显示子栏目</span>
+										{else}
+											<span class="btn blue dx" title="列表类型">显示内容</span>
+										{/if}
+										<!-- 内容列表样式 -->
+										{if $item.0.list_style && $item.0.list_style == 1}
+											<span class="btn red dx" title="内容列表样式">单行大图</span>
+										{elseif $item.0.list_style && $item.0.list_style == 2}
+											<span class="btn yellow dx" title="内容列表样式">两列图片</span>
+										{elseif $item.0.list_style && $item.0.list_style == 3}
+											<span class="btn green dx" title="内容列表样式">单行图文</span>
+										{elseif $item.0.list_style && $item.0.list_style == 4}
+											<span class="btn green dx" title="内容列表样式">文字列表</span>
+										{/if}
+										<!-- 列表标题样式 -->
+										{if $item.0.list_stylet && $item.0.list_stylet == "tl"}
+											<span class="btn red dx" title="列表标题样式">标题左对齐</span>
+										{elseif $item.0.list_stylet && $item.0.list_stylet == "tc"}
+											<span class="btn yellow dx" title="列表标题样式">标题居中</span>
+										{/if}
+									</td>
+									<td>
+										<a href="{:Url('Reserve/add')}?appletid=<?php echo $_GET['appletid']?>&cateid={$item.0.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">编辑</button></a>
+										<form action="{:Url('Reserve/del')}?appletid=<?php echo $_GET['appletid']?>&cateid={$item.0.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del({$item.0.id},{$item.zcount})">
+											<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+										</form>
+									</td>
+								<!-- 	<td>
+										<input type="checkbox" name="csb"  value="{$item.0.id}"/>
+									</td> -->
+								</tr>
+								{if $item.data}
+									{foreach $item.data as $res}
+										<tr>
+											<td>{$res.num}</td>
+											<td><a href="javascript:;" data-clipboard-text="{$res.id}" onclick="copyid({$res.id})" class="label label-success ng-scope js-clip{$res.id}" style="background: #a9a9a9;min-width:30px;text-align: center;">{$res.id}</a></td>
+											<td><img src="{$res.catepic}" style="width:30px; height:30px;"></td>
+											<td><span style="margin-left:20px;margin-right:10px;">|--</span>{$res.name}</td>
+											<td>
+												<!-- 启用状态 -->
+												{if $res.statue == 0}
+													<span class="btn red dx" title="是否启用">关</span>
+												{else}
+													<span class="btn green dx" title="是否启用">启</span>
+												{/if}
+												<!-- 栏目类型 -->
+												{if $res.type == "showArt"}
+													<span class="btn green dx" title="栏目类型">文章</span>
+												{elseif $res.type == "showPic"}
+													<span class="btn yellow dx" title="栏目类型">图片</span>
+												{elseif $res.type == "page"}
+													<span class="btn red dx" title="栏目类型">单页</span>
+												{elseif $res.type == "showPro"}
+													<span class="btn blue dx" title="栏目类型">商品</span>
+												{elseif $res.type == "showWxapps"}
+													<span class="btn blue dx" style="background: #605AB0" title="栏目类型">小程序</span>
+												{/if}
+												<!-- 是否首页显示 -->
+												{if $res.show_i == 1}
+													<span class="btn green dx" title="是否首页显示">首</span>
+												{/if}
+											</td>
+											<td>
+												<!-- 列表类型 -->
+												{if $res.list_type == 0}
+													<span class="btn red dx" title="列表类型">显示子栏目</span>
+												{else}
+													<span class="btn blue dx" title="列表类型">显示内容</span>
+												{/if}
+												<!-- 内容列表样式 -->
+												{if $res.list_style && $res.list_style == 1}
+													<span class="btn red dx" title="内容列表样式">单行大图</span>
+												{elseif $res.list_style && $res.list_style == 2}
+													<span class="btn yellow dx" title="内容列表样式">两列图片</span>
+												{elseif $res.list_style && $res.list_style == 3}
+													<span class="btn green dx" title="内容列表样式">单行图文</span>
+												{elseif $res.list_style && $res.list_style == 4}
+													<span class="btn green dx" title="内容列表样式">文字列表</span>
+												{/if}
+												<!-- 列表标题样式 -->
+												{if $res.list_stylet && $res.list_stylet == "tl"}
+													<span class="btn red dx" title="列表标题样式">标题左对齐</span>
+												{elseif $res.list_stylet && $res.list_stylet == "tc"}
+													<span class="btn yellow dx" title="列表标题样式">标题居中</span>
+												{/if}
+											</td>
+											<td>
+												<a href="{:Url('Reserve/add')}?appletid=<?php echo $_GET['appletid']?>&cateid={$res.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">编辑</button></a>
+												<form action="{:Url('Reserve/del')}?appletid=<?php echo $_GET['appletid']?>&cateid={$res.id}"  class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return del({$item.0.id},0)">
+													<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+												</form>
+											</td>
+									<!-- 		<td>
+												<input type="checkbox" name="csb"  value="{$res.id}"/>
+											</td> -->
+										</tr>
+									{/foreach}
+								{/if}
+							{/foreach}
+						{/if}
+					</tbody>
+				</table>
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$news->render()}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function del(id,count){
+		if(count>0){
+			alert("该栏目中还存在子集栏目，请先删除所有子集栏目后再删除！");
+			return false;
+		}
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+    $('#all').on('click',function(){
+        if(this.checked) {
+            $.uniform.update($("input[name='csb']").attr("checked", true));
+        }else {
+            $.uniform.update($("input[name='csb']").attr("checked", false));
+        }
+    });
+	function delall(){
+	    var array1=new Array();
+		$.each($("input[name='csb']"),function(){
+			if(this.checked){
+				array1.push($(this).val());
+			}
+		});
+         if(array1.length>0){
+             if(window.confirm('确定删除这些栏目？')){
+                 location.href = "{:Url('Reserve/delall')}?appletid=<?php echo $_GET['appletid']?>&cateids="+array1;
+             }else{
+                 return false;
+             }
+		 }else{
+             alert("您未选择删除对象");
+             return false;
+		 }
+	}
+	function test(){
+		// $.post("http://four.nttrip.cn/createApplet",{"username":'88888', 'type':'0,2', 'endtime':'1555915595'},function(data){
+		// 	var res = JSON.parse(data)
+		// 	console.log(res['msg'])
+		// 	console.log(res['status'])
+		// })
+		$.post("http://four.nttrip.cn/changepwd",{"username":'88888', 'password': '96e79218965eb72c92a549dd5a330112'},function(data){
+			var res = JSON.parse(data)
+			console.log(res)
+		})
+	}
+</script>
+{include file="public/foot_more" /}

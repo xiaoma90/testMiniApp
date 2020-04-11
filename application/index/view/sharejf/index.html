@@ -1,0 +1,136 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.navSale4{
+	display: block !important;
+}
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale4">
+
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Sharejf/save')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">积分兑换</label>
+					</div>
+					<div class="control-group">
+
+						<label class="control-label">兑换规则</label>
+						<div style="float:left; margin-left:20px">
+							<input name="score" id="score" type="number" class="span1 m-wrap"  style="width:100px" value="{if $rechargeconf}{$rechargeconf.score}{/if}"/>
+						</div>
+						<div style="float:left; margin-left:20px;line-height:35px">
+							积分兑换
+						</div>
+						<div style="float:left; margin-left:20px">
+							<input name="money" id="money" type="number" class="span1 m-wrap" min="0" readonly="true" style="width:100px" value="1"/>
+						</div>
+						<div style="float:left; margin-left:20px;line-height:35px">
+							元
+						</div>
+
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label">店内支付最大抵用积分</label>
+						<div class="controls">
+							<input name="score_shoppay" id="score_shoppay" type="number" mini="0" class="span3 m-wrap" value="{if $rechargeconf}{$rechargeconf.score_shoppay}{/if}" />
+						</div>
+					</div>
+
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">分享点击获取积分设置</label>
+					</div>
+					<!-- <div class="control-group">
+						<label class="control-label">分享类型</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="sharetype" value="2" {if $base}{if $base.sharetype==2}checked=checked{/if}{/if}/>
+							仅个人
+							</label>
+							<label class="radio">
+							<input type="radio" name="sharetype" value="0" {if $base}{if $base.sharetype==0}checked=checked{/if}{/if}/>
+							仅群
+							</label>
+							<label class="radio">
+							<input type="radio" name="sharetype" value="1" {if $base}{if $base.sharetype==1}checked=checked{/if}{/if}/>
+							个人+群
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">分享获得积分的类型</span>
+						</div>
+					</div> -->
+					<div class="control-group">
+						<label class="control-label">分享获得积分</label>
+						<div class="controls">
+							<input name="sharejf" type="text" class="span2 m-wrap" value="{if $base}{$base.sharejf}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"><span style="color:#4385ff">（积分/次）</span>分享一次获得的积分 </span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">分享限制</label>
+						<div class="controls">
+							<input name="sharexz" type="text" class="span2 m-wrap" value="{if $base}{$base.sharexz}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"><span style="color:#4385ff">（次/每天）</span>每人每天可分享获得积分次数</span>
+						</div>
+					</div>
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background: #4385ff;color: #fff;text-align: center;">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{include file="public/foot_more" /}
+
+
+<script type="text/javascript">
+
+
+	function checkinfo(){
+
+		var score = $("#score").val();
+		var money = $("#money").val();
+		var score_shoppay = $("#score_shoppay").val();
+
+		if(!score_shoppay){
+			alert("店内支付最大抵用积分不能为空！");
+			return false;
+		}
+	}

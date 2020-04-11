@@ -1,0 +1,358 @@
+{include file="public/head" /}
+
+{include file="public/top" /}
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel16-2">
+<style type="text/css">
+	.navModel16{
+		display: block !important;
+	}
+	.chongdingy{
+		background-color: #f9f9f9;
+		padding: 10px 0;
+		border-radius: 5px;
+	} 
+	.chongdingywz{
+		text-align: left !important;
+		font-size: 16px;
+		padding-left: 20px;
+	}
+	tr .prev .icon-angle-left{
+		background-image: url(/image/glyphicons-halflings.png) !important;
+		background-position: 37px 85px !important;
+	}
+	tr .next .icon-angle-right{
+		background-image: url(/image/glyphicons-halflings.png) !important;
+		background-position: 13px 85px !important;
+	}
+	.form_nobg{
+		background-color: #fff;
+		position: fixed;
+		bottom: 0;
+		left: 216px;
+		right: 0;
+		height: 52px;
+		line-height: 52px;
+		box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+		text-align: center;
+		padding: 0 !important;
+		margin: 0 !important;
+		z-index: 1000;
+	}
+	.add_imgs{
+		display: inline-block;
+		width: 67px;
+		height: 67px;
+		box-sizing: border-box;
+		border: 1px dashed #dfe4e7;
+		background: #f9f9f9;
+		border-radius: 3px;
+		text-align: center;
+		color: #DFE4E7;
+		font-size: 12px;
+	}
+	.commonchangepic{
+		cursor: pointer;
+	}
+	.content_head_title{display:none}
+	.page_content{top:0;padding: 0;}
+	.back_go{
+		border-bottom: 1px solid #eee;
+		padding: 15px 15px 10px;
+	}
+</style>
+
+	<div class="row-fluid">
+		<div class="back_go">
+			<a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">添加活动</span></a>
+		</div>
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Active/listssave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<input type="hidden" id="onlyid" name="onlyid" value="{if $aid > 0}{$activeinfo.onlyid}{/if}">
+					<input type="hidden" name="aid" value="{$aid}">
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">基础内容</label>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">排序</label>
+						<div class="controls">
+							<input name="num" type="text" class="span1 m-wrap" value="{if $activeinfo}{$activeinfo.num}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">序号越大越靠前</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+							<label class="control-label">启用</label>
+							<div class="controls">
+									<label class="radio">
+											<input type="radio" name="flag" value="1" {if $activeinfo}{if $activeinfo.flag==1}checked=checked{/if}{else}checked=checked{/if}/>
+											启用
+									</label>
+									<label class="radio">
+											<input type="radio" name="flag" value="2" {if $activeinfo}{if $activeinfo.flag==2}checked=checked{/if}{/if}/>
+											不启用
+									</label>
+									<span style="color:#c7cddb; line-height:40px; margin-left:20px;">启用后，分类方可在小程序端显示，不选默认启用</span>
+							</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 所属分类</label>
+						<div class="controls">
+							<select name="cateid" class="span3 m-wrap" id="cateid">
+								<option value="0">请选择所属分类</option>
+								{if $catelist}
+									{foreach $catelist as $item}
+										<option value="{$item.id}" {if $activeinfo}{if $item.id == $activeinfo.cateid}selected=selected{/if}{/if}>{$item.name}</option>
+									{/foreach}
+								{/if}
+							</select>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">选择所属分类</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 活动名称</label>
+						<div class="controls">
+							<input name="name" id="name" type="text" class="span3 m-wrap" value="{if $activeinfo}{$activeinfo.name}{/if}">
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 活动缩略图</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new " data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic1" style="width:113px;height:67px;">
+									{if $activeinfo && $activeinfo.thumb}
+									<img src="{$activeinfo.thumb}"/>
+									{else}
+									<img src="__STATIC_ROOT__/image/noimage.jpg" alt="" />
+									{/if}
+								</div>
+								<div class="add_imgs">
+									<span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic1" value="{if $activeinfo && $activeinfo.thumb}{$activeinfo.thumb}{/if}"></span>
+								</div>
+							</div>
+							<span style="color:#c7cddb; line-height:40px;">建议尺寸355*210</span>
+						</div>
+					</div>
+					<div class="control-group" style="margin-bottom:20px !important">
+						<label class="control-label"><span>*</span> 活动组图</label>
+						<div class="controls" style="display: flex;">
+							<div class="commonuploadslide" id="imgzs" style="font-size:0">
+								{if $allimg}
+								{foreach  $allimg as $res}
+									<div class="paiwei" onmousemove="xians(this)" onmouseout="gb(this)" id="li{$res.id}">
+										<img src="{$res.url}" style="width:67px;height:67px;border-radius:3px;">
+										<div class="beijingys">
+										</div>
+										<div class="sancann" onclick="del({$res.id})">
+											<span class="cancel" style="background-image: url(__STATIC_ROOT__/webuploader/css/images/icons.png)">删除</span>
+										</div>
+									</div>
+								{/foreach}
+								{/if}
+							</div>
+							<div class="add_imgs">
+								<div id="xztpan" class="commonchangepic" data-type="2">
+									<div style="font-size: 26px;line-height: 36px;">+</div>选择图片
+									<input type="hidden" name="commonuploadslide">
+								</div>
+							</div>
+						</div>
+						<span style="color:#c7cddb; line-height:40px;margin-left:180px;">建议尺寸355*210</span>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">活动报名时间</label>
+						<div class="controls">
+							<input type="text" value="{if $activeinfo}{if $activeinfo.starttime != 0}{$activeinfo.starttime|date='Y-m-d H:i:s',###}{else}{/if}{/if}"  name="starttime" readonly id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii">
+							<input type="text" value="{if $activeinfo}{if $activeinfo.endtime != 0}{$activeinfo.endtime|date='Y-m-d H:i:s',###}{else}{/if}{/if}"  name="endtime" readonly id="datetimepicker2" data-date-format="yyyy-mm-dd hh:ii">
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">选择活动报名起止时间，空或不选默认永久</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 活动时间</label>
+						<div class="controls">
+							<input name="activetime" id="activetime" type="text" class="span3 m-wrap" value="{if $activeinfo}{$activeinfo.activetime}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">活动地址</label>
+						<div class="controls">
+							<input name="address" id="address" type="text" class="span3 m-wrap" value="{if $activeinfo}{$activeinfo.address}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">咨询电话</label>
+						<div class="controls">
+							<input name="tel" id="tel" type="text" class="span3 m-wrap" value="{if $activeinfo}{$activeinfo.tel}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+	        <div class="control-group"  style="display: block;">
+						<label class="control-label" style="margin-right:15px">万能表单</label>
+						<div class="controls" >
+							<select name="formset" class="span3 m-wrap" id="formset" >
+								<option value="0">==不使用==</option>
+								{if $forms}
+								{foreach $forms as $hh}
+								<option value="{$hh['id']}" {if $activeinfo}{if $activeinfo['formset'] == $hh['id']}selected=selected{/if}{/if}>{$hh['formtitle']}</option>
+								{/foreach}
+								{/if}
+							</select>
+						</div>
+					</div>
+          <div class="control-group">
+						<label class="control-label">人数容量</label>
+						<input name="allperson" type="number" class="span1 m-wrap" value="{if $activeinfo}{$activeinfo.allperson}{/if}" style="float:left; margin-left:20px;">
+					</div>
+					<div class="control-group">
+						<label class="control-label">报名限制</label>
+						<input name="allapply" type="number" class="span1 m-wrap" value="{if $activeinfo}{$activeinfo.allapply}{/if}" style="float:left; margin-left:20px;">
+            <span style="color:#c7cddb; line-height:40px; margin-left:20px;">0则为不限制</span>
+					</div>
+
+					<div class="control-group">
+							<label class="control-label">是否开启审核</label>
+							<div class="controls">
+									<label class="radio">
+											<input type="radio" name="shenhe" value="1" {if $activeinfo}{if $activeinfo.flag==1}checked=checked{/if}{/if}/>
+											启用
+									</label>
+									<label class="radio">
+											<input type="radio" name="shenhe" value="2" {if $activeinfo}{if $activeinfo.flag==2}checked=checked{/if}{else}checked=checked{/if}/>
+											不启用
+									</label>
+									<span style="color:#c7cddb; line-height:40px; margin-left:20px;">默认关闭</span>
+							</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 活动详情</label>
+						<div class="controls">
+						    <div class="editors">
+								<script id="editor" name="contents" type="text/plain">{if $activeinfo}{$activeinfo.contents}{/if}</script>
+						    </div>
+						</div>
+					</div>
+
+
+					<div class="form_nobg">
+						<button type="submit" class="btn" style="background-color: #4385ff;color: #fff">确定</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript">
+    	$(function() {
+	    	var ue = UE.getEditor('editor');
+		});
+    	function checkinfo(){
+    		var cateid = $("#cateid").val();
+	    	if(cateid==0){
+	    		alert("请先选择分类");
+	    		return false;
+	    	}
+
+				var name = $.trim($("#name").val());
+	    	if(name==""){
+	    		alert("名称不能为空");
+	    		return false;
+	    	}
+
+				var thumb = $("input[name='commonuploadpic1']").val();
+				if(!thumb){
+					alert("请先设置活动缩略图");
+					return false;
+				}
+
+				var listimgs = $("#imgzs").find(".paiwei");
+				if(listimgs.length==0){
+					alert("请先添加活动组图");
+					return false;
+				}
+
+				var activetime = $.trim($("#activetime").val());
+	    	if(activetime==""){
+	    		alert("活动时间不能为空");
+	    		return false;
+	    	}
+
+	    	var starttime = $("input[name=starttime]").val();
+	    	var endtime = $("input[name=endtime]").val();
+	    	if(starttime && endtime){
+	    		var time1 = new Date(starttime);
+	    		var time2 = new Date(endtime);
+	    		time1 = time1.getTime();
+	    		time2 = time2.getTime();
+	    		if(time1 > time2){
+	    			alert("结束时间必须大于开始时间");
+        			return false;
+	    		}
+	    	}
+		    // 有三种方式获取
+		    var time1 = date.getTime();
+
+	    	
+	    	val = $("#ueditor_textarea_contents").val();
+    		if(!val){
+        		alert("请输入活动详情");
+        		return false;
+        	}else{
+        		$("#text").val(val);
+        	}
+	    }
+	    function xians(me){
+			var b = $(me).find("div[class='beijingys']");
+			var s = $(me).find("div[class='sancann']");
+			$(b).show();
+			$(s).show();
+		}
+		function gb(me){
+			var b = $(me).find("div[class='beijingys']");
+			var s = $(me).find("div[class='sancann']");
+			$(b).hide();
+			$(s).hide();
+		}
+	    function del(id){
+			if(confirm('你确定要删除这张图片嘛?')){
+				$("#li"+id).remove();
+				$.post("{:Url('Pt/del_img')}",{"id":id, "appletid":<?php echo $_GET['appletid']?>},function(data){
+				})
+			}else{
+		        return false;
+		    }
+		}
+
+	    // 多图上传
+        var date = new Date();
+    	var stronly = String(date.getFullYear())+String(date.getMonth())+String(date.getDate())+String(date.getHours())+String(date.getMinutes())+String(date.getSeconds())+String(Math.floor(Math.random()*1000+1));
+    	//判断URL中有没有活动ID
+    	var aid = {$aid};
+    	if(aid==0){
+    		$("#onlyid").val(stronly);
+    	}else{
+    		var onlyid_is = $("#onlyid").val();
+    		if(onlyid_is == ""){
+    			$("#onlyid").val(stronly);
+    		}
+    	}
+     </script>
+
+
+
+
+
+
+
+{include file="public/foot_more" /}

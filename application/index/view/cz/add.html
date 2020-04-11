@@ -1,0 +1,235 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.navSale3{
+	display: block !important;
+}
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.jscolor{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.btn-default{    
+	width: auto;
+	font-size: 9pt;
+	background-color:rgba(67, 133, 255, 0.102);
+	color: #4385ff;
+	border: 1px solid #4385ff;
+}
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+.back_go{
+	border-bottom: 1px solid #eee;
+  padding: 15px 15px 10px;
+}
+</style>
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale3">
+
+	<style type="text/css">
+		.sss{
+			display: inline-block;
+		}
+	</style>
+
+	<div class="row-fluid">
+		<div class="back_go">
+			<a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">添加规则</span></a>
+		</div>
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Cz/guizsave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<input type="hidden" name="cz" value="{$cz}">
+				
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 充值金额</label>
+						<div class="controls">
+							<input name="money" id="money" type="text" class="span3 m-wrap" onkeyup="clearNoNum(this)" value="{if $recharge}{$recharge.money}{/if}" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 赠送金额</label>
+						<div class="controls">
+							<input name="getmoney" id="getmoney" type="text" class="span3 m-wrap" onkeyup="clearNoNum(this)" value="{if $recharge}{$recharge.getmoney}{/if}" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 赠送积分</label>
+						<div class="controls">
+							<input name="getscore" id="getscore" type="number" mini="0" class="span3 m-wrap" value="{if $recharge}{$recharge.getscore}{/if}" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">赠送优惠券</label>
+						<div class="controls" style="display: flex;">
+							<div class="select" style="display: flex;">
+								<select name="coupon_id[]" id="coupon_id" >
+									<option value="0" selected>不赠送</option>
+									{foreach $yhqs as $cateP}
+										<option value="{$cateP.id}" {if $recharge}{if $recharge['coupon_con']}{if $cateP.id==$recharge['coupon_con'][0]['coupon_id']}selected{/if}{/if}{/if}>{$cateP['title']}</option>
+									{/foreach}
+								</select>
+								<div class="add" style="display: flex;">
+									<input class="s1" type="number" min="0" name='coupon_num[]' value="{if $recharge}{if $recharge.coupon_con}{$recharge['coupon_con'][0]['coupon_num']}{/if}{/if}" style="border: 1px solid #e7e7eb;margin-left: 10px;"><span style="line-height: 30px;margin:0 10px;" class="span"> 张 </span>
+								</div>
+								<div class="btn btn_hov" onclick="add()" style="background-color: #4385ff;color:#fff;">添加</div>
+							</div>
+						</div>
+					</div>
+					<div class="couponadd">
+						{if $recharge}
+						{if $recharge.coupon_con}
+							{foreach $recharge.coupon_con as $k => $vv}
+							{if $k > 0}
+							<div class="control-group del{$k}">
+								<label class="control-label"></label>
+								<div class="controls" style="display: flex;">
+				                    <div class="select" style="display: flex;">
+					                    <select name="coupon_id[]" id="coupon_id" >
+					                        <option value="0" selected>不赠送</option>
+					                        {foreach $yhqs as $v}
+					                        	<option value="{$v['id']}" {if $v['id']==$vv['coupon_id']}selected='selected'{/if} {if $v['overdue']==0}disabled style="background: #efefef;"{/if}>[{$v['id']}]-{$v['title']}{if $v['overdue']==0}--(已过期){/if}</option>
+											{/foreach}
+					                    </select>
+					                    <div class="add" style="display: flex;">
+											<input type="number" min="0" name='coupon_num[]' value="{$vv['coupon_num']}" style="border: 1px solid #e7e7eb;margin-left: 10px;"><span style="line-height: 30px;margin:0 10px;" class="span"> 张 </span>
+										</div>
+										<a class="btn btn-default col-lg-1" onclick="del({$k})">删除</a>
+									</div>
+								</div>
+							</div>
+							{/if}
+							{/foreach}
+						{/if}
+						{/if}
+			        </div>
+
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background: #4385ff;color: #fff;text-align: center;">确定</button>
+					</div>
+
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+{include file="public/foot_more" /}
+
+
+<script type="text/javascript">
+var i = 1;
+function add(){
+	var str = '<div class="control-group del'+i+'">\
+					<label class="control-label"></label>\
+					<div class="controls" style="display: flex;">\
+	                    <div class="select" style="display: flex;">\
+		                    <select name="coupon_id[]" id="coupon_id" >\
+		                        <option value="0" selected>不赠送</option>\
+	                        	{foreach $yhqs as $v}\
+		                        	<option value="{$v.id}" {if $v.overdue==0}disabled style="background: #efefef;"{/if}>[{$v.id}]-{$v.title}{if $v.overdue==0}--(已过期){/if}</option>\
+								{/foreach}\
+		                    </select>\
+		                    <div class="add" style="display: flex;">\
+								<input type="number" min="0" name="coupon_num[]" value="" style="border: 1px solid #e7e7eb;margin-left: 10px;"><span style="line-height: 30px;margin:0 10px;" class="span"> 张 </span>\
+							</div>\
+							<div class="btn btn-default col-lg-1" onclick="del('+i+')">删除</div>\
+						</div>\
+					</div>\
+				</div>';
+	$(".couponadd").append(str);
+	++i;
+}
+function del(j){
+	$(".del"+j).remove();
+}
+
+	function clearNoNum(obj){  
+      obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+      if(obj.value.charAt(0,1) == "."){
+        obj.value = "";
+      }
+      obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的   
+      obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");  
+      obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数   
+      if(obj.value.indexOf(".")< 0 && obj.value !=""){
+       obj.value= parseFloat(obj.value);  
+      }  
+    }
+
+   	function checkinfo(){
+
+   		var money = $("#money").val();
+   		var getmoney = $("#getmoney").val();
+   		var getscore = $("#getscore").val();
+
+   		if(!money){
+   			alert("充值金额不能为空！");
+   			return false;
+   		}
+
+   		if(!getmoney){
+   			alert("赠送金额不能为空！");
+   			return false;
+   		}
+
+   		if(!getscore){
+   			alert("赠送积分不能为空！");
+   			return false;
+   		}
+   	}
+
+
+
+
+
+</script>

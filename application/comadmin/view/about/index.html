@@ -1,0 +1,123 @@
+{include file="public/head" /}
+
+<body class="page-header-fixed">
+
+<div class="page-container">
+{include file="public/left" /}
+<div class="page_main">
+	<div class="content_head clearfix navbar" style="margin-bottom: 0">
+        <div class="content_head_left"></div>
+    </div>
+	<div class="page_content" id="container">
+
+<style type="text/css">
+
+	.editors{
+
+		max-width: 770px;
+
+		min-height: 600px;
+
+	}
+
+	.w-e-text-container{
+
+		min-height: 600px !important;
+
+	}
+	.weiz{
+
+		margin-left:20px;
+
+		margin-top: 40px;
+
+		margin-bottom: 20px;
+
+	}
+
+</style>
+
+
+
+<input type="hidden" id="nowhtml" value="navAbout" class="navAbout1">
+
+<style>
+	.chongdingy{
+		background-color: #f9f9f9;
+		padding: 10px 0;
+		border-radius: 5px;
+	}
+	.chongdingywz{
+		text-align: left !important;
+    font-size: 16px;
+    padding-left: 20px;
+	}
+	.form_nobg{
+		background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 216px;
+    right: 0;
+    height: 52px;
+    line-height: 52px;
+    box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+		text-align: center;
+		padding: 0 !important;
+		margin: 0 !important;
+		z-index: 1000;
+	}
+</style>
+
+
+
+	<div class="row-fluid">
+
+
+
+		<div class="portlet box">
+
+
+
+			
+
+			<div class="portlet-body form">
+
+				<form action="{:Url('About/save')}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data">
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">公司信息</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">公司介绍</label>
+						<div class="controls">
+							<script id="descs" name="descs" type="text/plain">{if $newsinfo}{$newsinfo.descs}{/if}</script>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">团队介绍</label>
+						<div class="controls">
+							<script id="teamdesc" name="teamdesc" type="text/plain">{if $newsinfo}{$newsinfo.teamdesc}{/if}</script>
+						</div>
+					</div>
+					
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="color: #fff;background-color: #4385ff;">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript" charset="utf-8" src="/plugin/ueditor/ueditor.config.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/plugin/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript">
+	    $(function() {
+
+	    	var ue = UE.getEditor('descs');
+	    	var ue = UE.getEditor('teamdesc');
+
+		});
+    </script>
+
+{include file="public/foot_more" /}

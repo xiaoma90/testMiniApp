@@ -1,0 +1,191 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navSystem" class="navSystem13">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+				<div class="input-box" style="margin-bottom: 10px;">
+
+					<div class="btn-group">
+
+						<a href="{:Url('Printset/add')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn" style="background: #4385ff;color: #fff;margin-right:10px;">
+						添加打印机
+						</button>
+						</a>
+
+					</div>
+					<div class="btn-group">
+						<button id="sample_editable_1_new" class="btn" style="background-color:rgba(67, 133, 255, 0.102);color:#4385ff;border:1px solid #4385ff;" onclick="delall()">
+							批量删除
+						</button>
+					</div>
+				</div>
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							<th style="width: 70px;">
+								<input type="checkbox" id="all" />
+							</th>
+							<th style="width: 200px;">打印机名称</th>
+							<th style="">打印商品类型</th>
+							<th style="">是否打印规格</th>
+							<th style="">打印联数</th>
+							<th style="">是否启用</th>
+							<th width="200px;">操作</th>
+							
+						</tr>
+
+					</thead>
+
+					<tbody>
+					{if $lists}
+						{foreach $lists as $item}
+							<tr>
+								<td>
+									<input type="checkbox" name="csb"  value="{$item.id}"/>
+								</td>
+								<td>
+									{$item.pname}
+								</td>
+								<td>
+									<span style="margin-right: 10px;"><?php if(in_array(1,$item['protype'])){ ?>商品<?php }?> </span>
+									<span style="margin-right: 10px;"><?php if(in_array(2,$item['protype'])){ ?>秒杀<?php }?> </span>
+									<span style="margin-right: 10px;"><?php if(in_array(3,$item['protype'])){ ?>预约预定<?php }?> </span>
+									<span style="margin-right: 10px;"><?php if(in_array(4,$item['protype'])){ ?>餐饮<?php }?></span>
+								</td>
+								<td>
+									{if $item.spec == 1}打印{else}不打印{/if}
+								</td>
+								<td>
+									{$item.num}
+								</td>
+								<td>
+									{if $item.flag == 1}
+								    <span class="btn green" style="padding:2px 6px;">启用</span> 
+									{else}
+										<span class="btn btncolor" style="padding:2px 6px;border:1px solid #bcbcbc;color:#bcbcbc;">不启用</span> 
+									{/if}
+								</td>
+								<td>
+									<a href="{:Url('Printset/add')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;">编辑</button></a>
+									<form action="{:Url('Printset/del')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+									</form>
+								</td>	
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$list->render()}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+	function search(){
+        var cid=$("#cid option:selected").val();
+        var key = $("#getnews").val();
+        if(cid==false&&key==false){
+              alert("请选择栏目或填写标题关键字");
+		}else{
+            location.href = "{:Url('Products/index')}?appletid=<?php echo $_GET['appletid']?>&key="+key+"&cid="+cid;
+		}
+
+    }
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+	        return false;
+	    }
+	}
+    $('#all').on('click',function(){
+
+        if(this.checked) {
+            $.uniform.update($("input[name='csb']").attr("checked", true));
+        }else {
+            $.uniform.update($("input[name='csb']").attr("checked", false));
+        }
+    });
+    function delall(){
+        var array1=new Array();
+        $.each($("input[name='csb']"),function(){
+            if(this.checked){
+                array1.push($(this).val());
+            }
+        });
+        if(array1.length>0){
+            if(window.confirm('确定删除这些打印机？')){
+                location.href = "{:Url('Printset/delall')}?appletid=<?php echo $_GET['appletid']?>&arr="+array1;
+            }else{
+                return false;
+            }
+        }else{
+            alert("您未选择删除对象");
+            return false;
+        }
+
+
+    }
+
+
+</script>
+{include file="public/foot_more" /}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="/fornt/css2/base.css">
+  <link rel="stylesheet" href="/fornt/css2/iconfont.css">
+  <link rel="stylesheet" type="text/css" href="/fornt/css2/news_details.css"/>
+  <script src="/js/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="web">
+    <div class="header">
+      <div class="title_list">
+        <div class="header_title">
+          <h1 style="color:#222222;font-family:微软雅黑, Microsoft YaHei">
+            <font style="color:#1e50ae">{$mpname}</font>
+          </h1>
+        </div>
+        <div class="header_list">
+          <ul class="li_list clearfix">
+            <li><a href="{:Url('index/index')}?uniacid=<?php echo $_GET['uniacid']?>">首页</a></li>
+            <li><a href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+            <li><a href="{:Url('news/index')}?uniacid=<?php echo $_GET['uniacid']?>" class="active">新闻中心</a></li>
+            <li><a href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>">微同城</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="banner">
+      <div class="wrapper">
+        <div id="sliderBox">
+          {foreach $images as $item}
+              <img src="{$item}" alt="">
+          {/foreach}
+        </div>
+        <div class="btn01 btn" onclick="leftArrow()"><img src="/fornt/img2/left.png"/></div>
+        <div class="btn02 btn" onclick="rightArrow()"><img src="/fornt/img2/right.png"/></div>
+      </div>
+      <script>
+				var parent = document.getElementById("sliderBox");
+				var children = parent.getElementsByTagName("img");		
+        function leftArrow() {
+          var firstChild = children[0];
+          var tmp = firstChild;
+          parent.removeChild(firstChild);
+          parent.appendChild(tmp);
+        }
+        
+        function rightArrow() {
+          var lastChild = children[children.length-1];
+          var tmp = lastChild;
+          parent.removeChild(lastChild);
+          parent.insertBefore(tmp,children[0]);
+        }
+        var timer = null;
+        function autoPlay () {
+            timer = setInterval(function () {
+                rightArrow();
+            },2000);
+        }
+        autoPlay();
+        
+        var wrapper = document.querySelector(".wrapper");
+        wrapper.onmouseenter = function () {
+            clearInterval(timer);
+        }
+        wrapper.onmouseleave = function () {
+            autoPlay();    
+        }
+      </script>
+    </div>
+
+    <div class="body">
+      <div class="body_box clearfix">
+        <!-- 新闻详情start -->
+        <div class="news_content" style="padding:30px 0 20px">
+          <div class="content clearfix">
+            <div class="content_left">
+              <div class="fhsj">
+                <img src="/fornt/img2/news_pageimg.png"><a href="javascript:history.back(-1)">返回上一级</a>
+              </div>
+              <div style="width:447px;margin:30px auto 0;text-align:center;font-size:24px;line-height:40px;color: #434343;">{$news.title}</div>
+              <div style="margin-top:15px;color: #838383;font-size:20px;text-align:center;">{$news.edittime}</div>
+              <div class="content_left_text">{$news.text}</div>
+              <div class="content_left_select">
+                {if $lastone}
+                <div class="select"><a href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$lastone.id}">上一篇：{$lastone.title}</a></div>
+                {/if}
+                {if $nextone}
+                <div class="select"><a href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$nextone.id}">下一篇：{$nextone.title}</a></div>
+                {/if}
+              </div>
+            </div>
+            <div class="content_right">
+              <div style="font-size:24px;color: #434343;margin-bottom: 32px;">其他新闻</div>
+              {foreach $three as $item}
+              <div style="padding-bottom: 20px;margin-bottom: 20px;border-bottom: 1px solid #eee;">
+                <a href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$item.id}">{$item.title}</a>
+                <div style="color: #838383;font-size: 14px;margin-top: 5px;">{$item.edittime}</div>
+              </div>
+              {/foreach}
+            </div>
+          </div>
+        </div>
+        <!-- 新闻详情end -->
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="foot">
+        <span class="f_l"></span>
+        <a href="#"><span class="f_r">返回顶部</span></a>
+      </div>
+    </div>
+  </div> 
+</body>
+</html>

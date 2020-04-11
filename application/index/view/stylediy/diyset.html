@@ -1,0 +1,594 @@
+{include file="public/head" /}
+{include file="public/top" /}
+
+<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/new_css.css" />
+<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/colorpicker2.css">
+<script src="__STATIC_ROOT__/js/colorpicker2.js"></script>
+
+<style type="text/css">
+.chongdingy{
+    background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+    text-align: left !important;
+    font-size: 16px;
+    padding-left: 20px;
+}
+.jscolor{
+    width: 30px;
+    height: 30px;
+    border: 1px solid #dedede;
+    outline: none;
+}
+.m-wrap{
+    outline: none;
+    padding-left: 10px;
+}
+.select_one {/*margin-bottom: 20px;width: 150px;text-align: center;*/margin-right: 20px;}
+.select_one_b{display: block; margin-bottom:5px;}
+.select_one img{width:150px;margin-bottom: 10px; height: 66px;display: none}
+.tabbar_img img{width:50px;height:50px}
+.colorpicker{z-index: 999;}
+.line{border-bottom: 1px dotted #eee;margin: -5px 3% 30px;}
+.form_nobg{
+	background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 216px;
+    right: 0;
+    height: 52px;
+    line-height: 52px;
+    box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+<input type="hidden" id="nowhtml" value="navDIY"  class="navDIY1">
+
+<div class="row-fluid">
+	<div class="portlet box">
+
+		<div class="portlet-body form">
+			<form action="{:Url('Stylediy/diysetsave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data">
+				<div class="control-group chongdingy">
+					<label class="control-label chongdingywz">基础设置</label>
+				</div>
+				<div class="control-group">
+					<!--新增的字段-->
+					<!-- <label class="control-label">首页</label>
+					<div class="controls">
+						<label class="radio">
+							<input type="radio" name="homepage" value="1" {if $bases}{if $bases.homepage==1}checked=checked{/if}{/if}/>
+							默认首页
+						</label>
+						<label class="radio">
+							<input type="radio" name="homepage" value="2" {if $bases}{if $bases.homepage==2}checked=checked{/if}{/if}/>
+							DIY首页
+						</label>
+					</div> -->
+				</div>
+				<div class="control-group">
+					<label  class="control-label" >选择配色方案</label>
+					<div class="controls" >
+						<div class="choose_style_nav" id="mhl">
+							<img src="__STATIC_ROOT__/image/diyimg/mhl.jpg" />
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou1.png" style="display: block;" />
+						</div>
+						<div class="choose_style_nav" id="jdh">
+							<img src="__STATIC_ROOT__/image/diyimg/jdh.jpg" />
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou1.png" />
+						</div>
+						<div class="choose_style_nav" id="qzj">
+							<img src="__STATIC_ROOT__/image/diyimg/qzj.jpg" />
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou1.png" />
+						</div>
+						<div class="choose_style_nav" id="qxl">
+							<img src="__STATIC_ROOT__/image/diyimg/qxl.jpg" />
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou1.png" />
+						</div>
+						<div class="choose_style_nav" id="hlh">
+							<img src="__STATIC_ROOT__/image/diyimg/hlh.jpg" />
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou1.png" />
+						</div>
+						<div class="choose_style_nav" id="gqh">
+							<img src="__STATIC_ROOT__/image/diyimg/gqh.jpg" />
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou1.png" />
+						</div>
+						<div class="choose_style_nav" id="qlf">
+							<img src="__STATIC_ROOT__/image/diyimg/qlf.jpg" />
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou1.png" />
+						</div>
+						<div class="choose_style_nav" id="yyz">
+							<img src="__STATIC_ROOT__/image/diyimg/yyz.jpg" />
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou1.png" />
+						</div>
+						<div class="choose_style_nav" id="zdy">
+							<img class="choose_style_nav_gou1" src="__STATIC_ROOT__/image/diyimg/gou2.png" /> 自定义
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+				<div class="control-group chongdingy">
+					<label class="control-label chongdingywz">自定义DIY样式</label>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">小程序主色</label>
+					<div class="controls">
+						<div id="colorSelector5" >
+							<div style="width: 30px;height: 30px;background: {if $bases['base_color']}{$bases['base_color']}{else}#4491F1{/if};float: left;border: 1px solid #ccc;border-right: 0;cursor: pointer;"></div>
+						</div>
+
+
+						<input id="tabbar_bg5" value="{if $bases}{if $bases.base_color}{$bases.base_color}{else}#4491F1{/if}{/if}" class="span2 m-wrap ng-pristine ng-untouched ng-valid ng-empty" name="base_color" style="margin-top:-11px;">
+						<span style="color:#999999; line-height:40px; margin-left:20px;">包含顶部底色，底部TAB上线的颜色</span>
+					</div>
+				</div>
+
+
+
+				<div class="control-group">
+					<label class="control-label">小程序头底文字色</label>
+					<div class="controls">
+						<label class="radio">
+							<input type="radio" name="base_tcolor" value="#ffffff" {if $bases}{if $bases.base_tcolor=="#ffffff"}checked=checked{/if}{/if}/>
+							白色
+						</label>
+						<label class="radio">
+							<input type="radio" name="base_tcolor" value="#000000" {if $bases}{if $bases.base_tcolor!="#ffffff"}checked=checked{/if}{/if}/>
+							黑色
+						</label>
+						<span style="color:#999999; line-height:40px; margin-left:20px;">顶部的文字颜色，建议与背景色相反</span>
+					</div>
+				</div>
+
+				<div class="zdydivbox">
+					<div class="control-group">
+
+						<label class="control-label" style="float:left;">小程序辅色</label>
+						<div class="controls" style="float:left;height:50px;margin-left:20px;">
+
+							<div id="colorSelector3" style="float: left;">
+								<div style="width: 30px;height: 30px;background: {$bases['tabbar_bg3']};float: left;border: 1px solid #ccc;border-right: 0;cursor: pointer;"></div>
+							</div>
+
+
+							<input type="text" id="tabbar_bg3" name="tabbar_bg3" value="{$bases['tabbar_bg3']}" class="span2 m-wrap ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off" style="width: 100px;float:left;">
+                        </div>
+                        
+                        <label class="control-label" style="float:left;" >小程序主色渐变色</label>
+						<div class="controls" style="float:left;height:50px;margin-left:20px;">
+							<div id="colorSelector4" style="float: left;">
+								<div style="width: 30px;height: 30px;background: {$bases['base_color2']};float: left;border: 1px solid #ccc;border-right: 0;cursor: pointer;"></div>
+							</div>
+                            <input  type="text" id="tabbar_bg4" name="base_color2" value="{$bases['base_color2']}" class="span2 m-wrap ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off" style="width: 100px;float:left;">
+						</div>
+                        <div style="color:#999;line-height:32px;margin-left:20px;float:left;">建议与小程序主色颜色相近</div>
+					</div>
+
+
+					<div class="control-group">
+						<label class="control-label" style="float:left;">小程序文字主色</label>
+						<div class="controls" style="float:left;height:50px;margin-left:20px;">
+
+							<div id="colorSelector2" style="float: left;">
+								<div style="width: 30px;height: 30px;background: {$bases['tabbar_bg2']};float: left;border: 1px solid #ccc;border-right: 0;cursor: pointer;"></div>
+							</div>
+
+
+							<input  type="text" id="tabbar_bg2" name="tabbar_bg2" value="{$bases['tabbar_bg2']}" class="span2 m-wrap ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off" style="width: 100px;float:left;">
+						</div>
+
+						<label class="control-label" style="float:left;">小程序文字辅色</label>
+						<div class="controls" style="float:left;height:50px;margin-left:20px;">
+
+							<div id="colorSelector1" style="float: left;">
+								<div style="width: 30px;height: 30px;background: {$bases['tabbar_bg1']};float: left;border: 1px solid #ccc;border-right: 0;cursor: pointer;"></div>
+							</div>
+
+
+							<input  type="text" id="tabbar_bg1" name="tabbar_bg1" value="{$bases['tabbar_bg1']}" class="span2 m-wrap ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off" style="width: 100px;float:left;">
+						</div>
+					</div>
+				</div>
+
+
+				<div class="choose_style_box mt-20 clearfix">
+					<div class="choose_style_single">
+						<img class="phone_bg" src="__STATIC_ROOT__/image/diyimg/1.png" alt="" />
+						<div class="choose_style_head choose_headbg"  style="background-color: #FFFFFF;">会员中心
+							<img class="choose_style_head_img choose_style_head_img1" src="__STATIC_ROOT__/image/diyimg/choose_style_head2.png" />
+							<img class="choose_style_head_img choose_style_head_img2" src="__STATIC_ROOT__/image/diyimg/choose_style_head.png" />
+						</div>
+						<div class="choose_style_div">
+							<div class="choose_bg choose_bgcolor" style="background-color: #4491f1;">
+								<img style="display: block;" src="__STATIC_ROOT__/image/diyimg/ubg.png" />
+							</div>
+							<div class="choose_bg2 choose_bgcolor" style="background-color: #4491f1;"></div>
+							<img class="choose_style_img" src="__STATIC_ROOT__/image/diyimg/choose_style_img.png" />
+						</div>
+						<div class="choose_style_qd choose_bgcolor2 choose_color2" style="background-color: #60A1F2;color: #fff;">签到</div>
+						<div class="fs-28 choose_style_icon1 iconfont icon-x-daifukuan choose_color3" style="color: #4491f1;"></div>
+						<div class="fs-28 choose_style_icon2 iconfont icon-x-huowu2 choose_color3" style="color: #4491f1;"></div>
+						<div class="fs-28 choose_style_icon3 iconfont icon-x-fahuo choose_color3" style="color: #4491f1;"></div>
+						<div class="fs-28 choose_style_icon4 iconfont icon-x-xiangzi choose_color3" style="color: #4491f1;"></div>
+						<div class="fs-28 choose_style_icon5 iconfont icon-x-pintuan choose_color3" style="color: #4491f1;"></div>
+						<div class="fs-28 choose_style_icon6 iconfont icon-x-miaosha choose_color3" style="color: #4491f1;"></div>
+						<div class="fs-28 choose_style_icon7 iconfont icon-x-qiandao3 choose_color3" style="color: #4491f1;"></div>
+						<div class="fs-28 choose_style_icon8 iconfont icon-x-miaosha2 choose_color3" style="color: #4491f1;"></div>
+					</div>
+					<div class="choose_style_single">
+						<img class="phone_bg" src="__STATIC_ROOT__/image/diyimg/1.png" alt="" />
+						<div class="choose_style_head choose_headbg" style="background-color: #FFFFFF;">产品详情
+							<img class="choose_style_head_img choose_style_head_img1" src="__STATIC_ROOT__/image/diyimg/choose_style_head2.png" />
+							<img class="choose_style_head_img choose_style_head_img2" src="__STATIC_ROOT__/image/diyimg/choose_style_head.png" />
+						</div>
+						<div class="choose_style_div">
+
+							<img class="choose_style_img" src="__STATIC_ROOT__/image/diyimg/choose_style_img2.png" />
+						</div>
+						<div class="choose_style_price choose_color3" style="color: #4491F1;"><span>￥</span>2360.00</div>
+						<div class="choose_style_fang choose_bgcolor" style="background-color: #4491F1;"></div>
+						<div class="choose_style_price2 choose_bgcolor2 choose_color2" style="color: #fff;background-color: #60A1F2;"><span>￥</span>2360</div>
+						<div class="choose_style_price3 choose_bgcolor choose_color" style="color: #fff;background: #4491f1;">立即预约</div>
+					</div>
+					<div class="choose_style_single">
+						<img class="phone_bg" src="__STATIC_ROOT__/image/diyimg/1.png" alt="" />
+						<div class="choose_style_head choose_headbg" style="background-color: #FFFFFF;">产品详情
+							<img class="choose_style_head_img choose_style_head_img1" src="__STATIC_ROOT__/image/diyimg/choose_style_head2.png" />
+							<img class="choose_style_head_img choose_style_head_img2" src="__STATIC_ROOT__/image/diyimg/choose_style_head.png" />
+						</div>
+						<div class="choose_style_div">
+							<img class="choose_style_img" src="__STATIC_ROOT__/image/diyimg/choose_style_img3.png" />
+						</div>
+						<div class="choose_style_price4 choose_color3" style="color:#4491F1;"><span>￥</span>2360.00</div>
+						<div class="choose_style_cc1 choose_bgcolor" style="background-color: #4491F1;">1200mm*1900mm</div>
+						<div class="choose_style_cc2 choose_bgcolor" style="background-color: #4491F1;">原木色</div>
+						<div class="choose_style_bottom1 choose_bgcolor2 choose_color2" style="background-color: #60A1F2;color: #fff;">加入购物车</div>
+						<div class="choose_style_bottom2 choose_bgcolor choose_color" style="background-color: #4491F1;color: #fff;">立即购买</div>
+					</div>
+				</div>
+
+
+
+				<div class="form-actions form_nobg">
+					<button type="submit" class="btn" style="color:#fff;background-color:#4385ff;">确定</button>
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<script>
+        $(document).ready(function(){
+            var tabbar_bg5 = $("#tabbar_bg5").val();
+            if(tabbar_bg5 != null){
+                $('.choose_headbg').css('backgroundColor', tabbar_bg5);
+                $('.choose_bgcolor').css('background-color',tabbar_bg5);
+                $('.choose_color3').css('color',tabbar_bg5);
+            }
+            var base_tcolor = $("input[name='base_tcolor']:checked").val();
+            $('.choose_style_head').css('color', base_tcolor);
+            var base_color2 = $("input[name='base_color2']").val();
+            if(base_color2 != ''){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#zdy .choose_style_nav_gou1').show();
+                $('.zdydivbox').show();
+            }else{
+                $("input[name='base_color2']").val()
+            }
+            var tabbar_bg1 = $("input[name='tabbar_bg1']").val();
+            if(tabbar_bg1 != ''){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#zdy .choose_style_nav_gou1').show();
+                $('.zdydivbox').show();
+                $('.choose_color2').css('color',tabbar_bg1);
+            }else{
+                $("input[name='tabbar_bg1']").val('#FFFFFF');
+            }
+            var tabbar_bg2 = $("input[name='tabbar_bg2']").val();
+            if(tabbar_bg2 != ''){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#zdy .choose_style_nav_gou1').show();
+                $('.zdydivbox').show();
+                $('.choose_color').css('color',tabbar_bg2);
+            }else{
+                $("input[name='tabbar_bg2']").val('#FFFFFF');
+            }
+
+            var tabbar_bg3 = $("input[name='tabbar_bg3']").val();
+            if(tabbar_bg3 != ''){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#zdy .choose_style_nav_gou1').show();
+                $('.zdydivbox').show();
+                $('.choose_bgcolor2').css('background-color',tabbar_bg3);
+            }else{
+                $("input[name='tabbar_bg3']").val('#60A1F2');
+            }
+            $('#mhl').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#mhl .choose_style_nav_gou1').show();
+                $('#colorSelector5 div').css('backgroundColor', '#4491F1');
+                $('#tabbar_bg5').val('#4491F1');
+                $('.choose_headbg').css('backgroundColor', '#4491F1');
+                $('.choose_bgcolor').css('background-color','#4491F1'); //小程序主色
+                $('.choose_color3').css('color','#4491F1');//小程序主色
+                $('.choose_bgcolor2').css('background-color','#60A1F2'); //小程序辅色
+                $('.choose_color').css('color','#FFFFFF');//小程序文字主色
+                $('.choose_color2').css('color','#FFFFFF');//小程序辅色
+                $('.zdydivbox').hide();
+                $("input[name='base_color2']").val('#70b0ff'); //小程序主色
+                $("input[name='tabbar_bg3']").val('#60A1F2'); //小程序辅色
+                $("input[name='tabbar_bg2']").val('#FFFFFF'); //小程序文字主色
+                $("input[name='tabbar_bg1']").val('#FFFFFF'); //小程序文字辅色
+                $("#colorSelector4 > div").css('background-color','#70b0ff');
+                $("#colorSelector3 > div").css('background-color','#60A1F2');
+                $("#colorSelector2 > div").css('background-color','#FFFFFF');
+                $("#colorSelector1 > div").css('background-color','#FFFFFF');
+            })
+            $('#jdh').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#jdh .choose_style_nav_gou1').show();
+                $('#colorSelector5 div').css('backgroundColor', '#f0422e');
+                $('#tabbar_bg5').val('#f0422e');
+                $('.choose_headbg').css('backgroundColor', '#f0422e');
+                $('.choose_bgcolor').css('background-color','#f0422e');
+                $('.choose_color3').css('color','#f0422e');
+                $('.choose_bgcolor2').css('background-color','#ff6a6a');
+                $('.choose_color').css('color','#FFFFFF');
+                $('.choose_color2').css('color','#FFFFFF');
+                $('.zdydivbox').hide();
+                $("input[name='base_color2']").val('#ff854f'); //小程序主色
+                $("input[name='tabbar_bg3']").val('#ff6a6a'); //小程序辅色
+                $("input[name='tabbar_bg2']").val('#FFFFFF'); //小程序文字主色
+                $("input[name='tabbar_bg1']").val('#FFFFFF'); //小程序文字辅色
+                $("#colorSelector4 > div").css('background-color','#ff854f');
+                $("#colorSelector3 > div").css('background-color','#ff6a6a');
+                $("#colorSelector2 > div").css('background-color','#FFFFFF');
+                $("#colorSelector1 > div").css('background-color','#FFFFFF');
+            })
+            $('#qzj').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#qzj .choose_style_nav_gou1').show();
+                $('#colorSelector5 div').css('backgroundColor', '#C3A769');
+                $('#tabbar_bg5').val('#C3A769');
+                $('.choose_headbg').css('backgroundColor', '#C3A769');
+                $('.choose_bgcolor').css('background-color','#C3A769');
+                $('.choose_color3').css('color','#C3A769');
+                $('.choose_bgcolor2').css('background-color','#F3EEE1');
+                $('.choose_color').css('color','#FFFFFF');
+                $('.choose_color2').css('color','#C3A769');
+                $('.zdydivbox').hide();
+                $("input[name='base_color2']").val('#fcca5c'); //小程序主色
+                $("input[name='tabbar_bg3']").val('#F3EEE1'); //小程序辅色
+                $("input[name='tabbar_bg2']").val('#FFFFFF'); //小程序文字主色
+                $("input[name='tabbar_bg1']").val('#C3A769'); //小程序文字辅色
+                $("#colorSelector4 > div").css('background-color','#fcca5c');
+                $("#colorSelector3 > div").css('background-color','#F3EEE1');
+                $("#colorSelector2 > div").css('background-color','#FFFFFF');
+                $("#colorSelector1 > div").css('background-color','#C3A769');
+            })
+            $('#qxl').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#qxl .choose_style_nav_gou1').show();
+                $('#colorSelector5 div').css('backgroundColor', '#63BE72');
+                $('#tabbar_bg5').val('#63BE72');
+                $('.choose_headbg').css('backgroundColor', '#63BE72');
+                $('.choose_bgcolor').css('background-color','#63BE72');
+                $('.choose_color3').css('color','#63BE72');
+                $('.choose_bgcolor2').css('background-color','#E1F4E3');
+                $('.choose_color').css('color','#FFFFFF');
+                $('.choose_color2').css('color','#63BE72');
+                $('.zdydivbox').hide();
+                $("input[name='base_color2']").val('#91eaa0'); //小程序主色
+                $("input[name='tabbar_bg3']").val('#E1F4E3'); //小程序辅色
+                $("input[name='tabbar_bg2']").val('#FFFFFF'); //小程序文字主色
+                $("input[name='tabbar_bg1']").val('#63BE72'); //小程序文字辅色
+                $("#colorSelector4 > div").css('background-color','#91eaa0');
+                $("#colorSelector3 > div").css('background-color','#E1F4E3');
+                $("#colorSelector2 > div").css('background-color','#FFFFFF');
+                $("#colorSelector1 > div").css('background-color','#63BE72');
+            })
+            $('#hlh').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#hlh .choose_style_nav_gou1').show();
+                $('#colorSelector5 div').css('backgroundColor', '#FCC600');
+                $('#tabbar_bg5').val('#FCC600');
+                $('.choose_headbg').css('backgroundColor', '#FCC600');
+                $('.choose_bgcolor').css('background-color','#FCC600');
+                $('.choose_color3').css('color','#FCC600');
+                $('.choose_bgcolor2').css('background-color','#ffd94f');
+                $('.choose_color').css('color','#FFFFFF');
+                $('.choose_color2').css('color','#FFFFFF');
+                $('.zdydivbox').hide();
+                $("input[name='base_color2']").val('#ffd641'); //小程序主色
+                $("input[name='tabbar_bg3']").val('#ffd94f'); //小程序辅色
+                $("input[name='tabbar_bg2']").val('#FFFFFF'); //小程序文字主色
+                $("input[name='tabbar_bg1']").val('#FFFFFF'); //小程序文字辅色
+                $("#colorSelector4 > div").css('background-color','#ffd641');
+                $("#colorSelector3 > div").css('background-color','#ffd94f');
+                $("#colorSelector2 > div").css('background-color','#FFFFFF');
+                $("#colorSelector1 > div").css('background-color','#FFFFFF');
+            })
+            $('#gqh').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#gqh .choose_style_nav_gou1').show();
+                $('#colorSelector5 div').css('backgroundColor', '#333333');
+                $('#tabbar_bg5').val('#333333');
+                $('.choose_headbg').css('backgroundColor', '#333333');
+                $('.choose_bgcolor').css('background-color','#333333');
+                $('.choose_color3').css('color','#333333');
+                $('.choose_bgcolor2').css('background-color','#454545');
+                $('.choose_color').css('color','#FFFFFF');
+                $('.choose_color2').css('color','#FFFFFF');
+                $('.zdydivbox').hide();
+                $("input[name='base_color2']").val('#5d5d5d'); //小程序主色
+                $("input[name='tabbar_bg3']").val('#454545'); //小程序辅色
+                $("input[name='tabbar_bg2']").val('#FFFFFF'); //小程序文字主色
+                $("input[name='tabbar_bg1']").val('#FFFFFF'); //小程序文字辅色
+                $("#colorSelector4 > div").css('background-color','#5d5d5d');
+                $("#colorSelector3 > div").css('background-color','#454545');
+                $("#colorSelector2 > div").css('background-color','#FFFFFF');
+                $("#colorSelector1 > div").css('background-color','#FFFFFF');
+            })
+            $('#qlf').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#qlf .choose_style_nav_gou1').show();
+                $('#colorSelector5 div').css('backgroundColor', '#FF547B');
+                $('#tabbar_bg5').val('#FF547B');
+                $('.choose_headbg').css('backgroundColor', '#FF547B');
+                $('.choose_bgcolor').css('background-color','#FF547B');
+                $('.choose_color3').css('color','#FF547B');
+                $('.choose_bgcolor2').css('background-color','#FFE6E8');
+                $('.choose_color').css('color','#FFFFFF');
+                $('.choose_color2').css('color','#FF547B');
+                $('.zdydivbox').hide();
+                $("input[name='base_color2']").val('#fd8b58'); //小程序主色
+                $("input[name='tabbar_bg3']").val('#FFE6E8'); //小程序辅色
+                $("input[name='tabbar_bg2']").val('#FFFFFF'); //小程序文字主色
+                $("input[name='tabbar_bg1']").val('#FF547B'); //小程序文字辅色
+                $("#colorSelector4 > div").css('background-color','#fd8b58');
+                $("#colorSelector3 > div").css('background-color','#FFE6E8');
+                $("#colorSelector2 > div").css('background-color','#FFFFFF');
+                $("#colorSelector1 > div").css('background-color','#FF547B');
+            })
+            $('#yyz').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#yyz .choose_style_nav_gou1').show();
+                $('#colorSelector5 div').css('backgroundColor', '#7783EA');
+                $('#tabbar_bg5').val('#7783EA');
+                $('.choose_headbg').css('backgroundColor', '#7783EA');
+                $('.choose_bgcolor').css('background-color','#7783EA');
+                $('.choose_color3').css('color','#7783EA');
+                $('.choose_bgcolor2').css('background-color','#E9EBFF');
+                $('.choose_color').css('color','#FFFFFF');
+                $('.choose_color2').css('color','#7783EA');
+                $('.zdydivbox').hide();
+                $("input[name='base_color2']").val('#a2acfe'); //小程序主色
+                $("input[name='tabbar_bg3']").val('#E9EBFF'); //小程序辅色
+                $("input[name='tabbar_bg2']").val('#FFFFFF'); //小程序文字主色
+                $("input[name='tabbar_bg1']").val('#7783EA'); //小程序文字辅色
+                $("#colorSelector4 > div").css('background-color','#a2acfe');
+                $("#colorSelector3 > div").css('background-color','#E9EBFF');
+                $("#colorSelector2 > div").css('background-color','#FFFFFF');
+                $("#colorSelector1 > div").css('background-color','#7783EA');
+            })
+            $('#zdy').click(function(){
+                $('.choose_style_nav .choose_style_nav_gou1').hide();
+                $('#zdy .choose_style_nav_gou1').show();
+                $('.zdydivbox').show();
+            })
+            $('#colorSelector5').ColorPicker({
+                color: '#ffffff',
+                onShow: function (colpkr) {
+                    $(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    $(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    $('#colorSelector5 div').css('backgroundColor', '#' + hex);
+                    $('#tabbar_bg5').val("#"+hex);
+                    $('.choose_headbg').css('backgroundColor', '#' + hex)
+                    $('.choose_bgcolor').css('backgroundColor', '#' + hex);
+                    $('.choose_color3').css('color','#' + hex);
+                }
+            });
+            $('#colorSelector4').ColorPicker({
+                color: '#ffffff',
+                onShow: function (colpkr) {
+                    $(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    $(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    $('#colorSelector4 div').css('backgroundColor', '#' + hex);
+                    $('#tabbar_bg4').val("#"+hex);
+                }
+            });
+            $('#colorSelector3').ColorPicker({
+                color: '#ffffff',
+                onShow: function (colpkr) {
+                    $(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    $(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    $('#colorSelector3 div').css('backgroundColor', '#' + hex);
+                    $('#tabbar_bg3').val("#"+hex);
+                    $('.choose_bgcolor2').css('backgroundColor', '#' + hex);
+                }
+            });
+            $('#colorSelector2').ColorPicker({
+                color: '#ffffff',
+                onShow: function (colpkr) {
+                    $(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    $(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    $('#colorSelector2 div').css('backgroundColor', '#' + hex);
+                    $('#tabbar_bg2').val("#"+hex);
+                    $('.choose_color').css('color', '#' + hex);
+
+                }
+            });
+            $('#colorSelector1').ColorPicker({
+                color: '#ffffff',
+                onShow: function (colpkr) {
+                    $(colpkr).fadeIn(500);
+                    return false;
+                },
+                onHide: function (colpkr) {
+                    $(colpkr).fadeOut(500);
+                    return false;
+                },
+                onChange: function (hsb, hex, rgb) {
+                    $('#colorSelector1 div').css('backgroundColor', '#' + hex);
+                    $('#tabbar_bg1').val("#"+hex);
+                    $('.choose_color2').css('color','#' + hex);
+                }
+            });
+
+
+            $('#choose_black').click(function(){
+                $('.choose_style_head_img1').show();
+                $('.choose_style_head_img2').hide();
+                $('.choose_style_head').css('color','#000000')
+            })
+            $('#choose_white').click(function(){
+                $('.choose_style_head_img2').show();
+                $('.choose_style_head_img1').hide();
+                $('.choose_style_head').css('color','#FFFFFF')
+            })
+        })
+	
+		$("input[name='base_tcolor']").on('click',function(){
+			$("input[name='base_tcolor']").attr("checked", "");
+			var base_tcolor =  $(this).val();
+			$(this).attr("checked", "checked");
+            $('.choose_style_head').css('color', base_tcolor);
+	    });
+	</script>
+
+
+	{include file="public/foot_more" /}

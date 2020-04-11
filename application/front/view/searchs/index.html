@@ -1,0 +1,165 @@
+{include file="common/head" /}
+    <div class="nav_left">
+      <div class="nav_add">
+        <div class="nav_tilte">商城分类</div>
+        <div class="dd">
+          <div class="nav_list">
+            
+            {foreach $cates as $item}
+            <div class="nav_list_s ">
+              <div class="nav_box">
+                <a href="{:Url('pclist/index')}?uniacid={$uniacid}&cid={$item['id']}" class="first_nav">{$item['name']}</a>
+                <div class="second_nav">
+                  <span class="nav_span">
+                  {foreach $item['subcates'] as $subitem}
+                    <a href="{:Url('pclist/index')}?uniacid={$uniacid}&cid={$subitem['id']}">{$subitem['name']} </a>
+                  {/foreach}
+                  </span>
+                </div>
+              </div>
+            </div>
+            {/foreach}
+          </div>  
+          <div class="nav_detailBox">
+            {foreach $cates as $item}
+            <div class="nav_detail">
+                {foreach $item['subcates'] as $subitem}
+                  <a href="{:Url('pclist/index')}?uniacid={$uniacid}&cid={$subitem['id']}">{$subitem['name']} </a>
+                {/foreach}
+            </div>
+            {/foreach}         
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <?php if(count($prolist) > 0) { ?>
+    <div class="body_lists" >
+      <div class="body_list">
+        <div class="search_tishi"> 
+          <p class="tishi_ok">查询到下列有关商品</p>
+        </div>
+        <div class="list_products">
+          {foreach $prolist as $item}
+          <div class="list_pro">
+            <a href="javascript:;" onclick="showbox({$item['id']})">
+              <div class="list_pro_img">
+                <img src="{$item['thumb']}" alt="">
+              </div>
+              <div class="list_pro_text">
+                <span class="list_pro_sales">销量：{$item['sale_num']}</span>
+                <span class="list_pro_text_price">￥ <span style="font-size: 20px;">{$item['price']}</span></span>
+                <p class="list_pro_text_title">{$item['title']}</p>
+              </div>
+            </a>
+          </div>
+          {/foreach}
+
+          <!-- 分页 -->
+          <div class="cont_fy">
+            <div class="fenye_main">
+              {$pros->render()}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php } else { ?>
+      <div class="search_tishi">
+        <p class="tishi_no">未查询到相关商品，请重新查询</p>
+      </div>
+    <?php } ?>
+    
+    {include file="common/foot" /}
+
+ 
+
+    <!-- 弹框 -->
+    <div id="pro_bg" class="dis_none"></div>
+    <div id="pro_detail" class="dis_none">
+      <div class="close">
+        <a href="javascript:;" onclick="closeBox()" class="iconfont icon-x-guanbi"></a>
+      </div>
+      <div class="content">
+        <div class="con_imgs">
+          <div class="con_bigimg">
+            <img src="" id="b_img">
+          </div>
+          <div class="con_smallimg"></div>
+        </div>
+        <div class="con_texts">
+          <div class="texts_title"></div>
+          <div class="texts_content">价格：
+            <span class="con_price"></span>
+          </div>
+          <div class="texts_content">简介：</div>
+          <span class="con_jianjie"></span>
+          <div class="texts_content">扫描二维码购买</div>
+          <div class="con_erimg">
+            {foreach $baseinfo['pc_show_qrcode'] as $item}
+            <img src="{$item}">
+            {/foreach}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // nav导航
+    $(".nav_list_s").mouseenter(function(){
+      $(this).addClass("nav_list_s01").siblings().removeClass("nav_list_s01");
+      $(".nav_detailBox").show();
+      $(".nav_detailBox").children(".nav_detail").eq($(this).index()).show().siblings().hide();
+    })
+    $(".nav_left").mouseleave(function(){
+      $(this).find(".nav_list_s").removeClass("nav_list_s01");
+      $(".nav_detailBox").stop().hide();
+    })
+
+
+    // 弹框
+    function showbox(id) {
+      var ele=document.getElementById("pro_bg");
+      var ele1=document.getElementById("pro_detail");
+      ele.classList.remove('dis_none');
+      ele1.classList.remove('dis_none');
+
+      $.ajax({
+        url:"{:Url('index/proInfo')}?uniacid=<?php echo $_GET['uniacid']?>",
+        type: "post",
+        dataType: "json",
+        data: {
+          id: id
+        },
+        success: (res) => {
+          console.log(res)
+          $(".texts_title").html(res.title);
+          $(".con_price").html("￥"+res.price);
+          $(".con_jianjie").html(res.desc);
+          let images = "";
+          for(let i=0; i<res.text.length; i++){
+            images += "<a class='smallings smpic"+i+"' data-src='"+res.text[i]+"' onclick='changePic("+i+")'><img src='"+res.text[i]+"' ></a>";
+            // images += "<a class='smallings' href='javascript:;'><img src='"+res.text[i]+"' ></a>";
+          }
+          if(res.text.length > 0){
+            $("#b_img").attr('src', res.text[0]);
+          }
+          $(".con_smallimg").html(images);
+        }
+      })
+    }
+    function closeBox() {
+      var ele=document.getElementById("pro_bg");
+      var ele1=document.getElementById("pro_detail");
+      ele.classList.add('dis_none');
+      ele1.classList.add('dis_none');
+    }
+    function changePic(i){
+      $("#b_img").attr('src', $(".smpic"+i).data('src'));
+    }
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,180 @@
+{include file="public/head" /}
+<body class="page-header-fixed">
+
+<div class="page-container">
+{include file="public/left_setting" /}
+<div class="page_main">
+	<div class="content_head clearfix navbar" style="margin-bottom: 0">
+        <div class="content_head_left"></div>
+    </div>
+	<div class="page_content" id="container">
+
+
+<style type="text/css">
+    form {
+        margin: 0 !important;
+    }
+    .form_nobg{
+      background-color: #fff;
+      border-top: 0 !important;
+    }
+</style>
+
+<input type="hidden" id="nowhtml" value="navShortMsg" class="navShortMsg1">
+
+<div class="row-fluid">
+
+  <div class="portlet box">
+    <div class="portlet-body form">
+      <form action="{:Url('Shortmsg/save')}?appletid=" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+        <div class="control-group">
+          <label class="control-label">短信服务类型</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="shortmsg" value="1" {if $base}{if $base.shortmsg==1}checked="checked"{/if}{else}checked="checked"{/if} onclick="change()">
+
+              腾讯云短信服务
+
+              </label>
+
+              <label class="radio">
+
+              <input type="radio" name="shortmsg" value="2" {if $base}{if $base.shortmsg==2}checked="checked"{/if}{/if} onclick="change()">
+
+              阿里云短信服务
+
+              </label> 
+
+          </div>
+        </div>
+
+        <div class="tenx" style="{if $base}{if $base.shortmsg==1}display: block{else}display: none{/if}{/if}">
+          <div class="control-group">
+            <label class="control-label">短信入口ID <span style="color:red">*</span></label>
+            <div class="controls">
+              <input name="tx_access_id" type="text" id="tx_access_id" class="span3 m-wrap" value="{if $sms_set}{$sms_set.tx_access_id}{/if}" style="height: 35px !important;">
+              <span style="color:#999999; line-height:40px; margin-left:20px;">腾讯云后台短信应用 SDK APPID</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">短信入口密码 <span style="color:red">*</span></label>
+            <div class="controls">
+              <input name="tx_access_secret" type="text" id="tx_access_secret" class="span3 m-wrap" value="{if $sms_set}{$sms_set.tx_access_secret}{/if}" style="height: 35px !important;">
+              <span style="color:#999999; line-height:40px; margin-left:20px;">腾讯云后台短信应用 APP KEY</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">验证码模板 <span style="color:red">*</span></label>
+            <div class="controls">
+              <input name="tx_code_tpl" type="text" id="tx_code_tpl" class="span3 m-wrap" value="{if $sms_set}{$sms_set.tx_code_tpl}{/if}" style="height: 35px !important;">
+              <span style="color:#999999; line-height:40px; margin-left:20px;">腾讯云后台短信应用 短信正文ID</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">短信签名 <span style="color:red">*</span></label>
+            <div class="controls">
+              <input name="tx_sign" type="text" id="tx_sign" class="span3 m-wrap" value="{if $sms_set}{$sms_set.tx_sign}{/if}" style="height: 35px !important;">
+              <span style="color:#999999; line-height:40px; margin-left:20px;">腾讯云后台短信应用 短信签名内容</span>
+            </div>
+          </div>
+        </div>
+        <div class="ali" style="{if $base}{if $base.shortmsg==2}display: block{else}display: none{/if}{else}display:none;{/if}">
+          <div class="control-group">
+            <label class="control-label">短信AccessKeyID <span style="color:red">*</span></label>
+            <div class="controls">
+              <input name="ali_access_id" type="text" id="ali_access_id" class="span3 m-wrap" value="{if $sms_set2}{$sms_set2.ali_access_id}{/if}" style="height: 35px !important;">
+              <span style="color:#999999; line-height:40px; margin-left:20px;">阿里云后台短信应用 AccessKey ID</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">短信AccessKeySecret <span style="color:red">*</span></label>
+            <div class="controls">
+              <input name="ali_access_secret" type="text" id="ali_access_secret" class="span3 m-wrap" value="{if $sms_set2}{$sms_set2.ali_access_secret}{/if}" style="height: 35px !important;">
+              <span style="color:#999999; line-height:40px; margin-left:20px;">阿里云后台短信应用 Access Key Secret</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">验证码模板 <span style="color:red">*</span></label>
+            <div class="controls">
+              <input name="ali_code_tpl" type="text" id="ali_code_tpl" class="span3 m-wrap" value="{if $sms_set2}{$sms_set2.ali_code_tpl}{/if}" style="height: 35px !important;">
+              <span style="color:#999999; line-height:40px; margin-left:20px;">阿里云后台短信服务 短信模版CODE</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">短信签名 <span style="color:red">*</span></label>
+            <div class="controls">
+              <input name="ali_sign" type="text" id="ali_sign" class="span3 m-wrap" value="{if $sms_set2}{$sms_set2.ali_sign}{/if}" style="height: 35px !important;">
+              <span style="color:#999999; line-height:40px; margin-left:20px;">阿里云后台短信应用 短信签名名称</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions form_nobg" style="padding-top: 40px;">
+          <button type="submit" class="btn" style="color: #fff;background-color: #4385ff;margin-left: 45%">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+  function change(){
+    var remote = $("input[name='shortmsg']:checked").val();
+    if(remote == 1){
+      $(".tenx").show();
+      $(".ali").hide();
+    }else if(remote == 2){
+      $(".tenx").hide();
+      $(".ali").show();
+    }
+  }
+  function checkinfo(){
+    var remote = $("input[name='shortmsg']:checked").val();
+    if(remote == 1){
+      var tx_access_id = $.trim($("#tx_access_id").val());
+      if(!tx_access_id){
+        alert("请设置腾讯云短信入口ID！");
+        return false;
+      }
+      var tx_access_secret = $.trim($("#tx_access_secret").val());
+      if(!tx_access_secret){
+        alert("请设置腾讯云短信入口密码！");
+        return false;
+      }
+      var tx_code_tpl = $.trim($("#tx_code_tpl").val());
+      if(!tx_code_tpl){
+        alert("请设置腾讯云验证码模板！");
+        return false;
+      }
+      var tx_sign = $.trim($("#tx_sign").val());
+      if(!tx_sign){
+        alert("请设置腾讯云短信签名！");
+        return false;
+      }
+    }else{
+      var ali_access_id = $.trim($("#ali_access_id").val());
+      if(!ali_access_id){
+        alert("请设置阿里云后台短信应用AccessKeyID！");
+        return false;
+      }
+      var ali_access_secret = $.trim($("#ali_access_secret").val());
+      if(!ali_access_secret){
+        alert("请设置阿里云后台短信应用AccessKeySecret！");
+        return false;
+      }
+      var ali_code_tpl = $.trim($("#ali_code_tpl").val());
+      if(!ali_code_tpl){
+        alert("请设置阿里云后台短信服务 短信模版CODE！");
+        return false;
+      }
+      var ali_sign = $.trim($("#ali_sign").val());
+      if(!ali_sign){
+        alert("请设置阿里云后台短信应用 短信签名名称！");
+        return false;
+      }
+    }
+  }
+</script>
+
+{include file="public/foot_more" /}

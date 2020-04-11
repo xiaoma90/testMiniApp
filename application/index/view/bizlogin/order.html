@@ -1,0 +1,509 @@
+{include file="public/head" /}
+{include file="public/bizlogintop" /}
+<!-- <div class="page-container">
+    <div style="margin:25px">
+        <div class="page-content" id="container"> -->
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel6-4">
+<style type="text/css">
+.shuk {
+    outline: none;
+    border: 1px solid #dedede;
+    width: 300px;
+}
+.cesd {
+    height: 28px;
+    line-height: 28px;
+    width: 28px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    border: 1px solid #dedede;
+    padding: 0 10px;
+}
+.zzcc {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.4;
+    z-index: 100000;
+}
+.bbdd {
+    position: fixed;
+    z-index: 100001;
+    width: 1000px; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    border:1px solid #e7e7e7;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+.bbdd2{
+    position: fixed;
+    z-index: 100001;
+    background-color: #ffffff;
+    width: 400px;
+    height: 190px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 6px;
+    border:1px solid #e7e7e7;
+}
+.ddhh {
+    height: 52px;;
+    line-height: 52px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 17px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e5e5e5;
+    color: #333;
+}
+.ddxx {
+    cursor: pointer
+}
+.loader{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: #000 50% 50%;
+    opacity: .3;
+}
+.tb1 tr{
+    height: 50px;
+    line-height: 50px;
+    color: #5c6270;
+}
+.ddtop{
+    padding: 20px;
+    box-sizing: border-box;
+}
+.ddmain{
+    background: #f8f8f8;
+    padding: 18px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: #5c6270;
+}
+.ddmain::-webkit-scrollbar{
+    display: none;
+}
+.ddmain_body{
+    width: 100%;
+    border-left: 2px solid #e5e5e5;
+    position: relative;
+    overflow: visible;
+    padding:4px 0 4px 20px;
+    box-sizing: border-box;
+    margin: 0 !important;
+}
+.radius{
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #e5e5e5;
+    position: absolute;
+    top: 50%;
+    left: -4px;
+    transform:translateY(-50%);
+}
+.btn_green{
+    background-color: #fff;
+    color: #35aa47;
+    border: 1px solid #35aa47;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 14px;
+}
+.btn_red{
+    background-color: #fff;
+    color: #d9534f;
+    border: 1px solid #d9534f;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 14px;
+}
+.btn_gray{
+    color: #969696;
+    border: 1px solid #969696;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 1px 6px; 
+}
+</style>
+            
+<script type="text/javascript">
+function shoscc(id) {
+    $("#orderfh").val(id);
+    console.log(id);
+    $(".loader").show();
+    $(".la-ball-clip-rotate").hide();
+    //$('body').append('<div class="zzcc" id="zzcc" style="display:none"></div>');
+    $("#bbdd").show();
+}
+
+function ycc() {
+    $(".loader").hide();
+    $("#bbdd").hide();
+}
+
+function quxiao(id){
+    $("#orderfh2").val(id);
+    $(".loader").show();
+    $(".la-ball-clip-rotate").hide();
+    $("#qxdd").show();
+}
+
+function tijiao() {
+    var kuaidihao = $("#kuaidihao").val();
+    if (kuaidihao == 0) {
+        alert("快递单号不能为空！");
+        return false;
+    }
+    var order = $("#orderfh").val();
+    var kuaidi = $("#kuaidi").val();
+    location.href = "{:Url('bizlogin/order')}?appletid=<?php echo $_GET['appletid']?>&op=fahuo&orderid=" + order + "&kuaidi=" + kuaidi + "&kuaidihao=" + kuaidihao;
+}
+</script>
+
+<div class='loader' style="display:none"></div>
+<div class="bbdd2" id="qxdd" style="display:none">
+    <div class="ddhh">
+        <span>取消该订单</span>
+        <img class="ddxx" src="__STATIC_ROOT__/image/close.png" width="14px" height="14px" alt="" onclick="ycc2()">
+    </div>
+    <div>
+        <!-- <div style="margin-top: 36px"> -->
+            <form class="form-horizontal" action="" method="post" style="margin: 20px auto;">
+                <input type="hidden" id="orderfh2" name="orderfh2">
+                <table class="we7-table tb1 vertical-middle" style="border:0;margin: auto;">
+                    <tr>
+                        <td style="width:95px">取消备注</td>
+                        <td >
+                            <input type="text" id="qxbeizhu" name="qxbeizhu" value="" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:95px"></td>
+                        <td >
+                            <a onclick="qxtijiao()" class="btn btn-sm" style="background-color: #6671e4;color: #fff;">提交</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        <!-- </div> -->
+    </div>
+</div>
+<div class="portlet-body">
+    <div class="bbdd" id="bbdd" style="display:none">
+        <div class="ddhh">
+            <span>请填写快递单号</span>
+            <img class="ddxx" src="__STATIC_ROOT__/image/close.png" width="14px" height="14px" alt="" onclick="ycc()">
+        </div>
+
+        <form class="form-horizontal" action="" method="post" style="margin:20px auto;">
+            <input type="hidden" id="orderfh" name="orderfh">
+            <table class="we7-table tb1 vertical-middle" style="border:0;margin: auto;">
+
+                <tr>
+                    <td style="width:110px">快递：</td>
+                    <td>
+                        <select style="width:200px" id="kuaidi" name="kuaidi">
+                            <option value="顺丰">顺丰</option>
+                            <option value="韵达">韵达</option>
+                            <option value="天天">天天</option>
+                            <option value="申通">申通</option>
+                            <option value="圆通">圆通</option>
+                            <option value="中通">中通</option>
+                            <option value="国通">国通</option>
+                            <option value="百世">百世</option>
+                            <option value="EMS">EMS</option>
+                            <option value="邮政">邮政</option>
+                            <option value="FEDEX联邦(国内件)">FEDEX联邦(国内件)</option>
+                            <option value="宅急送">宅急送</option>
+                            <option value="安捷快递">安捷快递</option>
+                            <option value="大田物流">大田物流</option>
+                            <option value="百福东方">百福东方</option>
+                            <option value="德邦快运">德邦快运</option>
+                            <option value="D速物流">D速物流</option>
+                            <option value="COE东方快递">COE东方快递</option>
+                            <option value="共速达">共速达</option>
+                            <option value="佳怡物流">佳怡物流</option>
+                            <option value="京广速递">京广速递</option>
+                            <option value="急先达">急先达</option>
+                            <option value="加运美">加运美</option>
+                            <option value="晋越快递">晋越快递</option>
+                            <option value="全晨快递">全晨快递</option>
+                            <option value="民航快递">民航快递</option>
+                            <option value="美快">美快</option>
+                            <option value="龙邦快递">龙邦快递</option>
+                            <option value="联昊通速递">联昊通速递</option>
+                            <option value="全一快递">全一快递</option>
+                            <option value="如风达">如风达</option>
+                            <option value="速尔快递">速尔快递</option>
+                            <option value="盛丰物流">盛丰物流</option>
+                            <option value="天地华宇">天地华宇</option>
+                            <option value="TNT快递">TNT快递</option>
+                            <option value="UPS">UPS</option>
+                            <option value="万家物流">万家物流</option>
+                            <option value="信丰物流">信丰物流</option>
+                            <option value="亚风快递">亚风快递</option>
+                            <option value="优速快递">优速快递</option>
+                            <option value="远成物流">远成物流</option>
+                            <option value="运通快递">运通快递</option>
+                            <option value="源安达快递">源安达快递</option>
+                            <option value="中铁快运">中铁快运</option>
+                            <option value="中邮快递">中邮快递</option>
+                            <option value="安能物流">安能物流</option>
+                            <option value="九曳供应链">九曳供应链</option>
+                            <option value="东骏快捷">东骏快捷物流</option>
+                            <option value="晟邦物流">晟邦物流</option>
+                            <option value="芝麻开门">芝麻开门</option>
+                            <option value="万象">万象</option>
+
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:95px">快递号：</td>
+                    <td>
+                        <input type="text" id="kuaidihao" name="kuaidihao" value=""
+                                class="form-control ng-pristine ng-untouched ng-valid ng-empty"
+                                style="width: 187px;">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width:95px"></td>
+                    <td>
+                        <a onclick="tijiao()" class="btn btn-sm" style="background: #7979f1;color:#fff;">提交</a>
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+    <div class="bbdd" id="kdinfo" style="overflow: auto; width: 500px; display: none;">
+        <div class="ddhh">
+            <span>物流信息</span>
+            <img class="ddxx" src="__STATIC_ROOT__/image/close.png" width="14px" height="14px" alt="" onclick="kdclose()">
+        </div>
+
+        <div class="ddbody">
+            <div class="ddtop">
+                <label>快递公司：<span id='show_kuaidi'></span></label>
+                <label>快递单号：<span id='show_kuaidihao'></span></label>
+            </div>
+            <div class="ddmain" id="kd">                                
+            </div>
+        </div>
+    </div>
+    <!--    <table class="table we7-table table-hover article-list vertical-middle">
+            <tbody id="shujl">
+            </tbody>
+        </table>
+        -->
+    <table class="table" id="sample_editable_1" style="border: 1px solid #f2f2f2">
+        <thead>
+            <tr style="background:#f8f8f8">
+                <td style="width:242px;text-align: center">商品</td>
+                <td style="width:180px;text-align: center">单价(元)</td>
+                <td style="width:118px;text-align: center">数量</td>
+                <td style="width:200px;text-align: center;">营销信息</td>
+                <td style="width:176px;text-align: left">实付金额</td>
+                <td style="width:300px;text-align: left">联系方式</td>
+                <td style="width:175px;text-align: center">核销信息</td>
+                <td style="width:260px;text-align: left">状态</td>
+            </tr>
+        </thead>
+        <tbody>
+        {foreach $orders as $item}
+        <tr style="height: 20px;"></tr>
+        <tr class="trorder">
+            <td colspan="8" style="border:0;background:#f9f9f9;padding: 10px 24px;">
+                店铺名称：{$item['shopname']} <span style="margin-left: 45px;">订单编号：<span style="color: #7979f1">{$item['order_id']}</span></span> <span style="margin-left: 45px;">下单时间：{$item['creattime']} </span>
+            </td>
+        </tr>
+        {foreach $item['jsondata'] as $index => $val}
+        <tr class="trbody">
+            <td style="overflow:hidden;border:0;">
+                <img src="{$val['proinfo']['thumb']}" style="width:50px;height:50px;border:1px solid #ccc; padding:1px;" onerror="">
+                {$val['baseinfo']['title']}
+            </td>
+            <td style="text-align: center;overflow:hidden;border:none;">
+                {$val['proinfo']['price']}
+            </td>
+            <td style="text-align:center;border:none;">
+                {$val['num']}
+            </td>
+            <td style="text-align:center;border:none;">
+                {if $item['couponinfo']['price']}
+                优惠券：{$item['couponinfo']['price']}元<br>
+                {/if}
+                {if $item['jf']>0}
+                积分：{$item['jf']}【抵扣{$item['jfmoney']}元】
+                {/if}
+            </td>
+            {if $index == 0}
+            <td style="text-align:left;border:none;" {if $item['rowspan'] > 0}rowspan="{$item['counts']}"{/if}>
+                总价：{$item['allprice']}
+                <br/>
+                实付：{$item['price']}
+            </td>
+            <td style="text-align:left;border:none;">
+                {if $item['address_get']}
+                姓名：{$item['address_get']['name']}<br/>
+                电话：{$item['address_get']['mobile']}<br/>
+                邮编：<br/>
+                地址：{$item['address_get']['address']} <br/>
+                {/if}
+            </td>
+            <td style="text-align:center;border:none;" {if $item['rowspan'] > 0}rowspan="{$item['counts']}"{/if}>
+                {$item['hxtime']}
+            </td>
+            <td style="text-align:left;border:none;" {if $item['rowspan'] > 0}rowspan="{$item['counts']}"{/if}>
+                {if $item['flag'] ==0}<span class="btn_gray">未支付</span>{/if}
+                {if $item['flag'] ==1}
+                    {if $item.nav == 1}
+                    <a class="btn_green" onclick="shoscc({$item['id']})">立即发货</a>
+                    {else}
+                    <a class="btn_green" onclick="return confirm('此操作不可恢复，确定核销该订单吗？'); return false;"
+                        href="{:Url('Bizlogin/fahuo')}?appletid=<?php echo $_GET['appletid']?>&orderid={$item['id']}&shopid={$item['sid']}">立即核销</a>
+                    {/if}
+                    <a class="btn_red" onclick="quxiao('{$item['id']}')">取消订单</a>
+                {/if}
+                {if $item['flag'] == 2} <span class="btn_gray">已结算</span>{/if}
+                {if $item['flag'] == 3} <span class="btn_gray">已过期</span>{/if}
+                {if $item['flag'] == 4} <span class="btn_gray">已发货</span>{/if}
+                {if $item['kuadi']}
+                <!-- 快递：{$item['kuadi']}<br/>
+                快递号：{$item['kuaidihao']} -->
+                <a onclick="getwuliu({$_GET['appletid']}, '{$item.kuadi}', '{$item.kuaidihao}')"><font color="#7979f1">查看物流</font> </a>
+                {/if}
+                {if $item['flag'] == 5} <span class="btn_gray">已取消</span><br>备注：{$item['qxbeizhu']}{/if}
+                {if $item['flag'] == 6}
+                <a class="btn_green"
+                    onclick="return confirm('确定允许客户取消该笔订单？退款将直接到账'); return false;"
+                    href="{:Url('Bizlogin/order')}?appletid=<?php echo $_GET['appletid']?>&op=confirmtk&orderid={$item['id']}">同意取消</a>
+                <a class="btn_red" onclick="return confirm('确定拒绝该客户的退款请求？'); return false;"
+                    href="{:Url('Bizlogin/order')}?appletid=<?php echo $_GET['appletid']?>&op=refuseqx&orderid={$item['id']}">拒绝取消</a>
+
+                {/if}
+                {if $item['flag'] ==7}
+                <a class="btn_green" onclick="allowth({$item['id']})">允许退货</a>
+                <a class="btn_red" onclick="refuseth({$item['id']})">拒绝退货</a>
+                <br>
+                {$item['kuaidi_th']}
+                <br>
+                {$item['kuaidihao_th']}
+                {/if}
+                {if $item['flag'] ==8} <span class="btn_gray">已退货</span> {/if}
+                {if $item['flag'] ==9} <span class="btn_gray">已拒绝退货</span> {/if}
+            </td>
+            {/if}
+        </tr>
+        {/foreach}
+        <tr style="font-size:12px;background:#f9f9f9;width:1576px;">
+            <td colspan="4" style="text-align:left;border:0;">
+                买家留言： {$item['liuyan']}
+            </td>
+            <td colspan="4" style="height:40px;padding:0;border-top: 1px dashed #f0f0f0;border-right: 1px solid #f0f0f0;padding: 0 24px;">
+                
+            </td>
+        </tr>
+        
+        {/foreach}
+        </tbody>
+    </table>
+    <!-- 分页 -->
+    <div>
+        <div class="fenye_right">
+            {$total->render()}
+        </div>
+    </div>
+</div>
+        <!-- </div>
+    </div>
+</div> -->
+
+<script type="text/javascript">
+    function getwuliu(uniacid, kuaidi, kuaidihao) {
+        $("#show_kuaidi").html(kuaidi);
+        $("#show_kuaidihao").html(kuaidihao);
+        $.ajax({
+            url: "{:Url('bizlogin/getwuliu')}",
+            type: "post",
+            dataType: 'json',
+            data: {
+                uniacid: uniacid,
+                kuaidi: kuaidi,
+                kuaidihao: kuaidihao
+            },
+            success: function (res) {
+                $(".loader").show();
+                $("#kdinfo").show();
+                var info = JSON.parse(res)
+                var html = ''
+                if (info['status'] == 0) {
+                    if (info['type'] == 'ali') {
+                        for (var i = 0; i < info['list'].length; i++) {
+                            html += "<tr><td>" + info['list'][i]['status'] + "<br/>" + info['list'][i]['time'] + "<td></tr>";
+                        }
+                    } else {
+                        for (var i = 0; i < info['list'].length; i++) {
+                            html += "<tr><td>" + info['list'][i]['AcceptStation'] + "<br/>" + info['list'][i]['AcceptTime'] + "<td></tr>";
+                        }
+                    }
+                } else {
+                    html = '暂未查询到物流信息, 请稍后再试!'
+                }
+                $("#kd").empty();
+                $("#kd").append(html);
+            }
+        })
+    }
+
+    function kdclose() {
+        $(".loader").hide();
+        $("#kdinfo").hide();
+    }
+
+    function qxtijiao(){
+        var qxbeizhu = $("#qxbeizhu").val();
+        var order = $("#orderfh2").val();
+        location.href = "{:Url('Bizlogin/order')}?appletid=<?php echo $_GET['appletid']?>&op=quxiao&orderid="+order+"&qxbeizhu="+qxbeizhu;
+    }
+
+    function ycc2(){
+        $(".loader").hide();
+        $("#qxdd").hide();
+    }
+
+    function allowth(id){
+        if(window.confirm('确定允许退货？退款将直接退回')){
+            location.href =  "{:Url('Bizlogin/order')}?appletid=<?php echo $_GET['appletid']?>&op=allowth&orderid="+id;
+        }
+    }
+
+    function refuseth(id){
+        if(window.confirm('确定要拒绝该退货申请？')){
+            location.href ="{:Url('Bizlogin/order')}?appletid=<?php echo $_GET['appletid']?>&op=refuseth&orderid="+id;
+        }
+    }
+</script>
+{include file="public/foot_more" /}

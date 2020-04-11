@@ -1,0 +1,177 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+thead{
+	background: #fafafa;
+}
+table{
+	margin-bottom: 20px;
+	width: 100%;
+	text-align: center;
+	border: 1px solid #f0f0f0;
+}
+th,td{
+	border: 1px dashed #f0f0f0;
+	text-align: left;
+	padding-left: 10px;
+	font-size: 14px;
+}
+th{
+	height: 45px;
+}
+td{
+	height: 62px;
+}
+.item_nickname{
+	width: 116px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+</style>
+
+<input type="hidden" id="nowhtml" value="navVIP" class="navVIP1">
+<script type="text/javascript">
+	$(function(){
+		$("#filter").click(function(){
+			var user_info = $('#user_info').val();
+			var url = window.location.href;
+
+			window.location.href = "{:Url('wxuser/index')}?appletid=<?php echo $_GET['appletid']?>" + "&vip=" + $('#vip').val() + "&user_info=" + user_info;
+		})
+	})
+</script>
+
+<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+			
+			<div class="float-left mr-20" style="margin: 10px;">		
+				<select name="vip" id="vip" class="form-control" style="width: 200px;display: inline-block;font-size: 12px">
+							<option value="all" {if isset($vip)}{if $vip == 'all'} selected="selected" {/if}{/if}  >全部</option>
+							<option value="notvip"  {if isset($vip)}{if $vip == 'notvip'} selected="selected" {/if}{/if} >非会员</option>						
+							<option value="isvip"  {if isset($vip)}{if $vip == 'isvip'} selected="selected" {/if}{/if} >会员</option>
+							{foreach $grade_arr as $i}
+			                	<option value="{$i['grade']}" {if $vip == $i['grade']}selected='selected'{/if}>{$i['name']}({$i['grade']}级)</option>
+							{/foreach}
+				</select>
+				<input type="text" name="user_info" style="width: 200px;font-size: 12px" value="{if isset($_GET['user_info'])}{$_GET['user_info']}{/if}" id="user_info" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="姓名或手机号的关键字" autocomplete="off">
+				<div class="btn green btn_hov" id="filter" style="font-size: 12px;margin-top: -10px;background-color: #4385ff" />提交</div>
+				<!-- <div class="btn btn-primary" style="display: inline-block;font-size: 12px" id="excel" onclick="window.location.href = window.location.href + '&opt=excel';" >导出excel</div> -->
+			</div>
+
+			<div class="portlet-body">
+
+
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							<th style="width: 50px">ID</th>
+							<th style="width: 150px">头像-昵称</th>
+							<th style="width: 150px">姓名-手机号</th>
+							<th style="width: 100px">身份</th>
+							<th style="width: 80px">总消费金额</th>
+							<th style="width: 80px">虚拟消费金额</th>
+							<th style="width: 80px">等级消费金额</th>
+							<th style="width: 100px">账号注册时间</th>
+							<th style="width: 100px">会员申请时间</th>
+							<th style="width: 100px">积分 / 余额</th>
+							<th style="width: 100px">订单 / 优惠券</th>
+							<th style="width: 100px">操作</th>
+						</tr>
+
+					</thead>
+
+					<tbody>
+					{if $user}
+						{foreach $user['data'] as $item}
+							<tr>
+								<td>
+									{$item.id}
+								</td>
+								<td style="display:flex;align-items:center;">
+				          <img src="{$item.avatar}" onerror="this.src='__STATIC_ROOT__/image/nopic.jpg'" style="width:50px; height:50px;">-<span class="item_nickname">{$item.nickname}</span>	
+				        </td>
+								<td>
+									{$item.truename}-{$item.phone}
+								</td>
+								<td>{if $item.vipid}{$item['vipname']}({$item['grade']}级){else}普通用户{/if}</td>
+								<td>
+									{if $item.allpay}{$item.allpay}元{/if}
+								</td>
+								<td>
+									{if $item.virtualpay}{$item.virtualpay}元{/if}
+								</td>
+								<td>
+									{if $item.realpay}{$item.realpay}元{/if}
+								</td>
+								<td>
+									{$item.createtime}
+								</td>
+								<td>
+									{$item.vipcreatetime}
+								</td>
+								<td>
+									积分：{$item['score']}
+				                    <br/>
+				                    余额：{$item['money']}
+								</td>
+								<td>
+									订单：{$item.orders}
+									<br/>
+									优惠券：<a style="color:#6671E4;text-decoration: underline!important;" href="{:Url('Coupon/userrecord')}?appletid=<?php echo $_GET['appletid']?>&uid={$item.id}" >{$item.coupon}</a>
+								</td>
+								<td>
+		                			<a class="btn btn-default btn-sm btncolor" href="{:Url('post')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}" style="color: #438cdd;border: 1px solid #438cdd;background: #fff;border-radius: 4px;padding: 1px 6px;">编辑</a>
+
+		                			<a class="btn btn-default btn-sm btncolor" onclick="return confirm('删除后,用户余额、积分等将会清零，分销商身份会清除，确认要删除吗？'); return false;" href="{:Url('delete')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}" style="color: #d9534f;border: 1px solid #d9534f;background: #fff;border-radius: 4px;padding: 1px 6px;">删除</a>
+		            			</td>
+
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据
+					</div>
+					<div class="fenye_right">
+						{$userold->render()}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{include file="public/foot_more" /}

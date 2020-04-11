@@ -1,0 +1,1 @@
+https://baidu.com/api/Wxapps/doPagepaynotify?uniacid=7&flag=1&out_trade_no=202002182100157797&openid=ol7qf4s64Ki65L3P67npj2idmHQk&payprice=0.2&types=pt&formId=the formId is no longer available in develop or trial version of this mini program&paytype=1

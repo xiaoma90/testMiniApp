@@ -1,0 +1,215 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+    form {
+        margin: 0 !important;
+        display: inline-block !important;
+    }
+
+    thead {
+        background: #fafafa;
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+        border: 1px solid #f0f0f0;
+    }
+
+    th, td {
+        border: 1px dashed #f0f0f0;
+        text-align: center;
+    }
+
+    th {
+        height: 45px;
+    }
+
+    td {
+        height: 62px;
+    }
+
+    .label_jujue {
+        font-size: 14px;
+        padding: 1px 5px;
+        line-height: 20px;
+        border: 1px solid #999;
+    }
+
+    /* 弹出框 */
+    #pro_bg {
+        height: 100%;
+        width: auto;
+        background-color: #7b7b7b;
+        opacity: 0.8;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+    }
+
+    #pro_detail {
+        position: fixed;
+        height: 500px;
+        width: 850px;
+        background-color: #fff;
+        top: 20%;
+        left: 25%;
+        z-index: 501;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+    .dis_none {
+        display: none;
+    }
+
+    .close_box {
+        background-color: #f4f5f9;
+        border-bottom: 0;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        padding: 10px 20px;
+        box-sizing: border-box;
+    }
+
+    .icon-x-guanbi:before {
+        font-size: 24px;
+        font-weight: bold;
+        color: #aaa;
+    }
+
+    .content {
+        padding: 10px 15px;
+        height: 378px;
+    }
+
+    .modal-title {
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .cont-footer {
+        background-color: #f4f5f9;
+        border-top: 0;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding: 10px 20px 20px;
+        box-sizing: border-box;
+    }
+
+    .img_erweima {
+        background: #eee;
+        width: 250px;
+        height: 250px;
+        margin: 0 auto;
+    }
+
+    .img_erweima img {
+        width: auto;
+        height: 100%;
+    }
+    .btn_erweima {
+        margin-top: 15px;
+    }
+
+    .btn_erweima button {
+        border: 0;
+        background-color: #6671e4;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+    .nav-tabs > li > a {
+        font-size: 14px;
+        color: #76838f;
+    }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: #fff;
+        background-color: #6671e4;
+        border-color: transparent;
+        border-bottom-color: #38f;
+    }
+
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel17-2">
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box">
+            <div class="portlet-box">
+
+                <table id="sample_editable_1">
+                    <thead>
+                    <tr>
+                        <th style="width: 50px;">二维码ID</th>
+                        <th style="width: 50px;">用户ID</th>
+                        <th style="width: 50px;">头像</th>
+                        <th style="width: 50px;">昵称</th>
+                        <th style="width: 50px;">绑定批次ID</th>
+                        <th style="width: 100px;">商品</th>
+                        <th style="width: 100px;">商户名</th>
+                        <th style="width: 50px;">扫码时间</th>
+                        <th style="width: 50px;">IP</th>
+                        <th style="width: 50px;">地址信息</th>
+                        <th style="width: 50px;">扫码次数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {foreach $data as $item}
+                    <tr>
+                        <td>{$item.qr_id}</td>
+                        <td>{$item.user_id}</td>
+                        <td>
+                            {if $item.avatar}
+                            <img src="{$item.avatar}" style="width:55px; height:55px;">
+                            {/if}
+                            {if !$item.avatar}
+                            用户未授权
+                            {/if}
+                        </td>
+                        <td>{$item.nickname ? $item.nickname : '用户未授权'}</td>
+
+                        <td>{$item.batch_id}</td>
+
+                        <td>{$item.product_name}</td>
+
+                        <td>{$item.shop_name ? $item.shop_name : '未绑定商户'}</td>
+
+                        <td>{$item.create_time}</td>
+
+                        <td>{$item.ip}</td>
+
+                        <td>{$item.area}</td>
+
+                        <td>{$item.times}次</td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!--分页-->
+                <div>
+                    <div class="fenye_left">
+                    </div>
+                    <div class="fenye_right">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="__STATIC_ROOT__/js/jquery.js"></script>
+<script type="text/javascript">
+</script>
+
+{include file="public/foot_more" /}

@@ -1,0 +1,202 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+	.bbdd{
+		position: fixed;
+		z-index: 100001;
+		background-color: #ffffff;
+		width: 400px;
+		height: 220px;
+		top: 50%;
+		left: 50%;
+		margin-top: -200px;
+		margin-left: -110px;
+		padding: 10px;
+		border:1px solid #e7e7e7;
+	}
+	.ddhh{
+		line-height: 30px;
+		position: relative;
+	}
+	.ddxx{
+		position: absolute;
+		right: 0;
+		top:0;
+		cursor:pointer
+	}
+	.loader{
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 9999;
+		background: #000 50% 50%;
+		opacity: .3;
+	}
+	.border_green{
+		border: 1px solid #35aa47;
+		color: #35aa47;
+		background-color: #fff;
+	}
+	.border_red{
+		border: 1px solid #d9534f;
+		color: #d9534f;
+		background-color: #fff;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navFx" class="navFx5">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							
+							<th style="width: 50px;">ID</th>
+							<th style="width: 100px;">申请人姓名</th>
+							<th style="width: 100px;">申请人电话</th>
+							<th style="width: 100px;">状态</th>
+							<th style="width: 100px;">操作</th>
+						</tr>
+
+					</thead>
+
+					<tbody>
+						
+						{if $users}
+							{foreach $users as $item}
+								<tr>
+									<td>
+										{$item.id}
+							        	
+						        	</td>
+									<td>
+										{$item.truename}
+							        	
+									</td>
+
+									<td>
+										{$item.truetel}
+							        	
+									</td>
+									
+									<td style="width:120px;text-align: center">
+										{if $item['flag'] == 1}
+											<font style="color:red">待审核</font>
+										{/if}
+										{if $item['flag'] == 2}
+											<font style="color:green">已通过</font>
+										{/if}
+										{if $item['flag'] == 3}
+											<font style="color:#dedede">不通过</font>
+										{/if}
+							        </td>
+
+							        <td style="width:120px;text-align: center">
+										{if $item['flag'] == 1}
+											<span style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" onclick="tongguo({$item['id']},2)">通过</span>
+											<span style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" onclick="tongguo({$item['id']},3)">不通过</span>
+										{/if}
+										
+							        </td>
+								</tr>
+							{/foreach}
+						{/if}
+						
+					</tbody>
+
+				</table>
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$users->render()}
+					</div>
+				</div>
+					
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+<div class='loader' style="display:none"></div>
+<div class="bbdd" id="kdinfo" style="display:none; overflow: auto; width: 600px; height: 300px; margin-left: -15%;" >
+	<div class="ddhh">
+		<span>下级用户</span>
+		<div class="ddxx" onclick="kdclose()">[关闭]</div>
+	</div>
+
+	<table class="table we7-table  vertical-middle" id='kd' style="border:0">
+
+	</table>
+</div>
+
+<script type="text/javascript">
+	
+	function tongguo(id,val){
+        if(window.confirm('确定要审核该分销商嘛？')){          
+        	location.href = "{:Url('Fx/dealer')}?appletid=<?php echo $_GET['appletid']?>&id="+id+"&val="+val+"&opt=shenhe";
+        }else{
+	        return false;
+	    }
+    }
+    function jinyong(id,val){
+        if(window.confirm('确定要禁用该分销商嘛？')){
+            location.href = "{:Url('Fx/dealer')}?appletid=<?php echo $_GET['appletid']?>&id="+id+"&val="+val+"&opt=jinyong";
+        }else{
+            return false;
+        }
+	}
+    function kdclose(){
+        $(".loader").hide();
+        $("#kdinfo").hide();
+    }
+
+	
+
+</script>
+
+
+
+
+{include file="public/foot_more" /}

@@ -1,0 +1,145 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navSale3{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navSale3">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<div class="input-box" style="margin-bottom: 10px;">
+
+					<div class="btn-group">
+
+						<a href="{:Url('Cz/add')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn" style="background: #4385ff;color: #fff;margin-right: 10px;text-align: center">
+						添加规则
+						</button>
+						</a>
+
+					</div>
+				</div>
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							
+							<th>充值金额</th>
+
+							<th>赠送金额</th>
+
+							<th>赠送积分</th>
+
+							<th>赠送优惠券</th>
+							
+							<th width="200px;">操作</th>
+
+						</tr>
+
+					</thead>
+
+
+					{if $guiz}
+						{foreach $guiz as $item}
+							<tr>
+								<td>
+									{$item.money}
+								</td>
+								<td>
+									{$item.getmoney}
+								</td>
+								<td>
+									{$item.getscore}
+								</td>
+
+								<td>
+									{if $item.coupon_con}
+										{foreach $item.coupon_con as $vi}
+											{$vi.title} X {$vi.coupon_num} <br/>
+										{/foreach}
+									{else}
+										不赠送
+									{/if}
+								</td>
+	
+								<td>
+									<a href="{:Url('Cz/add')}?appletid=<?php echo $_GET['appletid']?>&cz={$item.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 6px;">编辑</button></a>
+									<form action="{:Url('Cz/del')}?appletid=<?php echo $_GET['appletid']?>&cz={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 6px;" type="submit">删除</button>
+									</form>
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+
+
+				</table>
+
+
+				<!-- 分页 -->
+
+				<div class="fenye_right">
+					{$guiz_list->render()}
+				</div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+</script>
+
+
+
+
+{include file="public/foot_more" /}

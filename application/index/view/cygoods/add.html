@@ -1,0 +1,2170 @@
+{include file="public/head" /}
+
+{include file="public/top" /}
+<style type="text/css">
+.navModel2{
+	display: block !important;
+}
+.editors{
+    max-width: 770px;
+    min-height: 600px;
+}
+.w-e-text-container{
+    min-height: 600px !important;
+}
+.weiz{
+    margin-left:20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.chongdingy{
+    background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+    text-align: left !important;
+    font-size: 16px;
+    padding-left: 20px;
+}
+.dels{
+    position: absolute;
+	right: 8px;
+	top: 0;
+	cursor:pointer;
+}
+
+.waic1{
+    margin-top:20px;
+	display: flex;
+}
+.waic2{
+    background-color:#F4F7F9; 
+	border: 1px dashed #dfe4e7;
+	line-height:33px; 
+	position:relative;
+	height: 33px;
+	box-sizing: border-box;
+	padding: 0 22px 0 6px;
+	white-space: nowrap;
+	margin-right: 6px;
+	border-radius: 3px;
+	color: #5C6270;
+}
+.waic3{
+    position: relative;
+}
+.ggzbtn3{
+    border: 1px dashed #dfe4e7;
+	text-align: center !important;
+	height: 33px;
+	line-height: 33px;
+	padding-top: 0 !important;
+	background-color: #F4F7F9;
+	position: absolute;
+	width: 50px;
+	cursor:pointer;
+	right:-50px;
+	top: 0;
+	box-sizing: border-box;
+}
+.yandd{
+    border-radius: 3px;
+	padding: 0 6px;
+	display: inline-block;
+	border: 1px dashed #dfe4e7;
+	height: 33px;
+	line-height: 33px;
+	box-sizing: border-box;
+	margin-right: 5px;
+	background: #F4F7F9;
+	color: #5C6270;
+	white-space: nowrap;
+}
+.ssnd{
+    cursor:pointer;
+	padding: 0 5px;
+}
+.biaotou{
+    text-align: center;
+	padding: 8px 2px;
+	background: #eee;
+	border: none;
+	color: #5C6270;
+}
+.tds{
+    text-align: center;
+    padding: 8px 0;
+}
+table tr:nth-child(odd){
+	background: #F4F7F9;
+}
+#tabb tr{
+	height: 70px;
+}
+.shukdd{
+    text-align: center;
+	width: 84px;
+	border: 1px dashed #DFE4E7 !important;
+	border-radius: 3px !important;
+}
+.sddds{
+    position: relative;
+}
+.ggsx{
+    border: 1px solid #dedede;
+    width: 60px;
+    text-align: center;
+    padding: 2px;
+    position: absolute;
+    right: 5px;
+    top: 6px;
+    cursor:pointer;
+}
+.ggzbcaa{
+    position: relative;
+    height: 30px;
+    margin-top: 10px;
+}
+.ggzbc{
+    border: 1px solid #dedede;
+    background-color: #eeeeee;
+    width: 120px;
+    padding: 5px;
+    position: absolute;
+    left: 50%;
+    margin-left: -60px;
+    text-align: center;
+    cursor:pointer;
+}
+.sdhd{
+    line-height: 35px;
+}
+.xuzndt{
+    border: 1px dashed #DFE4E7;
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+	background: #F4F7F9;
+	border-radius: 3px;
+	box-sizing: border-box;
+	padding: 0 8px;
+}
+.xuzndd{
+	width: 50px;
+	max-height: 50px;
+	display: inline-block;
+	margin-right: 10px;
+}
+.xuzndd img{
+	width: 100%;
+	max-height: 50px;
+	border-radius: 3px;
+}
+.panel{
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+.panel-heading{
+    padding: 0 15px;
+    border-bottom: 1px solid #e7e7e7;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.sddds{
+    position: relative;
+}
+.panel-title{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+.modal{
+    width: 795px !important;
+    margin-left: -397px !important;
+    min-height: 290px !important;
+}
+.form_nobg{
+	background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 216px;
+    right: 0;
+    height: 52px;
+    line-height: 52px;
+    box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+.back_go{
+	border-bottom: 1px solid #eee;
+    padding: 15px 15px 10px;
+}
+.add_imgs{
+	display: inline-block;
+	width: 67px;
+	height: 67px;
+	box-sizing: border-box;
+	border: 1px dashed #dfe4e7;
+	background: #f9f9f9;
+	border-radius: 3px;
+	text-align: center;
+	color: #DFE4E7;
+	font-size: 12px;
+}
+.commonchangepic{
+	cursor: pointer;
+}
+</style>
+<input type="hidden" id="nowhtml" value="navModel"  class="navModel2-4">
+	<div class="row-fluid">
+        <div class="back_go">
+			<a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">添加商品</span></a>
+		</div>
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				<form action="{:Url('Cygoods/save')}?appletid=<?php echo $_GET['appletid']?>&goodsid={$goodsid}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+				<div class="control-group">
+                    <label class="control-label">排序</label>
+                    <div class="controls">
+                        <input name="num" type="text" class="span1 m-wrap" value="{if $goodsinfo}{$goodsinfo.num}{/if}">
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">序号越大越靠前</span>
+                    </div>
+                </div>
+                <div class="control-group">
+					<label class="control-label"><span>*</span> 所属分类</label>
+					<div class="controls">
+						<select name="cid" class="span3 m-wrap" id="cid">
+							<option value="0">请选择所属分类</option>
+                                {volist name="$cate" id="vo"}
+                                    {if $goodsinfo}
+                                        {if $goodsinfo.cid == $vo['id']}
+                                        <option value="{$vo['id']}" selected="selected">{$vo['title']}</option>
+                                        {else}
+                                        <option value="{$vo['id']}">{$vo['title']}</option>
+                                        {/if}
+                                    {else}
+                                        <option value="{$vo['id']}">{$vo['title']}</option>
+                                    {/if}
+                                {/volist}			
+						</select>
+						<span style="color:#c7cddb; line-height:40px; margin-left:20px;">选择所属分类</span>
+					</div>
+				</div>
+				<div class="control-group">
+						<label class="control-label"><span>*</span> 标题</label>
+						<div class="controls">
+							<input name="title" id="title" type="text" class="span3 m-wrap" value="{if $goodsinfo}{$goodsinfo.title}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">请填写菜品名称</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">缩略图</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic1" style="width:67px;height:67px;">
+									{if $goodsinfo}
+										<img src="{$goodsinfo.thumb}" class="thumbs"/>
+	                                {else}
+										<img src="__STATIC_ROOT__/image/noimage_1.png" alt="" />
+	                                {/if}
+								</div>
+								<div class="fileupload-preview fileupload-exists thumbnail" style="width:67px;height:67px;">
+								</div>
+								<div class="add_imgs">
+									<span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic1" ></span>
+                                </div>
+							</div>
+						</div>
+                    </div>
+                    
+					<div class="control-group">
+						<label class="control-label">售价(￥)</label>
+						<div class="controls">
+							<input style="width:200px;" name="price" type="text" class="span1 m-wrap" value="{if $goodsinfo}{$goodsinfo.price}{/if}"/>
+                            <span style=" line-height:30px;">/</span>
+                            <input style="width:200px;" name="unit" type="text" placeholder="如：个" class="span1 m-wrap" value="{if $goodsinfo}{$goodsinfo.unit}{/if}"/>
+                            <span style=" line-height:30px; margin-right:20px;margin-left:20px;color:#c7cddb">填单位，不填则不显示单位</span>
+							
+						</div>
+					</div>
+                    <div class="control-group">
+                        <label class="control-label">月售量</label>
+                        <div class="controls">
+                            <input name="counts" type="text" class="span2 m-wrap" value="{if $goodsinfo}{$goodsinfo.counts}{/if}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">弹出图</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic2" style="width:67px;height:67px;">
+									{if $goodsinfo}
+										<img src="{$goodsinfo.descimg}" class="descimg" />
+	                                {else}
+										<img src="__STATIC_ROOT__/image/noimage_1.png" alt="" />
+	                                {/if}
+								</div>
+								<div class="fileupload-preview fileupload-exists thumbnail" style="width:67px;height:67px;">
+								</div>
+								<div class="add_imgs">
+									<span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic2" ></span>
+                                </div>
+                            </div>
+                            <span style="color:#c7cddb">不填为缩略图</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">简介</label>
+						<div class="controls">
+							<textarea class="span3 m-wrap" style="height:150px;" name="desccon">{if $goodsinfo}{$goodsinfo.desccon}{/if}</textarea>
+						</div>
+					</div>
+                    <div class="control-group">
+                        <label class="control-label">商品详情</label>
+                        <div class="controls">
+                            <div class="editors">
+                                <script id="editor" name="product_txt" type="text/plain">{if $goodsinfo}{$goodsinfo.product_txt}{/if}</script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="hidden" id="ischeck" name="ischeck" value="2">
+                            <input name="guig" id="guig" onchange="setgg(this)" type="hidden" class="span5 m-wrap" value="2"/>
+                        </div>
+                    </div>
+                    <div class="control-group" id="jtgg" style="">
+                        <label class="control-label">规格值</label>
+                        <div class="controls" style="overflow: hidden;">
+                            <!-- <label for="" class="span1 btn" style="float:left;border-radius: 0 !important">规格组</label> -->
+                            <input type="text" id="ggzval" placeholder="请输入规格，如颜色、尺码、套餐" style="width:353px;height:33px;line-height:33px;float:left;border-radius:3px;border:1px solid #dfe4e7;" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                            <label for="" class="col-sm-2 ggzbtn btn" onclick="ggzset()" style="float:left;margin-left:10px;background:#5B95FF;color:#fff;">新增</label>
+                            <span class="sdhd span4" style="color:#c7cddb;margin-left:24px;" id="izggzw" >最多只可添加3个规格组</span>
+                        </div>  
+                        <div class="span4" id="izggzwval" style="margin-left:180px">
+
+                        </div>
+                    </div>
+                    
+                    <div class="panel panel-default span8" id="ggzs" style="overflow: hidden;float: none;margin-left: 180px">
+                        <!-- <div class="panel-heading sddds">
+                            <h3 class="panel-title" style="width:60%">规格值<font color="red">[请先进行规格组和规格值创建]</font></h3> -->
+                    <!--         <div class="ggsx" onclick="datasets()"  style="z-index: 10000">
+                                刷新
+                            </div> -->
+                        <!-- </div> -->
+
+                        <!-- <div style="padding:10px"> -->
+                            <table cellpadding="0" cellspacing="0" style="max-width:1078px;border:1px solid #F0F3F5" border="1px" width="100%" id="tabb"><tbody><tr></tr></tbody></table>       
+                  <!--           <div class="ggzbcaa">
+                                <div class="ggzbc" onclick="ggzbc()">规格值保存</div>
+                            </div> -->
+                        <!-- </div> -->
+                    </div>
+                    
+                    <!-- 规格组长度 -->
+                    <input type="hidden" id="typelen" name="typelen">
+                    <!-- 规格组 -->
+                    <input type="hidden" id="typesarr" name="typesarr">
+                    <!-- 所有字商品的数据 -->
+                    <input type="hidden" id="biaogedata" name="biaogedata">  
+
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background: #4385ff;color: #fff;">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+
+		.modal{
+
+			width: 795px !important;
+
+			margin-left: -397px !important;
+
+			min-height: 290px !important;
+
+		}
+
+	</style>
+
+	<div id="stack2" class="modal fade" tabindex="-1" data-focus-on="input:first" style="width:795px !important; margin-left:-400px;">
+
+
+
+		<div class="modal-header">
+
+
+
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+
+
+
+			<h3>图片上传</h3>
+
+
+
+		</div>
+
+		
+
+		<div class="controls">
+
+			<div class="uploader-list-container" >
+
+				<div class="queueList">
+
+					<div id="dndArea" class="placeholder">
+
+						<div id="filePicker-2"></div>
+
+					</div>
+
+				</div>
+
+				<div class="statusBar" style="display:none;">
+
+					<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+
+					<div class="info"></div>
+
+					<div class="btns">
+
+						<div id="filePicker2"></div>
+
+						<div class="uploadBtn">开始上传</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+		</div>
+
+
+
+	</div>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/jquery.min.js"> </script>
+<script src="__STATIC_ROOT__/js/jquery.js"></script>
+
+<script type="text/javascript" src="__STATIC_ROOT__/webuploader/js/webuploader.min.js"></script>
+
+<script type="text/javascript" >
+$(function() {
+    var ue = UE.getEditor('editor');
+});
+
+function checkinfo(){
+        var cid = $("#cid").val();
+        if(cid==0){
+            alert("请选择所属分类");
+            return false;
+        }
+        var title = $("#title").val();
+        if(title==""){
+            alert("标题不能为空");
+            return false;
+        }
+        // var lab_name = $(".lab_name");
+        // var lab_val = $(".lab_val");
+        // var lab_str="";
+        // if(lab_name){
+        //     for(var i=0; i<lab_name.length; i++){
+        //         if($(lab_name[i]).val()!=""){
+        //             if($(lab_val[i]).val()==""){
+        //                 alert("标签名称填写后，值不能为空");
+        //                 return false;
+        //             }
+        //         }
+        //         lab_str+= $(lab_name[i]).val()+":"+$(lab_val[i]).val()+",";
+        //     }
+        // }
+        // if(lab_str==":,"){
+        //     lab_str="";
+        // }
+        // $("#labels").val(lab_str);
+        ggzbc();
+    }
+
+// function addlabel(){
+//     var alllables = $(".alllables");
+//     var i = alllables.length+1;
+    
+//     var str =   "<div class='control-group'>"+
+// 		"<label class='control-label'></label>"+
+// 		"<div class='controls'>"+
+// 			"<input  type='text' class='span2 m-wrap lab_name' value='' placeholder='标签名称'' style='height: 35px !important;'/>"+
+// 			"<input  type='text' class='span2 m-wrap lab_val' value='' placeholder='多个值用&隔开'  style='height: 35px !important;margin-left:10px' /> <input type='button' value='删除' class='sancs' onclick='dellabel(this)'>"+
+// 		"</div>"+
+// 	"</div>";
+//     $("#labels_sz").before(str);
+
+// }
+
+
+// function dellabel(me){
+//     var dv = $(me).parent().parent();
+//     $(dv).remove();
+// }
+
+function del(id){
+	if(confirm('你确定要删除这张图片嘛?')){
+
+
+
+		$("#li"+id).remove();
+
+		$.post("{:Url('Index/del')}",{"id":id},function(data){
+				
+		})
+
+	}else{
+        return false;
+    }
+
+
+
+}
+
+function xians(me){
+
+	var b = $(me).find("div[class='beijingys']");
+
+	var s = $(me).find("div[class='sancann']");
+
+	$(b).show();
+
+	$(s).show();
+
+}
+
+function gb(me){
+
+	var b = $(me).find("div[class='beijingys']");
+
+	var s = $(me).find("div[class='sancann']");
+
+	$(b).hide();
+
+	$(s).hide();
+
+}
+
+
+(function( $ ){
+
+    // 当domReady的时候开始初始化
+
+    $(function() {
+        var $wrap = $('.uploader-list-container'),
+            // 图片容器
+
+            $queue = $( '<ul class="filelist" id="filelist"></ul>' )
+
+                .appendTo( $wrap.find( '.queueList' ) ),
+
+            // 状态栏，包括进度和控制按钮
+
+            $statusBar = $wrap.find( '.statusBar' ),
+
+            // 文件总体选择信息。
+
+            $info = $statusBar.find( '.info' ),
+
+            // 上传按钮
+
+            $upload = $wrap.find( '.uploadBtn' ),
+
+            // 没选择文件之前的内容。
+
+            $placeHolder = $wrap.find( '.placeholder' ),
+            $progress = $statusBar.find( '.progress' ).hide(),
+
+            // 添加的文件数量
+
+            fileCount = 0,
+
+            // 添加的文件总大小
+
+            fileSize = 0,
+
+
+
+            // 优化retina, 在retina下这个值是2
+
+            ratio = window.devicePixelRatio || 1,
+
+
+
+            // 缩略图大小
+
+            thumbnailWidth = 180 * ratio,
+
+            thumbnailHeight = 120 * ratio,
+
+
+
+            // 可能有pedding, ready, uploading, confirm, done.
+
+            state = 'pedding',
+
+
+
+            // 所有文件的进度信息，key为file id
+
+            percentages = {},
+
+            // 判断浏览器是否支持图片的base64
+
+            isSupportBase64 = ( function() {
+
+                var data = new Image();
+
+                var support = true;
+
+                data.onload = data.onerror = function() {
+
+                    if( this.width != 1 || this.height != 1 ) {
+
+                        support = false;
+
+                    }
+
+                }
+
+                data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+
+                return support;
+
+            } )(),
+
+
+
+            // 检测是否已经安装flash，检测flash的版本
+
+            flashVersion = ( function() {
+
+                var version;
+
+
+
+                try {
+
+                    version = navigator.plugins[ 'Shockwave Flash' ];
+
+                    version = version.description;
+
+                } catch ( ex ) {
+
+                    try {
+
+                        version = new ActiveXObject('ShockwaveFlash.ShockwaveFlash')
+
+                                .GetVariable('$version');
+
+                    } catch ( ex2 ) {
+
+                        version = '0.0';
+
+                    }
+
+                }
+
+                version = version.match( /\d+/g );
+
+                return parseFloat( version[ 0 ] + '.' + version[ 1 ], 10 );
+
+            } )(),
+
+
+
+            supportTransition = (function(){
+
+                var s = document.createElement('p').style,
+
+                    r = 'transition' in s ||
+
+                            'WebkitTransition' in s ||
+
+                            'MozTransition' in s ||
+
+                            'msTransition' in s ||
+
+                            'OTransition' in s;
+
+                s = null;
+
+                return r;
+
+            })(),
+
+
+
+            // WebUploader实例
+
+            uploader;
+
+
+
+
+
+
+
+        // 实例化
+
+        uploader = WebUploader.create({
+
+            pick: {
+
+                id: '#filePicker-2',
+
+                label: '点击选择图片'
+
+            },
+
+            formData: {
+
+                uid: 123
+
+            },
+
+            dnd: '#dndArea',
+
+            paste: '#uploader',
+
+            swf: '/webuploader/Uploader.swf',
+
+            chunked: false,
+
+            chunkSize: 512 * 1024,
+
+            server: '{:Url('Index/imgupload')}?appletid=<?php echo $_GET['appletid']?>',
+
+            // runtimeOrder: 'flash',
+
+
+
+            // accept: {
+
+            //     title: 'Images',
+
+            //     extensions: 'gif,jpg,jpeg,bmp,png',
+
+            //     mimeTypes: 'image/*'
+
+            // },
+
+
+
+            // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
+
+            disableGlobalDnd: false,
+
+            fileNumLimit: 8,
+
+            fileSizeLimit: 200 * 1024 * 1024,    // 200 M
+
+            fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
+
+        });
+
+
+
+        // 拖拽时不接受 js, txt 文件。
+
+        uploader.on( 'dndAccept', function( items ) {
+
+            var denied = false,
+
+                len = items.length,
+
+                i = 0,
+
+                // 修改js类型
+
+                unAllowed = 'text/plain;application/javascript ';
+
+
+
+            for ( ; i < len; i++ ) {
+
+                // 如果在列表里面
+
+                if ( ~unAllowed.indexOf( items[ i ].type ) ) {
+
+                    denied = true;
+
+                    break;
+
+                }
+
+            }
+
+
+
+            return !denied;
+
+        });
+
+
+
+        uploader.on('dialogOpen', function() {
+
+            console.log('here');
+
+        });
+
+        // 添加“添加文件”的按钮，
+
+        uploader.addButton({
+
+            id: '#filePicker2',
+
+            label: '继续添加'
+
+        });
+
+
+
+        uploader.on('ready', function() {
+
+            window.uploader = uploader;
+
+        });
+
+
+
+        // 当有文件添加进来时执行，负责view的创建
+
+        function addFile( file ) {
+
+            var $li = $( '<li id="' + file.id + '">' +
+
+                    '<p class="imgWrap"></p>'+                
+
+                    '</li>' ),
+
+
+
+                $btns = $('<div class="file-panel">' +
+
+                    '<span class="cancel" style="background-image: url(__STATIC_ROOT__/webuploader/css/images/icons.png)">删除</span>' +
+
+					'</div>').appendTo( $li ),
+
+                $prgress = $li.find('p.progress span'),
+
+                $wrap = $li.find( 'p.imgWrap' ),
+
+                $info = $('<p class="error"></p>'),
+
+
+
+                showError = function( code ) {
+
+                    switch( code ) {
+
+                        case 'exceed_size':
+
+                            text = '文件大小超出';
+
+                            break;
+
+
+
+                        case 'interrupt':
+
+                            text = '上传暂停';
+
+                            break;
+
+
+
+                        default:
+
+                            text = '上传失败，请重试';
+
+                            break;
+
+                    }
+
+
+
+                    $info.text( text ).appendTo( $li );
+
+                };
+
+
+
+            if ( file.getStatus() === 'invalid' ) {
+
+                showError( file.statusText );
+
+            } else {
+
+                // @todo lazyload
+
+                $wrap.text( '预览中' );
+
+                uploader.makeThumb( file, function( error, src ) {
+
+                    var img;
+
+
+
+                    if ( error ) {
+
+                        $wrap.text( '不能预览' );
+
+                        return;
+
+                    }
+
+
+
+                    if( isSupportBase64 ) {
+
+                        img = $('<img src="'+src+'">');
+
+                        $wrap.empty().append( img );
+
+                    } else {
+
+                        $.ajax('/webuploader/server/preview.php', {
+
+                            method: 'POST',
+
+                            data: src,
+
+                            dataType:'json'
+
+                        }).done(function( response ) {
+
+                            if (response.result) {
+
+                                img = $('<img src="'+response.result+'">');
+
+                                $wrap.empty().append( img );
+
+                            } else {
+
+                                $wrap.text("预览出错");
+
+                            }
+
+                        });
+
+                    }
+
+                }, thumbnailWidth, thumbnailHeight );
+
+
+
+                percentages[ file.id ] = [ file.size, 0 ];
+
+                file.rotation = 0;
+
+            }
+
+
+
+            file.on('statuschange', function( cur, prev ) {
+
+                if ( prev === 'progress' ) {
+
+                    $prgress.hide().width(0);
+
+                } else if ( prev === 'queued' ) {
+
+                    $li.off( 'mouseenter mouseleave' );
+
+                    $btns.remove();
+
+                }
+
+
+
+                // 成功
+
+                if ( cur === 'error' || cur === 'invalid' ) {
+
+                    console.log( file.statusText );
+
+                    showError( file.statusText );
+
+                    percentages[ file.id ][ 1 ] = 1;
+
+                } else if ( cur === 'interrupt' ) {
+
+                    showError( 'interrupt' );
+
+                } else if ( cur === 'queued' ) {
+
+                    percentages[ file.id ][ 1 ] = 0;
+
+                } else if ( cur === 'progress' ) {
+
+                    $info.remove();
+
+                    $prgress.css('display', 'block');
+
+                } else if ( cur === 'complete' ) {
+
+                    $li.append( '<span class="success"></span>' );
+
+                }
+
+
+
+                $li.removeClass( 'state-' + prev ).addClass( 'state-' + cur );
+
+            });
+
+
+
+            $li.on( 'mouseenter', function() {
+
+                $btns.stop().animate({height: 30});
+
+            });
+
+
+
+            $li.on( 'mouseleave', function() {
+
+                $btns.stop().animate({height: 0});
+
+            });
+
+
+
+            $btns.on( 'click', 'span', function() {
+
+                var index = $(this).index(),
+
+                    deg;
+
+
+
+                switch ( index ) {
+
+                    case 0:
+
+                        uploader.removeFile( file );
+
+                        return;
+
+
+
+                    case 1:
+
+                        file.rotation += 90;
+
+                        break;
+
+
+
+                    case 2:
+
+                        file.rotation -= 90;
+
+                        break;
+
+                }
+
+
+
+                if ( supportTransition ) {
+
+                    deg = 'rotate(' + file.rotation + 'deg)';
+
+                    $wrap.css({
+
+                        '-webkit-transform': deg,
+
+                        '-mos-transform': deg,
+
+                        '-o-transform': deg,
+
+                        'transform': deg
+
+                    });
+
+                } else {
+
+                    $wrap.css( 'filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation='+ (~~((file.rotation/90)%4 + 4)%4) +')');
+
+                    // use jquery animate to rotation
+
+                    // $({
+
+                    //     rotation: rotation
+
+                    // }).animate({
+
+                    //     rotation: file.rotation
+
+                    // }, {
+
+                    //     easing: 'linear',
+
+                    //     step: function( now ) {
+
+                    //         now = now * Math.PI / 180;
+
+
+
+                    //         var cos = Math.cos( now ),
+
+                    //             sin = Math.sin( now );
+
+
+
+                    //         $wrap.css( 'filter', "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos + ",SizingMethod='auto expand')");
+
+                    //     }
+
+                    // });
+
+                }
+
+
+
+
+
+            });
+
+
+
+            $li.appendTo( $queue );
+
+        }
+
+
+
+        // 负责view的销毁
+
+        function removeFile( file ) {
+
+            var $li = $('#'+file.id);
+
+
+
+            delete percentages[ file.id ];
+
+            updateTotalProgress();
+
+            $li.off().find('.file-panel').off().end().remove();
+
+        }
+
+
+
+        function updateTotalProgress() {
+
+            var loaded = 0,
+
+                total = 0,
+
+                spans = $progress.children(),
+
+                percent;
+
+
+
+            $.each( percentages, function( k, v ) {
+
+                total += v[ 0 ];
+
+                loaded += v[ 0 ] * v[ 1 ];
+
+            } );
+
+
+
+            percent = total ? loaded / total : 0;
+
+
+
+
+
+            spans.eq( 0 ).text( Math.round( percent * 100 ) + '%' );
+
+            spans.eq( 1 ).css( 'width', Math.round( percent * 100 ) + '%' );
+
+            updateStatus();
+
+        }
+
+
+
+        function updateStatus() {
+
+            var text = '', stats;
+
+
+
+            if ( state === 'ready' ) {
+
+                text = '选中' + fileCount + '张图片，共' +
+
+                        WebUploader.formatSize( fileSize ) + '。';
+
+            } else if ( state === 'confirm' ) {
+
+                stats = uploader.getStats();
+
+                if ( stats.uploadFailNum ) {
+
+                    text = '已成功上传' + stats.successNum+ '张照片至XX相册，'+
+
+                        stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
+
+                }
+
+
+
+            } else {
+
+                stats = uploader.getStats();
+
+                text = '共' + fileCount + '张（' +
+
+                        WebUploader.formatSize( fileSize )  +
+
+                        '），已上传' + stats.successNum + '张';
+
+
+
+                if ( stats.uploadFailNum ) {
+
+                    text += '，失败' + stats.uploadFailNum + '张';
+
+                }
+
+            }
+
+
+
+            $info.html( text );
+
+        }
+
+
+
+        function setState( val ) {
+
+            var file, stats;
+
+
+
+            if ( val === state ) {
+
+                return;
+
+            }
+
+
+
+            $upload.removeClass( 'state-' + state );
+
+            $upload.addClass( 'state-' + val );
+
+            state = val;
+
+
+
+            switch ( state ) {
+
+                case 'pedding':
+                console.log("pedding");
+                    $placeHolder.removeClass( 'element-invisible' );
+
+                    $queue.hide();
+
+                    $statusBar.addClass( 'element-invisible' );
+
+                    uploader.refresh();
+
+                    break;
+
+
+
+                case 'ready':
+                console.log("ready");
+                    $placeHolder.addClass( 'element-invisible' );
+
+                    $( '#filePicker2' ).removeClass( 'element-invisible');
+
+                    $queue.show();
+
+                    $statusBar.removeClass('element-invisible');
+
+                    uploader.refresh();
+
+                    break;
+
+
+
+                case 'uploading':
+                console.log("uploading");
+                    $( '#filePicker2' ).addClass( 'element-invisible' );
+
+                    $progress.show();
+
+                    $upload.text( '暂停上传' );
+
+                    break;
+
+
+
+                case 'paused':
+                console.log("paused");
+                    $progress.show();
+
+                    $upload.text( '继续上传' );
+
+                    break;
+
+
+
+                case 'confirm':
+                console.log("confirm");
+                    $progress.hide();
+
+                    $( '#filePicker2' ).removeClass( 'element-invisible' );
+
+                    $upload.text( '开始上传' );
+
+
+
+                    stats = uploader.getStats();
+
+                    if ( stats.successNum && !stats.uploadFailNum ) {
+
+                        setState( 'finish' );
+
+                        return;
+
+                    }
+
+                    break;
+
+                case 'finish':
+                console.log("finish");
+                    stats = uploader.getStats();
+
+                    if ( stats.successNum ) {
+
+                        
+
+                        $.post("{:Url('Index/getimg')}",{"id":<?php echo $_GET['appletid']?>},function(data){
+
+                        	var str="";
+
+                        	if(data){
+
+
+
+                        		for(var i=0; i<data.length; i++){
+
+
+
+                        			str+=	"<div class='paiwei' onmousemove='xians(this)' onmouseout='gb(this)' id='li"+data[i].id+"'>"+
+
+												"<img src='"+data[i].url+"' style='width: 140px; height:90px;'>"+
+
+												"<div class='beijingys'>"+
+
+										
+
+												"</div>"+
+
+												"<div class='sancann' onclick='del("+data[i].id+")'>"+
+
+													"<span class='cancel'>删除</span>"+
+
+												"</div>"+
+
+											"</div>"
+
+                        		}
+
+                        		$("#imgzs").html(str);
+
+                        	}
+
+                        })
+
+
+
+                        alert( '上传成功' );
+
+                    } else {
+
+                        // 没有成功的图片，重设
+
+                        state = 'done';
+
+                    }
+
+                    break;
+
+            }
+
+
+
+            updateStatus();
+
+        }
+
+
+
+        uploader.onUploadProgress = function( file, percentage ) {
+
+            var $li = $('#'+file.id),
+
+                $percent = $li.find('.progress span');
+
+
+
+            $percent.css( 'width', percentage * 100 + '%' );
+
+            percentages[ file.id ][ 1 ] = percentage;
+
+            updateTotalProgress();
+
+        };
+
+
+
+        uploader.onFileQueued = function( file ) {
+
+            fileCount++;
+
+            fileSize += file.size;
+
+
+
+            if ( fileCount === 1 ) {
+
+                $placeHolder.addClass( 'element-invisible' );
+
+                $statusBar.show();
+
+            }
+
+
+
+            addFile( file );
+
+            setState( 'ready' );
+
+            updateTotalProgress();
+
+        };
+
+
+
+        uploader.onFileDequeued = function( file ) {
+
+            fileCount--;
+
+            fileSize -= file.size;
+
+
+
+            if ( !fileCount ) {
+
+                setState( 'pedding' );
+
+            }
+
+
+
+            removeFile( file );
+
+            updateTotalProgress();
+
+
+
+        };
+
+
+
+        uploader.on( 'all', function( type ) {
+
+            var stats;
+
+            switch( type ) {
+
+                case 'uploadFinished':
+
+                    setState( 'confirm' );
+
+                    break;
+
+
+
+                case 'startUpload':
+
+                    setState( 'uploading' );
+
+                    break;
+
+
+
+                case 'stopUpload':
+
+                    setState( 'paused' );
+
+                    break;
+
+
+
+            }
+
+        });
+
+
+
+        uploader.onError = function( code ) {
+
+            alert( 'Eroor: ' + code );
+
+        };
+
+
+
+        $upload.on('click', function() {
+
+            if ( $(this).hasClass( 'disabled' ) ) {
+
+                return false;
+
+            }
+
+
+
+            if ( state === 'ready' ) {
+
+                uploader.upload();
+
+            } else if ( state === 'paused' ) {
+
+                uploader.upload();
+
+            } else if ( state === 'uploading' ) {
+
+                uploader.stop();
+
+            }
+
+        });
+
+
+
+        $info.on( 'click', '.retry', function() {
+
+            uploader.retry();
+
+        } );
+
+
+
+        $info.on( 'click', '.ignore', function() {
+
+            alert( 'todo' );
+
+        } );
+
+
+
+        $upload.addClass( 'state-' + state );
+
+        updateTotalProgress();
+
+    });
+
+
+
+})( jQuery );
+
+
+
+    //规格开始
+        var datacounts = 0;
+        var typessy = 2;
+        // var ggznum=0;
+        {if $id}
+            $(function(){
+                ggzhtml();
+                datasets();
+            })
+        {/if}
+
+        //是否使用规格
+        function setgg(me){
+            var flag = $(me).is(":checked");
+            if(flag){
+                typessy = 1; //使用规格
+                $("#nokc").val(0);
+                $("#nokc").attr("readonly","true");
+                $("#noprice").attr("readonly","true");
+                $("#cpccz").removeAttr("onclick");
+                $("#cpcss").removeAttr("onclick");
+                $("#jtgg").show();
+                $("#ggzs").show();
+                $("#ischeck").val(2);
+            }else{
+                typessy=2;
+                $("#nokc").val(0);
+                $("#nokc").removeAttr("readonly");
+                $("#noprice").val(0);
+                $("#noprice").removeAttr("readonly");
+                $("#cpccz").attr("onclick","showImageDialog(this)");
+                $("#cpcss").attr("onclick","delimage(this)");
+                $("#jtgg").hide();
+                $("#ggzs").hide();
+                $("#ischeck").val(1);
+            }
+        }
+
+        var ggznum = 0;  //控制显示可输入规格组input
+
+            // 规格组数组
+            {if $counttypes && $counttypes > 0}
+                var ggzarr = [];
+                {foreach $typesarr as $item}
+                     ggznum++;
+                    ggzarr.push("{$item}");
+                {/foreach}
+
+                datacounts = 1;
+            {else}
+                var ggzarr = [];
+                datacounts = 0;
+            {/if}
+        
+
+            //规格组json
+            {if $counttypes && $counttypes > 0}
+
+                var ggzjson = {}; 
+                {foreach $typesjson as $aa => $res}
+                    var carr = [];
+                    {foreach $res as $rec}
+                        carr.push("{$rec}");
+                    {/foreach}       
+                    ggzjson["{$aa}"] = carr;
+                {/foreach}
+
+            {else}
+                var ggzjson = {}; 
+            {/if}
+
+
+        //增加规格组
+        function ggzset(){
+            datacounts = 0;
+            var ggzval = $("#ggzval").val();
+            if(ggzval){
+                ggznum++;
+
+                if(ggznum>3){
+                    $("#izggz").hide();
+                    $("#izggzw").show();
+                    ggznum--;
+                    console.log(ggznum)
+                    return false;
+                }
+                ggzarr.push(ggzval);  //追加规格数组
+
+                ggzjson[ggzval] = [];
+
+                $("#ggzval").val("");
+                ggzhtml();
+            }else{
+                alert("请先设置规格组名！")
+            }
+        }
+
+        // 增加规格组操作
+        function ggzhtml(){
+            var ggzhtml = "";
+
+            for(var i=0; i<ggzarr.length; i++){
+                var jsonarr = "";
+                var key = ggzarr[i];
+                var arr = ggzjson[key];
+                for(var j=0; j<arr.length; j++){
+                    jsonarr +=  "<div class='yandd'>"+
+                                    "<span>"+arr[j]+"</span>"+
+                                    "<span class='ssnd' onclick='delbq("+j+","+i+")'><img src=__STATIC_ROOT__/image/guige_close.png></span>"+
+                                "</div>";
+                }
+
+                ggzhtml += "<div class='waic1'>"+
+                                "<div class='waic2'>"+
+                                    ggzarr[i]+
+                                    "<div class='leix5 wi wi-delete dels' onclick='delgg("+i+")'>"+"<img src=__STATIC_ROOT__/image/guige_close.png></div>"+
+                                "</div>"+"<div style='height:33px;line-height:33px;'>：</div>"+
+                                "<div class='waic4' id='ggzid"+i+"'>"+
+                                jsonarr+
+                                "</div>"+
+                                "<div class='waic3'>"+
+                                    // "<label for='' class='col-sm-2 ggz btn' style='float:left;border-radius: 0 !important'>规格值</label>"+
+                                    "<input type='text' id='ggzval"+i+"' placeholder='如红色、白色' style='width:104px;height:33px;float:left;' class='form-control ng-pristine ng-untouched ng-valid ng-empty'>"+
+                                    "<label for='' class='col-sm-2 ggzbtn3 btn' onclick='ggzqd("+i+")'><img src=__STATIC_ROOT__/image/guige_add.png></label>"+
+                                "</div>"+
+                            "</div>";
+            }
+            $("#izggzwval").html(ggzhtml)
+        }
+
+        // 删除规格组
+        function delgg(i){
+            datacounts = 0;
+            ggznum--;
+            $("#izggz").show();
+            $("#izggzw").hide();
+
+            var keys = ggzarr[i];
+            delete ggzjson[keys];  
+
+            ggzarr.splice(i,1);
+            ggzhtml();
+            datasets();
+        }
+    
+    
+//        // 增加规格值
+        function ggzqd(val){
+            datacounts = 0;
+            var keys = ggzarr[val];
+            var ggz = $("#ggzval"+val).val();
+            if(!ggz){
+                alert("请输入对应的规格值");
+            }else {
+                var arr = ggzjson[keys];
+                if(ggz.indexOf(',') >= 0){
+                    alert("规格值不能包含英文逗号','");
+                    $("#ggzval" + val).val("")
+                    return false; 
+                }
+                if (arr.indexOf(ggz) >= 0) {
+                    alert("规格值不能重复");
+                    $("#ggzval" + val).val("")
+                    return false;
+                }
+                arr.push(ggz);
+            }
+
+            var strhtml = "";
+            for(var i=0; i<arr.length; i++){
+                strhtml += "<div class='yandd'>"+
+                                "<span>"+arr[i]+"</span>"+
+                                "<span class='ssnd' onclick='delbq("+i+","+val+")'><img src=__STATIC_ROOT__/image/guige_close.png></span>"+
+                            "</div>";
+            }
+            $("#ggzid"+val).html(strhtml);
+            $("#ggzval"+val).val("");
+            ggzjson[keys] = arr;
+           
+             datasets();
+
+        }
+       
+
+        // 删除标签功能
+        function delbq(i,val){
+            var keys = ggzarr[val];
+            var arr = ggzjson[keys];
+            arr.splice(i,1);
+
+            var strhtml = "";
+            for(var i=0; i<arr.length; i++){
+                strhtml += "<div class='yandd'>"+
+                                "<span>"+arr[i]+"</span>"+
+                                "<span class='ssnd' onclick='delbq("+i+","+val+")'><img src=__STATIC_ROOT__/image/guige_close.png></span>"+
+                            "</div>";
+            }
+            $("#ggzid"+val).html(strhtml);
+            $("#ggzval"+val).val("");
+
+            ggzjson[keys] = arr;
+            datasets();
+        }
+
+        var jg = ["库存","价格","已售数量","虚拟销量"];
+        var allarrone = []; //构建多重json
+        var tablearr = [];  //构建表格头部
+
+        // 构建规格
+        function datasets(){
+            allarrone = []; //构建多重json
+            tablearr = [];  //构建表格头部
+            $("#tabb").html("");
+            //判断规格组的值有没有都设置
+            var ggz1 = 0; //规格组1规格值长度
+            var ggz2 = 0; //规格组2规格值长度
+            var ggz3 = 0; //规格组3规格值长度
+            for(var i=0; i<ggzarr.length; i++){
+                if(ggzjson[ggzarr[i]].length == 0){
+                    alert(ggzarr[i]+"规格组没有设置规格值！");
+                    return;
+                }
+                if(i == 0){
+            		ggz1 = ggzjson[ggzarr[i]].length;
+                }else if(i == 1){
+            		ggz2 = ggzjson[ggzarr[i]].length;
+                }else{
+            		ggz3 = ggzjson[ggzarr[i]].length;
+                }
+            }
+
+            //构建多重json一条数据
+            if(ggzarr.length == 1){
+                var sz1 = ggzjson[ggzarr[0]];
+
+                //构建表格
+                tablearr.push(ggzarr[0]);
+                tablearr = tablearr.concat(jg);
+                var datacount = '<?php echo count($datajson); ?>';
+                for(var i=0; i<sz1.length; i++){
+                    var datakey = sz1[i];
+                    if(datacounts == 1){
+                        {if $datajson}
+                            {foreach $datajson as $index => $item}
+
+                                if("{$index}"== datakey){
+                                    var aa = "{$item}";
+                                    var newarr = aa.split(",");
+                                    var jsondata = {};
+                                    jsondata[ggzarr[0]] = sz1[i];
+                                    jsondata["库存"] = newarr[0];
+                                    jsondata["价格"] = newarr[1];
+                                    jsondata["已售数量"] = newarr[2];
+                                    jsondata["虚拟销量"]=newarr[3];
+                                    allarrone.push(jsondata);
+                                }
+
+                            {/foreach}
+                        {/if}
+                    }else{
+                        if( i < datacount){
+                            {if $datajson}
+                                {foreach $datajson as $index => $item}
+                                    if("{$index}"== datakey){
+                                        var aa = "{$item}";
+                                        var newarr = aa.split(",");
+                                        var jsondata = {};
+                                        jsondata[ggzarr[0]] = sz1[i];
+                                        jsondata["库存"] = newarr[0];
+                                        jsondata["价格"] = newarr[1];
+                                        jsondata["已售数量"] = newarr[2];
+                                        jsondata["虚拟销量"]=newarr[3];
+                                        allarrone.push(jsondata);
+                                    }
+                                {/foreach}
+                            {/if}
+                        }else{
+                            var jsondata = {};
+                            jsondata[ggzarr[0]] = sz1[i];
+                            jsondata["库存"] = 0;
+                            jsondata["价格"] = 0;
+                            jsondata["已售数量"] = 0;
+                            jsondata["虚拟销量"]=0;
+                            allarrone.push(jsondata);
+                        }
+                    }
+
+                }
+            }
+            //构建多重json二条数据
+            if(ggzarr.length == 2){
+                var sz1 = ggzjson[ggzarr[0]];
+                var sz2 = ggzjson[ggzarr[1]];
+
+                //构建表格
+                tablearr.push(ggzarr[0]);
+                tablearr.push(ggzarr[1]);
+                tablearr = tablearr.concat(jg);
+
+
+                var sz11 = '<?php if(!isset($temp_data[0])) {if(count($typesjson) == 0){echo 0;}else{ $temp_data = array_keys($typesjson); echo count($typesjson[$temp_data[0]]); }} ?>';
+                var sz22 = '<?php $temp_data = array_keys($typesjson); if(count($temp_data) > 1){ echo count($typesjson[$temp_data[1]]);} ?>';
+                
+                for(var i=0; i<sz1.length; i++){
+                    if(i < sz11){
+                        for(var j=0; j<sz2.length; j++){
+                            var datakey = sz1[i]+sz2[j];
+                            if(datacounts == 1){
+                                {if $datajson}
+                                {foreach $datajson as $index => $item}
+                                    if("{$index}"== datakey){
+                                        var aa = "{$item}";
+                                        var newarr = aa.split(",");
+                                        var jsondata = {};
+                                        jsondata[ggzarr[0]] = sz1[i];
+                                        jsondata[ggzarr[1]] = sz2[j];
+                                        jsondata["库存"] = newarr[0];
+                                        jsondata["价格"] = newarr[1];
+                                        jsondata["已售数量"] = newarr[2];
+                                        jsondata["虚拟销量"]=newarr[3];
+                                        allarrone.push(jsondata);
+                                    }
+
+                                {/foreach}
+                                {/if}
+                            }else{
+                                if(j < sz22){
+                                    {if $datajson}
+                                        {foreach $datajson as $index => $item}
+                                            if("{$index}"== datakey){
+                                                var aa = "{$item}";
+                                                var newarr = aa.split(",");
+                                                var jsondata = {};
+                                                jsondata[ggzarr[0]] = sz1[i];
+                                                jsondata[ggzarr[1]] = sz2[j];
+                                                jsondata["库存"] = newarr[0];
+                                                jsondata["价格"] = newarr[1];
+                                                jsondata["已售数量"] = newarr[2];
+                                                jsondata["虚拟销量"]=newarr[3];
+                                                allarrone.push(jsondata);
+                                            }
+
+                                        {/foreach}
+                                    {/if}
+
+                                }else{
+                                    var jsondata = {};
+                                    jsondata[ggzarr[0]] = sz1[i];
+                                    jsondata[ggzarr[1]] = sz2[j];
+                                    jsondata["库存"] = 0;
+                                    jsondata["价格"] = 0;
+                                    jsondata["已售数量"] = 0;
+                                    jsondata["虚拟销量"]=0;
+                                    allarrone.push(jsondata);
+                                }
+                                
+
+                            }
+
+                        }
+                    }else{
+                        for(var j=0; j<sz2.length; j++){
+                            var jsondata = {};
+                            jsondata[ggzarr[0]] = sz1[i];
+                            jsondata[ggzarr[1]] = sz2[j];
+                            jsondata["库存"] = 0;
+                            jsondata["价格"] = 0;
+                            jsondata["已售数量"] = 0;
+                            jsondata["虚拟销量"]=0;
+                            allarrone.push(jsondata);
+                        }
+                    }
+                    
+                }
+
+            }
+            //构建多重json三条数据
+            if(ggzarr.length == 3){
+                var sz1 = ggzjson[ggzarr[0]];
+                var sz2 = ggzjson[ggzarr[1]];
+                var sz3 = ggzjson[ggzarr[2]];
+
+                //构建表格
+                tablearr.push(ggzarr[0]);
+                tablearr.push(ggzarr[1]);
+                tablearr.push(ggzarr[2]);
+                tablearr = tablearr.concat(jg);
+                var sz31 = '<?php if(isset($temp_data[0])) {if(count($typesjson) == 0){echo 0;}else{ $temp_data = array_keys($typesjson); echo count($typesjson[$temp_data[0]]);}} ?>';
+                var sz32 = '<?php $temp_data = array_keys($typesjson); if(count($temp_data) > 1){ echo count($typesjson[$temp_data[1]]);} ?>';
+                var sz33 = '<?php $temp_data = array_keys($typesjson); if(count($temp_data) > 2){ echo count($typesjson[$temp_data[2]]);} ?>';
+
+                for(var i=0; i<sz1.length; i++){
+                    if(i < sz31){
+                        for(var j=0; j<sz2.length; j++){
+                            if( j < sz32){
+                                for(var z=0; z<sz3.length; z++){
+                                    var datakey = sz1[i]+sz2[j]+sz3[z];
+                                    if(datacounts == 1){
+                                        {if $datajson}
+                                        {foreach $datajson as $index => $item}
+                                            if("{$index}"== datakey){
+                                                var aa = "{$item}";
+                                                var newarr = aa.split(",");
+                                                var jsondata = {};
+                                                jsondata[ggzarr[0]] = sz1[i];
+                                                jsondata[ggzarr[1]] = sz2[j];
+                                                jsondata[ggzarr[2]] = sz3[z];
+                                                jsondata["库存"] = newarr[0];
+                                                jsondata["价格"] = newarr[1];
+                                                jsondata["已售数量"] = newarr[2];
+                                                jsondata["虚拟销量"]=newarr[3];
+                                                allarrone.push(jsondata);
+                                            }
+                                        {/foreach}
+                                        {/if}
+                                    }else{
+                                        if(z < sz33){
+                                            {if $datajson}
+                                            {foreach $datajson as $index => $item}
+                                                if("{$index}"== datakey){
+                                                    var aa = "{$item}";
+                                                    var newarr = aa.split(",");
+                                                    var jsondata = {};
+                                                    jsondata[ggzarr[0]] = sz1[i];
+                                                    jsondata[ggzarr[1]] = sz2[j];
+                                                    jsondata[ggzarr[2]] = sz3[z];
+                                                    jsondata["库存"] = newarr[0];
+                                                    jsondata["价格"] = newarr[1];
+                                                    jsondata["已售数量"] = newarr[2];
+                                                    jsondata["虚拟销量"]=newarr[3];
+                                                    allarrone.push(jsondata);
+                                                }
+                                            {/foreach}
+                                            {/if}
+                                        }else{
+                                            var jsondata = {};
+                                            jsondata[ggzarr[0]] = sz1[i];
+                                            jsondata[ggzarr[1]] = sz2[j];
+                                            jsondata[ggzarr[2]] = sz3[z];
+                                            jsondata["库存"] = 0;
+                                            jsondata["价格"] = 0;
+                                            jsondata["已售数量"] = 0;
+                                            jsondata["虚拟销量"]=0;
+                                            allarrone.push(jsondata);
+                                        }
+                                        
+                                    }
+                                }
+                            }else{
+                                for(var z=0; z<sz3.length; z++){
+                                    var jsondata = {};
+                                    jsondata[ggzarr[0]] = sz1[i];
+                                    jsondata[ggzarr[1]] = sz2[j];
+                                    jsondata[ggzarr[2]] = sz3[z];
+                                    jsondata["库存"] = 0;
+                                    jsondata["价格"] = 0;
+                                    jsondata["已售数量"] = 0;
+                                    jsondata["虚拟销量"]=0;
+                                    allarrone.push(jsondata);
+                                }
+                            }
+                        }
+                    }else{
+                        for(var j=0; j<sz2.length; j++){
+                            for(var z=0; z<sz3.length; z++){
+                                var jsondata = {};
+                                jsondata[ggzarr[0]] = sz1[i];
+                                jsondata[ggzarr[1]] = sz2[j];
+                                jsondata[ggzarr[2]] = sz3[z];
+                                jsondata["库存"] = 0;
+                                jsondata["价格"] = 0;
+                                jsondata["已售数量"] = 0;
+                                jsondata["虚拟销量"]=0;
+                                allarrone.push(jsondata);
+                            }
+                        }
+                        
+
+                    }
+                    
+                }
+
+            }
+
+            // 构建表头
+            var strtab = "<tr>";
+            for(var k = 0; k<tablearr.length; k++){
+                strtab += "<td class='biaotou'>"+tablearr[k]+"</td>";
+            }
+            strtab += "</tr>";
+            $("#tabb").html(strtab);
+            //构建表身
+            var lensz = ggzarr.length;
+            var tabdata = "";
+            for(var d = 0; d<allarrone.length; d++){
+                tabdata +=  "<tr>";
+                for(var k = 0; k<tablearr.length; k++){
+                    if(k<lensz){
+                        if(k == 0){
+							if(lensz > 1){
+								var h_num = 1;
+								if(lensz == 3){
+									h_num = ggz3 * ggz2;
+								}else{
+									h_num = ggz2
+								}
+								if(h_num > 1){
+									if( d % h_num == 0){
+                    					tabdata += "<td class='tds ' style='background: #fff;' rowspan='"+h_num +"'>"+allarrone[d][tablearr[k]]+"</td>";
+									}
+								}else{
+                        			tabdata += "<td class='tds '>"+allarrone[d][tablearr[k]]+"</td>";
+								}
+							}else{
+								tabdata += "<td class='tds '>"+allarrone[d][tablearr[k]]+"</td>";
+							}
+                    	}else{
+                        	tabdata += "<td class='tds '>"+allarrone[d][tablearr[k]]+"</td>";
+                    	}
+                    }else if(tablearr[k]=="已售数量"){
+                        tabdata += "<td class='tds'><input type='text' disabled class='shukdd' name='valarr"+d+"' value='"+allarrone[d][tablearr[k]]+"'></td>";
+                    }else{
+                        tabdata += "<td class='tds'><input type='text' class='shukdd' name='valarr"+d+"' value='"+allarrone[d][tablearr[k]]+"'></td>";
+                    }
+                }
+                tabdata +=  "</tr>";
+            }
+            $("#tabb").append(tabdata);
+
+        }
+        function ggzbc(){
+
+            for(var i=0; i<allarrone.length; i++){
+                var kucun = $("input[name='valarr"+i+"']")[0].value;
+                var money = $("input[name='valarr"+i+"']")[1].value;
+                var salenum = $("input[name='valarr"+i+"']")[2].value;
+                var vsalenum = $("input[name='valarr"+i+"']")[3].value;
+                allarrone[i]['库存'] = kucun;
+                allarrone[i]['价格'] = money;
+                allarrone[i]['已售数量'] = salenum;
+                allarrone[i]['虚拟销量'] = vsalenum;
+            }
+
+            var val = JSON.stringify(allarrone);
+
+            $("#biaogedata").val(val);
+            $("#typelen").val(ggzarr.length); 
+            $("#typesarr").val(ggzarr.toString());
+
+        }
+
+
+
+        //规格结束
+</script>
+
+
+
+{include file="public/foot_more" /}

@@ -1,0 +1,165 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navSale10{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navSale10-2">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<div class="input-box" style="margin-bottom: 10px;">
+
+					<div class="btn-group">
+
+						<a href="{:Url('Shops/add')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn" style="background: #4385ff;color: #fff;">
+						添加门店
+						</button>
+						</a>
+
+					</div>
+				</div>
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+
+							<th style="width: 100px;">店铺LOGO</th>
+
+							<th style="width: 200px;">门店名称</th>
+							
+							<th width="200px;">操作</th>
+
+						</tr>
+
+					</thead>
+
+					<tbody>
+						{if $store}
+							{foreach $store as $item}
+								<tr>
+									<td>
+										<img src="{if $item.logo}{$item.logo}{else }__STATIC_ROOT__/image/noimage_1.png{/if}" style="width:50px; height:50px;">
+									</td>
+									<td>
+										{$item.title}
+									</td>
+									<td>
+										<a href="{:Url('Shops/add')}?appletid=<?php echo $_GET['appletid']?>&cid={$item.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;cursor: pointer;">编辑</button></a>
+										<form action="{:Url('Shops/del')}?appletid=<?php echo $_GET['appletid']?>&cid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+											<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;cursor: pointer;" type="submit">删除</button>
+										</form>
+									</td>
+								</tr>
+							{/foreach}
+						{/if}
+					</tbody>
+
+				</table>
+
+				
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$store_all->render()}
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+<style type="text/css">
+	.modal{
+		width: 795px !important;
+		margin-left: -397px !important;
+		min-height: 290px !important;
+	}
+</style>
+<div id="stack2" class="modal fade" tabindex="-1" data-focus-on="input:first" style="width:795px !important; margin-left:-400px;">
+
+	<div class="modal-header">
+
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+
+		<h3>图片上传</h3>
+
+	</div>
+	
+	<div class="controls">
+		<div class="uploader-list-container" >
+			<div class="queueList">
+				<div id="dndArea" class="placeholder">
+					<div id="filePicker-2"></div>
+				</div>
+			</div>
+			<div class="statusBar" style="display:none;">
+				<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+				<div class="info"></div>
+				<div class="btns">
+					<div id="filePicker2"></div>
+					<div class="uploadBtn">开始上传</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+	        return false;
+	    }
+	}
+</script>
+
+{include file="public/foot_more" /}

@@ -1,0 +1,168 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel7{
+		display: block !important;
+	}
+	form {
+	  margin: 0 !important; 
+	  display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel7-2">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+						<tr>
+							<th style="width: 50px;">ID</th>
+							<th style="width: 200px;">发布人昵称</th>
+							<th>发布人头像</th>
+							<th style="width: 350px;">标题</th>
+							<th>所属分类</th>
+							<th>发布价格</th>
+							<th>是否置顶</th>
+							<th>是否推荐</th>
+							<th>是否审核</th>
+							<th>发布时间</th>
+							<th style="width:200px">操作</th>
+						</tr>
+
+					</thead>
+
+					<tbody>
+					
+					{if $releaseList}
+						{foreach $releaseList as $item}
+							<tr>
+								<td>
+									{$item.id}
+								</td>
+								<td>
+									{$item.nickname}
+								</td>
+								<td>
+									<img src="{$item.avatar}" style="width:50px;">
+								</td>
+								<td>
+									{$item.title}
+								</td>
+								<td>
+									{$item.func_title}
+								</td>
+								<td>
+									{$item.release_money}
+								</td>
+								<td>
+									{if $item.stick == 1} <span class="btn green">已置顶</span> {else} <span class="btn gray">未置顶</span> {/if}
+								</td>
+								<td>
+									{if $item.hot == 1} <span class="btn green">已推荐</span> {else} <span class="btn gray">未推荐</span> {/if}
+								</td>
+								<td>
+									{if $item.shenhe == 0} <span class="btn gray">未审核</span> {/if}
+									{if $item.shenhe == 1} <span class="btn green">审核通过</span> {/if} 
+									{if $item.shenhe == 2} <span class="btn gray">审核不通过</span> {/if}
+								</td>
+								<td>
+									{$item.createtime}
+								</td>
+								<td>
+									<a href="{:Url('Forum/releaseCon')}?appletid=<?php echo $_GET['appletid']?>&release_id={$item.id}"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">详情</button></a>
+								<!-- 	<form action="{:Url('Forum/releaseShenhe')}?appletid=<?php echo $_GET['appletid']?>&release_id={$item.id}"  method="post" enctype="multipart/form-data">
+										<input type="hidden" name="flag" value="">
+										<button class="btn btncolor" type="submit">审核通过</button>
+										<button class="btn btncolor" type="submit">审核不通过</button>
+									</form> -->
+										{if $item.shenhe == 0}
+											<span style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" onclick="shenhe({$item.id}, 1)">审核通过</span>
+											<span style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" onclick="shenhe({$item.id}, 2)">审核不通过</span>
+										{/if}
+									<form action="{:Url('Forum/releaseHot')}?appletid=<?php echo $_GET['appletid']?>&release_id={$item.id}" method="post" enctype="multipart/form-data">
+										<button style="color: #969696;border:1px solid #969696;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">
+										{if $item.hot != 1}
+											推荐
+										{else}
+											取消推荐
+										{/if}
+										</button>
+									</form>
+									<form action="{:Url('Forum/releaseDel')}?appletid=<?php echo $_GET['appletid']?>&release_id={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" type="submit">删除</button>
+									</form>
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+						
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$release->render()}
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	function shenhe(id,flag){
+        location.href = "{:Url('Forum/releaseShenhe')}?appletid=<?php echo $_GET['appletid']?>&id="+id+"&flag="+flag;
+	}
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+</script>
+
+
+
+{include file="public/foot_more" /}

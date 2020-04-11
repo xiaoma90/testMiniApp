@@ -1,0 +1,136 @@
+{include file="public/head" /}
+{include file="public/bizlogintop" /}
+<!-- <div class="page-container">
+<div style="margin:25px">
+<div class="page-content" id="container"> -->
+<style type="text/css">
+/* .breadcrumb1{
+	margin-bottom: 20px; 
+	border-bottom: 1px solid #eee; 
+	padding: 10px 0; 
+	height: 30px;
+	font-size: 16px;
+} */
+form {
+	margin: 0 !important;
+	display: inline-block !important;
+}
+.btn-group .btn_hov:hover{
+	background-color: #d8d8d8 !important;
+}
+</style>
+<input type="hidden" id="nowhtml" value="navModel" class="navModel6-5">
+<!-- <ul class="breadcrumb1">
+	<li>
+		<i class="icon-home"></i>
+		收支记录--{$applet.name}
+	</li>
+</ul> -->
+<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+				<div class="input-box" style="margin-bottom: 10px; position: relative;">
+                    <div class="btn-group" style="float:right">
+                        <a href="{:Url('Bizlogin/turnover')}?appletid=<?php echo $_GET['appletid']?>&op=excel" >
+                            <button id="sample_editable_1_new" class="btn btn_hov" style="background-color: #6671e4;color: #fff;">
+                                excel导出
+                            </button>
+                        </a>
+                    </div>
+                </div>
+				<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+					<thead>
+					<tr>
+						<td>商户名</td>
+			            <td>金额(元)</td>
+			            <td>时间</td>
+			            <td>类型</td>
+			            <td>说明</td>
+					</tr>
+					</thead>
+					<tbody>
+					{if $arr}
+						{foreach $arr as $item}
+							<tr>
+								<td>
+					                {$shopname}
+					            </td>
+					            <td>
+					                {$item['price']}
+					            </td>
+					            <td>
+					                {:date("Y-m-d H:i:s",$item['creattime'])}
+					            </td>
+					            <td>
+					                {if $item['from'] == 'buy' || $item['from'] == 'store'}
+					                    收入
+					                {else}
+					                    支出
+					                {/if}
+					            </td>
+					          
+					            <td>
+					                {if $item['from'] == 'buy' || $item['from'] == 'store'}
+					                    {if $item['from'] == 'buy'}
+					                        售出商品
+					                    {else}
+					                        店内支付
+					                    {/if}
+					                {else}
+					                     提现到：
+					                     {if $item['types'] == 1}微信
+											{if $item['flag'] == 0}
+							                (待审核)
+							                {/if}
+							                {if $item['flag'] == 1}
+							                (已通过)
+							                {/if}
+							                {if $item['flag'] == 2}
+							                (已拒绝)
+							                {/if}
+					                     {/if}
+					                     {if $item['types'] == 2}支付宝
+						                    {if $item['flag'] == 0}
+							                (待审核)
+							                {/if}
+							                {if $item['flag'] == 1}
+							                (已通过)
+							                {/if}
+							                {if $item['flag'] == 2}
+							                (已拒绝)
+							                {/if}
+							             {/if}
+					                     {if $item['types'] == 3}银行卡
+											{if $item['flag'] == 0}
+							                (待审核)
+							                {/if}
+							                {if $item['flag'] == 1}
+							                (已通过)
+							                {/if}
+							                {if $item['flag'] == 2}
+							                (已拒绝)
+							                {/if}
+					                     {/if}
+					                {/if}
+					            </td>
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+				</table>
+				<!-- 分页 -->
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	function tongguo(id,val){
+		if(window.confirm('确定要审核该提现记录嘛？')){
+			location.href = "{:Url('Powerfulsh/withdrawpass')}?appletid=<?php echo $_GET['appletid']?>&op=shenhe&id="+id+"&val="+val;
+		}else{
+			return false;
+		}
+	}
+</script>
+{include file="public/foot_more" /}

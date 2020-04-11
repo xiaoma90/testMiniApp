@@ -1,0 +1,1965 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.navModel12{
+	display: block !important;
+}
+.editors{
+    max-width: 770px;
+    min-height: 600px;
+}
+.w-e-text-container{
+    min-height: 600px !important;
+}
+.weiz{
+    margin-left:20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.chongdingy{
+    background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+    text-align: left !important;
+    font-size: 16px;
+    padding-left: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 216px;
+    right: 0;
+    height: 52px;
+    line-height: 52px;
+    box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.content_head_title{display:none}
+.page_content{top:0;padding: 0;}
+.back_go{
+	border-bottom: 1px solid #eee;
+    padding: 15px 15px 10px;
+}
+.add_imgs{
+	display: inline-block;
+	width: 67px;
+	height: 67px;
+	box-sizing: border-box;
+	border: 1px dashed #dfe4e7;
+	background: #f9f9f9;
+	border-radius: 3px;
+	text-align: center;
+	color: #DFE4E7;
+	font-size: 12px;
+}
+.commonchangepic{
+	cursor: pointer;
+}
+.discount_table tr{
+	height: 52px;
+}
+/* table tr:nth-child(odd){
+	background: #F4F7F9;
+} */
+</style>
+<link rel="stylesheet" href="__STATIC_ROOT__/css/select2.css">
+<link rel="stylesheet" href="__STATIC_ROOT__/css/seat.css">
+<script type="text/javascript">
+    var a = {
+        "themeCss": ".select2-container--krajee",
+        "sizeCss": "",
+        "doReset": true,
+        "doToggle": true,
+        "doOrder": false
+    };
+    window.b = {
+        "theme": "krajee",
+        "width": "415px",
+        "placeholder": "请选择所属门店，可多选",
+        "language": "zh-CN"
+    };
+</script>
+<input type="hidden" id="nowhtml" value="navModel" class="navModel12-2">
+
+<div class="row-fluid">
+    <div class="back_go">
+        <a href="#" onClick="javascript:history.go(-1);"><span><img src="__STATIC_ROOT__/image/static/zuo.png" alt="" style="width:28px;margin-left:-6px;margin-right:4px;"></span><span style="font-size:18px;">添加商品</span></a>
+    </div>
+    <div class="portlet box">
+        <div class="portlet-body form">
+            <form action="{:Url('Reserve/savePro')}?appletid=<?php echo $_GET['appletid']?>&newsid={$newsid}&tableis={$tableis}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+                <input type="hidden" id="randid" name="randid" value="{if $newsinfo}{$newsinfo.randid}{/if}">
+                <div class="control-group chongdingy">
+                    <label class="control-label chongdingywz" style="width: 500px;">商品信息</label>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">排序</label>
+                    <div class="controls">
+                        <input name="num" type="text" class="span1 m-wrap" value="{if $newsinfo}{$newsinfo.num}{/if}"/>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">序号越大越靠前</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"><span>*</span> 所属栏目</label>
+                    <div class="controls">
+                        <select name="cid" class="span3 m-wrap" id="cid">
+                            <option value="0">请选择所属栏目</option>
+                            {if $cate}
+                            {foreach $cate as $item}
+                            <option value="{$item.0.id}" disabled="disabled"{if $newsinfo}{if $newsinfo.cid==$item.0.id}selected=selected{/if}{/if}>{$item.0.name}</option>
+                            {if $item.data}
+                            {foreach $item.data as $res}
+                            <option value="{$res.id}" {if $res.type !=="showPro"}disabled="disabled"{/if} {if $newsinfo}{if $newsinfo.cid==$res.id}selected=selected{/if}{/if}><span style="margin-left:10px;" >|--{$res.name}</span></option>
+                            {/foreach}
+                            {/if}
+                            {/foreach}
+                            {/if}
+                        </select>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">选择所属栏目, 仅可选择二级栏目</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">推荐</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="type_i" value="0" {if $newsinfo}{if $newsinfo.type_i==0}checked=checked{/if}{else}checked=checked{/if}/>
+                            不推荐
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="type_i" value="1" {if $newsinfo}{if $newsinfo.type_i==1}checked=checked{/if}{/if}/>
+                            推荐
+                        </label>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+                    </div>
+                </div>
+                <div class="control-group">
+                        <label class="control-label">买送积分</label>
+                        <div class="controls">
+                            <input name="scoreback" type="text" class="span2 m-wrap" value="{if $newsinfo}{$newsinfo.scoreback}{/if}"/>
+                            <span style="color:#c7cddb;line-height:40px;display:block;">填数字或百分制，如10、10%。填10时，买一件返10积分；填10%时，返与购买总价的10%等值的积分，比如买10元东西，1元=10积分，则返10积分</span>
+                        </div>
+                    </div>
+                <div class="control-group">
+                    <label class="control-label">积分抵扣</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="is_score" value="0" {if $newsinfo}{if $newsinfo.is_score==0}checked=checked{/if}{else}checked=checked{/if} />
+                            不启用
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="is_score" value="1" {if $newsinfo}{if $newsinfo.is_score==1}checked=checked{/if}{/if} />
+                            启用
+                        </label>
+                        <label style="display: inline-block;">
+                            最多使用积分
+                        </label>
+                        <label style="display: inline-block;">
+                            <input type="text" style="width:155px;" maxlength="6" name="score_num" class="form-control ng-pristine ng-untouched ng-valid ng-empty" value="{if $newsinfo}{$newsinfo.score_num}{/if}"/>
+                            <span style="color:#c7cddb; line-height:40px; margin-left:20px;">{if isset($_SESSION['score_flag'])}{if $_SESSION['score_flag'] == 1}<a href="{:Url('sharejf/index')}?appletid=<?php echo $_GET['appletid']?>"><span style="color:#4385ff">请设置积分规则</span></a>{else}设置最高抵用积分{/if}{else}<a href="{:Url('sharejf/index')}?appletid=<?php echo $_GET['appletid']?>"><span style="color:#4385ff">请设置积分规则</span></a>{/if}</span>
+                            
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label class="control-label">是否上架</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="is_sale" value="1" {if $newsinfo}{if $newsinfo.is_sale==1}checked=checked{/if}{/if} />
+                            下架
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="is_sale" value="0" {if $newsinfo}{if $newsinfo.is_sale==0}checked=checked{/if}{else}checked=checked{/if} />
+                            上架
+                        </label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">万能表单</label>
+                    <div class="controls">
+                        <select name="formset" style="width:415px;">
+                            <option value="0">===请选择===</option>
+                            {if $forms}
+                            {foreach $forms as $val}
+                            {if $newsid>0}
+                            <option value="{$val.id}" {if $val.id == $newsinfo.formset}selected=selected{/if}>{$val.formtitle}</option>
+                            {else}
+                            <option value="{$val.id}">{$val.formtitle}</option>
+                            {/if}
+                            {/foreach}
+                            {/if}
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"><span>*</span> 标题</label>
+                    <div class="controls">
+                        <input name="title" type="text" class="span5 m-wrap" value="{if $newsinfo}{$newsinfo.title}{/if}"/>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">请填写商品标题</span>
+                    </div>
+                </div>
+                <div class="control-group" id="shops_list" style="display:block;">
+                    <label class="control-label" style="margin-right:15px">自取门店</label>
+                    <div class="controls" id="shops">
+                        <span id="parent-s2-togall-w1" style="display:none">
+                           <span id="s2-togall-w1" class="s2-togall-button s2-togall-select">
+                              <span class="s2-select-label"><i class="glyphicon glyphicon-unchecked"></i>全选</span>
+                              <span class="s2-unselect-label"><i class="glyphicon glyphicon-check"></i>全不选</span>
+                            </span>
+                        </span>
+                        <input id="mengdian" name="stores" type="hidden"/>
+                            <div class="kv-plugin-loading loading-w1">&nbsp;</div>
+                            <select id="w1" class="form-control"  multiple size="4" placeholder="请选择自取门店，可多选" data-s2-options="a" data-krajee-select2="b" style="display:none">
+                                {if $stores}
+                                {foreach $stores as $items}
+                                    <?php
+                                        $storeid = $items['id'];
+                                        $storetitle = $items['title'];
+                                        if($newsinfo && $newsinfo['stores']){
+                                            $stores_arr = explode(",",$newsinfo['stores']);
+                                            if(in_array($items['id'],$stores_arr)){
+                                                echo '<option value="'.$storeid.'" selected="selected">'.$storetitle.'</option>';
+                                                }else{
+                                                    echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+                                                }
+                                        }else{
+                                           echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+                                        }
+                                    ?>
+                                {/foreach}
+                                {/if}
+                             </select>
+                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">订单下单可选自取门店；可不选</span>
+                             
+                    </div>
+                </div>
+                <!-- 标签 -->
+                <style type="text/css">
+                    .dikai{
+                        margin-bottom: 10px;
+                    }
+                    .pianli{
+                        width: 250px;
+                        display: inline-block;
+                    }
+                    .xpds{
+                        margin-left: 180px;
+                        margin-bottom: 20px;
+                    }
+                    .shancsd{
+                        border: 1px solid #4385ff;
+                        padding: 4px 15px;
+                        color: #4385ff;
+                        background-color:rgba(67, 133, 255, 0.102);
+                        border-radius: 3px;
+                    }
+                </style>
+                <input type="hidden" name="labels" id="labels" >
+                <div class="dikai" id="biaoqz">
+                    <label for="" class="control-label col-sm-2" style="loat:left">标签</label>
+                    <div class="xpds" style="font-size:0">
+                        <div class="form-controls col-sm-3 pianli">
+                            <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty lab_name" value="{if $newsinfo && $newsinfo['labels']}<?php echo array_keys($newsinfo['labels'])[0];?>{/if}" placeholder="标签名称">
+                        </div>
+                        <div class="form-controls col-sm-3 pianli">
+                            <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-empty lab_val" value="{if $newsinfo && $newsinfo['labels']}<?php $keys = array_keys($newsinfo['labels'])[0]; echo $newsinfo['labels'][$keys];?>{/if}"  placeholder="值">
+                        </div>
+                    </div>
+                    <?php
+                    if($newsinfo && $newsinfo['labels']){
+                        $keys = array_keys($newsinfo['labels'])[0];
+                        foreach ($newsinfo['labels'] as $key => $rec) {
+                            if($key==$keys){
+                                continue;
+                            }
+                            echo  "<div class='xpds'>";
+                            echo  "<div class='form-controls col-sm-3 pianli'>";
+                            echo  "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty lab_name'  value='".$key."' placeholder='标签名称'>";
+                            echo  "</div>";
+                            echo  "<div class='form-controls col-sm-3 pianli'>";
+                            echo  "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty lab_val' value='".$rec."' placeholder='值'>";
+                            echo  "</div>";
+                            echo  "<div class='form-controls col-sm-3 pianli'>";
+                            echo  "<input type='button' class='shancsd' value='删除' onclick='dellabel(this)'>";
+                            echo  "</div>";
+                            echo  "</div>";
+                        }
+                    }
+                    ?>
+                </div>
+                <div class="control-group">
+                    <label class="control-label"></label>
+                    <div class="xpds" style="text-align:center; border:1px solid #dedede; padding:5px 0px; cursor:pointer; width:472px" onclick="addlabel()">
+                        +新增标签+
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    function addlabel(){
+                        var alllables = $(".xpds");
+                        var i = alllables.length+1;
+                        var str =   "<div class='xpds'>"+
+                            "<div class='form-controls col-sm-3 pianli'>"+
+                            "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty lab_name' placeholder='标签名称'>"+
+                            "</div>"+
+                            "<div class='form-controls col-sm-3 pianli'>"+
+                            "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty lab_val' placeholder='值'>"+
+                            "</div>"+
+                            "<div class='form-controls col-sm-3 pianli'>"+
+                            "<input type='button' class='shancsd' value='删除' onclick='dellabel(this)'>"+
+                            "</div>"+
+                            "</div>";
+                        $("#biaoqz").append(str);
+                    }
+                    function dellabel(me){
+                        var trs = $(me).parent().parent();
+                        $(trs).remove();
+                    }
+                </script>
+                <div class="control-group">
+                    <label class="control-label">购买方式</label>
+                    <div  style="float:left; margin-left:20px">
+                        <select  class="form-control" id="gmfs">
+                            <option value="购买" {if $newsinfo}{if $newsinfo['buy_type'] == "购买"}selected{/if}{/if}>购买</option>
+                            <option value="预约"  {if $newsinfo}{if $newsinfo['buy_type'] == "预约"}selected{/if}{/if}>预约</option>
+                            <option value="自定义"  {if $newsinfo}{if $newsinfo['buy_type'] != "购买" &&  $newsinfo['buy_type'] != "预约" &&  $newsinfo['buy_type']}selected{/if}{/if}>自定义</option>
+                        </select>
+                    </div>
+                    <div class="form-controls col-sm-2"  {if $newsinfo}{if $newsinfo['buy_type'] != "购买" &&  $newsinfo['buy_type'] != "预约" &&  $newsinfo['buy_type']} style="margin-left:10px;float:left" {else} style=" margin-left:10px; float:left" {/if}{else} style="display:none;  margin-left:10px; float:left"{/if} id="jutsz">
+                    <input type="text" name="buy_type" id="buy_type" value="{if $newsinfo}{if $newsinfo['buy_type']}{$newsinfo['buy_type']}{else}购买{/if}{/if}" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  placeholder="" autocomplete="off">
+                </div>
+        </div>
+        <script type="text/javascript">
+            $("#gmfs").change(function(){
+                var val = $(this).val();
+                if(val=="自定义"){
+                    $("#jutsz").show();
+                }else{
+                    $("#jutsz").hide();
+                    $("#buy_type").val(val);
+                }
+            })
+        </script>
+
+        <div class="control-group">
+            <label class="control-label">访问量</label>
+            <input name="hits" type="number" class="span1 m-wrap" value="{if $newsinfo}{$newsinfo.hits}{/if}"  style="float:left; margin-left:20px;" />
+        </div>
+        <div class="control-group">
+            <label class="control-label">虚拟销量</label>
+            <input name="sale_num" type="number" class="span1 m-wrap" value="{if $newsinfo}{$newsinfo.sale_num}{/if}"  style="float:left; margin-left:20px;" />
+        </div>
+        <div class="control-group">
+            <label class="control-label">真实销量</label>
+            <input name="sale_tnum" type="number" class="span1 m-wrap" value="{if $newsinfo}{$newsinfo.sale_tnum}{/if}" readonly style="float:left; margin-left:20px;" />
+        </div>
+        <div class="control-group">
+            <label class="control-label">门店价</label>
+            <input name="price" type="text" class="span1 m-wrap" value="{if $newsinfo}{$newsinfo.price}{/if}"  style="float:left; margin-left:20px;" />
+        </div>
+        <div class="control-group">
+            <label class="control-label">市场价</label>
+            <input name="market_price" type="text" class="span1 m-wrap" value="{if $newsinfo}{$newsinfo.market_price}{/if}"  style="float:left; margin-left:20px;" />
+        </div>
+<!--         <div class="control-group">
+            <label class="control-label">预约类型</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" id="specificate_nav" name="tableis" value="0" {if $newsinfo}{if $newsinfo['tableis'] == '0'} checked{/if}{else}checked{/if}  />
+                    启用规格
+                </label>
+                <label class="radio">
+                    <input type="radio" id="custom_nav" name="tableis" value="1" {if $newsinfo}{if $newsinfo['tableis'] == '1'}checked{/if}{/if} />
+                    启用自定义选择图
+                </label>
+            </div>
+        </div> -->
+        <div class="control-group"  id="specificate_content" {if $tableis==1}style="display: none"{/if}>
+            <input type="hidden" id="duogg" name="duogg">
+            <label for="" class="control-label col-sm-2" style="margin-right:19px">规格</label>
+            <div class="form-controls col-sm-8">
+                <table style="border:0px solid #e7e7eb">
+                    <tbody id="tbod">
+                    <style type="text/css">
+                        .fleft{
+                            float: left;
+                        }
+                        .rleft{
+                            float: right;
+                        }
+                        .f1{
+                            width: 50%;
+                        }
+                        .f2{
+                            width: 80px;
+                        }
+                        .f3{
+                            width: 80px;
+                        }
+                        .f4{
+                            width: 50px;
+                            background-color: rgba(67, 133, 255, 0.102);
+                            border: 1px solid #4385ff;
+                            color: #4385ff;
+                            border-radius: 3px;
+                            height: 30px;
+                        }
+                        .xfg{
+                            margin-top: 10px;
+                            width: 508px;
+                            height: 33px !important;
+                        }
+                    </style>
+                    <?php
+                    if($newsinfo){
+                        $rows = count($newsinfo['more_type'])/4;
+                        $cols = 4;
+                        $n = 0;
+                        for($i=1;$i<=$rows;$i++){
+                            echo "<tr><td colspan='4' class='xfg'>";
+                            echo "<input type='button' class='form-control rleft f4' value='删除' onclick='deltr_k(this)'>";
+                            for($j=1; $j<=$cols; $j++){
+                                $k=$newsinfo['more_type'][$n];
+                                if($j==1){
+                                    echo "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f1' placeholder='规格名称' value='".$k."'>";
+                                }
+                                if($j==2){
+                                    echo "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f2' placeholder='价格' value='".$k."'>";
+                                }
+                                if($j==3){
+                                    echo "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f3' placeholder='库存' value='".$k."'>";
+                                }
+                                if($j==4){
+                                    echo "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty xfg' placeholder='简介' value='".$k."'>";
+                                }
+                                $n++;
+                            }
+                            echo "<div style='height:20px; width:100%'></div></td></tr>";
+                        }
+                    }else{
+                        echo "<tr>".
+                            "<td  class='xfg'>".
+                            "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f1' placeholder='规格名称'>".
+                            "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f2' placeholder='价格'>".
+                            "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f3' placeholder='库存'>".
+                            "<input type='button' class='form-control rleft f4' value='删除' onclick='deltr_k(this)'>".
+                            "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty xfg' placeholder='简介'>".
+                            "<div style='height:20px; width:100%'></div>".
+                            "</td>".
+                            "</tr>";
+                    }
+                    ?>
+                    <tbody>
+                    <tr id="jiaf" style="border:1px solid #dedede; margin-top:20px">
+                        <td colspan="4" style="text-align:center;height:30px; color:#333333; cursor:pointer; min-width:50px" onclick="jia()">+</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var i=1;
+            function jia(){
+                i++;
+                var str =   "<tr>"+
+                    "<td colspan='4' class='xfg'>"+
+                    "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f1' placeholder='规格名称'>"+
+                    "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f2' placeholder='价格'>"+
+                    "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty fleft f3' placeholder='库存'>"+
+                    "<input type='button' class='form-control rleft f4' value='删除' onclick='deltr_k(this)'>"+
+                    "<input type='text' class='form-control ng-pristine ng-untouched ng-valid ng-empty xfg' placeholder='简介'>"+
+                    "<div style='height:20px; width:100%'></div>"+
+                    "</td>"+
+                    "</tr>";
+                $("#tbod").append(str);
+            }
+            function deltr_k(me){
+                var trs = $(me).parent().parent();
+                $(trs).remove();
+            }
+        </script>
+
+        <div id="custom_content" {if $tableis==0}style="display: none"{/if}>
+
+            <div class="control-group">
+                <label class="control-label">自定义商品底部文字</label>
+                <div class="controls">
+                    <input name="foottitle" type="text" class="span5 m-wrap" value="{if $newsinfo}{$newsinfo['foottitle']}{/if}"/>
+                    <span style="color:#c7cddb; line-height:40px; margin-left:20px;">不填默认为"立即选座"</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">自定义选择图</label>
+                <div class="controls">
+                    <button type="button" class="btn" style="background: #4385ff;color: #fff;" id="open_specificate">设置自定义选择图</button>
+                    <span style="color:#4385ff; line-height:40px; margin-left:50px;">客户选择数量即购买数量，请设置好单价！</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">缩略图</label>
+            <div class="controls">
+                <div class="fileupload fileupload-new " data-provides="fileupload">
+                    <div class="fileupload-new thumbnail commonuploadpic1" style="width:67px;height:67px;">
+                        {if $newsinfo && $newsinfo.thumb}
+                        <img src="{$newsinfo.thumb}"/>
+                        {else}
+                        <img src="__STATIC_ROOT__/image/noimage_1.png" alt="" />
+                        {/if}
+                    </div>
+                    <div class="add_imgs">
+                        <span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic1" ></span>
+                    </div>                  
+                </div>
+                <span style="color:#c7cddb">建议尺寸不小于350*350，支持png、jpg、jpeg格式，大小不超过1M</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">分享图</label>
+            <div class="controls">
+                <div class="fileupload fileupload-new " data-provides="fileupload">
+                    <div class="fileupload-new thumbnail commonuploadpic2" style="width:67px;height:67px;">
+                        {if $newsinfo && $newsinfo.shareimg}
+                        <img src="{$newsinfo.shareimg}"/>
+                        {else}
+                        <img src="__STATIC_ROOT__/image/noimage_1.png" alt="" />
+                        {/if}
+                    </div>
+                    <div class="add_imgs">
+                        <span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic2" ></span>
+                    </div>
+                </div>
+                <span style="color:#c7cddb">不设置将使用缩略图，建议使用尺寸不小于350×350，比例为1:1的图片</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">简介</label>
+            <div class="controls">
+                <textarea class="span3 m-wrap" style="height:150px;" name="desc">{if $newsinfo}{$newsinfo.desc}{/if}</textarea>
+            </div>
+        </div>
+        <div class="control-group" style="margin-bottom:20px !important">
+            <label class="control-label">幻灯片</label>
+            <div class="controls" style="display:flex;">
+                <div class="commonuploadslide" id="imgzs" style="font-size:0">
+                    {if $allimg}
+                    {foreach $allimg as $res}
+                    <div class="paiwei" onmousemove="xians(this)" onmouseout="gb(this)" id="li{$res.id}">
+                        <img src="{$res.url}" style="width:67px;height:67px;border-radius:3px;">
+                        <div class="beijingys">
+                        </div>
+                        <div class="sancann" onclick="del({$res.id})">
+                            <span class="cancel" style="background-image: url(__STATIC_ROOT__/webuploader/css/images/icons.png)">删除</span>
+                        </div>
+                    </div>
+                    {/foreach}
+                    {/if}
+                </div>
+                <div class="add_imgs">
+                    <div id="xztpan" class="commonchangepic" data-type="2">
+                        <div style="font-size: 26px;line-height: 36px;">+</div>选择图片
+                        <input type="hidden" name="commonuploadslide">
+                    </div>
+                </div>
+            </div>
+            <span style="color:#c7cddb;line-height:40px;margin-left:180px;">建议尺寸不小于350*350，支持png、jpg、jpeg格式，大小不超过1M</span>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label">商品视频</label>
+            <div class="controls">
+                <input name="video" type="text" class="span5 m-wrap" value="{if $newsinfo}{$newsinfo.video}{/if}"/>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">在商品详情页轮播图一点击播放图标播放</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label"><span>*</span> 商品详情</label>
+            <div class="controls">
+                <div class="editors">
+                    <script id="editor" name="product_txt" type="text/plain">{if $newsinfo}{$newsinfo.product_txt}{/if}</script>
+                </div>
+            </div>
+        </div>
+        
+        <style>
+            .biaotao{   
+                text-align: center;
+                padding: 8px 0;
+                color: #343841;
+            }
+            .tds{
+                text-align: center;
+                padding: 8px 0;
+                color: #5C6270;
+            }
+            .shukdd{
+                width: 100px;
+                border: 1px dashed #dfe4e7 !important;
+                text-align: center;
+                border-radius: 3px !important;
+                background-color: #F4F7F9 !important;
+            }
+        </style>   
+        <div class="control-group chongdingy">
+            <label class="control-label chongdingywz" style="width: 500px;">会员购买设置</label>
+        </div>
+        <div class="control-group">
+            <label class="control-label">开启单独会员购买设置</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="set1" value="1" {if $newsinfo}{if $newsinfo['vipconfig']}{if $newsinfo['vipconfig']['set1']==1}checked=checked{/if}{/if}{/if}/>
+                    开启
+                </label>
+                <label class="radio">
+                    <input type="radio" name="set1" value="0" {if $newsinfo}{if $newsinfo['vipconfig']}{if $newsinfo['vipconfig']['set1']==0}checked=checked{/if}{else}checked=checked{/if}{else}checked=checked{/if}/>
+                    关闭
+                </label>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">开启后启用当前商品自身设置</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">会员购买设置</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="set2" value="1" {if $newsinfo}{if $newsinfo['vipconfig']}{if $newsinfo['vipconfig']['set2']==1}checked=checked{/if}{/if}{/if}/>
+                    开启
+                </label>
+                <label class="radio">
+                    <input type="radio" name="set2" value="0" {if $newsinfo}{if $newsinfo['vipconfig']}{if $newsinfo['vipconfig']['set2']==0}checked=checked{/if}{else}checked=checked{/if}{else}checked=checked{/if}/>
+                    关闭
+                </label>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">开启后必须开通会员才可购买该商品</span>
+            </div>
+        </div>
+        <div class="control-group set3" style="display: {if $newsinfo}{if $newsinfo['vipconfig']['set2']==1}block{else}none{/if}{else}none{/if};">
+            <label class="control-label">购买等级</label>
+            <div class="controls">
+                <select name="set3" id="set3" class="span3 m-wrap">
+                    {foreach $grade_arr as $i}
+                        <option value="{$i['grade']}" {if $newsinfo}{if $newsinfo['vipconfig']['set3'] == $i['grade']}selected='selected'{/if}{/if}>{$i['name']}({$i['grade']}级)</option>
+                    {/foreach}
+                </select> 
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">购买开始等级,如大众会员(1级)，即1,2,3,4..级都可购买</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">会员折扣</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="discount_status" value="0" {if $newsinfo}{if $newsinfo['discount_status'] == 0}checked=checked{/if}{else}checked=checked{/if}/>
+                    关闭
+                </label>
+                <label class="radio">
+                    <input type="radio" name="discount_status" value="1" {if $newsinfo}{if $newsinfo['discount_status'] == 1}checked=checked{/if}{/if}/>
+                    默认设置
+                </label>
+                <label class="radio">
+                    <input type="radio" name="discount_status" value="2" {if $newsinfo}{if $newsinfo['discount_status'] == 2}checked=checked{/if}{/if}/>
+                    单独设置
+                </label>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">开启后必须开通会员才可购买该商品</span>
+            </div>
+        </div>
+        <div class="control-group" id="discount" style="display: {if $newsinfo}{if $newsinfo['discount_status'] == 2}{else}none{/if}{else}none{/if};">
+            <label class="control-label">折扣</label>
+            <div class="controls">
+            <table cellpadding="0" cellspacing="0" style="max-width:1078px;border:1px solid #F0F3F5" border="1px" width="100%" id="tabb" class="discount_table">
+                    <?php if(count($grade_arr) > 6){?>
+                        <?php $n = ceil(count($grade_arr) / 6);for($s=1;$s<=$n;$s++){?>
+                        <tr>
+                            <td class='biaotao'>会员等级</td>
+                            {foreach $grade_arr as $k => $v}
+                                {if ($s-1)*6 <= $k && $k < 6 * $s}
+                                <td class='tds'>{$v['name']}</td>
+                                {/if}
+                            {/foreach}
+                        </tr>
+                        <tr>
+                            <td class="biaotao">折扣</td>
+                            {foreach $grade_arr as $k => $v}
+                                {if ($s-1)*6 <= $k && $k < 6 * $s}
+                                    <td class="tds"><input type='text' class='shukdd' name='valarr[]' onkeyup="clearNoNum(this)" value="{$v['discount']}"></td>
+                                {/if}
+                            {/foreach}
+                        </tr>
+                    <?php }}else{?>
+                    <tr>
+                        <td class='biaotao'>会员等级</td>
+                        {foreach $grade_arr as $v}
+                            <td class='tds'>{$v['name']}</td>
+                        {/foreach}
+                    </tr>
+                    <tr>
+                        <td class="biaotao">折扣</td>
+                        {foreach $grade_arr as $v}
+                            <td class="tds"><input type='text' class='shukdd' name='valarr[]' onkeyup="clearNoNum(this)" value="{$v['discount']}"></td>
+                        {/foreach}
+                    </tr>
+                    <?php }?>
+                </table>
+            </div>
+        </div>
+        <div class="control-group chongdingy">
+            <label class="control-label chongdingywz" style="width: 500px;">每日他人点击分享获取积分设置</label>
+        </div>
+        <div class="control-group">
+            <label class="control-label">是否启用规则</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="get_share_gz" value="1" {if $newsinfo}{if $newsinfo.get_share_gz==1}checked=checked{/if}{/if}/>
+                    开启
+                </label>
+                <label class="radio">
+                    <input type="radio" name="get_share_gz" value="2" {if $newsinfo}{if $newsinfo.get_share_gz==2}checked=checked{/if}{else}checked=checked{/if}/>
+                    关闭
+                </label>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">分享获得积分的类型</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">获取积分</label>
+            <div class="controls">
+                <input name="get_share_score" type="text" class="span2 m-wrap" value="{if $newsinfo}{$newsinfo.get_share_score}{else}0{/if}"/>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">他人点击分享一次获得的积分 </span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">获取积分限制</label>
+            <div class="controls">
+                <input name="get_share_num" type="text" class="span2 m-wrap" value="{if $newsinfo}{$newsinfo.get_share_num}{else}0{/if}"/>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">他人每日点击分享获取积分次数限制</span>
+            </div>
+        </div>
+
+        <div class="control-group chongdingy">
+            <label class="control-label chongdingywz" style="width: 500px;">预约高级设置</label>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label">是否确认订单</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="pro_flag_ding" value="0" {if $newsinfo}{if $newsinfo.pro_flag_ding==0}checked=checked{/if}{else}checked=checked{/if} />
+                    不启用
+                </label>
+                <label class="radio">
+                    <input type="radio" name="pro_flag_ding" value="1" {if $newsinfo}{if $newsinfo.pro_flag_ding==1}checked=checked{/if}{/if} />
+                    启用
+                </label>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">启用后下单后需要确定订单</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">是否填写姓名</label>
+            <div class="controls">
+                <label class="radio">
+                <input type="radio" name="pro_flag" value="0" {if $newsinfo} {if $newsinfo['pro_flag'] == '0'}checked=checked {/if}{else}checked=checked{/if} />
+                不启用
+                </label>
+                <label class="radio">
+                <input type="radio" name="pro_flag" value="1" {if $newsinfo} {if $newsinfo['pro_flag'] == '1'}checked=checked {/if}{/if} />
+                启用
+                </label> 
+                <label class="radio">
+                <input type="radio" name="pro_flag" value="2" {if $newsinfo} {if $newsinfo['pro_flag'] == '2'}checked=checked{/if}{/if} />
+                启用并必填
+                </label> 
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">启用后下单也显示填写信息</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">是否填写电话</label>
+            <div class="controls">
+                <label class="radio">
+                <input type="radio" name="pro_flag_tel" value="0" {if $newsinfo} {if $newsinfo['pro_flag_tel'] == '0'}checked=checked {/if}{else}checked=checked{/if} />
+                不启用
+                </label>
+                <label class="radio">
+                <input type="radio" name="pro_flag_tel" value="1" {if $newsinfo} {if $newsinfo['pro_flag_tel'] == '1'}checked=checked {/if}{/if} />
+                启用
+                </label> 
+                <label class="radio">
+                <input type="radio" name="pro_flag_tel" value="2" {if $newsinfo} {if $newsinfo['pro_flag_tel'] == '2'}checked=checked {/if}{/if} />
+                启用并必填
+                </label> 
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">启用后下单也显示填写信息</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">是否填写地址</label>
+            <div class="controls">
+                <label class="radio">
+                <input type="radio" name="pro_flag_add" value="0" {if $newsinfo} {if $newsinfo['pro_flag_add'] == '0'}checked=checked {/if}{else}checked=checked{/if} />
+                不启用
+                </label>
+                <label class="radio">
+                <input type="radio" name="pro_flag_add" value="1" {if $newsinfo} {if $newsinfo['pro_flag_add'] == '1'}checked=checked {/if}{/if} />
+                启用
+                </label> 
+                <label class="radio">
+                <input type="radio" name="pro_flag_add" value="2" {if $newsinfo} {if $newsinfo['pro_flag_add'] == '2'}checked=checked {/if}{/if} />
+                启用并必填
+                </label> 
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">启用后下单也显示填写信息</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">是否填写日期</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="pro_flag_data" value="0" {if $newsinfo} {if $newsinfo['pro_flag_data'] == '0'}checked=checked {/if}{else}checked=checked{/if} />
+                    不启用
+                </label>
+                <label class="radio">
+                    <input type="radio" name="pro_flag_data" value="2" {if $newsinfo} {if $newsinfo['pro_flag_data'] == '2'}checked=checked {/if}{/if} />
+                    启用并必填
+                </label>
+                <label style="display: inline-block;">
+                    名称
+                </label>
+                <label style="display: inline-block;">
+                    <input type="text" style="width:120px;" maxlength="6" name="pro_flag_data_name" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  value="{if $newsinfo}{$newsinfo['pro_flag_data_name']}{/if}"/>
+                </label>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;">如：上门时间</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">是否填写时间</label>
+            <div class="controls">
+                <label class="radio">
+                    <input type="radio" name="pro_flag_time" value="0" {if $newsinfo} {if $newsinfo['pro_flag_time'] == '0'}checked=checked {/if}{else}checked=checked{/if} />
+                    不启用
+                </label>
+                <label class="radio">
+                    <input type="radio" name="pro_flag_time" value="2" {if $newsinfo} {if $newsinfo['pro_flag_time'] == '2'}checked=checked {/if}{/if} />
+                    启用并必填
+                </label>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">预约限制</label>
+            <div class="controls" style="overflow: hidden;">
+                <label for="" class="span1 btn" style="float:left; width:120px; border-radius: 0 !important">可预约下单日期</label>
+                <input type="text" id="" name="afterdays" value="{if $newsinfo}{$newsinfo['afterdays']}{/if}" placeholder="" style="width:134px; border-radius: 0;height:32px;line-height:32px;float: left;" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                <label for="" class="col-sm-2 ggzbtn btn" style="float:left;border-radius: 0 !important">天后的日期</label>
+                <span class="sdhd span4" style="color:#c7cddb" id="izggzw" >
+                    0为可预约当天往后
+                </span>
+            </div>  
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">退款限制</label>
+            <div class="controls" style="overflow: hidden;">
+                <label for="" class="span1 btn" style="float:left; width:120px; border-radius: 0 !important">距离预约时间</label>
+                <input type="text" name="beforedays" value="{if $newsinfo}{$newsinfo['beforedays']}{/if}" placeholder="" style="width:134px; border-radius: 0;height:32px;line-height:32px;float: left;" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                <label for="" class="col-sm-2 ggzbtn btn" style="float:left;border-radius: 0 !important">天内不可退款</label>
+                <span class="sdhd span4" style="color:#c7cddb" id="izggzw" >
+                    0为不限制
+                </span>
+            </div>  
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">修改限制</label>
+            <div class="controls" style="overflow: hidden;">
+                <label for="" class="span1 btn" style="float:left; width:120px; border-radius: 0 !important">距离预约时间</label>
+                <input type="text" name="modifydays" value="{if $newsinfo}{$newsinfo['modifydays']}{/if}" placeholder="" style="width:134px; border-radius: 0;height:32px;line-height:32px;float: left;" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                <label for="" class="col-sm-2 ggzbtn btn" style="float:left;border-radius: 0 !important">天内不可修改预约信息</label>
+                <span class="sdhd span4" style="color:#c7cddb" id="izggzw" >
+                    0为不可修改
+                </span>
+            </div>  
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">卖家提醒</label>
+            <div class="controls">
+                <input name="seller_remind" type="text" class="span2 m-wrap" value="{if $newsinfo}{$newsinfo['seller_remind']}{/if}"/>
+                <span style="color:#c7cddb; line-height:40px; margin-left:20px;"> </span>
+            </div>
+        </div>
+        
+
+        <div class="seatalert" style="display: none;z-index:9999;">
+            <div class="seatalert1">
+                <div class="seatbox">
+                    <div class="clearfix">
+                        <div class="show_seatbox fl">
+                            <img class="yyyd_head_img" src="__STATIC_ROOT__/image/yyyd_head.jpg"/>
+                            <div class="show_seat">
+                                <div class="show_seat_head hbj">
+                                    <div class="show_seat_head_title">这里是服务标题</div>
+                                    <div class="flex1"></div>
+                                    <div class="show_seat_head_date"><span>18.08.07</span> 星期五</div>
+                                    <div class="show_seat_head_right">切换<span class="iconfont icon-qiehuan"></span></div>
+                                </div>
+                                <div class="seat_statebox">
+                                    <div class="seat_state_single tbTitleSelect titfix"><span>可选</span></div>
+                                    <div class="seat_state_single tbTitleSelect selected titfix"><span>禁用</span></div>
+                                </div>
+                            </div>
+                            <div class="show_content">
+                                <table id="show_content_table">
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        {volist name="column_arr" id="co" key="i" }
+                                        <td name="<?php echo $i ; ?>">
+                                            <div class="tbTitle" id="columnval<?php echo $i; ?>">{$co}</div>
+                                        </td>
+                                        {/volist}
+                                    </tr>
+                                    {volist name="row_arr" id="ro" key="i" }
+                                    <tr name='<?php echo $i; ?>'>
+                                        <td>
+                                            <div class="tbTitle" id="rowval<?php echo $i; ?>">{$ro}</div>
+                                        </td>
+                                        {volist name="column_arr" id="cc" key="j"}
+                                        <td name="<?php echo $j; ?>">
+                                        {if count($select_arr) > 0}
+                                            {if array_key_exists($i, $select_arr) && array_key_exists($j, $select_arr[$i])}
+                                                {if $select_arr[$i][$j] == 1}
+                                                <span class="tbTitleSelect selected" id="c<?php echo $i; ?><?php echo $j ; ?>"
+                                                      onclick="changepic(<?php echo $i ; ?><?php echo $j ; ?>,'<?php echo $i; ?>a<?php echo $j; ?>')" data="2">禁用</span>
+                                                {/if}
+                                            {else}
+                                                 <span class="tbTitleSelect" id="c<?php echo $i; ?><?php echo $j; ?>"
+                                                      onclick="changepic(<?php echo $i ; ?><?php echo $j ; ?>,'<?php echo $i; ?>a<?php echo $j; ?>')" data="1">可选</span>
+                                            {/if}
+                                        {else}
+                                            <span class="tbTitleSelect" id="c<?php echo $i; ?><?php echo $j; ?>"
+                                                  onclick="changepic(<?php echo $i ; ?><?php echo $j ; ?>,'<?php echo $i; ?>a<?php echo $j; ?>')" data="1">可选</span>
+                                        {/if}
+                                        </td>
+                                        {/volist}
+                                    </tr>
+                                    {/volist}
+                                </table>
+                            </div>
+                            <div class="seat_selected" style="text-align: center;">禁用后，所有日期均不支持选择此项项目</div>
+                            <div class="seat_bottom_btn" id="btnval">确认选择此选项</div>
+                        </div>
+                        <div class="edit_seatbox fl">
+                            <div class="edit_seat_head">预约预定占位信息设置</div>
+                            <div class="edit_seat_content clearfix">
+                                <div class="edit_seat_content_left fl" >按钮文字</div>
+                                <input class="edit_seat_input fl" type="text" name="tablename" id="tablename" value="{$tablename}" />
+                            </div>
+                            <div class="edit_seat_content clearfix">
+                                <div class="edit_seat_content_left fl">横排信息</div>
+                                <div class="fl">
+                                    <div id="column">
+                                        {volist name="column_arr" id="c" key="index"}
+                                        <div class="mb15 clearfix">
+                                            <input class="edit_seat_input fl" oninput="change1(<?php echo $index; ?>)" type="text" name="" id="column<?php echo $index; ?>" value="{$c}" />
+                                            <div class="edit_seat_del ml10 fl" onclick="delcolumn(this,<?php echo $index; ?>)" name='<?php echo $index; ?>'>删除</div>
+                                        </div>
+                                        {/volist}
+                                    </div>
+                                    <div class="edit_seat_add" onclick="addcolumn()">添加</div>
+                                </div>
+                            </div>
+                            <div class="edit_seat_content clearfix">
+                                <div class="edit_seat_content_left fl">竖排信息</div>
+                                <div class="fl">
+                                    <div id="row">
+                                        {volist name="row_arr" id="r" key="index"}
+                                        <div class="mb15 clearfix">
+                                            <input class="edit_seat_input fl" oninput="change2(<?php echo $index; ?>)" type="text" name="" id="row<?php echo $index; ?>" value="{$r}" />
+                                            <div class="edit_seat_del ml10 fl" onclick="delrow(this,<?php echo $index; ?>)" name="<?php echo $index; ?>">删除</div>
+                                        </div>
+                                        {/volist}
+                                    </div>
+                                    <div class="edit_seat_add" onclick="addrow()">添加</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+        <input type="hidden" name="columnstr" id="columnstr" value="{$columnstr}">
+
+        <input type="hidden" name="rowstr" id="rowstr" value="{$rowstr}">
+
+        <input type="hidden" name="selectstr" id="selectstr" value="{$selectstr}">
+
+
+                    <div class="seat_btnbox">
+                        <div class="seat_btn_sure">确定</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions form_nobg">
+            <button type="submit" class="btn" style="color: #fff;background-color: #4385ff;">确定</button>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+<style type="text/css">
+    .modal{
+        width: 795px !important;
+        margin-left: -397px !important;
+        min-height: 290px !important;
+    }
+</style>
+<div id="stack2" class="modal fade" tabindex="-1" data-focus-on="input:first" style="width:795px !important; margin-left:-400px;">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>图片上传</h3>
+    </div>
+    <div class="controls">
+        <div class="uploader-list-container" >
+            <div class="queueList">
+                <div id="dndArea" class="placeholder">
+                    <div id="filePicker-2"></div>
+                </div>
+            </div>
+            <div class="statusBar" style="display:none;">
+                <div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+                <div class="info"></div>
+                <div class="btns">
+                    <div id="filePicker2"></div>
+                    <div class="uploadBtn">开始上传</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.all.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/jquery.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/select2.full.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/select2-krajee.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="__STATIC_ROOT__/webuploader/js/webuploader.min.js"></script>
+<script>
+    if(jQuery('#w1').data('select2')) {
+        jQuery('#w1').select2('destroy');
+    }
+    jQuery.when(jQuery('#w1').select2(b)).done(initS2Loading('w1', 'a'));
+</script>
+<script type="text/javascript">
+    function clearNoNum(obj){  
+      obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+      if(obj.value.charAt(0,1) == "."){
+        obj.value = "";
+      }
+      obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的   
+      obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");  
+      obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数   
+      if(obj.value.indexOf(".")< 0 && obj.value !=""){
+       obj.value= parseFloat(obj.value);  
+      }  
+    }
+    $("input[name='discount_status']").each(function(){
+        $(this).click(function(){
+            if($(this).val()==2){
+                $("#discount").show();
+            }else{
+                $("#discount").hide();
+            }
+        })
+    })
+    $('input[name="set2"]').each(function(){
+        $(this).click(function(){
+            if($(this).val()==1){
+                $('.set3').show()
+            }else{
+                $('.set3').hide()
+            }
+        })
+    })
+    $('#specificate_nav').click(function(){
+
+        $('#specificate_content').show();
+
+        $('#custom_content').hide();
+
+        $('#foottitle').hide();
+    })
+
+    $('#custom_nav').click(function(){
+
+        $('#specificate_content').hide();
+
+        $('#custom_content').show();
+
+        $('#foottitle').show();
+    })
+
+    $('#open_specificate').click(function(){
+
+        $('.seatalert').show();
+
+    })
+
+    //选座js
+
+    var column = '{$column_num}';
+
+    var row = '{$row_num}';
+
+    var column2 = '{$column_num}';
+
+    var row2 = '{$row_num}';
+
+    var selectstr = "{$selectstr}";
+
+    var selectstrArray = "";
+
+    var columnstr = "{$columnstr}";
+
+    var columArray = "";
+
+    var rowstr = "{$rowstr}";
+
+    var rowArray = "";
+
+    $(document).ready(function(){
+
+        $(function(){
+
+            $('#tablename').bind('input propertychange', function() {
+
+                $('#btnval').html($(this).val());
+
+            });
+
+        })
+
+        var wheight = $(window).height();
+
+        $('.seatalert').css('height',wheight);
+
+        $('.seat_btn_sure').click(function(){
+
+            $('.seatalert').hide();
+
+        })
+
+    })
+
+    $(window).resize(function(){
+
+        var wheight = $(window).height();
+
+        $('.seatalert').css('height',wheight);
+
+    })
+
+    //增加竖排
+
+    var addcolumn = function(){
+
+        column ++;
+
+        column2++;
+
+        var addcolumn = '<div class="mb15 clearfix"><input oninput="change1('+column2+')" class="edit_seat_input fl" type="text" name="" id="column'+column2+'" value="yyy" /><div class="edit_seat_del ml10 fl" name="'+column+'" onclick="delcolumn(this,'+column+')">删除</div></div>';
+
+        $('#column').append(addcolumn);
+
+        for(var i=1;i<=row;i++){
+
+            var addtd1 = '<td  name="'+column+'"><span class="tbTitleSelect" id="c'+i+column+'" onclick="changepic('+i+column+',\''+i+'a'+column+'\')" data="1">可选</span></td>';
+
+            $('#show_content_table tr').eq(i).append(addtd1);
+
+        }
+
+        var addtd2 = '<td name="'+column+'"><div class="tbTitle" id="columnval'+column2+'">yyy</div></td>';
+
+        $('#show_content_table tr:first-child').append(addtd2);
+
+        //增加竖排存储
+
+        columnstr += "yyy,";
+
+        $('#columnstr').val(columnstr);
+
+
+    }
+
+    var change1 =function (column){
+
+        var val = $('#column'+column).val();
+
+        $('#columnval'+column).html(val);
+
+        //更改竖排的标题
+
+        columArray = columnstr.split(",");
+
+        for(var i=0; i<columArray.length; i++){
+
+            if(i==column-1){
+
+                columArray[i] =val;
+
+            }
+
+        }
+
+        columnstr = columArray.toString();
+
+
+        $('#columnstr').val(columnstr);
+
+    }
+
+    //增加横排
+
+    var addrow = function(){
+
+        row++;
+
+        row2++;
+
+        var addrow = '<div class="mb15 clearfix"><input class="edit_seat_input fl" oninput="change2('+row2+')" type="text" name="" id="row'+row2+'" value="xxx" /><div class="edit_seat_del ml10 fl" name="'+row+'" onclick="delrow(this,'+row+')">删除</div></div>';
+
+        $('#row').append(addrow);
+
+        var addtr = '<tr name="'+row+'"><td><div class="tbTitle" id="rowval'+row2+'">xxx</div></td>';
+
+        
+
+        for (var i=1;i<=column;i++) {
+
+            addtr += '<td name="'+i+'"><span class="tbTitleSelect" id="c'+row+i+'" onclick="changepic('+row+i+',\''+row+'a'+i+'\')" data="1">可选</span></td>';
+
+        }
+
+        addtr += '</tr>';
+
+        $('#show_content_table').append(addtr);
+
+        //增加横排存储
+
+        rowstr += "xxx,";
+
+
+        $('#rowstr').val(rowstr);
+
+    }
+
+    var change2 =function (row){
+
+        var val = $('#row'+row).val();
+
+        $('#rowval'+row).html(val);
+
+        //更改横排的值
+
+        rowArray = rowstr.split(",");
+
+        for(var i=0; i<rowArray.length; i++){
+
+            if(i==row-1){
+
+                rowArray[i] =val;
+
+
+            }
+
+        }
+
+        rowstr = rowArray.toString();
+
+
+        $('#rowstr').val(rowstr);
+
+    }
+
+    var delcolumn =function(e,a){
+
+        var delstr = $('#column'+a).val();
+
+        var columnstr = $('#columnstr').val();
+
+        if(column==1){
+
+            alert('至少有一个横排');
+
+        }else{
+
+            e.parentNode.remove();
+
+            column--;
+
+            $('#show_content_table td[name="'+a+'"]').remove();
+
+            columnstr = columnstr.replace(delstr+',', '');
+
+            $('#columnstr').val(columnstr);
+
+        }
+
+        
+
+    }
+
+    var delrow = function(e,a){
+
+        var delstr = $('#row'+a).val();
+
+        var rowstr = $('#rowstr').val();
+
+        if(row==1){
+
+            alert('至少有一个竖排');
+
+        }else{
+
+            e.parentNode.remove();
+
+            row--;
+
+            $('#show_content_table tr[name="'+a+'"]').remove();
+
+            selectstrArray = selectstr.split(",");
+
+
+
+            for(var i=0; i<selectstrArray.length; i++){
+
+                if(selectstrArray[i] == a){
+
+                    selectstrArray[i] =="";
+
+                }
+
+            }
+
+            rowstr = rowstr.replace(delstr+',', '');
+
+            $('#rowstr').val(rowstr);
+
+        }
+
+    }
+
+    var changepic = function(a,b){
+
+        var data = $('#c'+a).attr('data');
+
+        if(data==1){
+
+            $('#c'+a).text('禁用');
+
+            $('#c'+a).addClass('selected');
+
+            $('#c'+a).attr('data','2');
+
+            selectstr += b+',';
+
+            selectstrArray = selectstr.split(",");
+
+            selectstr = selectstrArray.toString();
+
+            $('#selectstr').val(selectstr);
+
+
+        }else{
+
+            //selectstr=(selectstr.substring(selectstr.length-1)==',')?selectstr.substring(0,selectstr.length-1):selectstr;
+
+            //可选后删除数组中对应的值
+
+            for(var i=0; i<selectstrArray.length; i++){
+
+                if(selectstrArray[i] == b){
+
+                    // console.log(i)
+
+                    // console.log(b)
+
+                    // console.log(selectstrArray[i])
+
+                    selectstrArray.splice(i,1);
+
+                }
+
+            }
+
+            selectstr = selectstrArray.toString();
+
+            $('#selectstr').val(selectstr);
+
+
+            $('#c'+a).text('可选');
+
+            $('#c'+a).removeClass('selected');
+
+            $('#c'+a).attr('data','1');
+
+        }
+
+    }
+
+
+    function catecheck(me){
+        var id = $(me).val();
+        if(id !=0){
+            $.ajax({
+                url:"{:Url('Products/getcates')}",type:"post",dataType:'json',
+                data:{
+                    id:id
+                },success:function(res){
+                    $("#catelists_i").show();
+                    var con1 = "";
+                    var con2 = "";
+                    var con3 = "";
+                    for(var i=0;i<res.length;i++){
+                        for(var j=0;j<res[i].length;j++){
+                            con= "<option value='"+res[i][j]['id']+"'>"+res[i][j]['name']+"</option>";
+                            con1 = con1+con;
+                        }
+                        con2="<select name='catearr[]' class='span3 m-wrap'><option value='0'>选择多栏目</option>"+con1+"</select>";
+                        con1 = "";
+                        con3 = con3+con2;
+                    }
+                    $("#catelists").html(con3);
+                }
+            })
+        }else{
+            $("#catelists_i").hide();
+            $("#catelists").html("");
+        }
+    }
+    $(function() {
+        var ue = UE.getEditor('editor');
+    });
+    function checkinfo(){
+        $("#mengdian").val($("#w1").val());
+        var obj = "";
+        $("#tbod tr").each(function(){
+            var val = $(this).find("input[type='text']");
+            for(var i=0; i<val.length; i++){
+                obj+=$(val[i]).val()+",";
+            }
+        });
+        $("#duogg").val(obj);
+        // 获得所有便签的名称
+        var lab_name = $(".lab_name");
+        // 获得所有便签的值
+        var lab_val = $(".lab_val");
+        var lab_str="";
+        for(var i=0; i<lab_name.length; i++){
+            // if(!$(lab_name[i]).val() || !$(lab_val[i]).val()){
+            //     alert("请填写标签对应内容");
+            //     return false;
+            // }
+            if($(lab_name[i]).val()){
+                lab_str+= $(lab_name[i]).val()+":"+$(lab_val[i]).val()+",";
+            }
+        }
+        //alert(lab_str);
+        $("#labels").val(lab_str);
+        var lanmu = $("#cid").val();
+        if(lanmu==0){
+            alert("请选择所属栏目");
+            return false;
+        }
+
+        var title = $("input[name='title']").val();
+        if(title == ""){
+            alert("请输入标题");
+            return false;
+        }
+        val = $("#ueditor_textarea_product_txt").val();
+        if(!val){
+            alert("请输入商品详情");
+            return false;
+        }else{
+            $("#text").val(val);
+        }
+    }
+    // 多图上传
+    var date = new Date();
+    var stronly = String(date.getFullYear())+String(date.getMonth())+String(date.getDate())+String(date.getHours())+String(date.getMinutes())+String(date.getSeconds())+String(Math.floor(Math.random()*1000+1));
+    //判断URL中有没有栏目ID
+    var newsid = {$newsid};
+    if(newsid==0){
+        $("#randid").val(stronly);
+    }else{
+        var randid_is = $("#randid").val();
+        if(randid_is == ""){
+            $("#randid").val(stronly);
+        }
+    }
+    function del(id){
+        if(confirm('你确定要删除这张图片嘛?')){
+            $("#li"+id).remove();
+            $.post("{:Url('Pt/del_img')}",{"id":id, "appletid":<?php echo $_GET['appletid']?>},function(data){
+            })
+        }else{
+            return false;
+        }
+    }
+    function xians(me){
+        var b = $(me).find("div[class='beijingys']");
+        var s = $(me).find("div[class='sancann']");
+        $(b).show();
+        $(s).show();
+    }
+    function gb(me){
+        var b = $(me).find("div[class='beijingys']");
+        var s = $(me).find("div[class='sancann']");
+        $(b).hide();
+        $(s).hide();
+    }
+    (function( $ ){
+        // 当domReady的时候开始初始化
+        $(function(){
+            jzsc();
+        })
+    })( jQuery );
+    function jzsc(){
+        var $wrap = $('.uploader-list-container'),
+            // 图片容器
+            $queue = $( '<ul class="filelist" id="filelist"></ul>' )
+                .appendTo( $wrap.find( '.queueList' ) ),
+            // 状态栏，包括进度和控制按钮
+            $statusBar = $wrap.find( '.statusBar' ),
+            // 文件总体选择信息。
+            $info = $statusBar.find( '.info' ),
+            // 上传按钮
+            $upload = $wrap.find( '.uploadBtn' ),
+            // 没选择文件之前的内容。
+            $placeHolder = $wrap.find( '.placeholder' ),
+            $progress = $statusBar.find( '.progress' ).hide(),
+            // 添加的文件数量
+            fileCount = 0,
+            // 添加的文件总大小
+            fileSize = 0,
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+            // 缩略图大小
+            thumbnailWidth = 180 * ratio,
+            thumbnailHeight = 120 * ratio,
+            // 可能有pedding, ready, uploading, confirm, done.
+            state = 'pedding',
+            // 所有文件的进度信息，key为file id
+            percentages = {},
+            // 判断浏览器是否支持图片的base64
+            isSupportBase64 = ( function() {
+                var data = new Image();
+                var support = true;
+                data.onload = data.onerror = function() {
+                    if( this.width != 1 || this.height != 1 ) {
+                        support = false;
+                    }
+                }
+                data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                return support;
+            } )(),
+            // 检测是否已经安装flash，检测flash的版本
+            flashVersion = ( function() {
+                var version;
+                try {
+                    version = navigator.plugins[ 'Shockwave Flash' ];
+                    version = version.description;
+                } catch ( ex ) {
+                    try {
+                        version = new ActiveXObject('ShockwaveFlash.ShockwaveFlash')
+                            .GetVariable('$version');
+                    } catch ( ex2 ) {
+                        version = '0.0';
+                    }
+                }
+                version = version.match( /\d+/g );
+                return parseFloat( version[ 0 ] + '.' + version[ 1 ], 10 );
+            } )(),
+            supportTransition = (function(){
+                var s = document.createElement('p').style,
+                    r = 'transition' in s ||
+                        'WebkitTransition' in s ||
+                        'MozTransition' in s ||
+                        'msTransition' in s ||
+                        'OTransition' in s;
+                s = null;
+                return r;
+            })(),
+            // WebUploader实例
+            uploader;
+        // 实例化
+        uploader = WebUploader.create({
+            pick: {
+                id: '#filePicker-2',
+                label: '点击选择图片'
+            },
+            formData: {
+                uid: 123
+            },
+            dnd: '#dndArea',
+            paste: '#uploader',
+            swf: '/webuploader/Uploader.swf',
+            chunked: false,
+            chunkSize: 512 * 1024,
+            server: '{:Url('Products/imgupload_duo')}?randid='+$("#randid").val(),
+            // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
+            disableGlobalDnd: false,
+            fileNumLimit: 8,
+            fileSizeLimit: 200 * 1024 * 1024,    // 200 M
+            fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
+    });
+        // 拖拽时不接受 js, txt 文件。
+        uploader.on( 'dndAccept', function( items ) {
+            var denied = false,
+                len = items.length,
+                i = 0,
+                // 修改js类型
+                unAllowed = 'text/plain;application/javascript ';
+            for ( ; i < len; i++ ) {
+                // 如果在列表里面
+                if ( ~unAllowed.indexOf( items[ i ].type ) ) {
+                    denied = true;
+                    break;
+                }
+            }
+            return !denied;
+        });
+        uploader.on('dialogOpen', function() {
+            console.log('here');
+        });
+        // 添加“添加文件”的按钮，
+        uploader.addButton({
+            id: '#filePicker2',
+            label: '继续添加'
+        });
+        uploader.on('ready', function() {
+            window.uploader = uploader;
+        });
+        // 当有文件添加进来时执行，负责view的创建
+        function addFile( file ) {
+            var $li = $( '<li id="' + file.id + '">' +
+                '<p class="imgWrap"></p>'+
+                '</li>' ),
+                $btns = $('<div class="file-panel">' +
+                    '<span class="cancel" style="background-image: url(__STATIC_ROOT__/webuploader/css/images/icons.png)">删除</span>' +
+                    '</div>').appendTo( $li ),
+                $prgress = $li.find('p.progress span'),
+                $wrap = $li.find( 'p.imgWrap' ),
+                $info = $('<p class="error"></p>'),
+                showError = function( code ) {
+                    switch( code ) {
+                        case 'exceed_size':
+                            text = '文件大小超出';
+                            break;
+                        case 'interrupt':
+                            text = '上传暂停';
+                            break;
+                        default:
+                            text = '上传失败，请重试';
+                            break;
+                    }
+                    $info.text( text ).appendTo( $li );
+                };
+            if ( file.getStatus() === 'invalid' ) {
+                showError( file.statusText );
+            } else {
+                // @todo lazyload
+                $wrap.text( '预览中' );
+                uploader.makeThumb( file, function( error, src ) {
+                    var img;
+                    if ( error ) {
+                        $wrap.text( '不能预览' );
+                        return;
+                    }
+                    if( isSupportBase64 ) {
+                        img = $('<img src="'+src+'">');
+                        $wrap.empty().append( img );
+                    } else {
+                        $.ajax('/webuploader/server/preview.php', {
+                            method: 'POST',
+                            data: src,
+                            dataType:'json'
+                        }).done(function( response ) {
+                            if (response.result) {
+                                img = $('<img src="'+response.result+'">');
+                                $wrap.empty().append( img );
+                            } else {
+                                $wrap.text("预览出错");
+                            }
+                        });
+                    }
+                }, thumbnailWidth, thumbnailHeight );
+                percentages[ file.id ] = [ file.size, 0 ];
+                file.rotation = 0;
+            }
+            file.on('statuschange', function( cur, prev ) {
+                if ( prev === 'progress' ) {
+                    $prgress.hide().width(0);
+                } else if ( prev === 'queued' ) {
+                    $li.off( 'mouseenter mouseleave' );
+                    $btns.remove();
+                }
+                // 成功
+                if ( cur === 'error' || cur === 'invalid' ) {
+                    console.log( file.statusText );
+                    showError( file.statusText );
+                    percentages[ file.id ][ 1 ] = 1;
+                } else if ( cur === 'interrupt' ) {
+                    showError( 'interrupt' );
+                } else if ( cur === 'queued' ) {
+                    percentages[ file.id ][ 1 ] = 0;
+                } else if ( cur === 'progress' ) {
+                    $info.remove();
+                    $prgress.css('display', 'block');
+                } else if ( cur === 'complete' ) {
+                    $li.append( '<span class="success"></span>' );
+                }
+                $li.removeClass( 'state-' + prev ).addClass( 'state-' + cur );
+            });
+            $li.on( 'mouseenter', function() {
+                $btns.stop().animate({height: 30});
+            });
+            $li.on( 'mouseleave', function() {
+                $btns.stop().animate({height: 0});
+            });
+            $btns.on( 'click', 'span', function() {
+                var index = $(this).index(),
+                    deg;
+                switch ( index ) {
+                    case 0:
+                        uploader.removeFile( file );
+                        return;
+                    case 1:
+                        file.rotation += 90;
+                        break;
+                    case 2:
+                        file.rotation -= 90;
+                        break;
+                }
+                if ( supportTransition ) {
+                    deg = 'rotate(' + file.rotation + 'deg)';
+                    $wrap.css({
+                        '-webkit-transform': deg,
+                        '-mos-transform': deg,
+                        '-o-transform': deg,
+                        'transform': deg
+                    });
+                } else {
+                    $wrap.css( 'filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation='+ (~~((file.rotation/90)%4 + 4)%4) +')');
+                    // use jquery animate to rotation
+                    // $({
+                    //     rotation: rotation
+                    // }).animate({
+                    //     rotation: file.rotation
+                    // }, {
+                    //     easing: 'linear',
+                    //     step: function( now ) {
+                    //         now = now * Math.PI / 180;
+                    //         var cos = Math.cos( now ),
+                    //             sin = Math.sin( now );
+                    //         $wrap.css( 'filter', "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos + ",SizingMethod='auto expand')");
+                    //     }
+                    // });
+                }
+            });
+            $li.appendTo( $queue );
+        }
+        // 负责view的销毁
+        function removeFile( file ) {
+            var $li = $('#'+file.id);
+            delete percentages[ file.id ];
+            updateTotalProgress();
+            $li.off().find('.file-panel').off().end().remove();
+        }
+        function updateTotalProgress() {
+            var loaded = 0,
+                total = 0,
+                spans = $progress.children(),
+                percent;
+            $.each( percentages, function( k, v ) {
+                total += v[ 0 ];
+                loaded += v[ 0 ] * v[ 1 ];
+            } );
+            percent = total ? loaded / total : 0;
+            spans.eq( 0 ).text( Math.round( percent * 100 ) + '%' );
+            spans.eq( 1 ).css( 'width', Math.round( percent * 100 ) + '%' );
+            updateStatus();
+        }
+        function updateStatus() {
+            var text = '', stats;
+            if ( state === 'ready' ) {
+                text = '选中' + fileCount + '张图片，共' +
+                    WebUploader.formatSize( fileSize ) + '。';
+            } else if ( state === 'confirm' ) {
+                stats = uploader.getStats();
+                if ( stats.uploadFailNum ) {
+                    text = '已成功上传' + stats.successNum+ '张照片至XX相册，'+
+                        stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
+                }
+            } else {
+                stats = uploader.getStats();
+                text = '共' + fileCount + '张（' +
+                    WebUploader.formatSize( fileSize )  +
+                    '），已上传' + stats.successNum + '张';
+                if ( stats.uploadFailNum ) {
+                    text += '，失败' + stats.uploadFailNum + '张';
+                }
+            }
+            $info.html( text );
+        }
+        function setState( val ) {
+            var file, stats;
+            if ( val === state ) {
+                return;
+            }
+            $upload.removeClass( 'state-' + state );
+            $upload.addClass( 'state-' + val );
+            state = val;
+            switch ( state ) {
+                case 'pedding':
+                    $placeHolder.removeClass( 'element-invisible' );
+                    $queue.hide();
+                    $statusBar.addClass( 'element-invisible' );
+                    uploader.refresh();
+                    break;
+                case 'ready':
+                    $placeHolder.addClass( 'element-invisible' );
+                    $( '#filePicker2' ).removeClass( 'element-invisible');
+                    $queue.show();
+                    $statusBar.removeClass('element-invisible');
+                    uploader.refresh();
+                    break;
+                case 'uploading':
+                    $( '#filePicker2' ).addClass( 'element-invisible' );
+                    $progress.show();
+                    $upload.text( '暂停上传' );
+                    break;
+                case 'paused':
+                    $progress.show();
+                    $upload.text( '继续上传' );
+                    break;
+                case 'confirm':
+                    $progress.hide();
+                    $( '#filePicker2' ).removeClass( 'element-invisible' );
+                    $upload.text( '开始上传' );
+                    stats = uploader.getStats();
+                    if ( stats.successNum && !stats.uploadFailNum ) {
+                        setState( 'finish' );
+                        return;
+                    }
+                    break;
+                case 'finish':
+                    stats = uploader.getStats();
+                    if ( stats.successNum ) {
+                        $.post("{:Url('Pictures/getimg')}",{"id":$("#randid").val()},function(data){
+                            var str="";
+                            if(data){
+                                for(var i=0; i<data.length; i++){
+                                    str+=	"<div class='paiwei' onmousemove='xians(this)' onmouseout='gb(this)' id='li"+data[i].id+"'>"+
+                                        "<img src='"+data[i].url+"' style='width: 140px; height:90px;'>"+
+                                        "<div class='beijingys'>"+
+                                        "</div>"+
+                                        "<div class='sancann' onclick='del("+data[i].id+")'>"+
+                                        "<span class='cancel'>删除</span>"+
+                                        "</div>"+
+                                        "</div>"
+                                }
+                                $("#imgzs").html(str);
+                                jzsc();
+                            }
+                        })
+                        alert( '上传成功' );
+                    } else {
+                        // 没有成功的图片，重设
+                        state = 'done';
+                    }
+                    break;
+            }
+            updateStatus();
+        }
+        uploader.onUploadProgress = function( file, percentage ) {
+            var $li = $('#'+file.id),
+                $percent = $li.find('.progress span');
+            $percent.css( 'width', percentage * 100 + '%' );
+            percentages[ file.id ][ 1 ] = percentage;
+            updateTotalProgress();
+        };
+        uploader.onFileQueued = function( file ) {
+            fileCount++;
+            fileSize += file.size;
+            if ( fileCount === 1 ) {
+                $placeHolder.addClass( 'element-invisible' );
+                $statusBar.show();
+            }
+            addFile( file );
+            setState( 'ready' );
+            updateTotalProgress();
+        };
+        uploader.onFileDequeued = function( file ) {
+            fileCount--;
+            fileSize -= file.size;
+            if ( !fileCount ) {
+                setState( 'pedding' );
+            }
+            removeFile( file );
+            updateTotalProgress();
+        };
+        uploader.on( 'all', function( type ) {
+            var stats;
+            switch( type ) {
+                case 'uploadFinished':
+                    setState( 'confirm' );
+                    break;
+                case 'startUpload':
+                    setState( 'uploading' );
+                    break;
+                case 'stopUpload':
+                    setState( 'paused' );
+                    break;
+            }
+        });
+        uploader.onError = function( code ) {
+            alert( 'Eroor: ' + code );
+        };
+        $upload.on('click', function() {
+            if ( $(this).hasClass( 'disabled' ) ) {
+                return false;
+            }
+            if ( state === 'ready' ) {
+                uploader.upload();
+            } else if ( state === 'paused' ) {
+                uploader.upload();
+            } else if ( state === 'uploading' ) {
+                uploader.stop();
+            }
+        });
+        $info.on( 'click', '.retry', function() {
+            uploader.retry();
+        } );
+        $info.on( 'click', '.ignore', function() {
+            alert( 'todo' );
+        } );
+        $upload.addClass( 'state-' + state );
+        updateTotalProgress();
+    }
+</script>
+{include file="public/foot_more" /}

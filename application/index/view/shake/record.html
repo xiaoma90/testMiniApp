@@ -1,0 +1,165 @@
+{include file="public/head" /}
+{include file="public/top" /}
+
+<style>
+    .navModel8{
+        display: block !important;
+    }
+    thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+        margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+    .page_content{
+        padding: 10px;
+    }
+    .form-group{
+        margin-bottom: 0 !important;
+    }
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel8-1">
+<link href="__STATIC_ROOT__/css/common.css?v=20170426" rel="stylesheet">
+
+
+<div class="clearfix">
+    <input type="hidden" name="activity_id" value="<?php echo $_GET['aid']; ?>" disabled id="activity_id" />
+    <div style="float: left;"><h3 style="float: left;margin-top: -5px;">抽奖记录</h3></div>
+    <form class="form-inline clearfix" action="" method="post">
+        <div class="form-group" style="float: left;margin-left:20px" >
+            <div class="form-controls">
+                <select name="select_pid" id="select_pid" class="" style="width: 200px; float: right;">
+                    <option value="">--中奖奖项--</option>
+                    {volist name="$prizesSet" id="p"}
+                    <option value="{$p['id']}" {if $select_pid == $p['id']}selected{/if} >{$p['detail']}</option>
+                    {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="float: left;margin-left:20px">
+            <div class="form-controls">
+                <select name="select_status" id="select_status" class="" style="width: 200px; float: right; display: inline;">
+                    <option value="">--中奖状态--</option>
+                    <option value="0" {if $select_status == '0'}selected{/if}>未中奖</option>
+                    <option value="1" {if $select_status == '1'}selected{/if}>待领取</option>
+                    <option value="2" {if $select_status == '2'}selected{/if}>已领取</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" style="float:left;margin-left:20px;display:flex;">
+            <div class="col-sm-3">
+                <div class="btn green" id="filter" style="float:right;display:inline;background-color:#4385ff;margin-right:20px;">搜索</div>
+            </div>
+            <a class="btn green" style="display:block;float:left;background-color:rgba(67, 133, 255, 0.102);color:#4385ff;border:1px solid #4385ff;padding:5px 14px;" id="excel" href="{:Url('Shake/toExcel')}?appletid=<?php echo $_GET['appletid']?>&aid=<?php echo $_GET['aid']?>">导出</a>
+        </div>
+    </form>
+</div>
+<table style="table-layout:fixed;" > 
+    <thead>
+        <tr>
+            <th style="width: 90px">序号</th>
+            <th style="width: 120px">抽奖人姓名</th>
+            <th style="width: 140px">手机号</th>
+            <th style="width: 205px">地址</th>
+            <th style="width: 180px">中奖奖项</th>
+            <th style="width: 180px">领取状态</th>
+            <th>抽奖时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        {volist name="$records['data']"  id="record" key="index" }
+        <tr>
+            <td>{$index}</td>
+            <td>{$record['realname']}</td>
+            <td>{$record['mobile']}</td>
+            <td>{$record['address']}</td>
+            <td>
+                {if $record['status'] == '0'}
+                    <div class="label label-sm">未中奖</div>
+                {else}
+                    {if $record['types'] == '3' && $record['status'] == '1'}
+                        <!-- <div class="label label-sm label-success">待领取</div> -->
+                        <!-- <a class="btn btn-xs btn-danger shenhe" data-rid="{$record['id']}" >审核发货</a> -->
+                        <div>{$record['prize_detail']}</div>
+                    {/if}
+                    {if ($record['types'] != '3' || $record['status'] == '2') && $record['status'] != '0' }
+                        <!-- <div class="label label-sm label-success">已领取</div> -->
+                        <div>{$record['prize_detail']}</div>
+                    {/if}
+                {/if}
+            </td>
+            <td>
+               {if $record['status'] == '0'}
+                    <div class="label label-sm">未中奖</div>
+                {else}
+                    {if $record['types'] == '3' && $record['status'] == '1'}
+                        <!-- <div class="label label-sm label-success">待领取</div> -->
+                        <a class="btn btn-xs btn-danger shenhe" data-rid="{$record['id']}" style="background:#d84a38;color:#fff;padding: 0px 4px;">待发货</a>
+                        <!-- <div>{$record['prize_detail']}</div> -->
+                    {/if}
+                    {if ($record['types'] != '3' || $record['status'] == '2') && $record['status'] != '0' }
+                        <div class="label label-sm label-success">已领取</div>
+                        <!-- <div>{$record['prize_detail']}</div> -->
+                    {/if}
+                {/if}
+            </td>
+            <td>{$record['createtime']}</td>
+        </tr>
+        {/volist}
+       
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        
+
+        $("#excel").click(function(){
+            
+        })
+
+        $("#filter").click(function(){
+            window.location.href = "{:Url('shake/record')}" + "?appletid=" + "<?php echo $_GET['appletid']; ?>" + "&select_pid=" + $('#select_pid').val() + "&select_status=" + $('#select_status').val() + "&aid=" + $("#activity_id").val();
+        })
+
+        $(".shenhe").each(function(){
+            $(this).click(function(){
+                var rid = $(this).data("rid");
+                $.ajax({
+                    url: "{:Url('shake/shenhe')}",
+                    type:'POST',
+                    data: {
+                        appletid: "<?php echo $_GET['appletid']; ?>",
+                        rid : rid
+                    },
+                    success: function(res){
+                        if(res == 1){
+                            location.reload();
+                        }
+                    }
+                })
+            });
+            
+            
+        })
+    });
+</script>
+
+{$page}
+
+
+{include file="public/foot_more" /}

@@ -1,0 +1,193 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+<link rel="stylesheet" href="__STATIC_ROOT__/css/select2.css">
+
+<script type="text/javascript">
+    var a = {
+        "themeCss": ".select2-container--krajee",
+        "sizeCss": "",
+        "doReset": true,
+        "doToggle": true,
+        "doOrder": false
+    };
+    window.b = {
+        "theme": "krajee",
+        "width": "415px",
+        "placeholder": "请选择值，可多选",
+        "language": "zh-CN"
+    };
+</script>
+<input type="hidden" id="nowhtml" value="navGoods" class="navGoods3">
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Duoproductsset/save')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+	 				<div class="control-group chongdingy">
+						<label class="control-label chongdingywz" style="width: 500px">订单表单管理</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">表单选择</label>
+						<div class="controls">
+							<select name="formset" class="span3 m-wrap">
+								<option value="0">---不启用---</option>
+								{if $forms}
+									{foreach $forms as $v}
+									<option value="{$v.id}" {if $yunfeidata}{if $yunfeidata.formset==$v.id}selected="selected"{/if}{/if}>{$v.formtitle}</option>
+									{/foreach}
+								{/if}
+							</select>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">选择后则可提交信息</span>
+						</div>
+					</div>
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz" style="width: 500px">运费管理</label>
+					</div>
+<!-- 					<div class="control-group">
+						<label class="control-label">运费</label>
+						<div class="controls">
+							<input name="yunfei" type="text" class="span2 m-wrap" value="{if $yunfeidata}{$yunfeidata.yfei}{/if}"  style="height: 35px !important;" /> 元
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">设置0则为包邮</span>
+						</div>
+					</div> -->
+					<div class="control-group">
+						<label class="control-label">满额包邮</label>
+						<div class="controls">
+							<input name="baoyou" type="text" class="span2 m-wrap" value="{if $yunfeidata}{$yunfeidata.byou}{/if}" /><span style="line-height:33px;color:#5c6270;"> 元</span>  
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">不设置表示没有包邮，0为全场包邮</span>
+						</div>
+					</div>
+					
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz" style="width: 500px">订单自取设置</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">订单自取</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="take_self" value="2" {if $yunfeidata}{if $yunfeidata.take_self==2}checked=checked{/if}{/if} />开启
+							</label>
+							<label class="radio">
+							<input  type="radio" name="take_self" value="1" {if $yunfeidata}{if $yunfeidata.take_self==1}checked=checked{/if}{else}checked=checked{/if} />关闭
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">订单自取开关  默认关闭</span>
+						</div>
+					</div>
+					<div class="control-group" id="shops_list" style="display:{if $yunfeidata}{if $yunfeidata.take_self==2}block{else}none{/if}{else}none{/if};">
+						<label class="control-label" style="margin-right:15px">自取门店</label>
+						<div class="controls" id="shops">
+							<span id="parent-s2-togall-w1" style="display:none">
+								<span id="s2-togall-w1" class="s2-togall-button s2-togall-select">
+									<span class="s2-select-label"><i class="glyphicon glyphicon-unchecked"></i>全选</span>
+									<span class="s2-unselect-label"><i class="glyphicon glyphicon-check"></i>全不选</span>
+								</span>
+							</span>
+							<input id="mengdian" name="stores" type="hidden"/>
+								<div class="kv-plugin-loading loading-w1">&nbsp;</div>
+								<select id="w1" class="form-control"  multiple size="4" placeholder="请选择自取门店，可多选" data-s2-options="a" data-krajee-select2="b" style="display:none">
+									{if $stores}
+									{foreach $stores as $items}
+									    <?php
+											$storeid = $items['id'];
+											$storetitle = $items['title'];
+
+											if($yunfeidata && $yunfeidata['stores']){
+											    $stores = explode(",",$yunfeidata['stores']);
+												if(in_array($items['id'], $stores)){
+													echo '<option value="'.$storeid.'" selected="selected">'.$storetitle.'</option>';
+													}else{
+														echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+													}
+											}else{
+											   echo '<option value="'.$storeid.'">'.$storetitle.'</option>';
+											}
+									    ?>
+									{/foreach}
+									{/if}
+								</select>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">订单下单可选自取门店；<a href="{:Url('Shops/index')}?appletid=<?php echo $_GET['appletid']; ?>" style="color: #5b95ff">去设置</a></span>
+						</div>
+					</div>
+
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz" style="width: 500px">订单已发货自动收货</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">天数</label>
+						<div class="controls">
+							<input name="receiving" type="number" min="1" max="30" class="span2 m-wrap" value="{if $yunfeidata}{if $yunfeidata.receiving}{$yunfeidata.receiving}{else}15{/if}{else}15{/if}" /><span style="line-height:33px;color:#5c6270;"> 天</span> 
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">不设置默认为15天；从订单完成时间开始计算</span>
+						</div>
+					</div>
+
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz" style="width: 500px">订单售后</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">天数</label>
+						<div class="controls">
+							<input name="support_time" type="number" min="1" max="30" class="span2 m-wrap" value="{if $yunfeidata}{$yunfeidata.support_time}{else}15{/if}" /><span style="line-height:33px;color:#5c6270;"> 天</span> 
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">不设置默认为15天</span>
+						</div>
+					</div>
+
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background:#4385ff;color:#fff;">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/jquery.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/select2.full.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/select2-krajee.min.js"> </script>
+	<script>
+        if(jQuery('#w1').data('select2')) {
+            jQuery('#w1').select2('destroy');
+        }
+        jQuery.when(jQuery('#w1').select2(b)).done(initS2Loading('w1', 'a'));
+
+        if(jQuery('#w2').data('select2')) {
+            jQuery('#w2').select2('destroy');
+        }
+        jQuery.when(jQuery('#w2').select2(b)).done(initS2Loading('w2', 'a'));
+
+	    $('input[name="take_self"]').each(function(){
+	        $(this).click(function(){
+		       	if($(this).val() == 2){
+	                $('#shops_list').show()
+	            }else{
+	                $('#shops_list').hide()
+	            }
+	        })
+	    })
+	    function checkinfo(){
+    		$("#mengdian").val($("#w1").val());
+    	}
+	</script>
+{include file="public/foot_more" /}

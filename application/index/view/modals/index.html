@@ -1,0 +1,388 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	form {
+	  margin: 0 !important; 
+	  display: inline-block !important;
+	}
+	a{color:inherit;}
+	.yyzx_list a{height:auto;}	
+	a img{width: 60px;height: 60px;}
+
+
+	.yyzx_list{
+		margin-bottom: 30px;
+	}
+	.center_title{
+		color: #343841;
+		font-size: 16px;
+		font-weight: bold;
+		margin-bottom: 20px;
+	}
+	.center_title span{
+		color: #C7CDDB;
+		font-size: 14px;
+		font-weight: normal;
+	}
+	.center_content{
+		background: #F4F7F9;
+		display: flex;
+    height: 90px;
+    width: 320px;
+	}
+	.content_left{
+		background: #4385FF;
+		width: 90px;
+		height: 90px;
+		line-height: 90px;
+		border-radius: 5px 0 0 5px;
+	}
+	.yyzx_list a div.content_right{
+		width: 230px;
+		border: 1px solid #DFE4E7;
+		border-left: 0;
+    height: 90px;
+		box-sizing: border-box;
+		border-radius: 0 5px 5px 0;
+	}
+	.yyzx_list a div.right_title{
+		font-size: 16px;
+		color: #343841;
+		margin: 22px 20px 6px;
+		text-align: left;
+	}
+	.yyzx_list a div.right_tips{
+		font-size: 14px;
+		color: #5C6270;
+		text-align: left;
+		margin-left: 20px;
+	}
+	.icons{
+		color: #fff !important;
+		font-size: 34px !important;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel100">
+
+<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+				
+				<?php
+					$node_id = $_SESSION['node_id'];
+				?>
+				
+				<div class="yyzx_list clearfix">
+					<div class="center_title">营销引流 <span>（提高下单转化率）</span></div>
+
+						{if in_array('77', $node_id)}
+						<a href="{:Url('flashsale/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left">
+									<div class="iconfont iconmiaosha icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">限时秒杀</div>
+									<div class="right_tips">快速抢购引导客户更多消费</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('87', $node_id)}
+						<a href="{:Url('Pt/set')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left" style="background:#87D236;">
+									<div class="iconfont iconpintuan2 icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">多人拼团</div>
+									<div class="right_tips">引导客户邀请他人一起购买</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('82', $node_id)}
+						<a href="{:Url('Reserve/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left">
+									<div class="iconfont iconyuyue1 icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">预约预定</div>
+									<div class="right_tips">预约多规格商品，预约选座</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('134', $node_id)}
+						<a href="{:Url('Bargain/set')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left" style="background:#FE7B4C;">
+									<div class="iconfont iconkanjia1 icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">砍价</div>
+									<div class="right_tips">邀请好友帮忙砍价，带动新客</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('130', $node_id)}
+						<a href="{:Url('Shake/index')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left" style="background:#A37DE1">
+									<div class="iconfont iconluck icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">摇一摇抽奖</div>
+									<div class="right_tips">九宫格式抽奖玩法</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+					{if in_array('36', $node_id)}
+					<a href="{:Url('Coupon/index')}?appletid=<?php echo $_GET['appletid']?>">
+						<div class="center_content">
+							<div class="content_left">
+								<div class="iconfont iconchakan icons"></div>
+							</div>
+							<div class="content_right">
+								<div class="right_title">优惠券</div>
+								<div class="right_tips">向用户发放商品优惠券</div>
+							</div>
+						</div>
+					</a>
+					{/if}
+				</div>
+
+				<div class="yyzx_list clearfix">
+					<div class="center_title">客群维护 <span>（促进重复购买）</span></div>
+					{if in_array('45', $node_id)}
+					<a href="{:Url('Sharejf/index')}?appletid=<?php echo $_GET['appletid']?>">
+						<div class="center_content">
+							<div class="content_left">
+								<div class="iconfont iconguize icons"></div>
+							</div>
+							<div class="content_right">
+								<div class="right_title">积分规则</div>
+								<div class="right_tips">积分使用限制</div>
+							</div>
+						</div>
+					</a>
+					{/if}
+
+
+						{if in_array('111', $node_id)}
+						<a href="{:Url('Sign/set')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left" style="background:#FE7B4C;">
+									<div class="iconfont iconqiandao1 icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">积分签到</div>
+									<div class="right_tips">每日签到领取积分</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('114', $node_id)}
+						<a href="{:Url('Exchangescore/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left">
+									<div class="iconfont iconjifen icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">积分兑换</div>
+									<div class="right_tips">积分兑换商品</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+					{if in_array('44', $node_id)}
+					<a href="{:Url('Cz/guiz')}?appletid=<?php echo $_GET['appletid']?>">
+						<div class="center_content">
+							<div class="content_left" style="background:#87D236;">
+								<div class="iconfont iconchuzhika icons"></div>
+							</div>
+							<div class="content_right">
+								<div class="right_title">会员储值</div>
+								<div class="right_tips">开通会员储值，可余额支付</div>
+							</div>
+						</div>
+					</a>
+					{/if}	
+				</div>
+
+				<div class="yyzx_list clearfix">
+					<div class="center_title">行业应用 <span>（针对不同行业）</span></div>
+
+						{if in_array('94', $node_id)}
+						<a href="{:Url('Powerfulsh/cate')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left">
+									<div class="iconfont iconshanghuliebiao icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">多商户</div>
+									<div class="right_tips">商家入驻平台</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('103', $node_id)}
+						<a href="{:Url('Cyindex/index')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left" style="background:#A37DE1">
+									<div class="iconfont iconcanyin1 icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">餐饮</div>
+									<div class="right_tips">店内扫码点餐</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('121', $node_id)}
+						<a href="{:Url('Forum/func')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left" style="background:#48A4F3;">
+									<div class="iconfont icontongcheng_chengshi icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">微同城</div>
+									<div class="right_tips">同城论坛，水友交流</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('126', $node_id)}
+						<a href="{:Url('Supply/release')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left">
+									<div class="iconfont icongq icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">供求关系</div>
+									<div class="right_tips">供求发布，需求匹配</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+						{if in_array('201', $node_id)}
+						<a href="{:Url('Active/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+							<div class="center_content">
+								<div class="content_left" style="background:#FFA043;">
+									<div class="iconfont iconbaoming1 icons"></div>
+								</div>
+								<div class="content_right">
+									<div class="right_title">活动报名</div>
+									<div class="right_tips">活动报名审核</div>
+								</div>
+							</div>
+						</a>
+						{/if}
+
+					{if in_array('118', $node_id)}
+					<a href="{:Url('Cards/set')}?appletid=<?php echo $_GET['appletid']?>">
+						<div class="center_content">
+							<div class="content_left">
+								<div class="iconfont iconmingpian icons"></div>
+							</div>
+							<div class="content_right">
+								<div class="right_title">名片</div>
+								<div class="right_tips">员工名片，分享交流</div>
+							</div>
+						</div>
+					</a>
+					{/if}	
+				</div>
+
+				<div class="yyzx_list clearfix">
+					<div class="center_title">工具 <span>（配合系统功能）</span></div>
+					{if in_array('46', $node_id)}
+					<a href="{:Url('Coupon/hxmm')}?appletid=<?php echo $_GET['appletid']?>">
+						<div class="center_content">
+							<div class="content_left">
+								<div class="iconfont iconicon-test1 icons"></div>
+							</div>
+							<div class="content_right">
+								<div class="right_title">核销</div>
+								<div class="right_tips">密码、二维码核销自提订单</div>
+							</div>
+						</div>
+					</a>
+					{/if}	
+					{if in_array('47', $node_id)}
+					<a href="{:Url('Order/wnlist')}?appletid=<?php echo $_GET['appletid']?>">
+						<div class="center_content">
+							<div class="content_left" style="background:#FFBA43;">
+								<div class="iconfont iconbiaodan icons"></div>
+							</div>
+							<div class="content_right">
+								<div class="right_title">万能表单</div>
+								<div class="right_tips">自定义表单获取用户信息</div>
+							</div>
+						</div>
+					</a>
+					{/if}	
+					{if in_array('39', $node_id)}
+					<a href="{:Url('Shops/baseset')}?appletid=<?php echo $_GET['appletid']?>">
+						<div class="center_content">
+							<div class="content_left">
+								<div class="iconfont iconmendian icons"></div>
+							</div>
+							<div class="content_right">
+								<div class="right_title">多门店</div>
+								<div class="right_tips">到店自提附近门店选择</div>
+							</div>
+						</div>
+					</a>
+					{/if}	
+				</div>
+
+
+
+
+
+
+					
+
+				
+				
+					
+				
+					<!-- {if in_array('114', $node_id)}
+					<a href="{:Url('Exchangescore/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="__STATIC_ROOT__/image/modals/9.png?v=1532886168">
+						<div>积分兑换</div>
+					</a>
+					{/if}
+					
+					{if in_array('141', $node_id)}
+					<a href="{:Url('External/cate')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="__STATIC_ROOT__/image/modals/13.png?v=1532886168">
+						<div>拼多多京东</div>
+					</a>
+					{/if}	 -->
+					
+					
+
+			</div>
+		</div>
+	</div>
+</div>
+
+{include file="public/foot_more" /}

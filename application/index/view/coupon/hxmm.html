@@ -1,0 +1,194 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.navSystem16{
+	display: block !important;
+}
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.jscolor{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.btn-default{    
+	width: auto;
+	font-size: 9pt;
+	background-color:rgba(67, 133, 255, 0.102);
+	color:#4385ff;
+	border:1px solid #4385ff;
+}
+</style>
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+<input type="hidden" id="nowhtml" value="navModel" class="navSystem16">
+
+	<style type="text/css">
+		.sss{
+			display: inline-block;
+		}
+	</style>
+
+	<div class="row-fluid">
+
+		<div class="portlet box">
+
+			
+			<div class="portlet-body form">
+
+
+				<form action="{:Url('Coupon/hxsave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					
+				
+					<div class="control-group">
+
+						<label class="control-label"><span>*</span> 核销密码</label>
+						<div class="controls">
+							<input name="hxmm" id="hxmm" type="text" min="0" max="99999" maxlength="6" onKeyDown="if(this.value.length==10) return false;"  class="span3 m-wrap" value="{$hxmm.hxmm}" />
+							<div class="zphpx" style="top:9px;left:450px;"><font color="#c7cddb">纯数字组成，6位</font></div>
+						</div>
+						
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 核销员</label>
+						<div class="controls" style="display: flex;">
+							<div class="select" style="display: flex;">
+								<select name="user_id[]" style="width:200px;">
+									<option value="0" selected>无</option>
+									{foreach $users as $cateP}
+										<option value="{$cateP.id}" {if $hxuser}{if $hxuser.hxuser}{if $cateP.id==$hxuser['hxuser'][0]['suid']}selected{/if}{/if}{/if}>{$cateP['nickname']}</option>
+									{/foreach}
+								</select>
+								<div class="add" style="display: flex;">
+									<input class="s1" type="text" placeholder="核销员名称" name='names[]' value="{if $hxuser}{if $hxuser.hxuser}{$hxuser['hxuser'][0]['name']}{/if}{/if}" style="margin-right:10px;width:190px;border:1px solid #e7e7eb;margin-left:10px;">
+								</div>
+								<div class="btn btn_hov" onclick="add()" style="background-color: #4385ff;color:#fff;">添加</div>
+							</div>
+						</div>
+					</div>
+					<div class="hxuseradd">
+						{if $hxuser}
+							{if $hxuser.hxuser}
+								{foreach $hxuser.hxuser as $k => $vv}
+								{if $k > 0}
+								<div class="control-group del{$k}">
+									<label class="control-label"></label>
+									<div class="controls" style="display: flex;">
+					                    <div class="select" style="display: flex;">
+						                    <select name="user_id[]" style="width:200px;">
+						                        <option value="0" selected>无</option>
+						                        {foreach $users as $v}
+						                        	<option value="{$v['id']}" {if $v['id']==$vv['suid']}selected='selected'{/if}>{$v['nickname']}</option>
+												{/foreach}
+						                    </select>
+						                    <div class="add" style="display: flex;">
+												<input type="text" placeholder="核销员名称" name='names[]' value="{$vv['name']}" style="margin-right:10px;width:190px;border:1px solid #e7e7eb;margin-left:10px;">
+											</div>
+											<a class="btn btn-default col-lg-1" onclick="del({$k})">删除</a>
+										</div>
+									</div>
+								</div>
+								{/if}
+								{/foreach}
+							{/if}
+						{/if}
+			        </div>
+
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background: #4385ff;color: #fff;text-align: center;">确定</button>
+					</div>
+
+				</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+{include file="public/foot_more" /}
+
+
+<script type="text/javascript">
+	var i = 1;
+	function add(){
+		var str = '<div class="control-group del'+i+'">\
+						<label class="control-label"></label>\
+						<div class="controls" style="display: flex;">\
+		                    <div class="select" style="display: flex;">\
+			                    <select name="user_id[]" style="width:200px;">\
+			                        <option value="0" selected>无</option>\
+		                        	{foreach $users as $v}\
+			                        	<option value="{$v.id}">{$v.nickname}</option>\
+									{/foreach}\
+			                    </select>\
+			                    <div class="add" style="display: flex;">\
+									<input type="text" placeholder="核销员名称" name="names[]" value="" style="margin-right:10px;width:190px;border:1px solid #e7e7eb;margin-left:10px;">\
+								</div>\
+								<div class="btn btn-default col-lg-1" onclick="del('+i+')">删除</div>\
+							</div>\
+						</div>\
+					</div>';
+		$(".hxuseradd").append(str);
+		++i;
+	}
+	function del(j){
+		$(".del"+j).remove();
+	}
+
+
+
+   	function checkinfo(){
+   		var hxmm = $("#hxmm").val();
+   		if(!hxmm){
+   			alert("核销密码不能为空！");
+   			return false;
+   		}
+   	}
+
+
+
+
+
+</script>

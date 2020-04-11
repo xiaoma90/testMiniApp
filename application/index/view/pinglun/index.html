@@ -1,0 +1,149 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+		/* line-height: 45px; */
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navCon"  class="navCon3">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+				<div class="input-box" style="margin-bottom: 10px;">
+					<div class="btn-group">					
+						<button id="" class="btn" style="float:left;background-color:rgba(67, 133, 255, 0.102);color: #4385ff;border:1px solid #4385ff;margin-right: 10px;text-align: center"  onclick="delall()">
+						批量删除
+						</button>
+					</div>
+				</div>
+				<table id="sample_editable_1" style="border-collapse: collapse;">
+					<thead>
+						<tr>
+							<th style="width: 70px;">
+								<input type="checkbox" id="all" />
+							</th>
+							<th style="width: 70px;">id</th>
+							<th style="width: 100px;">文章id</th>
+							<th style="width: 342px;">文章标题</th>
+							<th style="width: 164px;">文章类型</th>
+							<th style="width: 339px;">评论内容</th>
+							<th style="width: 164px;">评论时间</th>
+							<th style="width: 100px;">是否审核</th>
+							<th style="width: 339px;">操作</th>							
+						</tr>
+
+					</thead>
+
+					<tbody>
+						
+						{if $list}
+							{foreach $list as $item}
+								<tr>
+									<td>
+										<input type="checkbox" name="csb"  value="{$item.id}"/>
+									</td>
+									<td>{$item.id}</td>
+									<td>{$item.aid}</td>
+									<td>{$item.title}</td>
+									<td>{if $item.type == "showArt"}文章{else}商品{/if}</td>
+									<td>{$item.text}</td>
+									<td>
+										{$item.createtime}
+									</td>
+									<td>{if $item['flag'] == 0}<span class="label label-warning">未审核</span>{/if}{if $item['flag'] == 1}<span class="label label-success">审核通过</span>{/if}{if $item['flag'] == 2}<span class="label label-danger">审核不通过</span>{/if}</td>
+									<td> 
+					                <a style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 6px" href="{:Url('Pinglun/post')}?appletid=<?php echo $_GET['appletid']?>&id={$item['id']}">审核</a>
+					                
+					                <a style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 6px" onclick="return confirm('此操作不可恢复，确认吗？'); return false;" href="{:Url('Pinglun/del')}?appletid=<?php echo $_GET['appletid']?>&id={$item['id']}">删除</a>
+								    </td>									
+								</tr>
+							{/foreach}
+						{/if}
+						
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$lists->render()}
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $('#all').on('click',function(){
+
+        if(this.checked) {
+            $.uniform.update($("input[name='csb']").attr("checked", true));
+        }else {
+            $.uniform.update($("input[name='csb']").attr("checked", false));
+        }
+    });
+    function delall(){
+        var array1=new Array();
+        $.each($("input[name='csb']"),function(){
+            if(this.checked){
+                array1.push($(this).val());
+            }
+        });
+        if(array1.length>0){
+            if(window.confirm('确定删除这些评论？')){
+                location.href = "{:Url('Pinglun/delall')}?appletid=<?php echo $_GET['appletid']?>&pingluns="+array1;
+            }else{
+                return false;
+            }
+        }else{
+            alert("您未选择删除对象");
+            return false;
+        }
+    }
+
+
+
+
+</script>
+
+
+
+{include file="public/foot_more" /}

@@ -1,0 +1,431 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<link rel="stylesheet" type="text/css" href="__STATIC_ROOT__/css/colorpicker2.css">
+<script src="__STATIC_ROOT__/js/colorpicker2.js"></script>
+<style>
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.btn-file{
+	background-color: #4385ff;
+	color:#fff;
+}
+.btn-default{
+	width: auto;
+	font-size: 9pt;
+	border: 1px solid #4385ff;
+	color: #4385ff;
+	background: rgba(67, 133, 255, 0.102);
+}
+</style>
+<input type="hidden" id="nowhtml" value="navVIP" class="navVIP7">
+
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Vipset/post')}?appletid=<?php echo $_GET['appletid']?>&gid={$item.id}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<div class="control-group">
+						<label class="control-label">选择等级</label>
+						<div class="controls">
+							<select name="grade" id="select_grade" class="span3 m-wrap" {if $item.id > 0}{if $item['grade']==1}disabled style="background: #efefef!important;"{/if}{/if}>
+		                        {foreach $grade_arr as $i}
+		                        	<option value="{$i}" <?php if(in_array($i, $changed)){echo 'disabled style="background: #efefef;"';}?>{if $item['grade']==$i}selected='selected'{/if}>{$i}级会员</option>
+								{/foreach}
+		                    </select>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">数字越大，等级越高；会员满足条件由低到高自动升级</span>
+						</div>
+					</div>
+					<div class="control-group">
+		                <label for="" class="control-label">会员权益页等级图</label>
+		                <div class="controls">
+		                	<img src="__STATIC_ROOT__/vipgrade/black/n.png" alt="" style="width: 40px;">
+		                	<img src="__STATIC_ROOT__/vipgrade/gray/n.png" alt="" style="width: 40px;">
+		                	<span style="color:#c7cddb; line-height:40px; margin-left:20px;">n为当前等级，第一张为达到显示图，第二张为未达到显示图</span>
+		                </div>
+		            </div>
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 等级名称</label>
+						<div class="controls">
+							<input name="name" id="name" type="text" class="span5 m-wrap" value="{if $item.id > 0}{$item.name}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">最多16个汉字</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label"><span>*</span> 升级条件</label>
+						<div class="controls">
+							<span style="line-height: 34px">累计消费达到</span>
+							<input name="upgrade" id="upgrade" {if $item.grade==1}disabled{/if} onkeyup="clearNoNum(this)" placeholder="小于1亿" type="text" class="span2 m-wrap" value="{if $item.id > 0}{$item.upgrade}{/if}"  style="margin-right: 10px;" />元
+							<span class="p_n" style="color:#c7cddb; line-height:40px; margin-left:20px;display:{if $item.grade < 2}none;{/if}">
+							需大于
+								<span class="prev_upgrade">{if $item.grade > 1}{if $item['prev']>0}{$item['prev']}{else}0{/if}{/if}</span>元
+								<span class="p_n_n" style="display: {if $item.grade > 1}{if $item['next']==0}none;{/if}{/if}">且小于
+								<span class="next_upgrade">{if $item.grade > 1}{$item['next']}{/if}</span>
+							元</span>
+							</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">购买价格是否充入余额</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="price_flag" value="1" {if $item.id > 0}{if $item.price_flag==1}checked=checked{/if}{/if} {if $item.grade==1}disabled{/if}/>
+							是
+							</label>
+							<label class="radio">
+							<input type="radio" name="price_flag" value="2" {if $item.id > 0}{if $item.price_flag==0}checked=checked{else}checked=checked{/if}{/if} {if $item.grade==1}disabled{else}checked=checked{/if}/>
+							否
+							</label> 
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">如不选择，默认不充入余额</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">购买价格</label>
+						<div class="controls">
+							<input name="price" id="price" {if $item.grade == 1}disabled{/if} onkeyup="clearNoNum(this)" type="text" class="span2 m-wrap" value="{if $item.id > 0}{$item.price}{/if}"  style="margin-right:10px;" />元
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">会员等级状态</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="status" value="1" {if $item.id > 0}{if $item.status==1}checked=checked{/if}{else}checked=checked{/if} {if $item.grade==1}disabled{/if}/>
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="status" value="0" {if $item.id > 0}{if $item.status==0}checked=checked{/if}{/if} {if $item.grade==1}disabled{/if}/>
+							关闭
+							</label> 
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">如不选择，默认开启</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">小程序头底主色</label>
+						<div class="controls">
+							<div id="colorSelector5" >
+								<div style="width: 30px;height: 30px;background: {$item.bgcolor};float: left;border: 1px solid #ccc;border-right: 0;"></div>
+							</div>
+							<input id="tabbar_bg5" value="{$item.bgcolor}" class="span1 m-wrap ng-pristine ng-untouched ng-valid ng-empty" name="bgcolor" style="margin-top:-11px;text-align: center;">
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">会员权益页等级图</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new " data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic1" style="width: 140px; height:90px;">
+									{if $item.id > 0 && $item.card_img}
+									<img src="{$item.card_img}"/>
+									{else}
+									<img src="__STATIC_ROOT__/vipgrade/vip_card.png" alt="" />
+									{/if}
+								</div>
+								<div style="position:relative;">
+									<div style="position:absolute;bottom:0;left:0;width:180px;">
+										<span class="btn btn-file"><span class="fileupload-new commonchangepic" data-type="1">选择图片<input type="hidden" name="commonuploadpic1" value="{$item.card_img}"></span></span>
+										<span class="btn btn-default" onclick="def()">默认图片</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<span style="color:#c7cddb;margin-left:180px;">最宽750px，高度随意</span>
+					</div>
+					<div class="control-group">
+						<label class="control-label">会员权益</label>
+						<div class="controls" style="display: flex;">
+							<div>
+		            <input type="checkbox" name="coupon_flag" class="inputs" value="1" {if $item.id > 0}{if $item['coupon_flag'] == 1} checked {/if}{/if}><span style="line-height: 30px;">优惠券</span>
+		          </div>
+							<div class="select" style="margin:0 10px;display: flex;">
+								<select name="coupon_id[]" id="coupon_id" >
+									<option value="0" selected>不赠送</option>
+									{foreach $coupon as $v}
+									<option value="{$v['id']}" {if $item['coupon_give']}{if $v['id']==$item['coupon_give'][0]['coupon_id']}selected='selected'{/if}{/if} {if $v['overdue']==0}disabled style="background: #efefef;"{/if}>[{$v['id']}]-{$v['title']}{if $v['overdue']==0}--(已过期){/if}</option>
+			{/foreach}
+								</select>
+								<div class="add" style="display: flex;">
+									<input class="s1" type="number" min="0" name='coupon_num[]' value="{if $item.coupon_give}{$item['coupon_give'][0]['coupon_num']}{/if}" style="border: 1px solid #e7e7eb;margin-left: 10px;"><span style="line-height: 30px;margin:0 10px;" class="span"> 张 </span>
+								</div>
+								<div class="btn green" onclick="add()" style="background-color: #4385ff">添加</div>
+							</div>
+						</div>
+					</div>
+					<div class="couponadd">
+						{if $item.coupon_give}
+							{foreach $item['coupon_give'] as $k => $vv}
+							{if $k > 0}
+							<div class="control-group del{$k}">
+								<label class="control-label"></label>
+								<div class="controls" style="display: flex;">
+				                    <div class="select" style="margin:0 10px 0 76px;display: flex;">
+					                    <select name="coupon_id[]" id="coupon_id" >
+					                        <option value="0" selected>不赠送</option>
+					                        {foreach $coupon as $v}
+					                        	<option value="{$v['id']}" {if $item['coupon_give']}{if $v['id']==$vv['coupon_id']}selected='selected'{/if}{/if} {if $v['overdue']==0}disabled style="background: #efefef;"{/if}>[{$v['id']}]-{$v['title']}{if $v['overdue']==0}--(已过期){/if}</option>
+											{/foreach}
+					                    </select>
+					                    <div class="add" style="display: flex;">
+											<input type="number" min="0" name='coupon_num[]' value="{$vv['coupon_num']}" style="border: 1px solid #e7e7eb;margin-left: 10px;"><span style="line-height: 30px;margin:0 10px;" class="span"> 张 </span>
+										</div>
+										<a class="btn btn-default col-lg-1" onclick="del({$k})">删除</a>
+									</div>
+								</div>
+							</div>
+							{/if}
+							{/foreach}
+						{/if}
+			        </div>
+			        <div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls" style="display: flex;">
+							<label for="">
+	                    	<input type="checkbox" name="free_package" class="inputs" value="1" {if $item.id > 0}{if $item.free_package == 1} checked {/if}{/if}><span style="line-height: 30px;">会员包邮</span>
+	                    	</label>
+							<font color="#c7cddb" style="line-height:30px;margin-left:20px;">秒杀、商品(商品管理)、拼团等快递配送商品</font>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls" style="display: flex;">
+						<label for="">
+	                    	<input type="checkbox" name="discount_flag" class="inputs" value="1" {if $item.id > 0}{if $item.discount_flag == 1} checked {/if}{/if}><span style="line-height: 30px;">会员折扣</span>
+	                    </label>
+	                    	<input type="text" name='discount_grade' value="{if $item.id > 0}{$item.discount_grade}{/if}" style="border: 1px solid #e7e7eb;margin-left: 10px;" onkeyup="clearNoNum(this)"> <span style="margin-left: 10px;line-height: 30px;">折</span>
+							<font color="#c7cddb" style="line-height:30px;margin-left:20px;">商品、预约预定商品</font>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls" style="display: flex;">
+						<label for="">
+	                    	<input type="checkbox" name="score_flag" class="inputs" value="1" {if $item.id > 0}{if $item.score_flag == 1} checked {/if}{/if}><span style="line-height: 30px;">买送积分</span>
+	                    </label>
+	                    	<input type="text" name='score_bei' value="{if $item.id > 0}{$item.score_bei}{/if}" style="border: 1px solid #e7e7eb;margin-left: 10px;"><span style="margin-left: 10px;line-height: 30px;">倍</span>
+							<font color="#c7cddb" style="line-height:30px; margin-left:20px;">商品</font>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls" style="display: flex;">
+						<label for="">
+	                    	<input type="checkbox" name="score_feedback_flag" class="inputs" value="1" {if $item.id > 0}{if $item.score_feedback_flag == 1} checked {/if}{/if}><span style="line-height: 30px;">积分回馈</span>
+	                    </label>
+	                    	<input type="text" name='score_feedback' value="{if $item.id > 0}{$item.score_feedback}{/if}" style="border: 1px solid #e7e7eb;margin-left: 10px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">等级说明</label>
+						<div class="controls">
+							<textarea class="span7 m-wrap" style="height:150px;" name="descs" maxlength="200">{if $item.id > 0}{$item.descs}{/if}</textarea>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">最多200字</span>
+						</div>
+					</div>
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn green" style="background-color: #4385ff">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+		.modal{
+			width: 795px !important;
+			margin-left: -397px !important;
+			min-height: 290px !important;
+		}
+	</style>
+	<div id="stack2" class="modal fade" tabindex="-1" data-focus-on="input:first" style="width:795px !important; margin-left:-400px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			<h3>图片上传</h3>
+		</div>
+		<div class="controls">
+			<div class="uploader-list-container" >
+				<div class="queueList">
+					<div id="dndArea" class="placeholder">
+						<div id="filePicker-2"></div>
+					</div>
+				</div>
+				<div class="statusBar" style="display:none;">
+					<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+					<div class="info"></div>
+					<div class="btns">
+						<div id="filePicker2"></div>
+						<div class="uploadBtn">开始上传</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+
+	$(document).ready(function(){
+		var grade1 = $("#select_grade").val();
+		$.ajax({
+			url:"{:Url('Vipset/ajax')}?appletid=<?php echo $_GET['appletid']?>",
+			dataType:"json",
+			type:"post",
+			data:{
+				grade:grade1
+			},
+			success:function(e){
+				$(".p_n").show();
+				if(e.next){
+					$(".p_n_n").show();
+					$(".next_upgrade").html(e.next);
+				}else{
+					$(".p_n_n").hide();
+					$(".next_upgrade").html('');
+				}
+				$(".prev_upgrade").html(e.prev);
+			}
+		})
+    });
+    $('#select_grade').change(function(){
+        var grade = $(this).val();
+		$.ajax({
+			url: "{:Url('Vipset/ajax')}?appletid=<?php echo $_GET['appletid']?>",
+			dataType:"json",
+			type:"post",
+			data:{
+				grade:grade
+			},
+			success:function(e){
+				$(".p_n").show();
+				if(e.next){
+					$(".p_n_n").show();
+					$(".next_upgrade").html(e.next);
+				}else{
+					$(".p_n_n").hide();
+					$(".next_upgrade").html('');
+				}
+				$(".prev_upgrade").html(e.prev);
+			}
+		})
+    });
+	$("input[name='default']").click(function(){
+		$("input[name='card_img']").val("__STATIC_ROOT__/vipgrade/vip_card.png");
+		$(".img-responsive").attr("src","__STATIC_ROOT__/vipgrade/vip_card.png");
+	})
+function clearNoNum(obj){  
+  obj.value = obj.value.replace(/[^\d.]/g,"");  //清除“数字”和“.”以外的字符
+  if(obj.value.charAt(0,1) == "."){
+    obj.value = "";
+  }
+  obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的   
+  obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");  
+  obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');//只能输入两个小数   
+  if(obj.value.indexOf(".")< 0 && obj.value !=""){
+   obj.value= parseFloat(obj.value);  
+  }  
+}
+$('#colorSelector5').ColorPicker({
+    color: '#ffffff',
+    onShow: function (colpkr) {
+        $(colpkr).fadeIn(500);
+        return false;
+    },
+    onHide: function (colpkr) {
+        $(colpkr).fadeOut(500);
+        return false;
+    },
+    onChange: function (hsb, hex, rgb) {
+        $('#colorSelector5 div').css('backgroundColor', '#' + hex);
+        $('#tabbar_bg5').val("#"+hex);
+        $('.choose_headbg').css('backgroundColor', '#' + hex)
+    }
+});
+var i = 1;
+function add(){
+	var str = '<div class="control-group del'+i+'">\
+					<label class="control-label"></label>\
+					<div class="controls" style="display: flex;">\
+	                    <div class="select" style="margin:0 10px 0 76px;display: flex;">\
+		                    <select name="coupon_id[]" id="coupon_id" >\
+		                        <option value="0" selected>不赠送</option>\
+		                        {foreach $coupon as $v}\
+		                        	<option value="{$v.id}" {if $v.overdue==0}disabled style="background: #efefef;"{/if}>[{$v.id}]-{$v.title}{if $v.overdue==0}--(已过期){/if}</option>\
+								{/foreach}\
+		                    </select>\
+		                    <div class="add" style="display: flex;">\
+								<input type="number" min="0" name="coupon_num[]" value="" style="border: 1px solid #e7e7eb;margin-left: 10px;"><span style="line-height: 30px;margin:0 10px;" class="span"> 张 </span>\
+							</div>\
+							<div class="btn btn-default col-lg-1" onclick="del('+i+')">删除</div>\
+						</div>\
+					</div>\
+				</div>';
+	$(".couponadd").append(str);
+	++i;
+
+}
+function del(j){
+	$(".del"+j).remove();
+}
+function def(){
+	$("input[name='commonuploadpic1']").val("__STATIC_ROOT__/vipgrade/vip_card.png");
+	$(".commonuploadpic1 img").attr("src","__STATIC_ROOT__/vipgrade/vip_card.png");
+}
+function checkinfo(){
+	var grade = {$grade};
+	var name = $("#name").val();
+	if(name == ''){
+		alert('等级名称不能为空');
+		return false;
+	}
+	var upgrade = $("#upgrade").val();
+	if(upgrade == ''){
+		alert('升级条件不能为空且小于亿元');
+		return false;
+	}
+	var prev_upgrade = parseFloat($(".prev_upgrade").html());
+	var next_upgrade = parseFloat($(".next_upgrade").html());
+
+	if(next_upgrade > 0){
+		if(upgrade <= prev_upgrade || upgrade >= next_upgrade){
+			alert("升级条件需大于"+prev_upgrade+"且小于"+next_upgrade);
+			return false;
+		}
+	}else{
+		if(upgrade <= prev_upgrade && grade != 1){
+			alert("升级条件需大于"+prev_upgrade);
+			return false;
+		}
+	}
+}
+</script>
+
+{include file="public/foot_more" /}

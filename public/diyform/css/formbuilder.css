@@ -1,0 +1,93 @@
+.fb-button{display:inline-block;margin:0;padding:0;border:0 none;background:#4385ff;color:#fff;text-align:center;text-decoration:none;font-size:12px;cursor:pointer;border:1px solid #eee;}
+.js-save-form.fb-button{width: 150px;height: 35px;margin-bottom: 20px;}
+.fb-button[disabled]{background:#ddd !important;border:1px solid #ccc;color:#777 !important;text-shadow:none !important;opacity:.65;cursor:default;width: 150px;height: 35px;margin-bottom: 20px;}
+.fb-button img{width: 32px;margin-top: 20px;}
+.fb-clear{clear:both}
+.fb-main{margin:0 auto;padding:0 20px 0 0;position:relative;font-family:'Source Sans Pro','Open Sans',Tahoma}
+.fb-save-wrapper{position:absolute;right:30%;bottom:0}
+.fb-left{width:370px;padding-top:30px}
+.fb-center{width:50%;padding-top:70px;border-left:1px solid #ddd;padding-left:20px;min-height:100%;overflow:auto}
+.fb-right{width:68%;overflow:auto;}
+.fb-right-form{width: 430px;}
+.form-box{width: 420px;margin: 40px auto 10px;}
+.form-text{font-size:16px;border-bottom:1px solid #ccc;margin-bottom: 35px;}
+.form-maketext{display: inline-block;width: 67px;color: #4385ff;border-bottom: 2px solid #4385ff;margin-bottom: -1px;font-weight: bold;padding-bottom: 5px;}
+.form-inputsname{margin-top: 15px;}
+.form-inputsname input{width: 220px;height:30px !important;margin: 0 5px;border:1px solid #dfe4e7;border-radius:3px;box-shadow:none;}
+.form-tishi{font-size: 12px;color:#888;}
+.form-inputsname .shuom-texts{height:60px;width:220px;margin-left:5px;border:1px solid #dfe4e7;border-radius:3px;box-shadow:none;}
+.form-inputsname .shuom-texts::-webkit-scrollbar{display: none}
+.fb-no-response-fields{color:#999}
+.fb-bg{border:1px solid #ddd;border-radius:5px;width:390px;margin:30px auto;min-height:550px;padding:10px;}
+.fb-bg-top{background: url('/diyform/bg-top.png') top center no-repeat;background-size: 95%;height: 60px;position: relative;}
+.fb-bg-text{position: absolute;bottom: 9px;left: 43%;}
+.fb-tabs{list-style:none;margin:0 0 20px 0;padding:0 0 0 20px;border-bottom:1px solid #ccc}
+.fb-tabs li{display:inline-block;height:27px;}
+.fb-tabs li a{color:#434343;display:block;padding:10px;border-radius:5px 5px 0 0;font-size:13px;cursor:pointer;border-left:1px solid transparent;border-right:1px solid transparent}
+.fb-tabs li.active a{border:1px solid #ccc;margin-bottom:-1px;border-bottom-color:#4385ff;background-color: #4385ff;color: #fff;padding: 3px 10px;}
+.fb-tab-content .fb-tab-pane{padding:0 20px;display:none}
+.fb-tab-content .fb-tab-pane.active{display:block}
+.fb-add-field-types .section{padding-bottom:5px;margin-bottom:20px}
+.fb-add-field-types{font-size:0}
+.fb-add-field-types a{font-size:13px;display:inline-block;width:82px;height:88px;background-color:transparent;box-sizing:border-box;color:#888;margin-left:-1px;margin-top:-2px;}
+/* .fb-add-field-types a:nth-child(odd){margin-right:3%} */
+.fb-add-field-types a .symbol{color:#9d9d9d;margin-top: 5px;}
+.fb-response-fields{padding-bottom:50px}
+.fb-response-fields a.sortable-placeholder{display:block;border:1px dashed #ddd;min-height:80px;height:80px;width:100%}
+.fb-field-wrapper{cursor:pointer;position:relative;}
+.fb-field-wrapper input{border-radius:3px;border:thin solid #ddd}
+.fb-field-wrapper:hover .actions-wrapper,.fb-field-wrapper.editing .actions-wrapper{display:block}
+.fb-field-wrapper:hover .subtemplate-wrapper{border-color:#ddd;border-radius:3px}
+.fb-field-wrapper.editing{background-color:#ecf0f1;border-radius:3px}
+.fb-field-wrapper.editing .subtemplate-wrapper{border-color:#d9e1e3;border-style:solid;margin:0;border-radius:3px}
+.fb-field-wrapper .actions-wrapper{display:none;position:absolute;bottom:-7px;right:5px;z-index:3}
+.fb-field-wrapper .actions-wrapper a{display:inline-block;background-color:#ccc;padding:2px 7px}
+.edit-response-field input,.edit-response-field textarea,.edit-response-field select{border:1px solid #dfe4e7;border-radius:3px;padding:.5em;display:inline-block;height:auto;vertical-align:middle;box-shadow:none;}
+.edit-response-field input:focus,.edit-response-field textarea:focus,.edit-response-field select:focus{outline:none;border:thin solid #4385ff}
+.edit-response-field select{font-size:14px}
+.fb-field-wrapper .actions-wrapper a.js-duplicate,.fb-edit-field-wrapper .js-add-option{background-color:#4385ff;border:none}
+.fb-field-wrapper .actions-wrapper a.js-clear,.fb-edit-field-wrapper .js-remove-option{background-color:#e74c3c;border:none}
+.fb-field-wrapper .subtemplate-wrapper{border:1px dashed transparent;margin-bottom:10px;padding:10px 10px 0;position:relative;display: flex;border-bottom: 1px solid #eee;}
+.fb-field-wrapper .subtemplate-wrapper .cover{position:absolute;top:0;left:0;height:100%;width:100%;z-index:2}
+.fb-field-wrapper .subtemplate-wrapper > label{display:block;width:30%;margin-bottom:5px;line-height: 28px;}
+.fb-field-wrapper .subtemplate-wrapper .s-required{color:#f00}
+.fb-field-wrapper .input-line{clear:both;}
+.fb-field-wrapper .input-line .above-line{margin-top:5px}
+.fb-field-wrapper .input-line > span{display:inline-block;vertical-align:top}
+.fb-field-wrapper .input-line > span input{width:100%}
+.fb-field-wrapper .input-line > span > label{display:block;font-size:13px;margin-left:3px}
+.fb-field-wrapper .help-block{display:block;font-size:12px;margin-top:5px}
+.fb-edit-field-wrapper{font-size:13px}
+.fb-edit-field-wrapper .fb-field-label{font-weight:normal;background:#eee;padding:.75em;color:#666;font-size:1.25em}
+.fb-edit-field-wrapper .fb-field-label .field-type{margin-top:.5em;display:block;font-family:'Source Sans Pro',sans-serif;font-size:12px;padding:0;border:0;background:transparent;color:#4385ff;}
+/* .fb-edit-field-wrapper .fb-field-label .field-type:before{content:'标签: ';color:#999} */
+.fb-edit-field-wrapper .fb-field-label .fa.fa-arrow-right{display:none}
+.fb-edit-field-wrapper .fb-edit-section-header{margin-top:25px;margin-bottom:10px;padding-bottom:5px;clear:both;font-weight:700}
+.fb-edit-field-wrapper .js-add-option,.fb-edit-field-wrapper .js-remove-option{padding:2px 7px}
+.fb-edit-field-wrapper .fb-bottom-add{margin-top:8px}
+.fb-common-wrapper .fb-label-description{margin-bottom:10px}
+.fb-common-wrapper .fb-label-description input,.fb-common-wrapper .fb-label-description textarea{width:95%}
+.fb-common-wrapper .fb-label-description textarea{min-height:5em}
+.response-field-draggable-helper{border:1px dashed #ddd;background:#eee}
+.response-field-text input.rf-size-small{width:130px}
+.response-field-text input.rf-size-medium{width:300px}
+.response-field-text input.rf-size-large{width:100%}
+.response-field-paragraph textarea.rf-size-small{width:200px;min-height:60px}
+.response-field-paragraph textarea.rf-size-medium{width:400px;min-height:100px}
+.response-field-paragraph textarea.rf-size-large{width:100%;min-height:200px}
+.response-field-address .street{width:400px}
+.response-field-address .city,.response-field-address .state,.response-field-address .zip,.response-field-address .country{width:198px}
+.response-field-date .month,.response-field-date .day,.response-field-date .year{width:50px}
+.response-field-time .hours,.response-field-time .minutes,.response-field-time .seconds{width:50px}
+.response-field-checkboxes .fb-option,.response-field-radio .fb-option{margin-bottom:5px;display:inline-block}
+.radio_check .fb-option{margin-top: 5px;}
+.response-field-website input{width:200px}
+.add-img{width: 60px;height: 60px;}
+.box_check{display: inline-block;}
+.radio_check{position:relative;}
+.fb-option input[type=radio],.fb-option input{margin: 0;}
+.fb-option input[type=radio]::before{content:"";display: inline-block;width: 10px;height: 10px;border-radius: 50%;border: 1px solid #d6d6d6;background: #fff;}
+.fb-option input[type=checkbox]::before{content:"";display: inline-block;width: 10px;height: 10px;border: 1px solid #d6d6d6;background: #fff;}
+.fb-common-checkboxes input[type=checkbox]{margin-right:5px;margin-top: 0;}
+.fb-common-checkboxes input[type=checkbox]::before{content:"\a0";display: inline-block;vertical-align: 2px;width: 14px;height: 14px;margin-right: 5px;margin-top:-5px;border: 1px solid #666;background: #fff;}
+.fb-common-checkboxes input[type="checkbox"]:checked::before {content: "\2714";background-color: #4385ff;border: 1px solid #5677fc;color:#fff;text-align: center;line-height: 15px;}

@@ -1,0 +1,221 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel15-5">
+<style type="text/css">
+    thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+    .bbdd{
+        position: fixed;
+        z-index: 100001;
+        width: 1000px;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 400px;
+        border:1px solid #e7e7e7;
+        border-radius: 6px;
+        background-color: #ffffff;
+    }
+    .ddhh{
+        height: 52px;;
+        line-height: 52px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 17px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #e5e5e5;
+        color: #333;
+    }
+    .ddxx{
+        cursor:pointer
+    }
+    .loader{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: #000 50% 50%;
+        opacity: .3;
+    }
+</style>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box ">
+            <div class='loader' style="display: none;"></div>
+            <div class="portlet-body">
+                <div class="bbdd" id="bbdd" style="display: none;">
+                    <div class="ddhh">
+                        <span>佣金提现申请</span>
+                        <img class="ddxx" src="__STATIC_ROOT__/image/close.png" width="14px" height="14px" alt="" onclick="ycc()">
+                    </div>
+                    <form class="form-horizontal" action="" method="post" style="margin: 20px auto;">
+                        <input type="hidden" id="orderfh" name="orderfh">
+                        <table class="we7-table tb1 vertical-middle " style="border:0;margin: auto;border-collapse:separate; border-spacing:0px 10px;">
+
+                            <tr>
+                                <td style="width:95px">提现金额：</td>
+                                <td >
+                                    <input type="text" id="tx_money" name="tx_money" value="" class="form-control ng-pristine ng-untouched ng-valid ng-empty" style="width: 187px">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width:95px">支付宝账号：</td>
+                                <td >
+                                    <input type="text" id="zfbzh" name="zfbzh" value="" class="form-control ng-pristine ng-untouched ng-valid ng-empty" style="width: 187px">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="width:95px">姓名：</td>
+                                <td >
+                                    <input type="text" id="zfbxm" name="zfbxm" value="" class="form-control ng-pristine ng-untouched ng-valid ng-empty" style="width: 187px">
+                                </td>
+                            </tr>
+
+                            <tr style="margin-top: 15px;">
+                                <td style="width:95px"></td>
+                                <td >
+                                    <a onclick="tijiao()" class="btn btn-sm" style="background: #7979f1;color:#fff">提交</a>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </form>
+                </div>
+                <div class="input-box" style="margin-bottom: 10px;float: left;">
+                    <div class="btn-group">
+                        <button  onclick="tixian()" class="btn" style="float:left;background: #6671e4;color: #fff;margin-right: 10px;text-align: center">
+                            提现申请
+                        </button>
+
+                    </div>
+                </div>
+                <div style="float: right">
+                    <span style="color: #6671e4;font-size: 20px;">佣金总计：{$applet.fy_all_money}元
+                        可提现：{$applet.fy_tx_money}元</span>
+                </div>
+                <table id="sample_editable_1">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>提现金额</th>
+                        <th>账号信息</th>
+                        <th>申请时间</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {if $has}
+                            {volist name="txData" id="item"}
+                                <tr>
+                                    <td>{$item.id}</td>
+                                    <td>{$item.money}元</td>
+                                    <td>
+                                        {eq name="$item.types" value="1"}余额{/eq}
+                                        {eq name="$item.types" value="2"}微信{/eq}
+                                        {eq name="$item.types" value="3"}
+                                        支付宝账号：{$item.zfbzh}<br>
+                                        账号姓名：{$item.zfbxm}
+                                        {/eq}
+                                    </td>
+                                    <td>{$item.createtime|date="Y-m-d H:i:s", ###}</td>
+                                    <td>
+                                        {eq name="$item.flag" value="1"}申请中{/eq}
+                                        {eq name="$item.flag" value="2"}已同意{/eq}
+                                        {eq name="$item.flag" value="3"}已拒绝{/eq}
+                                    </td>
+                                </tr>
+                            {/volist}
+                        {else}
+                            <tr>
+                                <td colspan="5">
+                                    暂无提现记录！
+                                </td>
+                            </tr>
+                        {/if}
+
+                    </tbody>
+                </table>
+                <!-- 分页 -->
+                <div>
+                    <div class="fenye_left">
+                         <!-- 一共查询到<font color="red" style="padding:0 10px;">{$count}</font>条数据 -->
+                    </div>
+                    <div class="fenye_right">
+                    {if $has}
+                        {$txData ->render()}
+                    {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function tixian() {
+        $(".loader").show();
+        $("#bbdd").show();
+    }
+
+    function ycc() {
+        $(".loader").hide();
+        $("#bbdd").hide();
+    }
+    function tijiao() {
+        var tx_money = $("#tx_money").val();
+        var zfbzh = $("#zfbzh").val();
+        var zfbxm = $("#zfbxm").val();
+        var can = <?php echo $applet['fy_tx_money']; ?>;
+
+        if(!tx_money){
+            alert('请输入提现金额！');
+            return false;
+        }else{
+            if(isNaN(tx_money)){
+                alert('请输入正确的提现金额！');
+                return false;
+            }
+            if(tx_money*1 > can*1){
+                alert('可提现金额不足，请重新输入！');
+                return false;
+            }
+
+        }
+
+        if(!zfbzh){
+            alert('请输入支付宝账号！');
+            return false;
+        }
+        if(!zfbxm){
+            alert('请输入账号姓名！');
+            return false;
+        }
+
+        location.href = "{:Url('External/fenYongTx')}?appletid=<?php echo $_GET['appletid']?>&tx_money="+tx_money+"&zfbzh="+zfbzh+"&zfbxm="+zfbxm;
+    }
+</script>
+
+
+{include file="public/foot_more" /}

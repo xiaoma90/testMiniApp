@@ -1,0 +1,363 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+    form {
+        margin: 0 !important;
+        display: inline-block !important;
+    }
+    thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+    .bbdd{
+        position: fixed;
+        z-index: 100001;
+        width: 1000px;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 400px;
+        border:1px solid #e7e7e7;
+        border-radius: 6px;
+        background-color: #ffffff;
+    }
+    .ddhh{
+        height: 52px;;
+        line-height: 52px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 17px;
+        box-sizing: border-box;
+        /*border-bottom: 1px solid #e5e5e5;*/
+        color: #333;
+    }
+    .ddxx{
+        cursor:pointer
+    }
+    .loader{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: #000 50% 50%;
+        opacity: .3;
+    }
+    tr .prev .icon-angle-left{
+        background-image: url(/image/glyphicons-halflings.png) !important;
+        background-position: 37px 85px !important;
+    }
+    tr .next .icon-angle-right{
+        background-image: url(/image/glyphicons-halflings.png) !important;
+        background-position: 13px 85px !important;
+    }
+    .chongdingy{
+		background-color:#f5f5f5;
+		padding:10px 0;
+	}
+	.chongdingywz{
+		text-align: left !important;
+		font-size: 16px;
+		padding-left: 20px;
+	}
+</style>
+<input type="hidden" id="nowhtml" value="navModel" class="navModel15-3">
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box ">
+            <div class='loader' style="display: none;"></div>
+            <div class="portlet-body">
+                <div class="bbdd" id="bbdd" style="display: none;">
+                    <div class="ddhh">
+                        <span id="showTitle" style="margin-left: 70px;">订单信息同步中，请耐心等待。。。</span>
+                    </div>
+                </div>
+                <div class="control-group chongdingy"  style="background-color:#fcf8e3; margin-bottom:20px !important;">
+                    <label class="control-label chongdingywz" style="width:100%">
+                        提示: <br>
+                        https://域名/renewalCommodities &nbsp;&nbsp;&nbsp; 定时更新商品信息，建议每天至少执行一次<br>
+                        https://域名/getOrderFromJd &nbsp;&nbsp;&nbsp; 定时获取京东订单  建议设置为每分钟执行一次<br>
+                        https://域名/updateOrders &nbsp;&nbsp;&nbsp; 定时更新所有订单状态  建议设置为每小时执行一次
+                    </label>
+                </div>
+                <div style="float: left;height:32px;line-height: 32px;margin-right: 5px">商品关键字:</div>
+                <div class="ssinput" style="float: left;margin-bottom: 10px; position: relative;margin-left: 20px;">
+                    <input type="text" placeholder="商品关键字" class="skey" id="keyword" value="{if isset($_GET['keyword'])}{$_GET['keyword']}{/if}" style="width:100px;margin:0 5px;height:32px;line-height:32px;padding:0 5px;border-color:#e5e5e5">
+                </div>
+                <div style="float: left;height:32px;line-height: 32px;margin: 0 5px 0 60px">订单编号:</div>
+                <div class="ssinput" style="float: left;margin-bottom: 10px; position: relative;margin-left: 20px;">
+                    <input type="text" placeholder="订单编号" class="skey" id="orderid" value="{if isset($_GET['orderid'])}{$_GET['orderid']}{/if}" style="width:100px;margin:0 5px;height:32px;line-height:32px;padding:0 5px;border-color:#e5e5e5">
+                </div>
+                <div style="float: left;height:32px;line-height: 32px;margin: 0 5px 0 60px">订单源:</div>
+                <div  style="float: left;margin-bottom: 10px; position: relative;">
+                    <select name="goods_source" id="goods_source" style="width: 120px;">
+                        <option value="0">请选择订单源</option>
+                        <option value="1" {if isset($_GET['goods_source'])}{if $_GET['goods_source'] == 1}selected="selected"{/if}{/if}>拼多多</option>
+                        <option value="2" {if isset($_GET['goods_source'])}{if $_GET['goods_source'] == 2}selected="selected"{/if}{/if}>京东</option>
+                    </select>
+                </div>
+                <div style="float: left;height:32px;line-height: 32px;margin: 0 5px 0 60px">下单时间:</div>
+                <div class="ssinput" style="margin-bottom: 10px; position: relative;width:100px;float:left;display: inline-block">
+                    <input type="text" value="{if isset($_GET['start_get'])}{$_GET['start_get']}{/if}" name="start_get" readonly id="datetimepicker"
+                           data-date-format="yyyy-mm-dd hh:ii" placeholder=""
+                           class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                </div>
+                <div style="float: left;height:32px;line-height: 32px;margin-right: 5px; margin-left: 130px;">至</div>
+                <div class="ssinput" style="margin-bottom: 10px; position: relative;width:100px;float:left;display: inline-block; margin-left:5px;">
+                    <input type="text" value="{if isset($_GET['end_get'])}{$_GET['end_get']}{/if}" name="end_get" readonly id="datetimepicker2"
+                           data-date-format="yyyy-mm-dd hh:ii" placeholder=""
+                           class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                </div>
+
+                <div style="content: '';display:block;clear:left"></div>
+                <div class="input-box" style="margin-bottom: 10px;">
+                    <div class="btn-group">
+                        <button  onclick="search()" class="btn" style="float:left;background: #6671e4;color: #fff;margin-right: 10px;text-align: center">
+                            搜索
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button  onclick="sysOrders()" class="btn" style="float:left;background: #6671e4;color: #fff;margin-right: 10px;text-align: center">
+                            同步拼多多订单
+                        </button>
+                    </div>
+                </div>
+                <table id="sample_editable_1">
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>订单号</th>
+                        <th>商品/缩略图</th>
+                        <th>下单时间</th>
+                        <th>订单金额</th>     <!--优惠券-->
+                        <th>佣金</th>
+                        <th>订单源</th>
+                        <th>状态</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+                    {if $has}
+                        {volist name="orders" id="item"}
+                            <tr>
+                                <td>{$item.id}</td>
+                                <td>{$item.order_sn}</td>
+                                <td>
+                                    <img width="100px" src="{$item.goods_thumbnail_url}">
+                                    {$item.goods_name}
+                                </td>
+                                <td>{$item.order_create_time|date="Y-m-d H:i:s",###}</td>
+                                <td>
+                                    {$item.order_amount}元
+                                </td>
+                                <td>
+                                    佣金比例：{$item.promotion_rate}‰<br>
+                                    佣金：{$item.applet_fanyong}元<br>
+                                    {if $item.fxs_fanyong}
+                                        分销商佣金：{$item.fxs_fanyong}元
+                                    {/if}
+                                </td>
+                                <td>
+                                    {if $item.type == 'pdd'}
+                                        拼多多
+                                    {else}
+                                        京东
+                                    {/if}
+                                </td>
+                                <td>
+                                    {if $item.type == 'pdd'}
+                                        {eq name="$item.order_status" value="-1"}未支付{/eq}
+                                        {eq name="$item.order_status" value="1"}已付款{/eq}
+                                        {eq name="$item.order_status" value="2"}已收货{/eq}
+                                        {eq name="$item.order_status" value="3"}审核成功{/eq}
+                                        {eq name="$item.order_status" value="4"}无效订单{/eq}
+                                        {eq name="$item.order_status" value="5"}已结算{/eq}
+                                    {else}
+                                        {eq name="$item.order_status" value="4"}无效订单{/eq}
+                                        {eq name="$item.order_status" value="15"}待支付{/eq}
+                                        {eq name="$item.order_status" value="16"}已付款{/eq}
+                                        {eq name="$item.order_status" value="17"}已收货{/eq}
+                                        {eq name="$item.order_status" value="18"}已结算{/eq}
+                                    {/if}
+                                </td>
+                            </tr>
+                        {/volist}
+                    {else}
+                    <tr>
+                        <td colspan="8">
+                            暂无订单信息，点击“同步订单”获取订单信息！
+                        </td>
+                    </tr>
+                    {/if}
+
+                    </tbody>
+
+                </table>
+                <!-- 分页 -->
+                <div>
+                    <div class="fenye_left">
+                         <!-- 一共查询到<font color="red" style="padding:0 10px;">{$count}</font>条数据 -->
+                    </div>
+                    <div class="fenye_right">
+                        {if $has}
+                            {$orders ->render()}
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function del(){
+        if(confirm('该删除操作不可逆，请谨慎操作?')){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function search(){
+        var keyword = $("#keyword").val();
+        var orderid = $("#orderid").val();
+        var goods_source = $("#goods_source").val();
+
+        var start_get = $("#datetimepicker").val();
+        var end_get = $("#datetimepicker2").val();
+
+        if(start_get || end_get){
+            if(start_get && end_get){
+                start_get = new Date(start_get);
+                end_get = new Date(end_get);
+
+                start_get = start_get.getTime()/1000;
+                end_get = end_get.getTime()/1000;
+                var now = new Date()
+                now = now.getTime()/1000;
+
+                if(start_get > end_get){
+                    alert('结束时间不能小于开始时间！');
+                    return false;
+                }
+
+                if(end_get > now){
+                    alert('结束时间不能大于当前时间！');
+                    return false;
+                }
+            }
+        }
+        if(!keyword && !orderid && goods_source == 0 && !start_get && !end_get){
+            alert('请至少输入一个搜索条件！');
+            return false;
+        }
+        location.href = "{:Url('External/orderList')}?appletid=<?php echo $_GET['appletid']?>&keyword="+keyword+"&orderid="+orderid+"&goods_source="+goods_source+"&start_get="+$("#datetimepicker").val()+"&end_get="+$("#datetimepicker2").val();
+    }
+    function sysOrders(){
+        $(".loader").show();
+        $("#bbdd").show();
+
+        var start_get = $("#datetimepicker").val();
+        var end_get = $("#datetimepicker2").val();
+
+        if(start_get || end_get){
+            if(!start_get){
+                alert('开始时间不能为空！');
+                return false;
+            }
+            if(!end_get){
+                alert('结束时间不能为空！');
+                return false;
+            }
+            if(start_get && end_get){
+                start_get = new Date(start_get);
+                end_get = new Date(end_get);
+
+                start_get = start_get.getTime()/1000;
+                end_get = end_get.getTime()/1000;
+                var now = new Date()
+                now = now.getTime()/1000;
+
+                if(start_get > end_get){
+                    alert('结束时间不能小于开始时间！');
+                    return false;
+                }
+
+                if(end_get > now){
+                    alert('结束时间不能大于当前时间！');
+                    return false;
+                }
+
+                if((end_get - start_get) > 24*3600){
+                    alert('同步订单，时间差不能超过24小时!');
+                    return false;
+                }
+            }
+        }
+        location.href = "{:Url('External/getOrderFromExt')}?appletid=<?php echo $_GET['appletid']?>&start_get="+$("#datetimepicker").val()+"&end_get="+$("#datetimepicker2").val();
+
+    }
+
+
+
+    function getGoods() {
+
+        var keyword = $("#keyword").val();
+        var goodsNum = $("#goodsNum").val();
+        var goods_source = $("#goods_source").val();
+        var goods_cats = $("#goods_cats").val();
+        var promotion_rate_low = $("#promotion_rate_low").val();
+        var promotion_rate_high = $("#promotion_rate_high").val();
+        var price_low = $("#price_low").val();
+        var price_high = $("#price_high").val();
+
+        if(!goods_source){
+            alert('请选择商品源');
+            return false;
+        }
+        if(promotion_rate_low && !promotion_rate_high){
+            alert('请输入佣金比例上限');
+            return false;
+        }
+        if(!promotion_rate_low && promotion_rate_high){
+            alert('请输入佣金比例下限');
+            return false;
+        }
+        if(promotion_rate_low && promotion_rate_high && promotion_rate_low*1 > promotion_rate_high*1){
+            alert('佣金比例下限不能大于上限');
+            return false;
+        }
+        if(promotion_rate_low > 1000  ||  promotion_rate_high >1000){
+            alert('佣金比例值超出范围');
+            return false;
+        }
+        if(price_high && price_low && price_low*1 > price_high*1){
+            alert('券后价上限不能小于券后价下限');
+            return false;
+        }
+
+
+        location.href = "{:Url('External/getGoodsFromExternal')}?appletid=<?php echo $_GET['appletid']?>&keyword="+keyword+"&goodsNum="+goodsNum+"&goods_source="+goods_source+"&goods_cats="+goods_cats+"&promotion_rate_low="+promotion_rate_low+"&promotion_rate_high="+promotion_rate_high+"&price_low="+price_low+"&price_high="+price_high;
+    }
+
+</script>
+{include file="public/foot_more" /}

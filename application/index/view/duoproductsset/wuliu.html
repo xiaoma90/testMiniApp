@@ -1,0 +1,159 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.editors{
+	max-width: 770px;
+	min-height: 600px;
+}
+.w-e-text-container{
+	min-height: 600px !important;
+}
+.weiz{
+	margin-left:20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+<input type="hidden" id="nowhtml" value="navSystem" class="navSystem17">
+	<!-- <ul class="breadcrumb">
+		<li>
+			<i class="icon-home"></i>
+			物流接口--{$applet.name}
+		</li>
+	</ul> -->
+<style>
+	.chongdingy{
+		background-color:#f5f5f5;
+		padding:10px 0;
+	}
+	.chongdingywz{
+		text-align: left !important;
+		font-size: 16px;
+		padding-left: 20px;
+	}
+</style>
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Duoproductsset/save_wuliu')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<div class="control-group chongdingy"  style="background-color:#fcf8e3; margin-bottom:20px !important;">
+						<label class="control-label chongdingywz" style="width:100%;color:#5C6270;font-size:14px;">提示: 内置物流接口可能不稳定, 您可以申请快递鸟账号, 或者在阿里云市场购买快递查询服务<br>
+							快递鸟注册地址http://www.kdniao.com/<br>
+							后台订单的快递详情查询问题处理：<br>
+							&nbsp;&nbsp;&nbsp;1、天天、申通、韵达、ems是需要增值接口才能查询；（需付费）<br>
+							&nbsp;&nbsp;&nbsp;2、申通需要通过递鸟打印面单（下单）才能查询；<br>
+							&nbsp;&nbsp;&nbsp;3、百世快递要订阅，不能根据订单号查询；<br>
+							类型: 商城内置接口(可能不稳定); 自己申请账号(相对稳定)
+						</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">接口类型</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="api_type" value="1" onchange="change_type()" {if $set}{if $set.api_type==1}checked=checked{/if}{/if} />
+							商城内置接口
+							</label>
+							<label class="radio">
+							<input type="radio" name="api_type" value="2"  onchange="change_type()" {if $set}{if $set.api_type==2}checked=checked{/if}{/if}/>
+							快递鸟接口
+							</label>
+							<label class="radio">
+							<input type="radio" name="api_type" value="3"  onchange="change_type()" {if $set}{if $set.api_type==3}checked=checked{/if}{/if}/>
+							阿里云接口
+							</label>
+							
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">物流信息查询接口类型</span>
+						</div>
+					</div>
+					<div id='info' {if $set}{if $set.api_type==1 || $set.api_type==3 }style="display: none;"{/if}{/if}  >
+						<div class="control-group">
+							<label class="control-label">用户ID</label>
+							<div class="controls">
+								<input name="ebusinessid" id="ebusinessid" type="text" class="span2 m-wrap" value="{if $set}{$set.ebusinessid}{/if}"  style="height: 35px !important;" />
+								<span style="color:#c7cddb; line-height:40px; margin-left:20px;">申请接口用户ID </span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">API key</label>
+							<div class="controls">
+								<input name="appkey" id="appkey" type="text" class="span2 m-wrap" value="{if $set}{$set.appkey}{/if}"  style="width: 400px;height: 35px !important;" />
+								<span style="color:#c7cddb; line-height:40px; margin-left:20px;">快递鸟接口用户的API key</span>
+							</div>
+						</div>
+					</div>
+
+					<div id='ali' {if $set}{if $set.api_type==1 || $set.api_type==2}style="display: none;"{/if}{/if}  >
+						<div class="control-group">
+							<label class="control-label">AppCode</label>
+							<div class="controls">
+								<input name="appcode" id="appcode" type="text" class="span2 m-wrap" value="{if $set}{$set.appcode}{/if}"  style="width: 400px;height: 35px !important;" />
+								<span style="color:#c7cddb; line-height:40px; margin-left:20px;">阿里云接口用户AppCode </span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-actions form_nobg">
+						<button type="submit" class="btn" style="background:#4385ff;color:#fff;">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+
+	function checkinfo(){
+		var api_type = $("input[name='api_type']:checked").val();
+		var ebusinessid = $("#ebusinessid").val();
+		var appkey = $("#appkey").val();
+		if(api_type == 2){
+			if(!ebusinessid){
+				alert('用户ID必须填写!');
+				return false;
+			}
+			if(!appkey){
+				alert('用户秘钥必须填写!');
+				return false;
+			}
+		}else if(api_type == 3){
+			if(!appcode){
+				alert('用户appcode必须填写!');
+				return false;
+			}
+		}
+	}
+
+	function change_type(){
+
+		var api_type = $("input[name='api_type']:checked").val();
+		if(api_type == 2){
+			$("#info").show();
+			$("#ali").hide();
+		}else if(api_type == 3){
+			$("#ali").show();
+			$("#info").hide();
+		}else{
+			$("#info").hide();
+			$("#ali").hide();
+		}
+	}
+	
+</script>
+
+
+{include file="public/foot_more" /}

@@ -1,0 +1,303 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="/layui/css/layui.css"> -->
+<style type="text/css">
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		text-align: center;
+		border: 1px solid #f0f0f0;
+		margin-bottom: 20px;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+		/* line-height: 45px; */
+	}
+	td{
+		height: 62px;
+	}
+	label{
+		font-weight: normal !important;
+	}
+	.lanmu_ellipsis{
+		width: 190px;
+		position: relative;
+	}
+	.lanmu_ellipsis span{
+		width: 155px;
+		display: inline-block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		cursor: pointer;
+	}
+	.lanmu_all{
+		display: none;
+		position: absolute;
+		bottom: 34px;
+		left: 0;
+		background: #eee;
+		z-index: 1;
+		border-radius: 5px;
+		padding: 10px;
+		color: #666;
+	}
+	.lanmu_jiao{
+		width:0px;
+		height:0px;
+		border-top: 6px #eee solid;
+		border-left: 4px transparent solid;
+		border-right: 4px transparent solid;
+		border-bottom: 6px transparent solid;
+		position: absolute;
+    bottom: -12px;
+    left: 46%;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navGoods" class="navGoods2">
+	<div class="row-fluid">
+	<div class="span12">	
+		<div class="portlet box ">
+			<div class="portlet-body">
+				<div style="float: left;height:32px;line-height: 32px;margin-right: 8px">栏目:</div>
+				<div class="ssinput" style="margin-bottom: 10px; position: relative;float:left;">
+					<select name="cid" class="span3 m-wrap" id="cid" style="width:200px;float:left;">
+						<option value="0">请选择栏目</option>
+						{if $cate}
+
+						{foreach $cate as $item}
+
+						<option value="{$item.id}" {if $cid==$item.id}selected='selected'{/if}>{$item.name}</option>
+
+						{if $item.data}
+
+						{foreach $item.data as $res}
+
+						<option value="{$res.id}" {if $cid==$res.id}selected='selected'{/if} ><span style="margin-left:10px;" >|--{$res.name}</span></option>
+
+						{/foreach}
+
+						{/if}
+
+						{/foreach}
+
+						{/if}
+
+
+					</select>	
+				</div>
+				<div style="float: left;height:32px;line-height: 32px;margin:0 8px 0 30px">关键字:</div>
+				<div class="ssinput" style="margin-bottom: 10px; position: relative;float:left;">
+					<input type="text" placeholder="请输入文章标题关键字" class="skey" value='{$key}' id="getnews" style="width:200px;;float:left;margin:0 5px;height:32px;line-height:32px;padding:0 5px;border-color:#e5e5e5">
+					<button  onclick="search()" class="btn" style="float:left;background: #4385ff;color: #fff;margin-left: 30px;">
+					搜索 
+					</button>
+				</div>
+				<div style="content: '';display: block;clear: left"></div>
+				<div class="input-box" style="margin: 10px 0;">
+					<div class="btn-group">
+						<a href="{:Url('Duoproducts/add')}?appletid=<?php echo $_GET['appletid']?>" >
+						<button id="sample_editable_1_new" class="btn full_btn">
+						添加商品
+						</button>
+						</a>
+					</div>
+					<div class="btn-group">
+						<button id="sample_editable_1_new" class="btn hollow_btn" onclick="delall()">
+						批量删除
+						</button>
+					</div>
+				</div>
+			
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							<th style="width: 80px;">
+								<input type="checkbox" id="all" />
+							</th>
+							<th style="width: 90px;">排序</th>
+							<th style="width: 100px;">ID</th>
+							<th style="width: 200px;">所属栏目</th>
+							<th style="width: 120px;">缩略图</th>
+							<th style="width: 360px;">标题</th>
+							<!-- <th style="width: 340px;">参数</th> -->
+							<th style="width: 300px;">操作</th>
+						</tr>
+					</thead>
+
+					<tbody>
+					{if $products.data}
+						{foreach $products.data as $item}
+							<tr>
+								<td>
+									<input type="checkbox" name="csb"  value="{$item.id}"/>
+								</td>
+								<td>
+									{$item.num}
+								</td>
+								<td><a href="javascript:;" href="javascript:;" data-clipboard-text="{$item.id}" onclick="copyid({$item.id})" class="label label-success ng-scope js-clip{$item.id}" style="background: #a9a9a9;min-width:30px;text-align: center;padding: 2px 16px;box-sizing: border-box;">{$item.id}</a></td>
+								<td>
+									<div class="lanmu_ellipsis">
+										<span>{$item.catenames}</span>
+										<div class="lanmu_all">
+											<div class="lanmu_jiao"></div>
+											{$item.catenames}
+										</div>
+									</div>
+								</td>
+								<td>
+									<img src="{$item.thumb}" style="width:40px;height:40px;border-radius:3px;">
+								</td>
+								<td>
+									{$item.title}
+								</td>
+<!-- 								<td>
+									{if $item.use_more == 1}
+										{volist name='$item.type_values' id='t'}
+						                    <div><span style="margin-right: 15px;">规格：{$t['type1']} {$t['type2']} {$t['type3']}</span><span>价格：{$t['price']}</span></div>
+						                {/volist}
+					                {else}
+					                	价格：{$item.price}
+					                {/if}
+								</td> -->
+								<td>
+									<a href="{:Url('Duoproducts/add')}?appletid=<?php echo $_GET['appletid']?>&newsid={$item.id}"><button class="btn btn-xs" style="color: #4385ff;border:1px solid #4385ff;background:#fff;">编辑</button></a>
+									<form action="{:Url('Duoproducts/del')}?appletid=<?php echo $_GET['appletid']?>&newsid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button class="btn btn-xs" style="color: #e72b2b;border:1px solid #e72b2b;background:#fff;" type="submit">删除</button>
+									</form>
+									<a href="{:Url('Evaluate/index')}?appletid=<?php echo $_GET['appletid']?>&proid={$item.id}&type=2"><button class="btn btn-xs" style="color: #35aa47;border:1px solid #35aa47;background:#fff;">评论管理</button></a>
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<!-- <div class="fenye_left">
+						一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据
+					</div> -->
+					<div class="fenye_right">
+						{$product->render()}
+					</div>
+				</div>
+				<!-- <nav aria-label="Page navigation">
+					<ul class="pagination">
+						<li>
+						<a href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+						</li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li>
+						<a href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+						</li>
+					</ul>
+				</nav> -->	
+				<!-- <div id="demo3"></div>			 -->
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+<!-- <script src="/layui/layui.js"></script> -->
+<script type="text/javascript">
+	function search(){
+        var cid=$("#cid option:selected").val();
+        var key = $("#getnews").val();
+        if(cid==false&&key==false){
+              alert("请选择栏目或填写标题关键字");
+		}else{
+            location.href = "{:Url('Duoproducts/index')}?appletid=<?php echo $_GET['appletid']?>&key="+key+"&cid="+cid;
+		}
+
+    }
+
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+    $('#all').on('click',function(){
+
+        if(this.checked) {
+            $.uniform.update($("input[name='csb']").attr("checked", true));
+        }else {
+            $.uniform.update($("input[name='csb']").attr("checked", false));
+        }
+    });
+    function delall(){
+        var array1=new Array();
+        $.each($("input[name='csb']"),function(){
+            if(this.checked){
+                array1.push($(this).val());
+            }
+        });
+        if(array1.length>0){
+            if(window.confirm('确定删除这些商品？')){
+                location.href = "{:Url('Duoproducts/delall')}?appletid=<?php echo $_GET['appletid']?>&duoproducts="+array1;
+            }else{
+                return false;
+            }
+        }else{
+            alert("您未选择删除对象");
+            return false;
+        }
+    }
+
+	// layui.use(['laypage', 'layer'], function(){
+    //     var laypage = layui.laypage
+    //     ,layer = layui.layer;
+        
+    //     //自定义首页、尾页、上一页、下一页文本
+    //     laypage.render({
+    //         elem: 'demo3'
+    //         ,count: 100
+    //         ,first: '首页'
+    //         ,last: '尾页'
+    //         ,prev: '<em>←</em>'
+    //         ,next: '<em>→</em>'
+    //     });
+	// });
+	$(function () { 
+		$(".lanmu_ellipsis").hover(
+			function(){
+				$(this).find(".lanmu_all").css('display','block');
+			},function(){
+				$(this).find(".lanmu_all").css('display','none');
+			}
+		);
+	});
+</script>
+
+
+{include file="public/foot_more" /}

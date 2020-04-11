@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/base1.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/banner.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/base2.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/header.css"/>
+    	<link rel="stylesheet" type="text/css" href="/fornt/css/news_details.css">
+	</head>
+	<body class="g_body g_locale2052 g_cusSiteWidth">
+		<div class="header">
+      <div class="container1">
+        <div class="tmooc-logo pull-left">
+          <h1 class="titleWrapper" style="font-weight: bold;font-size: 1.75rem;">
+			<font size="" color="#FFC001">{$mpname}
+			</font>
+		  </h1>
+        </div>
+        <ul class="slide-nav pull-left clearfix">
+          <li><a href="{:Url('index/index')}?uniacid=<?php echo $_GET['uniacid']?>">首页</a></li>
+          <li><a href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+          <li><a href="{:Url('news/index')}?uniacid=<?php echo $_GET['uniacid']?>" class="active">新闻中心</a></li>
+          <li><a href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>">微同城</a></li>
+        </ul>
+      </div>
+		</div>
+		<div id="g_main" class="g_main g_co12" style="top:0;width: 100%;">
+			<div id="web" class="g_web">
+        	<div class="wrapper">
+				<div id="sliderBox">
+					{if $images}
+						{foreach $images as $item}
+				    	<img src="{$item}" alt="">
+				    	{/foreach}
+			    	{/if}
+				</div>
+				<div class="btn01 btn" onclick="leftArrow()"><img src="/fornt/img/left.png"/></div>
+				<div class="btn02 btn" onclick="rightArrow()"><img src="/fornt/img/right.png"/></div>
+			</div>
+			<script>
+				    function leftArrow() {
+				    	var parent = document.getElementById("sliderBox");
+				    	var children = parent.getElementsByTagName("img");
+				    	var firstChild = children[0];
+				    	var tmp = firstChild;
+				    	parent.removeChild(firstChild);
+				    	parent.appendChild(tmp);
+				    }
+				    
+				    function rightArrow() {
+				    	var parent = document.getElementById("sliderBox");
+				    	var children = parent.getElementsByTagName("img");
+				    	var lastChild = children[children.length-1];
+				    	var tmp = lastChild;
+				    	parent.removeChild(lastChild);
+				    	parent.insertBefore(tmp,children[0]);
+				    }
+				    var timer = null;
+				    function autoPlay () {
+				        timer = setInterval(function () {
+				            rightArrow();
+				        },2000);
+				    }
+				    autoPlay();
+				    
+				    var wrapper = document.querySelector(".wrapper");
+				    wrapper.onmouseenter = function () {
+				        clearInterval(timer);
+				    }
+				    wrapper.onmouseleave = function () {
+				        autoPlay();    
+				    }
+
+				</script>
+        
+        <!-- 新闻详情start -->
+        <div class="news_content" style="padding:30px 0 20px">
+          <div class="content clearfix">
+            <div class="content_left">
+              <div class="fhsj">
+                <img src="/fornt/img/news_pageimg.png"><a href="javascript:history.back(-1)">返回上一级</a>
+              </div>
+              <div style="width:447px;margin:30px auto 0;text-align:center;font-size:24px;line-height:40px;color: #434343;">{$news.title}</div>
+              <div style="margin-top:15px;color: #838383;font-size:20px;text-align:center;">{$news.edittime}</div>
+              <div class="content_left_text">{$news.text}</div>
+              <div class="content_left_select">
+              	{if $lastone}
+                <div class="select"><a href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$lastone.id}">上一篇：{$lastone.title}</a></div>
+                {/if}
+                {if $nextone}
+                <div class="select"><a href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$nextone.id}">下一篇：{$nextone.title}</a></div>
+              	{/if}
+              </div>
+            </div>
+            <div class="content_right">
+              <div style="font-size:24px;color: #434343;margin-bottom: 32px;">其他新闻</div>
+              {foreach $three as $item}
+              <div style="padding-bottom: 20px;margin-bottom: 20px;border-bottom: 1px solid #eee;">
+                <a href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$item.id}">{$item.title}</a>
+                <div style="color: #838383;font-size: 14px;margin-top: 5px;">{$item.edittime}</div>
+              </div>
+              {/foreach}
+            </div>
+          </div>
+        </div>
+        <!-- 新闻详情end -->
+      
+        <div id="foot" style="margin-top: 50px;">
+          <div id="foot1">
+            <p style="color: #FFFFFF;font-size: 28px;margin-top: 54px;margin-bottom: 20px;position: absolute;left: 40%;top: 0;">STATIONERY DESIGN</p>
+            <ul style="margin-top: 20px;margin-bottom: 20px;position: absolute;top: 100px;left: 39%;padding: 0;height: 22px;">
+              <li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+              <li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('news/index')}?uniacid=<?php echo $_GET['uniacid']?>"">新闻中心</a></li>
+              <li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>">微同城</a></li>
+            </ul>
+            <p style="margin-bottom: 45px;height: 1px;background-color: transparent;color: rgb(102,102,102);position: absolute;top: 160px;left: 37%;"><span style="font-size: 16px;">————————————————————————</span></p>
+            <p style="color: rgb(102,102,102);font-size: 14px;position: absolute;
+top: 205px;left: 42%;">©2019 网站模板—文具 版权所有</p>
+          </div>
+        </div>
+      </div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/iconfont.css">
+		<link rel="stylesheet" type="text/css" href="/fornt/css/base1.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/banner.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/base2.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/tiao.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/header.css"/>
+		<link rel="stylesheet" type="text/css" href="/fornt/css/city.css"/>
+		<script src="/js/jquery.js" type="text/javascript"></script>
+		<style type="text/css">
+			.typeselected{
+				background-color: #FFD12F;color: #fff
+			}
+
+			.pagination_list li {
+			    display: inline-block;
+			    border: 1px solid #dedede;
+			    width: 35px;
+			    height: 35px;
+			    text-align: center;
+			    line-height: 35px;
+			    margin: 0 2px;
+			}
+
+			.paginate{
+			  display: table;
+			  margin: 0 auto ;
+			  margin-top: 30px;
+			  clear: both;
+			}
+
+			.pinglun li{
+				float: none;
+			}
+
+		</style>
+	</head>
+	<body class="g_body g_locale2052 g_cusSiteWidth">
+		<div class="header">
+		<div class="container1">
+		  <div class="tmooc-logo pull-left">
+		    <h1 class="titleWrapper" style="font-weight: bold;font-size: 1.75rem;">
+				<font size="" color="#FFC001">{$mpname}
+				</font>
+		  	</h1>
+		  </div>
+		  <ul class="slide-nav pull-left clearfix">
+		  <li><a href="{:Url('index/index')}?uniacid=<?php echo $_GET['uniacid']?>">首页</a></li>
+		  <li><a href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+		  <li><a href="{:Url('news/index')}?uniacid=<?php echo $_GET['uniacid']?>">新闻中心</a></li>
+		  <li><a href="#" class="active">微同城</a></li>
+		</ul>
+		</div>
+		</div>
+		<div id="g_main" class="g_main g_co12" style="top:0;width: 100%;">
+			<div id="web" class="g_web">
+				<div class="wrapper">
+					<div id="sliderBox">
+						{if $images}
+							{foreach $images as $item}
+					    	<img src="{$item}" alt="">
+					    	{/foreach}
+				    	{/if}
+					</div>
+					<div class="btn01 btn" onclick="leftArrow()"><img src="/fornt/img/left.png"/></div>
+					<div class="btn02 btn" onclick="rightArrow()"><img src="/fornt/img/right.png"/></div>
+				</div>
+				<script>
+					    function leftArrow() {
+					    	var parent = document.getElementById("sliderBox");
+					    	var children = parent.getElementsByTagName("img");
+					    	var firstChild = children[0];
+					    	var tmp = firstChild;
+					    	parent.removeChild(firstChild);
+					    	parent.appendChild(tmp);
+					    }
+					    
+					    function rightArrow() {
+					    	var parent = document.getElementById("sliderBox");
+					    	var children = parent.getElementsByTagName("img");
+					    	var lastChild = children[children.length-1];
+					    	var tmp = lastChild;
+					    	parent.removeChild(lastChild);
+					    	parent.insertBefore(tmp,children[0]);
+					    }
+					    var timer = null;
+					    function autoPlay () {
+					        timer = setInterval(function () {
+					            rightArrow();
+					        },2000);
+					    }
+					    autoPlay();
+					    
+					    var wrapper = document.querySelector(".wrapper");
+					    wrapper.onmouseenter = function () {
+					        clearInterval(timer);
+					    }
+					    wrapper.onmouseleave = function () {
+					        autoPlay();    
+					    }
+
+					    function changeType(id){
+					    	// if(!$(that).hasClass("typeselected")){
+					    	// 	$(".typeselected").removeClass("typeselected");
+					    	// 	$(that).addClass("typeselected");
+					    	// }
+					    	window.location.href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>&ts=" + id;
+					    }
+
+					    function showBig(img){
+					    	document.getElementById('big_img').style.display='block'
+					    	$("#img_b").attr("src", img)
+					    }
+					</script>
+				<!-- 微同城body start -->
+				<div class="plugin_forum">
+					<div class="forum_content clearfix">
+							<div class="city_nav">
+								{volist name="types" key="k" id="item"}
+								<div><a href="javascript:;" onclick="changeType({$item.id})" {if $item.id==$typeselected}class="typeselected"{/if}>{$item.title}</a></div>
+								{/volist}
+								
+						</div>
+						
+						<div class="city_box clearfix">
+
+								<div class="shanghu_box">
+									<ul class="sh_article">
+										{foreach $release as $item}
+										<li style="width:100%">
+											<div class="sh_message">
+												<img src="{$item.avatar}">
+												<h1 class="sh_name">{$item.nickname}</h1>
+												<span class="sh_time">{$item.createtime}</span>
+												<div class="sh_option">
+													<div class="option_then">
+														<text class='article_option1 iconfont icon-c-kan'></text>
+														<span>{$item.hits}</span>
+													</div>
+													<div class="option_then">
+														<text class='article_option1 iconfont icon-x-zan1'></text>
+														<span>{$item.likes}</span>
+													</div>
+												</div>
+											</div>
+						
+											<div class="article_text">
+												<p>
+													{$item.content}
+												</p>
+												<a class="show" href="javascript:void(0);" onclick="showdiv(this);">展开全文</a>
+											</div>
+											<div class="article_content" style="display:none;">
+												<p>
+													{$item.content}
+												</p>
+												<a class="hidd" href="javascript:void(0);" onclick="hidediv(this);">收起全文</a>
+											</div>
+											<div class="article_img">
+												<div style="display:flex;flex-wrap:wrap;">
+													{if $item.img}
+													{foreach $item.img as $img}
+													<a href="javascript:;" onclick="showBig('{$img}')"><img src="{$img}"></a>
+													{/foreach}
+													{/if}
+												</div>
+											</div>
+											<div class="article_option">
+												<div class="option_then">
+													<text class='article_option1 iconfont icon-x-pinglun'></text>
+													<span>共{$item.comments_num}条</span>
+												</div>
+												<ul class="pinglun">
+													{foreach $item.comments as $comment}
+													<li>
+														<div class="pl_img" style="float:left;margin-right:10px;"><img src="{$comment.avatar}"></div>
+														<p>{$comment.nickname}：{$comment.content}</p>
+														<p>{$comment.createtime}</p>
+													</li>
+													{/foreach}
+													
+													<li>
+														<div class="pl">
+															<a  style="color:#ffc001" href="javascript:;" onclick="document.getElementById('pl').style.display='block'">请到小程序端查看更多评论</a>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</li>
+										{/foreach}
+										
+									</ul>
+									
+								</div>
+								<div class="shanghu_tuijian">
+									<div style="padding:0 16px;line-height: 38px;border-bottom:1px solid #eee"><h2>推荐</h2></div>
+									<div style="padding:10px 10px">
+										<ul class="pinglun">
+											{foreach $hot as $item}
+											<li>
+												<div style="margin-bottom:10px;">
+													<div class="pl_img" style="float:left;margin-right:10px;"><img src="{$item.avatar}"></div>
+													<p>{$item.nickname}</p>
+													<p>{$item.createtime}</p>
+												</div>
+												<div class="pl_text">
+													<p>
+														{$item.content}
+													</p>
+													<a class="show" href="javascript:void(0);" onclick="showdiv(this);">展开全文</a>
+												</div>
+												<div class="pl_content" style="display:none;">
+													<p>
+														{$item.content}
+													</p>
+													<a class="hidd" href="javascript:void(0);" onclick="hidediv(this);">收起全文</a>
+												</div>
+												<div style="height:80px;overflow:hidden;">
+													{if $item.img}
+													
+													<img src="{$item.img[0]}" style="height:150px;">
+													
+													{/if}
+												</div>
+											</li>
+											{/foreach}
+											
+										</ul>
+									</div>
+								</div>
+
+							
+						</div>
+					</div>
+					<div class="paginate">
+						{$rel->render()}
+								
+					</div>
+				</div>
+				<script>
+					// 显示全文按钮
+					$.each($(".article_text p,.pl_text p"), function(i, o){
+						if($('.article_text p,.pl_text p').eq(i).height() >= 45){
+							$('.article_text p,.pl_text p').eq(i).next().css('display','block');
+						}else {
+							$('.article_text p,.pl_text p').eq(i).next().css('display','none');
+						}
+					});
+					// 展开全文
+					function showdiv(obj) {  
+						var x = obj.parentNode;  
+						var y = x.nextSibling;
+						if(y.nodeType != 1){  
+							y = y.nextSibling;  
+						}
+						y.style.display = "block";  
+						x.style.display = "none";  
+					}
+					// 收起全文  
+					function hidediv(obj) {
+						var y = obj.parentNode;  
+						var x = y.previousSibling;  
+						if(x.nodeType != 1){
+							x = x.previousSibling;  
+						}
+						y.style.display = "none";
+						x.style.display = "block";
+					}
+				</script>
+        <!-- 微同城body end -->
+
+				<div id="foot" style="margin-top: 50px;">
+					<div id="foot1">
+						<p style="color: #FFFFFF;font-size: 28px;margin-top: 54px;margin-bottom: 20px;position: absolute;left: 40%;top: 0;">STATIONERY DESIGN</p>
+						<ul style="margin-top: 20px;margin-bottom: 20px;position: absolute;top: 100px;left: 39%;padding: 0;height: 22px;">
+							<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+							<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="{:Url('news/index')}?uniacid=<?php echo $_GET['uniacid']?>">新闻中心</a></li>
+							<li style="margin-right: 5.75rem;"><a style="float: left;color: rgb(102,102,102);font-size: 16px;" href="#">微同城</a></li>
+						</ul>
+						<p style="margin-bottom: 45px;height: 1px;background-color: transparent;color: rgb(102,102,102);position: absolute;top: 160px;left: 37%;"><span style="font-size: 16px;">————————————————————————</span></p>
+						<p style="color: rgb(102,102,102);font-size: 14px;position: absolute;
+top: 205px;left: 42%;">©2019 网站模板—文具 版权所有</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 发布start -->
+		<div class="fabu" style="position:fixed;bottom:90px;right:40px">
+			<a href="javascript:;" onclick="document.getElementById('fabu').style.display='block'">发布</a>
+		</div>
+
+		<div id="fabu" style="display: none;">
+			<div id="contentbg"></div>
+			<div id="fb_fcontent">
+				<div class="fb_content">
+					<p>请到小程序端发布</p>
+					<img src="{$showimg}" alt="">
+				</div>
+				<a href="javascript:;" class="f-close" title="关闭" hidefocus="true" onclick="document.getElementById('fabu').style.display='none'">关闭</a>
+			</div>
+		</div>
+		<!-- 发布end -->
+		<div id="pl" style="display: none;">
+			<div id="contentbg"></div>
+			<div id="fb_fcontent">
+				<div class="fb_content">
+					<p>请到小程序端查看更多评论</p>
+					<img src="{$showimg}" alt="">
+				</div>
+				<a href="javascript:;" class="f-close" title="关闭" hidefocus="true" onclick="document.getElementById('pl').style.display='none'">关闭</a>
+			</div>
+		</div>
+
+		<div id="big_img" style="display: none;">
+			<div id="contentbg"></div>
+			<div id="b_img">
+				<img id="img_b" src="">
+				<a href="javascript:;" class="f-close" title="关闭" hidefocus="true" onclick="document.getElementById('big_img').style.display='none'">关闭</a>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,237 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel10{
+		display: block !important;
+	}
+	.chongdingy{
+		background-color: #f9f9f9;
+		padding: 10px 0;
+		border-radius: 5px;
+	}
+	.chongdingywz{
+		text-align: left !important;
+		font-size: 16px;
+		padding-left: 20px;
+	}
+	.control-group_c{
+		width: 100%;
+		min-height: 35px;
+		margin-bottom: 10px;
+	}
+	.control-label,.controls{
+		display: inline-block;
+	}
+	.control-label{
+		font-size: 15px;
+		float: left;
+    width: 255px;
+    padding-top: 5px;
+    text-align: right;
+		margin-top: 2px;
+	}
+	.controls{
+		margin-left: 25px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel10-2">
+
+	<div class="row-fluid">
+
+		<div class="portlet box">
+
+			
+			<div class="portlet-body form">
+
+				<div class="control-group chongdingy">
+
+					<label class="chongdingywz">发布详情</label>
+
+				</div>
+
+				<div class="control-group_c">
+
+					<label class="control-label" style="color:#666666">类型:</label>
+
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						
+						{if $release.fid==1}供应{else}求购{/if}
+
+					</div>
+
+				</div>
+
+				<div class="control-group_c">
+
+					<label class="control-label" style="color:#666666">发布人昵称头像:</label>
+
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						
+						<img src="{$release.avatar}" alt="" style="width:50px">--{$release.nickname}
+
+					</div>
+
+				</div>
+
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">发布标题:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">		
+						{$release.title}
+					</div>
+				</div>
+
+				<div class="control-group_c">
+
+					<label class="control-label" style="color:#666666">发布内容:</label>
+
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						
+						{$release.content}
+
+					</div>
+
+				</div>
+				
+				<div class="control-group_c">
+
+					<label class="control-label" style="color:#666666">发布图片:</label>
+
+					<div class="controls" style="line-height:35px;width: 660px; margin-left: 50px;">
+						{if $release.img}
+							{foreach $release.img as $res}	
+							<img src="{$res}" alt="" style="width:100px;margin-bottom: 10px;margin-right: 10px;">
+							{/foreach}
+						{else}
+						    无
+						{/if}
+					</div>
+				</div>
+				<div class="control-group_c">
+
+					<label class="control-label" style="color:#666666">手机号:</label>
+
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{if $release.telphone && $release.telphone != 'undefined'}
+							{$release.telphone}	
+						{else}
+						    无
+						{/if}
+					</div>
+				</div>
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">地址:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{if $release.address}
+							{$release.address}	
+						{else}
+						    无
+						{/if}
+					</div>
+				</div>
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">是否置顶:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{if $release.stick == 1}
+						 	<button class="btn green">已置顶</button>
+						{else}
+						 	<button class="btn gray">未置顶</button>
+						{/if}
+					</div>
+				</div>
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">置顶相关（每天费用/天数/总费用）:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{if $release.stickall}
+							{foreach $release.stickall as $k => $item}
+								{if $item['stick_status'] == 1}当前置顶:{else}往期置顶:{/if}
+								{$item.stick_money}元 * {$item.stick_days}天 = {$item.moneyAll}元   <span style="margin-left: 10px">置顶时间:</span>{$item.stick_time}
+								<br>
+							{/foreach}
+						{else}
+							{if $release['set']}
+								{$release['set']['stick_money']}元 * 0天 = {$release.moneyAll}元
+							{else}
+								未付费置顶
+							{/if}
+						{/if}
+
+ 					</div>
+				</div>
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">是否推荐:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{if $release.hot == 1}
+						 	<button class="btn green">已推荐</button>
+						{else}
+						 	<button class="btn gray">未推荐</button>
+						{/if}
+					</div>
+				</div>
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">浏览数:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{$release.hits}
+					</div>
+				</div>
+				
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">收藏数:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{$release.collection}
+					</div>
+				</div>
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">评论数:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{$release.comment}
+					</div>
+				</div>
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">发布时间:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{$release.createtime}
+					</div>
+				</div>
+				<div class="control-group_c">
+					<label class="control-label" style="color:#666666">修改时间:</label>
+					<div class="controls" style="line-height:35px; margin-left: 50px;">
+						{if $release.updatetime}{$release.updatetime}{else}暂未修改{/if}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{include file="public/foot_more" /}

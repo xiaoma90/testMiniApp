@@ -1,0 +1,196 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.control-group_c{
+	width: 100%;
+	min-height: 35px;
+	margin-bottom: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+.btn_back{
+	background-color: #fff;
+	color: #5C6270;
+	border: 1px solid #DFE4E7;
+	box-sizing: border-box;
+}
+tr .prev .icon-angle-left{
+	background-image: url(/image/glyphicons-halflings.png) !important;
+	background-position: 37px 85px !important;
+}
+tr .next .icon-angle-right{
+	background-image: url(/image/glyphicons-halflings.png) !important;
+	background-position: 13px 85px !important;
+}
+</style>
+	
+<input type="hidden" id="nowhtml" value="navVIP" class="navVIP1">
+
+
+
+	<div class="row-fluid">
+
+		<div class="portlet box">
+
+			
+			<div class="portlet-body form">
+
+					<form  action="{:Url('wxuser/post')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}&op=save" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" id="form_sample_2" class="form-horizontal">
+						<div class="control-group chongdingy">
+
+							<label class="control-label chongdingywz">会员管理</label>
+
+						</div>
+
+						<div class="control-group_c">
+
+							<label class="control-label" style="color:#666666">头像昵称</label>
+
+							<div class="controls" style="line-height:35px;">
+								
+								<img src="{$item['avatar']}" style="width:50px; height:50px;"/>
+								{$item['nickname']}
+
+							</div>
+
+						</div>
+						<div class="control-group_c">
+
+							<label class="control-label" style="color:#666666">会员卡卡号</label>
+
+							<div class="controls" style="line-height:35px;">
+								{if $item['vipid']}{$item['vipid']}{else}尚未开通会员{/if}
+
+							</div>
+
+						</div>
+						<div class="control-group_c">
+
+							<label class="control-label" style="color:#666666">真实姓名</label>
+
+							<div class="controls" style="line-height:35px;">
+								<input type="text" name="truename" value="{$item['truename']}" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off">
+
+							</div>
+
+						</div>
+						<div class="control-group_c">
+
+							<label class="control-label" style="color:#666666">手机号</label>
+
+							<div class="controls" style="line-height:35px;">
+								
+								<input type="text" name="phone" value="{$item['phone']}" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off">
+
+							</div>
+
+						</div>
+						<div class="control-group_c">
+
+							<label class="control-label" style="color:#666666">生日</label>
+
+							<div class="controls" style="line-height:35px;">
+								<input type="text" value="{$item.birth|date='Y-m-d',###}"  name="birth"  readonly id="datetimepickers" data-date-format="yyyy-mm-dd">
+
+							</div>
+
+						</div>
+
+						<div class="control-group_c">
+							<label class="control-label" style="color:#666666">实际消费金额</label>
+							<div class="controls" style="line-height:35px;">
+								{$item['allpay']}
+							</div>
+						</div>
+						<div class="control-group_c">
+							<label class="control-label" style="color:#666666">虚拟消费金额</label>
+							<div class="controls" style="line-height:35px;">
+								<input type="text" name="virtualpay" value="{$item['virtualpay']}" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="" autocomplete="off">
+								<div style="color:#c7cddb;">等级消费金额等于实际消费金额加虚拟消费金额；虚拟消费金额可为负数</div>
+							</div>
+						</div>
+						<div class="control-group_c">
+							<label class="control-label" style="color:#666666">等级消费金额</label>
+							<div class="controls" style="line-height:35px;">
+								<span>{$item['realpay']}</span><span style="margin-left:100px;color:#c7cddb;">会员等级是根据等级消费金额来计算的</span>
+							</div>
+						</div>
+						<div class="control-group_c">
+
+							<label class="control-label" style="color:#666666">积分</label>
+
+							<div class="controls" style="line-height:35px;">
+								
+								{$item['score']}
+								<a href="{:Url('cz')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}&type=1" style="color: #4385ff;">充值</a>
+
+							</div>
+
+						</div>
+						<div class="control-group_c">
+
+							<label class="control-label" style="color:#666666">余额</label>
+
+							<div class="controls" style="line-height:35px;">
+								
+								{$item['money']}
+								<a href="{:Url('cz')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}&type=2" style="color: #4385ff;">充值</a>
+
+							</div>
+
+						</div>
+						<div class="control-group_c">
+
+							<label class="control-label" style="color:#666666">注册时间</label>
+
+							<div class="controls" style="line-height:35px;">
+								
+								{$item['createtime']}
+
+							</div>
+
+						</div>
+
+						
+
+						<div class="form-actions form_nobg" style="padding-top: 40px;">
+							<button type="submit" class="btn green" style="background-color: #4385ff">提交</button>
+							<a href="{:Url('index')}?appletid=<?php echo $_GET['appletid']?>" class="btn btn_back">返回</a>
+						</div>
+
+					</form>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div>
+
+	</div>
+
+
+{include file="public/foot_more" /}

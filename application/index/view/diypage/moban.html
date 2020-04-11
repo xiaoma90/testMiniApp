@@ -1,0 +1,929 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+<link rel="stylesheet" href="__STATIC_ROOT__/css/iconfont.css">
+<style type="text/css">
+	.chongdingy{
+		background-color:#f5f5f5; 
+		padding:13px 0;
+	}
+	.chongdingywz{
+		text-align: left !important;
+		font-size: 16px;
+		padding-left: 20px;
+	}
+
+	.jscolor{
+		width: 30px;
+		height: 30px;
+		border: 1px solid #dedede;
+		outline: none;
+	}
+	.m-wrap{
+		outline: none;
+		padding-left: 10px;
+	}
+.moban_list img{display: block;box-shadow: 0px 0px 5px 1px #ccc;}
+
+.moban_list input{margin: 22px 0 0 55px;}
+
+.phone-div{
+
+    width: 200px;
+
+    height: 355px;
+
+    padding-top: 30px;
+
+    display: block;
+
+    position: relative;
+
+    background: url(/image/bg_img.png) no-repeat 0 0;
+
+    background-size: 100% 100%;
+
+    }
+
+.phone-div .show-view-div {
+
+    width: 188px;
+
+    height: 335px;
+
+    display: block;
+
+    margin: 0 0 0 8px;
+
+    overflow-y: scroll;
+
+    overflow-x: hidden;
+
+    position: relative;
+
+}
+
+::-webkit-scrollbar{width:4px;}
+
+::-webkit-scrollbar-track{background-color:#ddd;}
+
+::-webkit-scrollbar-thumb{background-color:#aaa;}
+
+::-webkit-scrollbar-thumb:hover {background-color:#9c3}
+
+::-webkit-scrollbar-thumb:active {background-color:#00aff0}
+
+.mb-20{margin-bottom: 20px}
+.moban_img{width: 180px;height:328px}
+
+.clearfix:after {
+	content: "\0020";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	overflow: hidden
+}
+
+.clear {
+	clear: both;
+	height: 0;
+	font-size: 1px;
+	line-height: 0
+}
+.grmb{
+	font-size: 24px;
+	color: #434343;
+	margin-bottom: 30px
+}
+.muban_single{
+	width: 258px;
+	height: 435px;
+	border:1px solid #eee;
+	float:left;
+	margin: 0 36px 36px 0;
+	border-radius: 8px;
+	background-color: #F9F9F9;
+	position: relative;
+}
+.muban_img_box{
+	width: 248px;
+	height: 386px;
+	border-bottom: 1px solid #eee;
+	background-color: #fff;
+	margin: 5px auto 0;
+	overflow: hidden;
+	position: relative;
+	cursor: pointer;
+}
+.muban_img1{
+	width: 248px;
+	display: block;
+}
+.muban_single_name{
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+	font-size: 14px;
+	color: #434343;
+	background-color: #fff;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px
+}
+.muban_img_box_div{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.7);
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+}
+.muban_img_box_btn2{
+	width: 135px;
+	height: 41px;
+	border-radius: 4px;
+	background-color: #F05501;
+	color: #fff;
+	line-height: 41px;
+	text-align: center;
+	font-size: 17px;
+	margin: 0 auto;	
+}
+.muban_img_box_btn1{
+	width: 135px;
+	height: 41px;
+	border-radius: 4px;
+	background-color: #4385ff;
+	color: #fff;
+	line-height: 41px;
+	text-align: center;
+	font-size: 17px;
+	margin: 0 auto 16px;	
+}
+.muban_img_box_btn{
+	width: 135px;
+	height: 41px;
+	border-radius: 4px;
+	background-color: #4385ff;
+	color: #fff;
+	line-height: 41px;
+	text-align: center;
+	font-size: 17px;
+	position: absolute;
+	margin:auto;
+	left: 0;right: 0;top: 0;bottom:0;
+}
+.muban_img_btn_box{
+	height: 98px;
+	width: 135px;
+	position: absolute;
+	margin: auto;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+}
+.muban_img_box:hover .muban_img_box_div{
+	display: block;
+}
+.muban_img2{
+	display: block;
+	position: absolute;
+	margin:auto;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+}
+.muban_line{
+	height: 1px;
+	background-color: #eee;
+}
+.usingbox{
+	position: absolute;
+	top: 16px;
+	left: -5px;
+}
+.usingbox img{
+	display: block;
+}
+.usingbox div{
+	width: 112px;
+	height: 45px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	line-height: 45px;
+	text-align: center;
+	color: #fff;
+	font-size: 17px;
+}
+
+
+    .bbdd{
+        position: fixed;
+        z-index: 100001;
+        background-color: #ffffff;
+        width: 400px;
+        height: 190px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border-radius: 6px;
+        border:1px solid #e7e7e7;
+    }
+
+    .ddhh{
+        height: 52px;;
+        line-height: 52px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 17px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #e5e5e5;
+        color: #333;
+    }
+    .ddxx{
+        cursor:pointer
+    }
+    .loader{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: #000 50% 50%;
+        opacity: .3;
+    }
+    .border_green{
+        border: 1px solid #35aa47;
+        color: #35aa47;
+        background-color: #fff;
+    }
+    .border_red{
+        border: 1px solid #d9534f;
+        color: #d9534f;
+        background-color: #fff;
+    }
+    .border_333{
+        border: 1px solid #969696;
+        color: #969696;
+        background-color: #fff;
+    }
+    .m5{
+        margin: 5px 0;
+    }
+    .tb1 tr{
+        height: 50px;
+        line-height: 50px;
+        color: #5c6270;
+    }
+    .ddbody{
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    .ddtop{
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .ddtop>label:first-child{
+        margin-bottom: 20px;
+    }
+    .ddtop>label{
+        font-size: 14px;
+        color: #5c6270;
+    }
+    .ddmain{
+        background: #f8f8f8;
+        padding: 18px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        max-height: 300px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        color: #5c6270;
+    }
+    .ddmain::-webkit-scrollbar{
+        display: none;
+    }
+    .radius{
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: #e5e5e5;
+        position: absolute;
+        top: 50%;
+        left: -4px;
+        transform:translateY(-50%);
+    }
+    .ddmain_body{
+        width: 100%;
+        border-left: 2px solid #e5e5e5;
+        position: relative;
+        overflow: visible;
+        padding:4px 0 4px 20px;
+        box-sizing: border-box;
+        margin: 0 !important;
+    }
+    .loading{
+        position: relative;
+        display: inline-block;
+        top: -24px;
+    }
+    .loading>span {
+        height: 3px;
+        width: 3px;
+        border-radius: 50%;
+        position: absolute;
+        background: #494949;
+    }
+
+    .loading>span:nth-child(1) {
+        top: 20px;
+        left: 8px;
+        animation: bounce 2s linear 0s infinite;
+    }
+
+    .loading>span:nth-child(2) {
+        top: 20px;
+        left: 14px;
+        animation: bounce 2s linear 0.09s infinite;
+    }
+
+    .loading>span:nth-child(3) {
+        top: 20px;
+        left: 20px;
+        animation: bounce 2s linear 0.18s infinite;
+    }
+
+    .loading>span:nth-child(4) {
+        top: 20px;
+        left: 26px;
+        animation: bounce 2s linear 0.27s infinite;
+    }
+
+    .loading>span:nth-child(5) {
+        top: 20px;
+        left: 32px;
+        animation: bounce 2s linear 0.36s infinite;
+    }
+
+    .loading>span:nth-child(6) {
+        top: 20px;
+        left: 38px;
+        animation: bounce 2s linear 0.45s infinite;
+    }
+    @keyframes bounce {
+        0%, 10%, 100% {
+            top: 20px;
+            transform: scale(1);
+        }
+        5% {
+            top: 12px;
+            transform: scale(2);
+        }
+    }
+</style>
+
+<input type="hidden" id="nowhtml" value="navDIY"  class="navDIY3">
+
+	<div class="row-fluid" style="padding:20px;box-sizing:border-box;">
+
+		<div class="span12">
+
+			<div class="portlet box ">
+		
+
+				<div class="grmb">本小程序模板 <span style="color:red;font-size: 16px;margin-left: 30px;display: inline-block;">如果模板未设置首页进入时将设置第一个页面作为首页</span></div>
+
+				<div class="clearfix" style="width:100%; min-height:400px;overflow: hidden;">
+				{if !$moban}
+					<div style="font-size: 20px;color: red;margin-top: 100px">暂无个人模板，请先选择一个系统模板生成个人模板！</div>
+				{/if}
+					{foreach $moban as $res}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="muban_img1" src="{$res.thumb}">
+							
+							<div class="muban_img_box_div">
+								<div class="muban_img_btn_box">
+									<div class="muban_img_box_btn1" onClick="moban({$res.id})">编辑模板</div>
+									{if $res.status != 1}
+									<div class="muban_img_box_btn2" onClick="del_moban({$res.id})">删除模板</div>
+									{/if}
+								</div>
+							</div>
+						</div>
+						<div class="muban_single_name">{$res.template_name}</div>
+						{if $res.status == 1}
+						<div class="usingbox">
+							<img src="__STATIC_ROOT__/diypage/img/using.png">
+							<div>使用中</div>
+						</div>
+						{/if}
+					</div>
+					{/foreach}
+
+				</div>
+				<div class="muban_line"></div>
+				<div class="portlet-body" style="margin-top: 30px">
+					<div class="grmb">系统模板</div>
+				</div>
+				<style>
+					.model_alls{
+						min-width: 70px;
+				    text-align: center;
+				    border: 2px solid #c3c3c3;
+				    height: 26px;
+				    line-height: 26px;
+				    display: inline-block;
+				    border-radius: 5px;
+				    font-size: 12px;
+				    color: #888;
+				    font-weight: 500;
+						margin:0 10px 10px 0;
+					}
+					a.model_alls:hover{
+						color:#888;
+					}
+					.active{
+						color:#fff;
+						background: #4385ff;
+						border: 2px solid #4385ff;
+					}
+					a.active:hover{
+						color:#fff;
+					}
+					.model_add{
+						border: 2px solid #4385ff;
+						border-radius: 5px;
+						color:#4385ff;
+					}
+					a.model_add:hover{
+						color:#4385ff ;
+					}
+					.model_box_alls{
+						display: inline-block;
+						position: relative;
+					}
+				  .model_box_alls	span{
+						display: none;
+						color: #4385ff;
+						position: absolute;
+						top: -7px;
+						right: 5px;
+						cursor: pointer;
+					}
+				</style>
+				<div style="margin-bottom: 50px;">
+					<a href="{:Url('diypage/moban')}?appletid=<?php echo $_GET['appletid']?>&classid=0" class="model_alls {if $classid == 0}active{/if}">全部</a>
+					
+						{foreach $moban_class as $k => $item}
+						<div class="model_box_alls">	
+							<a href="{:Url('diypage/moban')}?appletid=<?php echo $_GET['appletid']?>&classid={$item['id']}" class="model_alls {if $classid == $item['id']}active{/if}">
+							{$item['name']}</a>
+							{if $k>15 && $usergroup == 2}
+								<span class="iconfont icon-x-guanbi1" onClick="delclass({$item['id']})"></span>
+							{/if}
+						</div>
+					{/foreach}
+					{if $usergroup == 2}
+					<a class="model_alls model_add" onclick="shoscc()">+新分类</a>
+					{/if}
+				</div>
+				<div style="width:100%; min-height:400px;overflow: hidden;">
+					{if $classid == 0}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="muban_img2" src="__STATIC_ROOT__/diypage/img/null_muban.png">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('sys_blank')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">空白模板</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 1}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_shop/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_shops')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">综合商城模板01</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_shop02/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_shop02')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">综合商城模板02</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_shop03/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_shop03')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">综合商城模板03</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_shop04/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_shop04')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">综合商城模板04</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 2}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_edu/cover.jpg" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_education')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">教育类模板01</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_edu02/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_edu02')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">教育类模板02</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_edu03/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_edu03')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">教育类模板03</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_edu04/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_edu04')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">教育类模板04</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 3}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_food/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_food')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">餐饮类模板01</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_food02/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_food02')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">餐饮类模板02</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_food03/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_food03')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">餐饮类模板03</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_food04/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_food04')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">餐饮类模板04</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 4}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_life/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_life')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">生活服务类模板01</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_life02/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_life02')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">生活服务类模板02</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_life03/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_life03')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">生活服务类模板03</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_life04/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_life04')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">生活服务类模板04</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_life05/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_life05')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">生活服务类模板05</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 5}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_travel/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_travel')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">旅游类模板01</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_travel02/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_travel02')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">旅游类模板02</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 6}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_wedding/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_wedding')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">婚纱摄影类模板01</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 7}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_retail/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_retail')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">零售类模板01</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_retail02/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_retail02')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">零售类模板02</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_retail03/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_retail03')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">零售类模板03</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_retail04/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_retail04')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">零售类模板04</div>
+					</div>
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_retail05/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_retail05')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">零售类模板05</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 8}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_mother/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_mother')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">母婴类模板01</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 9}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_pet/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_pet')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">宠物类模板01</div>
+					</div>
+					{/if}
+					{if $classid == 0 || $classid == 10}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="" src="__STATIC_ROOT__/diypage/template_img/template_renovation/cover.png" style="width: 248px;">
+							<div class="muban_img_box_div">
+								<div class="muban_img_box_btn" onClick="moban_copy('m_renovation')">选用模板</div>
+							</div>
+						</div>
+						<div class="muban_single_name">装修类模板01</div>
+					</div>
+					{/if}				
+					{foreach $moban_sys as $res}
+					{if $classid == 0 || $res['classid'] == $classid}
+					<div class="muban_single">
+						<div class="muban_img_box">
+							<img class="muban_img1" src="{$res.thumb}">
+							<div class="muban_img_box_div">
+								<div class="muban_img_btn_box">
+									<div class="muban_img_box_btn1" onClick="moban_copy({$res.id})">选用模板</div>
+									{if $usergroup == 2}
+										<div class="muban_img_box_btn2" onClick="del_sys_moban({$res.id})">删除模板</div>
+									{/if}
+								</div>
+							</div>
+						</div>
+						<div class="muban_single_name">{$res.template_name}</div>
+					</div>
+					{/if}
+					{/foreach}
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div class='loader' style="display: none;"></div>
+<div class="bbdd" id="bbdd" style="display:none">
+    <div class="ddhh">
+        <span>添加系统模板分类</span>
+        <img class="ddxx" src="__STATIC_ROOT__/image/close.png" width="14px" height="14px" alt="" onclick="ycc()">
+    </div>
+    <form class="form-horizontal" action="" method="post" style="margin: 20px auto;">
+        <input type="hidden" id="orderfh" name="orderfh">
+        <table class="we7-table tb1 vertical-middle" style="border:0;margin: auto;">
+
+            <tr>
+                <td style="width:95px">模板分类：</td>
+                <td >
+                    <input type="text" id="classname" name="classname" value="" class="form-control ng-pristine ng-untouched ng-valid ng-empty" maxlength="5" placeholder="最多5个字">
+                </td>
+            </tr>
+            <tr>
+                <td style="width:95px"></td>
+                <td style="padding-left: 30px;">
+                    <a onclick="tijiao()" class="btn btn-sm" style="background: #4385ff;color: #fff;">提交</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+	<script>
+		function moban(i){
+			window.location.href = "{:Url('Diypage/index')}?appletid=<?php echo $_GET['appletid']?>&tplid="+i;
+		}
+		function moban_sys(i){
+			window.location.href = "{:Url('Diypage/index')}?appletid=<?php echo $_GET['appletid']?>&type=sys&tplid="+i;
+		}
+		function moban_copy(i){
+			$.ajax({
+				url:"{:Url('Diypage/moban_copy')}",dataType:"json",type:"POST",
+				data:{
+					id:i,
+					appletid:<?php echo $_GET['appletid']?>
+				},
+				success:function(res){
+					if(res){
+						window.location.href = "{:Url('Diypage/index')}?appletid=<?php echo $_GET['appletid']?>&tplid="+res;
+					}else{
+						alert("模板使用失败");
+					}
+				}
+			});
+		}
+
+		function del_moban(i){
+			if(confirm('该删除操作不可逆，请谨慎操作?')){
+				$.ajax({
+					url:"{:Url('Diypage/del_moban')}",dataType:"json",type:"POST",
+					data:{
+						id:i,
+						appletid:<?php echo $_GET['appletid']?>
+					},
+					success:function(res){
+						if(res == 1){
+							alert("模板删除成功");
+							window.location.href = "{:Url('Diypage/moban')}?appletid=<?php echo $_GET['appletid']?>";
+						}else{
+							alert("模板删除失败");
+						}
+					}
+				});
+			}
+		}
+
+		function del_sys_moban(i){
+			if(confirm('该删除操作不可逆，请谨慎操作?')){
+				$.ajax({
+					url:"{:Url('Diypage/del_sys_moban')}",dataType:"json",type:"POST",
+					data:{
+						id:i,
+						appletid:<?php echo $_GET['appletid']?>
+					},
+					success:function(res){
+						if(res == 1){
+							alert("模板删除成功");
+							window.location.href = "{:Url('Diypage/moban')}?appletid=<?php echo $_GET['appletid']?>";
+						}else{
+							alert("模板删除失败");
+						}
+					}
+				});
+			}
+		}
+		function shoscc(){
+			$(".loader").show();
+			$(".la-ball-clip-rotate").hide();
+			$("#bbdd").show();
+		}
+		function ycc(){
+			$(".loader").hide();
+			$("#bbdd").hide();
+		}
+		function tijiao(){
+			var classname = $("#classname").val();
+				if(classname == ''){
+						alert("模板分类名称不能为空");
+						return false;
+				}
+			location.href = "{:Url('diypage/addclass')}?appletid=<?php echo $_GET['appletid']?>&classname=" + classname;
+		}
+		function delclass(id){
+			if(confirm('该删除操作不可逆，请谨慎操作?删除该分类后，其下如有模板仍然保留，请在全部中查看！')){
+				console.log(66666666666)
+				location.href = "{:Url('diypage/delclass')}?appletid=<?php echo $_GET['appletid']?>&id=" + id;
+
+			}
+		}
+		
+
+		$(".model_box_alls").hover(function (){  
+				$(this).find(".icon-x-guanbi1").show();  
+		},function (){  
+				$(".icon-x-guanbi1").hide();  
+		});  
+	</script>
+
+{include file="public/foot_more" /}

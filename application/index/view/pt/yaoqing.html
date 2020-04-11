@@ -1,0 +1,171 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel5-5">
+
+<style type="text/css">
+	.navModel5{
+		display: block !important;
+	}
+    .shuk{
+        outline: none;
+        border: 1px solid #dedede;
+        width: 300px;
+    }
+    .cesd{
+        height: 28px;
+        line-height: 28px;
+        width: 28px;
+        display: inline-block;
+        vertical-align: top;
+        cursor: pointer;
+        border:1px solid #dedede;
+        padding: 0 10px;
+    }
+    .zzcc{
+        position: fixed;
+        top: 0; 
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0.4;
+        z-index: 100000;
+
+    }
+    .bbdd{
+        position: fixed;
+        z-index: 100001;
+        background-color: #ffffff;
+        width: 400px;
+        height: 220px;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -110px;
+        padding: 10px;
+        border:1px solid #e7e7e7;
+    }
+    .ddhh{
+        line-height: 30px;
+        position: relative;
+    }
+    .ddxx{
+        position: absolute;
+        right: 0;
+        top:0;
+        cursor:pointer
+    }
+</style>
+
+    <div class="row-fluid">
+        <div class="span12">
+
+            <div class="portlet box ">
+
+
+                <div class="portlet-body">
+<!--                 <div class="control-group chongdingy">
+
+                    <label class="control-label chongdingywz">成团管理</label>
+
+                </div> -->
+
+    <table class="table" id="sample_editable_1" style="border: 1px solid #f2f2f2">
+
+    <tbody>
+    {foreach $plist as $item}
+        <tr class="trorder" style="background:#f8f8f8;">
+            <td style="text-align:left;border:none;">拼团编号:  {$item['shareid']}</td>
+            <td style="text-align:center;border:none;">团队进度</td>
+            <td style="text-align:center;border:none;">开团时间</td>
+            <td style="text-align:center;border:none;">结束时间</td>
+            <td style="text-align:center;border:none;" class="aops">状态</td>
+        </tr>
+
+    <tr class="trbody">
+
+        <td style="overflow:hidden;border:none;" >
+            <img src="{$item['pro']['thumb']}" style="width:50px;height:50px;border:1px solid #ccc; padding:1px;margin-right:20px;display: block;float: left;" onerror="">
+            <span>{if isset($item['pro']['title'])}{$item['pro']['title']}{/if}</span> 
+        </td>
+
+        <td style="text-align:center;border:none;">
+           {if isset($item['pro']['pt_max'])}
+            {if isset($item['pro']['pt_min'])}
+            {$item['join_count']}/{$item['pt_min']}-{$item['pt_max']}
+            {/if}
+            {/if}
+        </td>
+
+        <td style="text-align:center;border:none;" >
+            {$item['creattime']}
+        </td>
+
+        <td style="text-align:center;border:none;" >
+            {$item['overtime']}
+        </td>
+
+        <td style="text-align:center;border:none;border-right: 1px solid #f0f0f0;" >
+            {if $item['flag']==1}
+                进行中
+            {/if}
+            {if $item['flag']==2||$item['flag']==4}
+                已成团
+            {/if}
+            {if $item['flag']==3}
+                已失败
+            {/if}
+            <a class="btn btn-success" style="background:#4385ff;color:#fff" href="{:Url('Pt/order')}?appletid=<?php echo $_GET['appletid']?>&ptorder={$item['shareid']}">拼团订单</a>
+        </td>
+   
+    </tr>
+
+        <style type="text/css">
+        .ssdd{
+            width: 200px;
+            border: 1px solid #dedede;
+            padding: 20px 10px;
+        }
+    </style>
+
+
+    <tr style="border:none;background:#f8f8f8;">
+        <td colspan="5" style="border:1px solid #f0f0f0;text-align:center;border-top:none;">
+            参与的成员
+        </td>
+    </tr>
+    
+    <tr style="border:none;background:#f8f8f8;">
+        <td colspan="5" style="text-align:left;border:none;border-left:1px solid #f0f0f0;border-right:1px solid #f0f0f0;">
+            {foreach $item['team'] as $tlist}
+                <img src="{$tlist['team']['avatar']}" style="width:50px; height:50px;">
+            {/foreach}
+        </td>
+    </tr>
+
+    <tr style="height: 20px;"></tr>
+
+
+   {/foreach}
+
+
+        </tbody></table>
+
+            <!-- 分页 -->
+                <div>
+                    <div class="fenye_left">
+                        <!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+                    </div>
+                    <div class="fenye_right">
+                        {$orders->render()}
+                    </div>
+                </div>
+
+        </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+{include file="public/foot_more" /}

@@ -1,0 +1,290 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<link href="__STATIC_ROOT__/js/layer/theme/default/layer.css" rel="stylesheet">
+<script src="__STATIC_ROOT__/js/layer/layer.js"></script>
+<style type="text/css">
+    form {
+        margin: 0 !important;
+        display: inline-block !important;
+    }
+
+    thead {
+        background: #fafafa;
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+        border: 1px solid #f0f0f0;
+    }
+
+    th, td {
+        border: 1px dashed #f0f0f0;
+        text-align: center;
+    }
+
+    th {
+        height: 45px;
+    }
+
+    td {
+        height: 62px;
+    }
+
+    .label_jujue {
+        font-size: 14px;
+        padding: 1px 5px;
+        line-height: 20px;
+        border: 1px solid #999;
+    }
+
+    /* 弹出框 */
+    #pro_bg {
+        height: 100%;
+        width: auto;
+        background-color: #7b7b7b;
+        opacity: 0.8;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+    }
+
+    #pro_detail {
+        position: fixed;
+        height: 500px;
+        width: 850px;
+        background-color: #fff;
+        top: 20%;
+        left: 25%;
+        z-index: 501;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+    .dis_none {
+        display: none;
+    }
+
+    .close_box {
+        background-color: #f4f5f9;
+        border-bottom: 0;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        padding: 10px 20px;
+        box-sizing: border-box;
+    }
+
+    .icon-x-guanbi:before {
+        font-size: 24px;
+        font-weight: bold;
+        color: #aaa;
+    }
+
+    .content {
+        padding: 10px 15px;
+        height: 378px;
+    }
+
+    .modal-title {
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .cont-footer {
+        background-color: #f4f5f9;
+        border-top: 0;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding: 10px 20px 20px;
+        box-sizing: border-box;
+    }
+
+    .img_erweima {
+        background: #eee;
+        width: 250px;
+        height: 250px;
+        margin: 0 auto;
+    }
+
+    .img_erweima img {
+        width: auto;
+        height: 100%;
+
+    .btn_erweima {
+        margin-top: 15px;
+    }
+
+    .btn_erweima button {
+        border: 0;
+        background-color: #6671e4;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+    .nav-tabs > li > a {
+        font-size: 14px;
+        color: #76838f;
+    }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: #fff;
+        background-color: #6671e4;
+        border-color: transparent;
+        border-bottom-color: #38f;
+    }
+
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel17-2">
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box">
+            <div class="portlet-box">
+
+                <form class="well form-inline margin-top-20"
+                      action="{:url('QrGenerate/generate')}?appletid=<?php echo $_GET['appletid']?>" id="submitForm"
+                      method="post">
+                    生码:
+                    <input type="text" id="gNum" class="skey" name="num" style="width: 200px;" placeholder="请输入个数">
+                    <a id="confirmG" class="btn btn-primary"
+                       style="float:right;background: #6671e4;color: #fff;margin-left: 30px;">开始生成</a>
+
+                    <button id="submit" hidden style="display: none" class="btn btn-primary js-ajax-submit">
+                    </button>
+                </form>
+                <table id="sample_editable_1">
+                    <thead>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="width: 50px;">创建时间</th>
+                        <th style="width: 100px;">生成率</th>
+                        <th style="width: 100px;">绑定率</th>
+                        <th style="width: 50px;">是否可下载</th>
+                        <th width="60px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {foreach $data as $item}
+                    <tr>
+
+                        <td>{$item.id}</td>
+
+                        <td>
+                            {$item.create_time}
+                        </td>
+
+                        <td>
+                            {$item.qr_code_count}/{$item.all_num}
+                        </td>
+
+                        <td>
+                            {$item.qr_binding_count}/{$item.all_num}
+                        </td>
+
+                        <td>
+                            {$item.all_generate ? '是' :'否 '}
+                        </td>
+
+
+                        <td>
+
+                            <a href="{:Url('QrCode/index')}?appletid=<?php echo $_GET['appletid']?>&id={$item.id}&flag=generate">
+                                <button style="        color: #35aa47;
+        border: 1px solid #35aa47;
+        background: #fff;
+        border-radius: 4px;
+        padding: 1px 5px;
+        cursor: pointer;">
+                                    查看列表
+                                </button>
+                            </a>
+
+                            {if $item.all_generate}
+                            <a href="{:Url('QrGenerate/downloadQr')}?appletid=<?php echo $_GET['appletid']?>&generate_id={$item.id}">
+                                <button style=" color: #d9534f;
+        border: 1px solid #d9534f;
+        background: #fff;
+        border-radius: 4px;
+        padding: 1px 5px;
+        cursor: pointer;">
+                                    下载
+                                </button>
+                            </a>
+                            {/if}
+
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <!--分页-->
+                <div>
+                    <div class="fenye_left">
+
+                    </div>
+                    <div class="fenye_right">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="__STATIC_ROOT__/js/jquery.js"></script>
+<script type="text/javascript">
+
+    //询问框
+    $("#confirmG").click(function () {
+        let gNum = $("#gNum").val();
+        if (!gNum) {
+            layer.msg('请填入码数量！')
+        } else if (!(/(^[1-9]\d*$)/.test(gNum))) {
+            layer.msg('请填入正整数！')
+        } else if (gNum > 50000) {
+            layer.msg('一次最多只能生50000个码！')
+        } else {
+            layer.confirm('将要生成' + gNum + '张二维码，这可能需要一会儿，请确保网络通畅，耐心等待生码结束，中途中断可能会造成数据异常！', {
+                btn: ['我已明白，开始吧', '下次'] //按钮
+            }, function () {
+                layer.close();
+                $('#submit').click();
+                startGenerate(gNum);
+            });
+        }
+    })
+    let num = 0
+
+    //开始生码
+    function startGenerate(gNum) {
+
+        console.log(gNum)
+        // setTimeout(getAjaxData(), 2000);  //延迟2s执行
+        var index = layer.load(0, {shade: [0.1, '#fff']});
+
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "/QrGenerate/generate",
+            data: {
+                num: gNum
+            },
+            success: function (result) {
+                console.log(result)
+                layer.close(index);
+                layer.msg('全部生成完毕！')
+            }
+        })
+    }
+
+</script>
+
+{include file="public/foot_more" /}

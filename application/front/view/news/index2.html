@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="/fornt/css2/base.css">
+  <link rel="stylesheet" href="/fornt/css2/index.css">
+  <link rel="stylesheet" href="/fornt/css2/iconfont.css">
+  <link rel="stylesheet" type="text/css" href="/fornt/css2/tiao.css"/>
+  <link rel="stylesheet" type="text/css" href="/fornt/css2/news.css"/>
+  <script src="/fornt/js/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="web">
+    <div class="header">
+      <div class="title_list">
+        <div class="header_title">
+          <h1 style="color:#222222;font-family:微软雅黑, Microsoft YaHei">
+            <font style="color:#1e50ae">{$mpname}</font>
+          </h1>
+        </div>
+        <div class="header_list">
+          <ul class="li_list clearfix">
+            <li><a href="{:Url('index/index')}?uniacid=<?php echo $_GET['uniacid']?>">首页</a></li>
+            <li><a href="{:Url('hot/hot')}?uniacid=<?php echo $_GET['uniacid']?>">产品推荐</a></li>
+			      <li><a href="#" class="active">新闻中心</a></li>
+			      <li><a href="{:Url('forum/index')}?uniacid=<?php echo $_GET['uniacid']?>">微同城</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="banner">
+      <div class="wrapper">
+        <div id="sliderBox">
+          {foreach $images as $item}
+              <img src="{$item}" alt="">
+          {/foreach}
+        </div>
+        <div class="btn01 btn" onclick="leftArrow()"><img src="/fornt/img2/left.png"/></div>
+        <div class="btn02 btn" onclick="rightArrow()"><img src="/fornt/img2/right.png"/></div>
+      </div>
+      <script>
+		var parent = document.getElementById("sliderBox");
+		var children = parent.getElementsByTagName("img");		
+        function leftArrow() {
+          var firstChild = children[0];
+          var tmp = firstChild;
+          parent.removeChild(firstChild);
+          parent.appendChild(tmp);
+        }
+        
+        function rightArrow() {
+          var lastChild = children[children.length-1];
+          var tmp = lastChild;
+          parent.removeChild(lastChild);
+          parent.insertBefore(tmp,children[0]);
+        }
+        var timer = null;
+        function autoPlay () {
+            timer = setInterval(function () {
+                rightArrow();
+            },2000);
+        }
+        autoPlay();
+        
+        var wrapper = document.querySelector(".wrapper");
+        wrapper.onmouseenter = function () {
+            clearInterval(timer);
+        }
+        wrapper.onmouseleave = function () {
+            autoPlay();    
+        }
+      </script>
+    </div>
+
+    <div class="body">
+      <div class="body_box clearfix">
+        <div class="body_left">
+          <div class="bleft_title">
+            <h4 style="display:inline-block;color:#fff;font-weight:normal;height:45px;line-height:45px;margin-left:10px;">新闻中心</h4>
+          </div>
+          <div class="bleft_content">
+            <ul>
+              {foreach $topThree as $item}
+              <a href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$item.id}">
+                <li class="bleft_content_news">
+                  <span class="bleft_content_newsl">{$item['title']}</span>
+                </li>
+              </a>
+              {/foreach}
+            </ul>
+          </div>
+        </div>
+        <div class="body_right">
+          <div class="body_right_title">
+            <div class="bright_title">
+              <div class="bright_title_text">新闻资讯</div>
+            </div>
+          </div>
+          <div class="bright_content">
+			<div id="tu" class="clearfix">
+				<ul class="title3">
+					{foreach $topThree as $item}
+            <li class="kuang" onclick="todetail({$item.id})">
+              <div id="" class="kuang1">
+                <a href="javascript:;"><img src="{$item.thumb}" ></a>
+                <div id="d1">
+                  <a href="javascript:;" class="a1 a2">{$item.title}</a>
+                  <p class="hide">{$item.desc}</p>
+                </div>
+              </div>
+            </li>
+          {/foreach}
+					
+				</ul>
+			</div>	
+			<div id="xia">
+				<div id="nei">
+					{volist name="others" key="k" id="item"}
+              <div id="dan">
+                <a href="javascript:;" class="a3">
+                  <p style="font-size: 28px;padding-top: 10px;">{$item.day}</p>
+                  <p>{$item.year}/{$item.month}</p>
+                </a>
+                <a id="pang" href="{:Url('NewsDetail/index')}?uniacid=<?php echo $_GET['uniacid']?>&nid={$item.id}">
+                  <p class="p1">{$item.title}</p>
+                  <p class="p2">{$item.desc}</p>
+                </a>
+              </div>
+              {if $k != $lastone}
+              <div class="separatorLine" style="animation: none 0s ease 0s 1 normal none running;"></div>
+              {/if}
+          {/volist}
+					
+				</div>
+			</div>
+		  </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="foot">
+        <span class="f_l"></span>
+        <a href="#"><span class="f_r">返回顶部</span></a>
+      </div>
+    </div>
+  </div> 
+</body>
+</html>

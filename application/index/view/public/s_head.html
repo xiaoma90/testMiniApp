@@ -1,0 +1,83 @@
+
+<body class="page-header-fixed">
+	
+<!-- 导航 -->
+
+	<div class="header navbar navbar-inverse navbar-fixed-top">
+
+		<div class="navbar-inner">
+
+			<div class="container-fluid">
+
+				<!-- <a class="brand" href="{if $Think.session.usergroup == 2 ||  $Think.session.usergroup == 3}{:Url('Applet/index')}{else}{:Url('Applet/applet')}{/if}" style="padding-left:20px;"> -->
+				<a class="brand" href="{:Url('Applet/index')}" style="padding:0 0 0 20px;">
+
+				<!-- <img src="/image/logo.jpg" alt="logo"/> -->
+				<?php
+					$is = isset($_SESSION['base_name']);
+					if($is){
+						echo $_SESSION['base_name'];
+					}else{
+						echo '智慧多端';
+					}
+				?>
+
+				</a>
+
+
+				<a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+
+				<img src="/image/menu-toggler.png" alt="" />
+
+				</a>          
+          		
+	
+          		
+
+				<ul class="nav pull-right">
+
+					<li class="dropdown user">
+
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding:0 20px;line-height:60px;">
+						{if $Think.session.icon}
+							<img alt="" src="{$Think.session.icon}" style="width:29px; height:29px;"/>
+						{else}
+							<img alt="" src="/image/gi.jpg" style="width:29px; height:29px;" />
+						{/if}
+
+						<span class="username">
+							{$Think.session.name}
+						</span>
+
+						<i class="wb-triangle-down" style="margin-left:10px;color:#ffffff !important;"></i>
+
+						</a>
+
+					
+						
+
+						<ul class="dropdown-menu">
+							
+							<li><a href="{:Url('User/index')}"><i class="icon-user"></i>个人中心</a></li>
+							<li><a href="{:Url('Login/index')}"><i class="icon-key"></i>退出</a></li>
+
+						</ul>
+
+					</li>
+
+				</ul>
+				
+<!--				<div class="pull-right bzzx" style="line-height:42px; color:#ffffff !important; margin-right:20px">-->
+<!--					<a href="https://shimo.im/docs/eNzFujRohM8UstKv/" target="_blank" style="color:#ffffff;">系统帮助中心</a>-->
+<!--				</div>-->
+
+			</div>
+
+		</div>
+
+	</div>
+	
+	<div class="page-container">
+
+
+	<div class="zhongjshuj"  style="padding:20px 40px">

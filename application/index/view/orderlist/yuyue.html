@@ -1,0 +1,533 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navOrder" class="navOrder2">
+
+<style type="text/css">
+	.shuk{
+		outline: none;
+		border: 1px solid #dedede;
+		width: 300px;
+	}
+	.cesd{
+		height: 28px;
+		line-height: 28px;
+	    width: 28px;
+	    display: inline-block;
+	    vertical-align: top;
+	    cursor: pointer;
+	    border:1px solid #dedede;
+	    padding: 0 10px;
+	}
+	.zzcc{
+        position: fixed;
+        top: 0; 
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0.4;
+        z-index: 100000;
+
+    }
+	.bbdd{
+        position: fixed;
+        z-index: 100001;
+        background-color: #ffffff;
+        width: 400px;
+        height: 220px;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -110px;
+        padding: 10px;
+        border:1px solid #e7e7e7;
+    }
+    .ddhh{
+        line-height: 30px;
+        position: relative;
+    }
+    .ddxx{
+        position: absolute;
+        right: 0;
+        top:0;
+        cursor:pointer
+    }
+</style>
+
+<div class="row-fluid">
+
+	<div class="span12">
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+				<div class="bbdd" id="change_info" style="display:none">
+				    <div class="ddhh">
+				        <span>修改预约时间</span>
+				        <div class="ddxx" onclick="ycc()">[关闭]</div>
+				    </div>
+				    <div>
+				        <form class="form-horizontal" action="" method="post">
+				            <input type="hidden" id="oid" name="oid">
+				            <table class="table we7-table  vertical-middle" style="border:0">
+				                <tr>
+				                    <td style="width:110px">选择日期：</td>
+				                    <td >
+				                        <input type="text" value=""  name="change_info_date"   readonly id="datetimepicker2" data-date-format="yyyy-mm-dd hh:ii">
+				                    </td>
+				                </tr>
+				                
+				                <tr>
+				                    <td style="width:95px"></td>
+				                    <td >
+				                        <a onclick="changedate()" class="btn btn-success btn-sm">提交</a>
+				                    </td>
+				                </tr>
+				            </table>
+				        </form>
+				    </div>
+				</div>
+
+				<div class="bbdd" id="bbdd" style="display:none">
+			        <div class="ddhh">
+			            <span>请选择上门服务人员</span>
+			            <div class="ddxx" onclick="ycc()">[关闭]</div>
+			        </div>
+			        <div>
+			            <form class="form-horizontal" action="" method="post">
+			                <input type="hidden" id="orderid" name="orderid">
+			                <table class="table we7-table  vertical-middle" style="border:0">
+			                    <tr>
+			                        <td style="width:110px">选择员工：</td>
+			                        <td >
+			                            <select style="width:200px" id="emp" name="emp">
+			                            	<option value="">不需要上门人员</option>
+			                                {volist name="staff" id="item"}
+			                                <option value="{$item['id']}">
+			                                	{$item['realname']}
+			                                </option>
+			                                {/volist}
+			                            </select>
+			                        </td>
+			                    </tr>
+			                    
+			                    <tr>
+			                        <td style="width:95px"></td>
+			                        <td >
+			                            <a onclick="tijiao()" class="btn btn-success btn-sm">提交</a>
+			                        </td>
+			                    </tr>
+			                </table>
+			            </form>
+			        </div>
+			    </div>
+
+				<div class="bbdd" id="change_info" style="display:none">
+                        <div class="ddhh">
+                            <span>请填写快递单号</span>
+                            <div class="ddxx" onclick="ycc()">[关闭]</div>
+                        </div>
+                   
+                        <form class="form-horizontal" action="" method="post">
+                            <input type="hidden" id="orderfh" name="orderfh">
+                            <table class="table we7-table  vertical-middle" style="border:0">
+
+                                <tr>
+                                    <td style="width:110px">快递：</td>
+                                    <td >
+                                        <select style="width:200px" id="kuaidi" name="kuaidi">
+                                            <option value="圆通">圆通</option>
+                                            <option value="申通">申通</option>
+                                            <option value="韵达">韵达</option>
+                                            <option value="中通">中通</option>
+                                            <option value="顺丰">顺丰</option>
+                                            <option value="天天">天天</option>
+                                            <option value="EMS">EMS</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:95px">快递号：</td>
+                                    <td >
+                                        <input type="text" id="kuaidihao" name="kuaidihao" value="" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:95px"></td>
+                                    <td >
+                                        <a onclick="tijiao()" class="btn btn-success btn-sm">提交</a>
+                                    </td>
+                                </tr>
+                           
+                            </table>
+                        </form>
+                	</div>
+				<div class="" >
+					<div class="float-left mr-20" style="float:left;">
+						<select name="select_state" id="select_state" class="form-control" style="width: 200px;font-size: 12px">
+							<option value="99" {if $select_state == 99} selected="selected" {/if}>全部</option>
+							<option value="0" {if $select_state == 0} selected="selected" {/if}>未支付</option>
+							<option value="1" {if $select_state == 1} selected="selected" {/if}}>立即核销</option>
+							<option value="2" {if $select_state == 2} selected="selected" {/if}>已完成</option>
+							<option value="-1" {if $select_state == -1} selected="selected" {/if}>已关闭</option>
+							<option value="-2" {if $select_state == -2} selected="selected" {/if}>订单无效</option>
+						</select>
+					</div>
+					<div class="float-left mr-20" style="float:left;">
+						<label for="" style="display: inline-block;font-size: 12px;vertical-align: 3px">下单日期</label>
+						<div style="display: inline-block;">
+							<input type="text" name="buy_time" style="display: inline-block;width: 200px;font-size: 12px" value="{$datetimepicker}" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii"  class="form-control ng-pristine ng-untouched ng-valid ng-empty"  placeholder="" autocomplete="off">
+							<span style="font-size: 12px">至</span>
+							<input type="text" name="buy_time" style="display: inline-block;width: 200px;font-size: 12px" value="{$end_datetimepicker}" id="end_datetimepicker" data-date-format="yyyy-mm-dd hh:ii" style="width: 200px" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  placeholder="" autocomplete="off">
+						</div>
+					</div>
+					<div class="float-left mr-20" style="float:left;">
+						<label for="" style="display: inline-block;font-size: 12px;vertical-align: 3px">预约日期</label>
+						<div style="display: inline-block;">
+							<input type="text" name="bespeak_time" style="display: inline-block;width: 200px;font-size: 12px" value="{$datetimepicker3}" id="datetimepicker3" data-date-format="yyyy-mm-dd hh:ii" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  placeholder="" autocomplete="off">
+							<span style="font-size: 12px">至</span>
+							<input type="text" name="bespeak_time" style="display: inline-block;width: 200px;font-size: 12px" value="{$end_datetimepicker2}" id="end_datetimepicker2" data-date-format="yyyy-mm-dd hh:ii"  class="form-control ng-pristine ng-untouched ng-valid ng-empty"  placeholder="" autocomplete="off">
+						</div>
+					</div>
+
+
+					<div class="float-left mr-20" style="float:left;">
+						订单号：
+						<input type="text" placeholder="请输入搜索订单号" class="shuk" id="getorder" value="{if(isset($_GET['order']))}{$_GET['order']}{/if}" style="margin-top: 10px;">
+						<div class="btn btn-primary" id="filter" style="display: inline-block;font-size: 12px;" onclick="search()" />提交</div>
+					<div class="btn btn-primary" id="filter" style="display: inline-block;font-size: 12px;" onclick="daochu()" />导出订单列表</div>
+				</div>
+			</form>
+
+				<!--<div class="input-box" style="margin-bottom: 10px; position: relative; text-align:center; margin-top:20px; margin-bottom:40px; ">-->
+
+					<!--请输入订单号：-->
+
+					<!--<input type="text" placeholder="请输入搜索订单号" class="shuk" id="getorder" value="{if(isset($_GET['order']))}{$_GET['order']}{/if}">-->
+					<!---->
+					<!--<div class="cesd" onclick="search()">-->
+						<!--搜索-->
+					<!--</div> -->
+
+				<!--</div>-->
+				<!--<div class="btn-group" style="float:right">-->
+					<!--<a href="{:Url('Orderlist/orderdown')}?appletid=<?php echo $_GET['appletid']?>&is_more=1">-->
+						<!--<button id="sample_editable_1_new" class="btn green">-->
+						<!--导出订单列表 -->
+						<!--</button>-->
+					<!--</a>-->
+
+				<!--</div>-->
+
+				<table class="table  table-hover table-bordered" id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							
+							<th>商品</th>
+				            <th>单价/数量</th>
+				            <th>营销活动</th>
+				            <th>金额</th>
+				            <th>联系方式</th>
+				            <th>状态</th>
+
+						</tr>
+
+					</thead>
+
+					<tbody>
+					<tr>
+						<td colspan="6" style="line-height: 20px; background: #FFFFFF; border-left: none; border-right: none;" ></td>
+					</tr>
+					{if count($neworder['data'])>0}
+						{foreach $neworder['data'] as $item}
+							<tr style="background: #f9f9f9">
+								<td colspan="4">下单时间：{$item.creattime} &nbsp;&nbsp;&nbsp; 订单编号: {$item.order_id}</td>
+								<td colspan="2" style="text-align:right">订单备注: {$item['pro_user_txt']}</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="{$item.thumb}" onerror="this.src='__STATIC_ROOT__/image/noimage.jpg'" style="width:50px; height:50px; ">      {$item.product}
+								</td>
+								<td style="width:200px;">
+									{if $item.is_more==0}
+				                    {$item.price}  x  {$item.num}
+									{/if}
+
+									{if $item.is_more==1}
+				                    	{foreach $item['order_duo'] as $ikm}
+				                    		{if $ikm[4] != 0}
+				                    			{$ikm[0]} : {$ikm[1]}  X {$ikm[4]} </br>
+				                    		{/if}
+				                    	{/foreach}
+									{/if}
+
+				                </td>
+								<td style="width:200px;">
+									{if $item['yhInfo_msg']['yhInfo_mj']['msg']}
+							        <span class="textbg textbg2">减</span>{$item['yhInfo_msg']['yhInfo_mj']['msg']} - ￥{$item['yhInfo_msg']['yhInfo_mj']['money']}<br>
+							        {/if}
+							        {if $item['yhInfo_msg']['yhInfo_yhq']['msg'] != "未使用优惠券"}
+							        <span class="textbg">券</span>{$item['yhInfo_msg']['yhInfo_yhq']['msg']} - ￥{$item['yhInfo_msg']['yhInfo_yhq']['money']}<br>
+							        {/if}
+							        {if $item['yhInfo_msg']['yhInfo_score']['money'] > 0}
+							        <span class="textbg" style="background: #00c4ff">分</span>{$item['yhInfo_msg']['yhInfo_score']['msg']} - ￥{$item['yhInfo_msg']['yhInfo_score']['money']}
+							        {/if}
+								</td>
+								<td style="width:150px;">
+									总价：￥{$item['price']}<br>
+		            				实付：￥{$item['true_price']}
+								</td>
+								<td style="width:150px;">
+									{$item['pro_user_name']}
+									<br>
+						             {$item['pro_user_tel']}
+									<br>
+									{$item['pro_user_add']}
+								</td>
+								
+								<td style="width:200px;">
+									{if $item['flag'] ==0}<span class="btn btn-default btn-sm">未支付</span>{/if}
+				                        {if $item['flag'] ==1}
+											<a class="btn green" onclick="return confirm('确定核销该订单？'); return false;" href="{:Url('Orderlist/hexiao')}?appletid=<?php echo $_GET['appletid']?>&is_more=1&order={$item['order_id']}" >立即核销</a>
+											<a class="btn red" onclick="return confirm('确定取消该订单？'); return false;" href="{:Url('Orderlist/quxiao')}?appletid=<?php echo $_GET['appletid']?>&order={$item['order_id']}" >取消订单</a>
+											{if isset($item['emp'])}<br/>上门服务：<br/>{$item['emp']['realname']}-{$item['emp']['mobile']}{/if}
+				                        {/if}
+				                        {if $item['flag'] ==2} 
+											<font color="#5cb85c">已完成</font>{if $item.hxinfo2}<br/>{$item.hxinfo2}{/if}{/if}
+				                        {if $item['flag'] ==-1} 
+											<font color="#f0ad4e">已关闭</font>{/if}
+				                        {if $item['flag'] ==-2} 
+											<span class="btn btn-warning btn-sm">订单无效</span>{/if}
+										{if $item['flag'] == 3}
+											<a class="btn green" onclick="queren({$item.id});" >确认订单</a>
+											<a class="btn red" onclick="return confirm('确定取消该订单？'); return false;" href="{:Url('Orderlist/quxiao')}?appletid=<?php echo $_GET['appletid']?>&order={$item['order_id']}" >取消订单</a>
+
+										{/if}
+										{if $item['flag'] == 5} 
+											<span class="btn btn-warning btn-sm">已取消</span>
+										{/if}
+				                        
+										{if $item['flag'] == 6}
+											<a class="btn green" onclick="return confirm('确定允许客户取消该笔订单？退款将直接到账'); return false;" href="{:Url('Orderlist/quxiao')}?appletid=<?php echo $_GET['appletid']?>&order={$item['order_id']}&opt=confirmqx" >同意退款</a>
+											<a class="btn red" onclick="return confirm('确定拒绝该客户的退款请求？'); return false;" href="{:Url('Orderlist/refuseqx')}?appletid=<?php echo $_GET['appletid']?>&order={$item['order_id']}" >拒绝退款</a>
+										{/if}
+										{if $item['flag'] == 8} 
+											<span class="btn btn-warning btn-sm">已退款</span>{/if}
+										{if $item['flag'] == 9} 
+											<span class="btn btn-default btn-sm">已拒绝退款</span>{/if}
+									<br>
+									{if $item['flag']==2}
+						             	{$item['custime']}
+						            {/if}
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="6" style="line-height: 20px;">
+									{if isset($item['val'])}
+									{if $item['val'] != 'NULL' && $item['val']}
+										{foreach $item['val'] as $a}
+											{if $a['type']== 3}
+											{$a['name']}：z
+											{foreach $a['val'] as  $a2}
+											{$a2},
+											{/foreach}
+											{/if}
+											{if $a['type']== 5}
+											{$a['name']}：
+											{if isset($a['z_val'])}
+											{foreach $a['z_val'] as $a3}
+											<a href="{$a3}" target="_blank"><img src="{$a3}" alt="" style="width:60px"></a>
+											{/foreach}
+											{/if}
+											{/if}
+											{if $a['type']== 16}
+											表单说明：{$a['val']}
+											{/if}
+											{if $a['type']!= 5 && $a['type']!= 3 && $a['type']!= 16}
+											{$a['name']}：{$a['val']}
+											{/if}
+											<br/>
+										{/foreach}
+
+									{/if}
+									{/if}
+						    	</td>
+							</tr>
+							<!--万能表单-->
+
+							<!--自带表单-->
+							{if $item['pro_user_name'] != "" || $item['pro_user_tel'] != "" || $item['pro_user_add'] != "" || $item['appoint_date'] != 0}
+							<tr>
+								<td colspan="6" style="line-height: 20px;">
+								{if $item['pro_user_name'] != ""}姓名：{$item['pro_user_name']}<br>{/if}
+								{if $item['pro_user_tel'] != ""}电话：{$item['pro_user_tel']}<br>{/if}
+								{if $item['pro_user_add'] != ""}地址：{$item['pro_user_add']}<br>{/if}
+								{if $item['appoint_date'] != 0}预约时间：{if $item.tableis == 0}{$item['appoint_date']|date="Y-m-d H:i:s", ###}{else}{$item['appoint_date']|date="Y-m-d H:i:s", ###}{/if} <a  onclick="showchange_info({$item['id']})" style="color:#f00;cursor: pointer;"> [修改]</a><br>{/if}
+						    	</td>
+							</tr>
+							{/if}
+
+							<!--自带表单-->
+
+							<!--修改记录-->
+							{if $item['modify_info']}
+				              <tr>
+				                <td colspan="6" style="line-height: 20px;">
+				                {if $item['modify_info']['flag'] != 2}
+				                {$item['modify_info']['pro_name']}在{$item['modify_info']['creattime']|date="Y-m-d H:i:s",###}申请修改预约信息为：姓名：{$item['modify_info']['pro_name']}，电话：{$item['modify_info']['pro_tel']}，地址：{$item['modify_info']['pro_address']}，预约日期： {$item['modify_info']['appoint_date']|date="Y-m-d H:i:s",###}  
+				                {/if}
+
+				                {if $item['modify_info']['flag'] == 1}
+				                <a onclick="return confirm('确认通过该用户的修改请求？'); return false;" href="{:Url('Orderlist/acceptmodify')}?appletid=<?php echo $_GET['appletid']?>&order={$item['order_id']}" style="color:green"> [确认修改]</a> 
+				                <a onclick="return confirm('确认拒绝该用户的修改请求？'); return false;" href="{:Url('Orderlist/refusemodify')}?appletid=<?php echo $_GET['appletid']?>&order={$item['order_id']}" style="color:#f00"> [拒绝修改]</a> 
+				                {/if}
+				                
+				                  {if $item['modify_info']['flag'] == 3}
+				                <a href="javascript:;" style="color:#f00"> [已拒绝修改]</a>
+				                  {/if}
+
+				                  {if $item['modify_info']['flag'] == 2}
+				                {$item['pro_user_name']}在{$item['modify_info']['creattime']|date="Y-m-d H:i:s",###}申请修改预约信息为：姓名：{$item['pro_user_name']}，电话：{$item['pro_user_tel']}，地址：{$item['pro_user_add']}，预约日期：{$item['appoint_date']|date="Y-m-d H:i:s",###} <a href="javascript:;" style="color:green"> [已修改]</a> <br>
+				                修改前信息为：姓名：{$item['modify_info']['pro_name']}，电话：{$item['modify_info']['pro_tel']}，地址：{$item['modify_info']['pro_address']}，预约日期：{$item['modify_info']['appoint_date']|date="Y-m-d H:i:s",###} 
+				                {/if}
+				                </td>
+				                </tr>
+				              {/if}
+							<!--修改记录-->
+							<tr>
+								<td colspan="6" style="line-height: 20px; height: 20px; border-left: none; border-right: none;"></td>
+							</tr>
+						{/foreach}
+					{/if}
+
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据
+					</div>
+					<div class="fenye_right">
+						{$order->render()}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+function heixiao(){
+
+	if(confirm('你确定要核销该订单嘛?')){
+		return true;
+	}else{
+		return false;
+	}
+
+}
+
+// function queren(){
+
+// 	if(confirm('你确定要确认该订单嘛?')){
+// 		return true;
+// 	}else{
+// 		return false;
+// 	}
+
+// }
+
+function search(){
+
+	var order = $("#getorder").val();
+    var select_state=$("#select_state").val();
+    var datetimepicker=$("#datetimepicker").val();
+    var end_datetimepicker=$("#end_datetimepicker").val();
+    var datetimepicker3=$("#datetimepicker3").val();
+    var end_datetimepicker2=$("#end_datetimepicker2").val();
+
+	location.href = "{:Url('Orderlist/yuyue')}?appletid=<?php echo $_GET['appletid']?>&order="+order+"&select_state="+select_state+"&datetimepicker="+datetimepicker+"&datetimepicker3="+datetimepicker3+"&end_datetimepicker="+end_datetimepicker+"&end_datetimepicker2="+end_datetimepicker2;
+
+}
+
+function daochu(){
+
+    var order = $("#getorder").val();
+    var select_state=$("#select_state").val();
+    var datetimepicker=$("#datetimepicker").val();
+    var end_datetimepicker=$("#end_datetimepicker").val();
+    var datetimepicker3=$("#datetimepicker3").val();
+    var end_datetimepicker2=$("#end_datetimepicker2").val();
+
+    location.href = "{:Url('Orderlist/orderdown')}?appletid=<?php echo $_GET['appletid']?>&order="+order+"&select_state="+select_state+"&datetimepicker="+datetimepicker+"&datetimepicker3="+datetimepicker3+"&end_datetimepicker="+end_datetimepicker+"&end_datetimepicker2="+end_datetimepicker2+"&is_more=1";
+
+}
+
+
+
+
+
+function showchange_info(id){
+	$("#oid").val(id);
+	$('#change_info').show();
+}
+
+function ycc(){
+    $("#bbdd").hide();
+    $("#qxdd").hide();
+    $('#change_info').hide();
+}
+
+function changedate(){
+	var newdate = $("#datetimepicker2").val();
+	var id = $('#oid').val();
+    if(!newdate){
+        alert("必须选择日期！");
+        return false;
+    }
+    var orderid = $("#oid").val();
+    var newurl = "{:Url('Orderlist/changedate')}?appletid=<?php echo $_GET['appletid']?>&id=" + id + "&newdate=" + newdate;
+    location.href = newurl;
+}
+
+function queren(id){
+        $("#orderid").val(id);
+        $(".loader").show();
+        $("#bbdd").show();
+    }
+function tijiao(){
+    var emp = $("#emp").val();
+    var orderid = $("#orderid").val();
+    var newurl = href="{:Url('Orderlist/queren')}?appletid=<?php echo $_GET['appletid']?>&is_more=1&order="+ orderid + "&emp=" + emp;
+    location.href = newurl;
+}
+
+</script>
+
+
+
+
+
+
+{include file="public/foot_more" /}

@@ -1,0 +1,119 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel6{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important;
+		display: inline-block !important;
+	}
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel6-8">
+
+<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+				<form class="form-horizontal">
+					<div style="margin-bottom:10px;">
+						店铺名称:
+						<div class="btn-group btn-group-sm" style="padding-right:0;padding-top:10px;">
+							<input type="text" name="search_keys" id="search_keys" value="{$search_keys}" style="width: 300px" class="form-control ng-pristine ng-untouched ng-valid ng-empty" placeholder="搜索关键字" autocomplete="off">
+						</div>
+						<div style="display: inline-block;">
+							<div class="btn btn-primary" id="filter" style="display:inline-block;font-size:12px;background:#4385ff;color:#fff;margin-left:30px;" onclick="search()">搜索</div>			
+							<a href="{:Url('Powerfulsh/shoppay')}?appletid=<?php echo $_GET['appletid']?>&op=excel">
+								<div id="sample_editable_1_new" class="btn" style="background-color:rgba(67, 133, 255, 0.102);color:#4385ff;border:1px solid #4385ff;padding:5px 14px;margin-left:20px;">
+									导出
+								</div>
+							</a>				
+						</div>
+					</div> 
+				</form>
+				<table id="sample_editable_1">
+					<thead>
+					<tr>
+						<th>店铺名称</th>
+						<th>金额(元)</th>
+						<th>用户微信信息</th>
+						<th>用户真实信息</th>
+						<th>支付描述</th>
+						<th>支付时间</th>
+					</tr>
+					</thead>
+
+					<tbody>
+					{if $list}
+						{foreach $list as $item}
+							<tr>
+								<td>
+					                {$item['name']}
+					            </td>
+					            <td>
+					                {$item['score']}
+					            </td>
+					            <td>
+					                <img src="{$item['avatar']}" alt="" style="width: 55px;height: 55px;margin-right: 5px;">
+					                {$item['nickname']}
+					            </td>
+					            <td>
+					                {$item['realname']}
+					                {$item['mobile']}
+					            </td>
+					            <td>
+					                {$item['message']}
+					            </td>
+					            <td>
+					            	{:date('Y-m-d H:i:s',$item['creattime'])}
+					            </td>
+							</tr>
+						{/foreach}
+					{/if}
+
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+				{$pager}
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+</div>
+<script>
+function search(){
+        var val = $("#search_keys").val();
+        // if(!val){
+        //     alert("关键词不能为空！");
+        //     return;
+        // }
+        location.href = "{:Url('Powerfulsh/shoppay')}?appletid=<?php echo $_GET['appletid']?>&search_keys="+val;
+
+    }
+</script>
+{include file="public/foot_more" /}

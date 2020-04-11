@@ -1,0 +1,694 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<!--侧边栏end-->
+<!--主体start-->
+<style type="text/css">
+    .editors{
+        max-width: 770px;
+        min-height: 600px;
+        margin-left: 20px;
+    }
+    .w-e-text-container{
+        min-height: 600px !important;
+    }
+    .weiz{
+        margin-left:20px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    .chongdingy{
+        background-color: #f9f9f9;
+        padding: 10px 0;
+        border-radius: 5px;
+    }
+    .chongdingywz{
+        text-align: left !important;
+        font-size: 16px;
+        padding-left: 10px;
+        font-weight: 800;
+    }
+    .font_w{
+        float: left;
+        width: 100px;
+        padding-top: 5px;
+        text-align: right;
+        font-weight: 800;
+    }
+    .control{
+        margin-left: 120px;
+    }
+    .list>div{
+        width: 304px;
+        margin: 10px 20px;
+        box-shadow:rgba(162, 162, 162, 0.2) 0px 0px 20px;
+        float: left;
+        text-align: center;
+        color: #434343;
+    }
+    .list::after{
+        clear: left;
+        content: '';
+        display: block;
+    }
+    .title{
+        font-size: 20px;
+        display: block;
+        font-weight: 800;
+        margin: 30px 0 10px 0;
+    }
+    .prompt{
+        font-size: 14px;
+        display: block;
+    }
+    .btns{
+        width: 100%;
+        display: flex;
+    }
+    .btns>button{
+        flex: 1;
+        height: 50px;
+        line-height: 50px;
+        border-top: 1px solid #f7f7f7;
+        border-right: 1px solid #f7f7f7;
+        border-bottom:0;
+        border-left: 0;
+        background: none;
+        outline: none;
+        box-shadow: none;
+    }
+    .btns>button:hover{
+        border: 0;
+        background: #eeeeee;
+        outline: none;
+        box-shadow: none;
+    }
+    .pic{
+        width: 100%;
+        height: 147px;
+    }
+    .pic>img{
+        margin: auto;
+        width: 84px;
+        height: 84px;
+        margin-top: 58px;
+        display: block;
+    }
+    .bg_f6{
+        background-color: #f6f6f6;
+    }
+    .bg_eee{
+        background-color: #eeeeee;
+        margin-top: 25px;
+    }
+    .relative{
+        position: relative;
+    }
+    .relative>div:first-child{
+        width: 62px;
+        height: 62px;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .relative>div:first-child>span{
+        position: absolute;
+        top: 8px;
+        right: 0;
+        color: #fff;
+        font-size: 12px;
+        transform:rotate(45deg);
+        -ms-transform:rotate(45deg); 	/* IE 9 */
+        -moz-transform:rotate(45deg); 	/* Firefox */
+        -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+        -o-transform:rotate(45deg); 	/* Opera */
+    }
+    .bbdd{
+        position: fixed;
+        z-index: 100001;
+        background-color: #ffffff;
+        width: 350px;
+        height: 300px;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -210px;
+        padding: 10px;
+        border:1px solid #e7e7e7;
+    }
+    .ddhh{
+        line-height: 30px;
+        position: relative;
+    }
+    .ddxx{
+        position: absolute;
+        right: 0;
+        top:0;
+        cursor:pointer
+    }
+    .loader{
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: #000 50% 50%;
+        opacity: .3;
+    }
+    .zhezhao{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+    .zhezhao_main{
+        width: 600px;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border-radius: 0;
+        text-align: center;
+    }
+    .zhezhao_main>div{
+        box-sizing: border-box;
+    }
+    .main_header{
+        height: 54px;
+        width: 100%;
+        line-height: 54px;
+        border-bottom: 1px solid #eeeeee;
+        padding: 20px 30px 0;
+    }
+    .main_header>label{
+        float: left;
+        vertical-align: middle;
+        font-size: 16px;
+        color: #434343;
+        font-weight: 800;
+    }
+    .main_header>img{
+        float: right;
+        width: 15px;
+        height: 15px;
+        display: block;
+        vertical-align: middle;
+    }
+    .main_header::after{
+        content: '';
+        clear: both;
+        display: block;
+    }
+    .main_container{
+        text-align: left;
+        font-size: 14px;
+        padding: 24px 30px;
+        box-sizing: border-box;
+    }
+    .main_container a{
+        color: #4385ff;
+        font-weight: 800;
+    }
+    .main_container a::after{
+        text-decoration: none;
+        color: #4385ff;
+    }
+    .main_foot{
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .main_foot>button{
+        width: 90px;
+        height: 30px;
+        display: block;
+        margin: auto;
+        border: 1px solid #e5e5e5;
+        background-color: #fff;
+        font-size: 14px;
+        outline: none;
+        box-shadow: none;
+    }
+    .main_foot>button:hover{
+        border: 0;
+        background: #eeeeee;
+        outline: none;
+        box-shadow: none;
+    }
+    .radio input[type="radio"]{
+        margin-left: 15px !important;
+        margin-right: 5px;
+    }
+    .control-label0{
+        padding-top:7px;
+    }
+    .form_nobg{
+        background-color: #fff;
+        position: fixed;
+        bottom: 0;
+        left: 216px;
+        right: 0;
+        height: 52px;
+        line-height: 52px;
+        box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 1000;
+    }
+    .add_imgs{
+        display: inline-block;
+        width: 67px;
+        height: 67px;
+        box-sizing: border-box;
+        border: 1px dashed #dfe4e7;
+        background: #f9f9f9;
+        border-radius: 3px;
+        text-align: center;
+        color: #DFE4E7;
+        font-size: 12px;
+    }
+    .commonchangepic{
+        cursor: pointer;
+    }
+</style>
+<input type="hidden" id="nowhtml" value="navSystem" class="navSystem1">
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<div class='loader' style="display:none"></div>
+                <div class="portlet-body">
+                 <div class="bbdd" id="bbdd" style="display:none">
+                    <div class="ddhh">
+                        <span>H5预览</span>
+                        <div class="ddxx" onclick="ycc()">[关闭]</div>
+                    </div>
+                    <form class="form-horizontal" action="" method="post">
+                        <input type="hidden" id="orderfh" name="orderfh">
+						<span style="margin-left: 155px;">二维码</span>
+						<div style="margin-left: 85px; margin-top: 20px;">
+							<img id="h5_qr" src="__STATIC_ROOT__/ewmimg/h5/118.png">
+						</div>
+                       	<span style="margin-left: 10px;" id="h5_url"></span>
+                    </form>
+                </div>
+				<!-- BEGIN FORM-->
+				<form action="{:Url('Index/save')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">平台信息</label>
+					</div>
+					<div class="control-group">
+						<label class="font_w">平台名称</label>
+						<div class="control">
+							<input type="text" name="name" class="span3 m-wrap" value="{if $applet}{$applet.name}{/if}" placeholder="单行输入">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="font_w">LOGO</label>
+						<div class="controls" style="margin-left: 120px;">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic3" style="width:67px;height:67px;">
+									{if $bases && isset($bases['logo'])}
+										<img src="{$bases.logo}"/>
+									{else}
+										<img src="__STATIC_ROOT__/image/try_use.png" alt="" />
+									{/if}
+								</div>
+								<div class="fileupload-preview fileupload-exists thumbnail" style="width:67px;height:67px;">
+								</div>
+								<div class="add_imgs">
+									<span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic3" ></span>
+                                </div>
+							</div>
+                        </div>
+                        <span style="color:#c7cddb;margin-left:120px;">请上传门店logo（正方形）</span>
+					</div>
+					<div class="control-group">
+						<label class="font_w">门店背景</label>
+						<div class="controls" style="margin-left: 120px;">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic2" style="width:67px;height:67px;">
+									{if $bases && isset($bases['banner'])}
+										<img src="{$bases.banner}"/>
+									{else}
+										<img src="__STATIC_ROOT__/image/noimage_1.png" alt="" />
+									{/if}
+								</div>
+								<div class="fileupload-preview fileupload-exists thumbnail" style="width:67px;height:67px;">
+								</div>
+								<div class="add_imgs">
+									<span class="fileupload-new commonchangepic" data-type="1"><div style="font-size: 26px;line-height: 36px;">+</div>选择图片<input type="hidden" name="commonuploadpic2" ></span>
+                                </div>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="font_w">门店名称</label>
+						<div class="control">
+							<input type="text" maxlength="6" name="store_name" class="span3 m-wrap" value="{if $bases}{$bases.name}{/if}" >
+                            <span style="color:#c7cddb; line-height:40px; margin-left:20px;">商品海报标题，最多6个字</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="font_w">门店特色</label>
+						<div class="control">
+							<input name="desc" type="text" class="span3 m-wrap" value="{if $bases}{$bases.desc}{/if}"/>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">请输入一句话介绍</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="font_w">联系电话</label>
+						<div class="control">
+							<input type="text" name="tel" class="span3 m-wrap" value="{if $bases}{$bases.tel}{/if}" >
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="font_w">店铺地址</label>
+						<div class="control">
+							<input type="text" name="address" class="span3 m-wrap" value="{if $bases}{$bases.address}{/if}" >
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="font_w">简介</label>
+						<div class="control">
+							<textarea name="about" id="" cols="30" rows="6" placeholder="简介内容" style="width:401px;border:1px solid #dfe4e7;">{if $bases}{$bases.about}{/if}</textarea>
+						</div>
+					</div>
+                    <div class="control-group">
+                        <label class="font_w" style="padding-top:9px;">显示手机注册</label>
+                        <div class="controls" style="margin-left: 130px;">
+                            <label class="radio">
+                            <input type="radio"  name="alish" value="1" {if $bases}{if $bases.alish==1}checked=checked{/if}{else}checked=checked{/if}/>
+                            开启
+                            </label>
+                            <label class="radio">
+                            <input type="radio"  name="alish" value="2" {if $bases}{if $bases.alish==2}checked=checked{/if}{/if}/>
+                            不开启
+                            </label>
+                            <span style="color:#c7cddb; line-height:40px; margin-left:20px;">正常使用时必须开启</span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="font_w" style="padding-top:9px;">微信&支付宝&字节跳动注册</label>
+                        <div class="controls" style="margin-left: 130px;">
+                            <label class="radio">
+                            <input type="radio"  name="shortmsg_type" value="2" {if $bases}{if $bases.shortmsg_type==2}checked=checked{/if}{else}checked=checked{/if}/>
+                            手机授权
+                            </label>
+                            <label class="radio">
+                            <input type="radio"  name="shortmsg_type" value="1" {if $bases}{if $bases.shortmsg_type==1}checked=checked{/if}{/if}/>
+                            手机验证码
+                            </label>
+                            <span style="color:#c7cddb; line-height:40px; margin-left:20px;">默认手机授权</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="font_w" style="padding-top:9px;">短信配置</label>
+                        <div class="controls" style="margin-left: 130px;">
+							{if PLATFORM == 'wn'}
+                            <label class="radio">
+                            <input type="radio"  name="shortmsg_applet" value="1" {if $bases}{if $bases.shortmsg_applet==1}checked=checked{/if}{else}checked=checked{/if} onclick="change1()" />
+                            全局系统设置
+                            </label>
+							{/if}
+                            <label class="radio">
+                            <input type="radio"  name="shortmsg_applet" value="2" {if $bases}{if $bases.shortmsg_applet==2}checked=checked{/if}{/if} onclick="change1()"/>
+                            单独设置
+                            </label>
+                            <span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+                        </div>
+                    </div>
+                    <div id="shortmsg_duli" style="display: {if $bases}{if $bases.shortmsg_applet==2}block{else}none{/if}{else}none{/if}">
+                        <div class="control-group" >
+                            <label class="font_w" style="padding-top:9px;">短信服务类型</label>
+                            <div class="controls" style="margin-left: 130px;">
+                                <label class="radio">
+                                <input type="radio"  name="shortmsg" value="1" {if $bases}{if $bases.shortmsg==1}checked=checked{/if}{else}checked=checked{/if} onclick="change()" />
+                                腾讯云短信服务
+                                </label>
+                                <label class="radio">
+                                <input type="radio"  name="shortmsg" value="2" {if $bases}{if $bases.shortmsg==2}checked=checked{/if}{/if} onclick="change()"/>
+                                阿里云短信服务
+                                </label>
+                                <span style="color:#c7cddb; line-height:40px; margin-left:20px;"></span>
+                            </div>
+                        </div>
+                        <div id="tenx" style="{if $bases}{if $bases.shortmsg==1}display: block{else}display: none{/if}{else}display:block{/if}">
+                            <div class="control-group chongdingy">
+                                <label class="control-label chongdingywz" style="width: 400px;">腾讯云短信业务相关配置</label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span>*</span> 短信入口ID</label>
+                                <div class="controls">
+                                    <input name="tx_access_id" type="text" id="tx_access_id" class="span3 m-wrap" value="{if $sms_set}{$sms_set.tx_access_id}{/if}">
+                                    <span style="color:#c7cddb; line-height:40px; margin-left:20px;">腾讯云后台短信应用 SDK APPID</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span>*</span> 短信入口密码</label>
+                                <div class="controls">
+                                    <input name="tx_access_secret" type="text" id="tx_access_secret" class="span3 m-wrap" value="{if $sms_set}{$sms_set.tx_access_secret}{/if}">
+                                    <span style="color:#c7cddb; line-height:40px; margin-left:20px;">腾讯云后台短信应用 APP KEY</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span>*</span> 验证码模板</label>
+                                <div class="controls">
+                                    <input name="tx_code_tpl" type="text" id="tx_code_tpl" class="span3 m-wrap" value="{if $sms_set}{$sms_set.tx_code_tpl}{/if}">
+                                    <span style="color:#c7cddb; line-height:40px; margin-left:20px;">腾讯云后台短信应用 短信正文ID</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span>*</span> 短信签名</label>
+                                <div class="controls">
+                                    <input name="tx_sign" type="text" id="tx_sign" class="span3 m-wrap" value="{if $sms_set}{$sms_set.tx_sign}{/if}">
+                                    <span style="color:#c7cddb; line-height:40px; margin-left:20px;">腾讯云后台短信应用 短信签名内容</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ali" style="{if $bases}{if $bases.shortmsg==2}display: block{else}display: none{/if}{else}display: none{/if}">
+                            <div class="control-group chongdingy">
+                                <label class="control-label chongdingywz" style="width: 400px;">阿里云短信业务相关配置</label>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span>*</span> 短信AccessKeyID</label>
+                                <div class="controls">
+                                  <input name="ali_access_id" type="text" id="ali_access_id" class="span3 m-wrap" value="{if $sms_set2}{$sms_set2.ali_access_id}{/if}">
+                                  <span style="color:#c7cddb; line-height:40px; margin-left:20px;">阿里云后台短信应用 AccessKey ID</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span>*</span> 短信AccessKeySecret</label>
+                                <div class="controls">
+                                  <input name="ali_access_secret" type="text" id="ali_access_secret" class="span3 m-wrap" value="{if $sms_set2}{$sms_set2.ali_access_secret}{/if}">
+                                  <span style="color:#c7cddb; line-height:40px; margin-left:20px;">阿里云后台短信应用 Access Key Secret</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span>*</span> 验证码模板</label>
+                                <div class="controls">
+                                  <input name="ali_code_tpl" type="text" id="ali_code_tpl" class="span3 m-wrap" value="{if $sms_set2}{$sms_set2.ali_code_tpl}{/if}">
+                                  <span style="color:#c7cddb; line-height:40px; margin-left:20px;">阿里云后台短信服务 短信模版CODE</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span>*</span> 短信签名</label>
+                                <div class="controls">
+                                  <input name="ali_sign" type="text" id="ali_sign" class="span3 m-wrap" value="{if $sms_set2}{$sms_set2.ali_sign}{/if}">
+                                  <span style="color:#c7cddb; line-height:40px; margin-left:20px;">阿里云后台短信应用 短信签名名称</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="control-group chongdingy">
+						<label class="control-label chongdingywz">全局配置</label>
+					</div>
+					<div class="control-group" >
+						<!--新增的字段-->
+						<label class="control-label control-label0">文章评论</label>
+						<div class="controls" style="margin-left: 205px;">
+							<label class="radio">
+							<input type="radio" name="commA" value="1" {if $config}{if $config['commA']=="1"}checked=checked{/if}{/if}/>
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="commA" value="0" {if $config}{if $config['commA']=="0"}checked=checked{/if}{else}checked=checked{/if}/>
+							不开启
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">可在每篇文章中单独控制</span>
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<!--新增的字段-->
+						<label class="control-label control-label0">文章评论审核</label>
+
+						<div class="controls" style="margin-left: 205px;">
+							<label class="radio">
+							<input type="radio" name="commAs" value="1" {if $config}{if $config['commAs']=="1"}checked=checked{/if}{/if}/>
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="commAs" value="0" {if $config}{if $config['commAs']=="0"}checked=checked{/if}{else}checked=checked{/if}/>
+							不开启
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">可在每篇文章中单独控制</span>
+						</div>
+					</div>
+					<div class="control-group" >
+						<!--新增的字段-->
+						<label class="control-label control-label0">商品评论</label>
+						<div class="controls" style="margin-left: 205px;">
+							<label class="radio">
+							<input type="radio" name="commP" value="1" {if $config}{if $config['commP']=="1"}checked=checked{/if}{/if}/>
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="commP" value="0" {if $config}{if $config['commP']=="0"}checked=checked{/if}{else}checked=checked{/if}/>
+							不开启
+							</label>
+							<!-- <span style="color:#c7cddb; line-height:40px; margin-left:20px;">可在单个商品中单独控制</span> -->
+						</div>
+					</div>
+					<div class="control-group" >
+						<!--新增的字段-->
+						<label class="control-label control-label0">商品评论审核</label>
+						<div class="controls" style="margin-left: 205px;">
+							<label class="radio">
+							<input type="radio" name="commPs" value="1" {if $config}{if $config['commPs']=="1"}checked=checked{/if}{/if}/>
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="commPs" value="0" {if $config}{if $config['commPs']=="0"}checked=checked{/if}{else}checked=checked{/if}/>
+							不开启
+							</label>
+							<!-- <span style="color:#c7cddb; line-height:40px; margin-left:20px;">可在每篇文章中单独控制</span> -->
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<!--新增的字段-->
+						<label class="control-label control-label0">商品分享</label>
+						<div class="controls" style="margin-left: 205px;">
+							<label class="radio">
+							<input type="radio" name="share_open" value="1" {if $bases}{if $bases['share_open']=="1"}checked=checked{/if}{else}checked=checked{/if} />
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="share_open" value="2" {if $bases}{if $bases['share_open']=="2"}checked=checked{/if}{/if}/>
+							不开启
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">商品详情页面的分享按钮，默认开启</span>
+						</div>
+					</div>
+					
+					<div class="control-group" >
+						<!--新增的字段-->
+						<label class="control-label control-label0">ios虚拟支付</label>
+						<div class="controls" style="margin-left: 205px;">
+							<label class="radio">
+							<input type="radio" name="ios" value="1" {if $bases}{if $bases['ios']=="1"}checked=checked{/if}{/if}/>
+							开启
+							</label>
+							<label class="radio">
+							<input type="radio" name="ios" value="0" {if $bases}{if $bases['ios']=="0"}checked=checked{/if}{else}checked=checked{/if}/>
+							不开启
+							</label>
+							<span style="color:#c7cddb; line-height:40px; margin-left:20px;">付费文章、付费音频、付费视频虚拟支付、充值、会员等级购买，默认关闭</span>
+						</div>
+					</div>
+
+                    <div class="control-group" >
+                        <!--新增的字段-->
+                        <label class="control-label control-label0">充值</label>
+                        <div class="controls" style="margin-left: 205px;">
+                            <label class="radio">
+                            <input type="radio" name="recharge" value="1" {if $bases}{if $bases['recharge']=="1"}checked=checked{/if}{else}checked=checked{/if}/>
+                            开启
+                            </label>
+                            <label class="radio">
+                            <input type="radio" name="recharge" value="2" {if $bases}{if $bases['recharge']=="2"}checked=checked{/if}{/if}/>
+                            不开启
+                            </label>
+                            <span style="color:#c7cddb; line-height:40px; margin-left:20px;">个人中心充值按钮，默认开启</span>
+                        </div>
+                    </div>
+                    <div class="controls form_nobg" >
+                        <button type="submit" style="color:#fff;background-color:#4385ff;" class="btn">确定</button>
+                    </div>
+				</form>
+				<!-- END FORM-->
+				
+		</div>
+	</div>
+    <div class="zhezhao" style="display: none;" id="zhezhao">
+        <div class="zhezhao_main">
+            <div class="main_header">
+                <label>上传提示</label>
+                <img src="__STATIC_ROOT__/image/close.png" alt="" onclick="closeshowali()">
+            </div>
+            <div class="main_container">
+                <label>1. 点击下载码包-<a href="javascript:;" onclick="downloadAli()"><支付宝小程序前端包></a></label>
+                <label>2. 解压码包</label>
+                <label>3. 打开<a href="https://docs.alipay.com/mini/ide/download" target="_blank">支付宝开发者工具</a> > 打开项目 > 项目路径选择解压后的文件 > 打开</label>
+                <label>4. 打开后界面右上角上传按钮上传 > 前往支付宝小程序后台提交审核</label>
+            </div>
+            <div class="main_foot">
+                <button onclick="closeshowali()">关闭</button>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC_ROOT__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC_ROOT__/webuploader/js/webuploader.min.js"></script>
+<script type="text/javascript" >
+function change1(){
+    var remote = $("input[name='shortmsg_applet']:checked").val();
+    console.log(remote)
+    if(remote == 1){
+      $("#shortmsg_duli").hide();
+    }else if(remote == 2){
+      $("#shortmsg_duli").show();
+    }
+}
+  function change(){
+    var remote = $("input[name='shortmsg']:checked").val();
+    if(remote == 1){
+      $("#tenx").show();
+      $("#ali").hide();
+    }else if(remote == 2){
+      $("#tenx").hide();
+      $("#ali").show();
+    }
+  }
+function checkinfo(){
+	var xcxId = $("#xcxId").val();
+	var appID = $("#appID").val();
+	var appSecret = $("#appSecret").val();
+}
+function shenc(){
+	len = 32;
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+    var maxPos = $chars.length;
+    var pwd = '';
+    for (i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    $("#signkey").val(pwd);
+}
+function del(id){
+	if(confirm('你确定要删除这张图片嘛?')){
+		$("#li"+id).remove();
+		$.post("{:Url('Index/del')}",{"id":id},function(data){
+		})
+	}else{
+	        return false;
+	    }
+}
+</script>
+{include file="public/foot_more" /}

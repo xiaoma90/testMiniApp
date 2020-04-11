@@ -1,0 +1,106 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style>
+	thead{
+	background: #fafafa;
+}
+table{
+	margin-bottom: 20px;
+	width: 100%;
+	text-align: center;
+	border: 1px solid #f0f0f0;
+}
+th,td{
+	border: 1px dashed #f0f0f0;
+	text-align: center;
+}
+th{
+	height: 45px;
+}
+td{
+	height: 62px;
+}
+</style>
+<input type="hidden" id="nowhtml" value="navVIP" class="navVIP4">
+
+
+<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							<th>用户信息</th>
+							<th>卡号</th>
+							<th>开通时间</th>
+						</tr>
+
+					</thead>
+
+					<tbody>
+					{if $list}
+						{foreach $list as $item}
+							<tr>
+								<td>
+				                    <img src="{$item.avatar}" style="width:30px; height:30px;">
+									{$item.nickname}
+				                </td>
+								<td>
+									{$item.vipid}
+								</td>
+								<td>
+									{:date("Y-m-d H:i:s",$item.vipcreatetime)}
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据
+					</div>
+					<div class="fenye_right">
+						{$page}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{include file="public/foot_more" /}

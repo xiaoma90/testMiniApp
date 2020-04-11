@@ -1,0 +1,191 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		text-align: center;
+		border: 1px solid #f0f0f0;
+		margin-bottom: 20px;
+		width: 95%;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+		/* line-height: 45px; */
+	}
+	td{
+		height: 62px;
+	}
+</style>
+{if $type==2}
+<input type="hidden" id="nowhtml" value="navGoods" class="navGoods2">
+{/if}
+{if $type==1}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel11">
+{/if}
+{if $type==3}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel12">
+{/if}
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+				<div style="display: inline-block;padding:10px 0;">
+					<select name="search_type" id="search_type" style="width: 120px;margin: 0;">
+						<option value="0" {if $search_type == '0'}selected="selected"{/if}>全部</option>
+						<option value="1" {if $search_type == '1'}selected="selected"{/if}>好评</option>
+						<option value="2" {if $search_type == '2'}selected="selected"{/if}>中评</option>
+						<option value="3" {if $search_type == '3'}selected="selected"{/if}>差评</option>
+					</select>
+				</div>
+				<div style="display: inline-block;">
+					<div class="btn" style="display: inline-block;font-size: 12px;background: #4385ff;color: #fff;margin-left: 30px;text-align: center" onclick="search()">搜索</div>
+				</div><br>
+				<div style="margin:20px 0;">					
+					<button class="btn" style="background:rgba(67, 133, 255, 0.102);color: #4385ff;border:1px solid #4385ff;margin-right: 10px;text-align: center"  onclick="delall()">
+					批量删除
+					</button>						
+				</div>
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							<th style="width: 70px;">
+								<input type="checkbox" id="all" />
+								<!-- <button class="btn green"  onclick="delall()">批量删除</button> -->
+							</th>
+							<td>产品ID</td>
+							<td >订单号</td>
+							<td>评价人</td>
+							<td >评价级别</td>
+							<td style="width:300px;">评价内容</td>
+							<td>评价图片</td>
+							<td>是否匿名</td>
+							<td style="width: 200px">操作</td>
+						</tr>
+
+					</thead>
+
+					<tbody>
+						{if $list['data']}
+							{foreach $list['data'] as $item}
+								<tr>
+									<td>
+										<input type="checkbox" name="csb"  value="{$item.id}"/>
+									</td>
+									<td>{$proid}</td>
+									<td>{$item.orderid}</td>
+									<td>
+										<img src="{$item['avatar']}" alt="" style="width:40px;height:40px;border-radius:3px;">
+										{$item['nickname']}
+									</td>
+									<td>
+										{if $item['assess'] == 1}好评{/if}
+										{if $item['assess'] == 2}中评{/if}
+										{if $item['assess'] == 3}差评{/if}
+									</td>
+									<td> {$item['content']}</td>
+									<td>
+
+										{if $item['imgs']}
+										{foreach  $item['imgs'] as $a}
+										<a href="{$a}" target="_blank"><img src="{$a}" alt="" style="width:40px;height:40px;border-radius:3px;"></a>
+										{/foreach}
+										{/if}
+
+									</td>
+									<td>
+										{if $item['anonymous'] == 0}否{/if}
+										{if $item['anonymous'] == 1}是{/if}
+									</td>
+
+									<td>
+										<a style="color: #4385ff;border:1px solid #4385ff;background:#fff;border-radius:3px;cursor:pointer;padding:1px 5px;" href="{:Url('Evaluate/detail')}?appletid=<?php echo $_GET['appletid']?>&evid={$item['id']}&type={$type}&proid={$proid}">详细信息</a>
+
+										<a style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius:3px;cursor:pointer;padding:1px 5px;" onclick="return confirm('此操作不可恢复，确认吗？'); return false;" href="{:Url('Evaluate/del')}?appletid=<?php echo $_GET['appletid']?>&evid={$item['id']}&type={$type}">删除</a>
+									</td>
+									
+								</tr>
+							{/foreach}
+						{/if}
+						
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						<!-- 一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据 -->
+					</div>
+					<div class="fenye_right">
+						{$lists->render()}
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    $('#all').on('click',function(){
+
+        if(this.checked) {
+            $.uniform.update($("input[name='csb']").attr("checked", true));
+        }else {
+            $.uniform.update($("input[name='csb']").attr("checked", false));
+        }
+    });
+    function delall(){
+        var array1=new Array();
+        $.each($("input[name='csb']"),function(){
+            if(this.checked){
+                array1.push($(this).val());
+            }
+        });
+        if(array1.length>0){
+            if(window.confirm('确定删除这些商品评论？')){
+                location.href = "{:Url('Evaluate/delall')}?appletid=<?php echo $_GET['appletid']?>&pingluns="+array1;
+            }else{
+                return false;
+            }
+        }else{
+            alert("您未选择删除对象");
+            return false;
+        }
+    }
+    function search(){
+		var search_type=$("#search_type").val();
+        location.href = "{:Url('Evaluate/index')}?appletid=<?php echo $_GET['appletid']?>&proid={$proid}&type={$type}&search_type="+search_type;
+    }
+
+
+
+</script>
+
+
+
+{include file="public/foot_more" /}

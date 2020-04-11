@@ -1,0 +1,232 @@
+
+
+
+
+		</div>
+	</div>
+</div>
+<input type="hidden" id="handle_status">
+<script>
+function copyid(id){
+	var clipboard = new Clipboard('.js-clip'+id);
+	clipboard.on('success', function(e) {
+	    alert("ID复制成功");
+	    e.clearSelection();
+	});
+
+	clipboard.on('error', function(e) {
+	    alert("ID复制失败");
+	});
+}
+</script>
+
+	
+
+	<script src="__STATIC_ROOT__/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+
+	<script src="__STATIC_ROOT__/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>      
+
+	<script src="__STATIC_ROOT__/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<script src="__STATIC_ROOT__/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+
+	<script src="__STATIC_ROOT__/js/jquery.blockui.min.js" type="text/javascript"></script>  
+
+	<script src="__STATIC_ROOT__/js/jquery.cookie.min.js" type="text/javascript"></script>
+
+	<script src="__STATIC_ROOT__/js/jquery.uniform.min.js" type="text/javascript" ></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-fileupload.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/chosen.jquery.min.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/select2.min.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/wysihtml5-0.3.0.js"></script> 
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-wysihtml5.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.tagsinput.min.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.toggle.buttons.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-datepicker.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-datetimepicker.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/clockface.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/date.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/daterangepicker.js"></script> 
+
+	<!--<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-colorpicker.js"></script>  -->
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/bootstrap-timepicker.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.inputmask.bundle.min.js"></script>   
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.input-ip-address-control-1.0.min.js"></script>
+
+	<script type="text/javascript" src="__STATIC_ROOT__/js/jquery.multi-select.js"></script>   
+
+	<script src="__STATIC_ROOT__/js/bootstrap-modal.js" type="text/javascript" ></script>
+
+	<script src="__STATIC_ROOT__/js/bootstrap-modalmanager.js" type="text/javascript" ></script> 
+
+	<script src="__STATIC_ROOT__/js/app.js"></script>
+	
+	
+	<script src="__STATIC_ROOT__/js/form-components.js"></script>   
+
+	<script src="__STATIC_ROOT__/js/ui-modals.js"></script>
+	<script src="__STATIC_ROOT__/js/layer/layer.js"></script>  
+	<link href="__STATIC_ROOT__/js/layer/theme/default/layer.css" rel="stylesheet" type="text/css"/>
+	
+	<script>
+		var path ="1";
+		$("body").delegate(".commonchangepic", "click",function(){
+			var type =  $(this).data('type');
+			var classname = $(this).find("input").attr("name");
+			layer.open({
+			  type: 2,
+			  title: false,
+			  area: ['1000px', '680px'],
+			  fixed: false, //不固定
+			  maxmin: true,
+			  content: ['{:Url("Remote/index")}?appletid=<?php echo $_GET['appletid']?>&type='+type,'no'],
+			  success:function(layero,index){
+		      },
+		      end:function(){
+		      		if(type==2){
+			            var handle_status = $("#handle_status").val();       
+			            if(handle_status!=""){
+				            $("input[name="+classname+"]").val(handle_status)
+				            var imgarr = handle_status.split(',');
+				            var str = "";
+				            var imginput = "";
+				            var idx = $("input[name='imgsrcs[]']:last").attr('class')
+				            if(idx == undefined){
+				            	idx = '';
+				            }else{
+				            	idx = idx.substring(5);
+				            }
+				            let j = 0;
+				            for(var i=0; i<imgarr.length; i++){
+				            	if(idx != ''){
+				            		j = idx*1 + 1;
+				            	}
+				            	str+="<div class='paiwei shanc"+j+"' onmousemove='xians(this)' onmouseout='gb(this)'>"+
+											"<img src='"+imgarr[i]+"' style='width:67px;height:67px;border-radius:3px;'>"+
+											"<div class='beijingys'>"+
+											"</div>"+
+											"<div class='sancann' onclick='dels("+j+")'>"+
+												"<span class='cancel' style='background-image: url(__STATIC_ROOT__/webuploader/css/images/icons.png)''>删除</span>"+
+											"</div>"+
+										"</div>";
+								imginput += '<input type="hidden" name="imgsrcs[]" value="'+imgarr[i]+'" class="shanc'+j+'" />';
+								if(idx != ''){
+									++idx;
+				            	}else{
+				            		++j;
+				            	}
+				            }
+				            if(str){
+								$(".commonuploadslide").append(str);
+				            }
+				            if(imginput){
+								$(".commonuploadslide").append(imginput);
+				            }
+				            $("#handle_status").val("");
+			            }
+		      		}
+		      		if(type==1){
+		      			var handle_status = $("#handle_status").val();
+		      			if(handle_status){
+		      				var len = classname.split("commonuploadpic");
+		      				if(len[1] < 10){
+					            $("input[name="+classname+"]").val(handle_status)
+					            $("."+classname+" img").attr("src",handle_status)
+					            $("#handle_status").val("");
+		      				}else{
+		      					var len_i = classname.split("commonuploadpic1");
+		      					var imgxs = "#imgxs"+len_i[1];
+		      					$("#imgurl"+len_i[1]).val(handle_status);
+					            $(imgxs+" img").html("");
+					            var imgurl = "<img src="+handle_status+"><div class='xuzndt1' name='imgurl"+len_i[1]+"' onclick='delimage(imgurl"+len_i[1]+")'><img src=__STATIC_ROOT__/image/guige_delete.png></div>";
+					            $(imgxs).html(imgurl);
+		      				}
+		      			}
+		      		}
+		        }
+			});
+		});
+
+		function dels(i){
+			$(".shanc"+i).remove();
+		}
+		jQuery(document).ready(function() {  
+		   	App.init(); // initlayout and core plugins
+		   	FormComponents.init();
+			UIModals.init();
+			$.fn.datetimepicker.dates['zh-CN'] = {  
+	            days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],  
+	            daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],  
+	            daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],  
+	            months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],  
+	            monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],  
+	            today: "今天",  
+	            suffix: [],  
+	            meridiem: ["上午", "下午"]  
+	    	}; 
+		   	$('#datetimepicker').datetimepicker({language:  'zh-CN'});
+		   	$('#datetimepickers').datetimepicker({
+		   		minView: "month",//设置只显示到月份
+		   		language:  'zh-CN',
+		   		format : "yyyy-mm-dd",//日期格式
+				autoclose:true,//选中关闭
+		   	});
+		   	$('#datetimepicker2').datetimepicker({language:  'zh-CN'});
+            $('#datetimepicker3').datetimepicker({language:  'zh-CN'});
+            $('#end_datetimepicker').datetimepicker({language:  'zh-CN'});
+            $('#end_datetimepicker2').datetimepicker({language:  'zh-CN'});
+		});
+
+	</script>
+
+
+	</body>
+	<script type="text/javascript">
+		$('.content_left_single').click(function(){
+		$('.content_left_single').removeClass('content_left_single_on');
+		$(this).addClass('content_left_single_on')
+	})
+	$('.content_right_single').each(function(){
+		$(this).click(function(){
+			if($(this).hasClass('content_right_single_on')){
+				$(this).removeClass('content_right_single_on')
+			}else{
+				$(this).addClass('content_right_single_on')
+			}
+		})
+	})
+	$('.creatphoto').click(function(){
+		$('.cjxcalertbox').show()
+	})
+	$('.cjxc_btn_close').click(function(){
+		$('.cjxcalertbox').hide()
+	})
+	$('.cjxcalert_head_right').click(function(){
+		$('.cjxcalertbox').hide()
+	})
+	$('.cjxc_btn_creat').click(function(){
+		var val = $('.cjxcalert_input').val();
+		var html = $('.content_left').html();
+		html += '<div class="content_left_single hbj"><div class="content_left_single_div1">'+val+'</div><div style="flex: 1;"></div><div class="content_left_single_div2">0</div></div>';
+		$('.content_left').html(html);
+		 $('.cjxcalert_input').val("");
+	})
+	</script>
+
+	</body>
+</html>

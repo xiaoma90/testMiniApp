@@ -1,0 +1,191 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		margin-bottom: 20px;
+		width: 100%;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+	.button_gray{
+		padding: 1px 2px;
+	}
+	.button_ji{
+		padding: 4px 6px;
+	}
+	.button_qi{
+		padding: 1px 6px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navVIP" class="navVIP7">
+	<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+			<div class="portlet-body">
+
+				<div class="input-box" style="margin-bottom: 10px; position: relative;">
+
+					<div class="btn-group" style="float:left;">
+						<a href="{:Url('Vipset/add')}?appletid=<?php echo $_GET['appletid']?>" >
+							<button id="sample_editable_1_new" class="btn green" style="background-color: #4385ff;">新增会员等级<!-- <i class="icon-plus"></i> --></button>
+						</a>
+					</div>
+				</div>
+			
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							
+							<th style="width: 80px;">ID</th>
+							<th style="width: 80px;">等级</th>
+							<th style="width: 200px;">等级名称</th>
+							<th style="width: 200px;">达到所需购买金额</th>
+							<th style="width: 200px;">升级条件</th>
+							<th>状态</th>
+							<th style="width: 300px;">操作</th>
+						<!-- 	<th>
+								<input type="checkbox" id="all" />全选&nbsp;&nbsp;
+								<button class="btn green"  onclick="delall()">批量删除</button>
+							</th> -->
+						</tr>
+
+					</thead>
+
+					<tbody>
+					{if $list}
+						{foreach $list as $item}
+							<tr>
+								<td>
+									{$item.id}
+								</td>
+								<td>
+									{$item.grade}
+								</td>
+								<td>
+									{$item.name}
+								</td>
+								<td>
+									{$item.upgrade}
+								</td>
+								<td>
+									{$item.price}
+								</td>
+						
+								<td>
+									{if $item['status'] == 1}
+									<span class="btn green button_qi">启用</span>
+									{/if}
+				                    {if $item['status'] == 0}
+				                    <span class="label  label-default button_ji">禁用</span>
+									{/if}
+									{if $item['status'] == 1 && $item['grade'] > 1}
+									|
+									<a class="btn btn-sm button_gray" onclick="getajax({$item.id},2)">禁用</a>
+									{/if}
+									{if $item['status'] == 0 && $item['grade'] > 1}
+									|
+									<a class="btn btn-sm button_gray" onclick="getajax({$item.id},1)">启用</a>
+									{/if}
+								</td>
+								<td>
+									<a href="{:Url('Vipset/add')}?appletid=<?php echo $_GET['appletid']?>&gid={$item.id}"><button class="btn btncolor" style="color:#438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px !important;padding: 1px 6px;">编辑</button></a>
+									{if $item['grade'] > 1}
+									<form action="{:Url('Vipset/del')}?appletid=<?php echo $_GET['appletid']?>&gid={$item.id}"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button class="btn btncolor" type="submit" style="color: #d9534f;border: 1px solid #d9534f;background: #fff;border-radius: 4px !important; padding: 1px 6px;">删除</button>
+									</form>
+									{/if}
+									<a href="{:Url('Wxuser/index')}?appletid=<?php echo $_GET['appletid']?>&grade={$item.grade}"><button class="btn btncolor" style="color:#35aa47;border:1px solid #35aa47;background:#fff;border-radius:4px !important;padding: 1px 6px;">查看会员</button></a>
+								</td>
+							<!-- 	<td>
+									<input type="checkbox" name="csb"  value="{$item.id}"/>
+								</td> -->
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据
+					</div>
+					<div class="fenye_right">
+						{$pager}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	// function search(){
+ //        var cid=$("#cid option:selected").val();
+ //        var key = $("#getnews").val();
+ //        if(cid==false&&key==false){
+ //              alert("请选择栏目或填写标题关键字");
+	// 	}else{
+ //            location.href = "{:Url('Duoproducts/index')}?appletid=<?php echo $_GET['appletid']?>&key="+key+"&cid="+cid;
+	// 	}
+
+ //    }
+ 	function getajax(gid,i){
+ 		$.ajax({
+ 			url:"{:Url('Vipset/updatestatus')}?appletid=<?php echo $_GET['appletid']?>",
+ 			type:"post",
+ 			dataType:"json",
+ 			data:{
+ 				gid:gid,
+ 				i:i
+ 			},
+ 			success:function(e){
+ 				if(e == 1){
+ 					history.go(0);
+ 				}
+ 			}
+ 		})
+ 	}
+	function del(){
+		if(confirm('该删除操作不可逆，请谨慎操作?')){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+</script>
+
+
+{include file="public/foot_more" /}

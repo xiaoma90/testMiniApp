@@ -1,0 +1,251 @@
+{include file="public/head" /}
+
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navModel" class="navModel9-2">
+
+	<style type="text/css">
+		.chongdingy{
+			background-color:#f5f5f5;
+			padding:10px 0;
+		}
+		.chongdingywz{
+			text-align: left !important;
+			font-size: 16px;
+			padding-left: 20px;
+		}
+	</style>
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<form action="{:Url('Auction/goodssave')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<input type="hidden" name="goodsid" value="{$goodsid}">
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">拍卖品信息</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">拍卖品名称</label>
+						<div class="controls">
+							<input name="name" id="goodsname" type="text" class="span3 m-wrap" value="{if $goodsinfo}{$goodsinfo.name}{/if}"  style="height: 35px !important;" />
+							<span style="color:#999999; line-height:40px; margin-left:20px;">请填写拍卖物品名称</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">是否推送到首页</label>
+						<div class="controls">
+							<label class="radio">
+							<input type="radio" name="isindex" value="1" {if $online==1}checked=checked{else}{if $goodsinfo}{if $goodsinfo.isindex==1}checked=checked{/if}{/if}{/if} />
+							启用
+							</label>
+							<label class="radio">
+							<input type="radio" name="isindex" value="0" {if $online!=1}{if $goodsinfo}{if $goodsinfo.isindex==0}checked=checked{/if}{else}checked=checked{/if}{/if}/>
+							不启用
+							</label>
+							<span style="color:#999999; line-height:40px; margin-left:20px;">启用后方可显示</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">所属栏目</label>
+						<div class="controls">
+							<select name="cid" id="cid" class="span3 m-wrap" >
+								<option value="0">选择栏目</option>
+								{if $catelist}
+									{foreach $catelist as $item}
+										<option value="{$item.id}" {if $goodsinfo}{if $goodsinfo.cid == $item.id}selected=selected{/if}{/if}>{$item.name}</option>
+									{/foreach}
+								{/if}
+							</select>
+							<span style="color:#999999; line-height:40px; margin-left:20px;">选择所属栏目</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">栏目缩略图</label>
+						<div class="controls">
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail commonuploadpic" style="width: 140px; height:90px;">
+									{if $goodsinfo && $goodsinfo.img}
+									<img src="{$goodsinfo.img}"/>
+									{else}
+									<img src="__STATIC_ROOT__/image/noimage.jpg" alt="" />
+									{/if}
+								</div>
+								<div>
+									<span class="btn btn-file"><span class="fileupload-new commonchangepic" data-type="1">选择图片<input type="hidden" name="commonuploadpic" ></span></span>
+								</div>
+								<div class="zphpx"><font color="#999999">最宽750px，高度随意</font></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group" style="margin-bottom:0px !important;">
+						<label class="control-label">组图</label>
+						<div class="controls">
+							<div id="xztpan" class="btn commonchangepic" style="background-color:#e5e5e5; color:#333333" data-type="2">
+							选择图片
+							<input type="hidden" name="commonuploadslide">
+							</div>
+							<span style="color:#999999; line-height:40px; margin-left:20px;">建议上传750大小图片</span>
+						</div>
+					</div>
+					<div class="control-group" style="padding-top:10px">
+						<label class="control-label"></label>
+						<div class="controls commonuploadslide" id="imgzs" style="font-size:0">
+						{if $goodsinfo}
+							{if $goodsinfo.imglist}
+							{foreach $goodsinfo.imglist as $k => $res}
+								<div class="paiwei" onmousemove="xians(this)" onmouseout="gb(this)" id="lis{$k}">
+									<img src="{$res}" style="width: 140px; height:90px;">
+									<div class="beijingys">
+									</div>
+									<div class="sancann" onclick="delimg({$k})">
+										<span class="cancel" style="background-image: url(__STATIC_ROOT__/webuploader/css/images/icons.png)">删除</span>
+									</div>
+									<input type="hidden" name="imgsrcs[]" value="{$res}" class="shanc{$k}">
+								</div>
+							{/foreach}
+							{/if}
+						{/if}
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">市场价</label>
+						<div class="controls">
+							<input name="price" id="price" type="text" class="span3 m-wrap" onkeyup="value=value.replace(/[^\d,.]/g,'')" value="{if $goodsinfo}{$goodsinfo.price}{/if}" placeholder="请输入数字"  style="height: 35px !important;" />
+							<span style="color:#999999; line-height:40px; margin-left:20px;">输入市场价格</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">保证金</label>
+						<div class="controls">
+							<input name="bond" id="bond" type="text" class="span3 m-wrap" onkeyup="value=value.replace(/[^\d,.]/g,'')" value="{if $goodsinfo}{$goodsinfo.bond}{/if}" placeholder="请输入数字"  style="height: 35px !important;" />
+							<span style="color:#999999; line-height:40px; margin-left:20px;">拍卖的保证金</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">起拍价</label>
+						<div class="controls">
+							<input name="basc_cost" id="basc_cost" type="text" class="span3 m-wrap" onkeyup="value=value.replace(/[^\d,.]/g,'')" value="{if $goodsinfo}{$goodsinfo.basc_cost}{/if}" placeholder="请输入数字"  style="height: 35px !important;" />
+							<span style="color:#999999; line-height:40px; margin-left:20px;">最低竞拍价</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">加价幅度</label>
+						<div class="controls">
+							<input name="rules" id="rules" type="text" class="span3 m-wrap" onkeyup="value=value.replace(/[^\d,.]/g,'')" value="{if $goodsinfo}{$goodsinfo.rules}{/if}" placeholder="请输入数字"  style="height: 35px !important;" />
+							<span style="color:#999999; line-height:40px; margin-left:20px;">每次加价的最低价</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">浏览量</label>
+						<div class="controls">
+							<input name="flow" id="flow" type="text" class="span3 m-wrap" onkeyup="value=value.replace(/[^\d,.]/g,'')" value="{if $goodsinfo}{$goodsinfo.flow}{/if}" placeholder="请输入数字"  style="height: 35px !important;" />
+							<span style="color:#999999; line-height:40px; margin-left:20px;">浏览量</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">秒杀开始时间</label>
+						<div class="controls">
+							<input type="text" value="{if $online!=1}{if $goodsinfo}{$goodsinfo.starttime}{/if}{/if}"  name="starttime"   readonly id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii">
+							<span style="color:#999999; line-height:40px; margin-left:20px;">物品开始拍卖</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">秒杀结束时间</label>
+						<div class="controls">
+							<input type="text" value="{if $online!=1}{if $goodsinfo}{$goodsinfo.endtime}{/if}{/if}"  name="endtime"   readonly id="datetimepicker2" data-date-format="yyyy-mm-dd hh:ii">
+							<span style="color:#999999; line-height:40px; margin-left:20px;">物品拍卖的最后时间</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">商品详情</label>
+						<div class="controls">
+						    <div class="editors">
+								<script id="editor" name="introduce" type="text/plain">{if $goodsinfo}{$goodsinfo.introduce}{/if}</script>
+						    </div>
+						</div>
+					</div>
+					<div class="form-actions">
+						<input type="hidden" name="online" value="{$online}" >
+						<button type="submit" class="btn green">确定</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC_ROOT__/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
+	<script type="text/javascript" src="__STATIC_ROOT__/webuploader/js/webuploader.min.js"></script>
+    <script type="text/javascript">
+    	$(function() {
+	    	var ue = UE.getEditor('editor');
+		});
+	    function checkinfo(){
+	    	var name = $("#goodsname").val();
+        	if(name == ""){
+        		alert("请输入产品名称");
+        		return false;
+        	}
+        	var cid = $("#cid").val();
+        	if(cid==0){
+        		alert("请选择栏目");
+        		return false;
+        	}
+        	var price = $("#price").val();
+        	if(price==""){
+        		alert("请输入市场价");
+        		return false;
+        	}
+        	var bond = $("#bond").val();
+        	if(bond==""){
+        		alert("请输入保证金");
+        		return false;
+        	}
+        	var basc_cost = $("#basc_cost").val();
+        	if(basc_cost==""){
+        		alert("请输入起拍价");
+        		return false;
+        	}
+        	var rules = $("#rules").val();
+        	if(rules==""){
+        		alert("请输入加价幅度");
+        		return false;
+        	}
+        	var rules = $("#rules").val();
+        	if(rules==""){
+        		alert("请输入加价幅度");
+        		return false;
+        	}
+        	var datetimepicker = $("#datetimepicker").val();
+    		if(!datetimepicker || datetimepicker==0){
+        		alert("请设置物品开始拍卖时间");
+        		return false;
+        	}
+        	var datetimepicker2 = $("#datetimepicker2").val();
+    		if(!datetimepicker2 || datetimepicker2==0){
+        		alert("请设置物品结束拍卖时间");
+        		return false;
+        	}
+	    }
+	    function delimg(id){
+			if(confirm('你确定要删除这张图片嘛?')){
+				$("#lis"+id).remove();
+			}else{
+				return false;
+			}
+		}
+        function del(id){
+			if(confirm('你确定要删除这张图片嘛?')){
+				$("#li"+id).remove();
+			}else{
+				return false;
+			}
+		}
+
+		function xians(me){
+			var b = $(me).find("div[class='beijingys']");
+			var s = $(me).find("div[class='sancann']");
+			$(b).show();
+			$(s).show();
+		}
+     </script>
+{include file="public/foot_more" /}

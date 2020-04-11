@@ -1,0 +1,97 @@
+{include file="public/head" /}
+
+{include file="public/top" /}
+
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+
+<style type="text/css">
+.navModel4{
+	display: block !important;
+}
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.jscolor{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+
+</style>
+
+
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel4-1">
+
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="portlet box ">
+				<div class="portlet-body">
+					<form action="{:Url('Sign/save')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data">
+						<div class="control-group chongdingy">
+							<label class="control-label chongdingywz">签到积分</label>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label"><span>*</span> 随机积分区间</label>
+							<div class="controls">
+								<input name="score" type="text" class="span3 m-wrap" value="{if $bases}{$bases.score}{/if}"/>
+								<span style="color:#c7cddb; line-height:40px; margin-left:20px;">请按“10/20”格式进行填写</span>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label"><span>*</span> 最大积分</label>
+							<div class="controls">
+								<input name="max_score" type="text" class="span3 m-wrap" value="{if $bases}{$bases.max_score}{/if}"/>
+								<span style="color:#c7cddb; line-height:40px; margin-left:20px;">当个人积分达到最大积分时签到将不再获得积分</span>
+							</div>
+						</div>
+
+						<div class="form-actions form_nobg">
+							<button type="submit" class="btn" style="background: #4385ff;color:#fff;">确定</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	var score = $.trim($("input[name='score']").val());
+	if(!score){
+		alert("请填写随机积分区间");
+		return false;
+	}
+	var max_score = $.trim($("input[name='max_score']").val());
+	if(!max_score){
+		alert("请填写最大积分");
+		return false;
+	}
+	</script>
+{include file="public/foot_more" /}

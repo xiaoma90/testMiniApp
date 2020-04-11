@@ -1,0 +1,211 @@
+{include file="public/new_left" /}
+
+{include file="public/new_head" /}
+
+<input type="hidden" id="choose" value="update">
+
+<div class="content1">
+
+	<div class="update_headbox hbj">
+
+		<div class="upgradebox">
+
+			<img class="upgrade_img" src="__STATIC_ROOT__/image/upgrade.png"/>
+
+			<div class="upgrade_text1">{$updateinfo}</div>
+
+			<div class="upgrade_text2">当前版本为：V{$Think.VERSION_APP}</div>
+				<!-- <?php
+					if($overdue == 1){
+						if($lastver != VERSION_APP){
+							echo '<a href="javascript:;"><div class="upgrade_btn" style="cursor: pointer" onclick="update_ver()">升级</div></a>';
+						}
+					}else if($overdue == 2){
+						if($lastver != VERSION_APP){
+							echo '<a href="javascript:;"><div class="upgrade_btn" style="cursor: pointer;background: gray;" onclick="msg()">升级</div></a>';
+						}
+					}
+				?> -->
+
+		</div>
+
+		<div class="update_head_center flex1">
+			{if $lastver != $Think.VERSION_APP}
+			<div class="update_head_center_div">
+
+				<div class="update_title">更新内容：</div>
+
+				<div class="update_contentbox">
+
+					{$chanageinfo}
+
+				</div>
+
+			</div>
+			{else}
+			<div class="update_head_center_div2" >
+
+				<img src="__STATIC_ROOT__/image/update_null.jpg"/>
+
+				<div>无更新内容</div>
+
+			</div>
+			{/if}
+
+		</div>
+
+		<div class="update_timebox fr">
+
+			<img class="upgrade_img" src="__STATIC_ROOT__/image/update.png"/>
+
+			<div class="update_text1">更新时间</div>
+			{if $updatetime == "" & $updatemin == ""}
+				<div class="update_date">已是最新版</div>
+			{else}
+				<div class="update_date">{$updatetime} {$updatemin}</div>
+			{/if}
+			{if $etime != 0}
+				<div class="update_text1">授权到期时间</div>
+				<div class="update_date">{$etime}</div>
+			{/if}
+			
+		</div>
+
+	</div>
+
+	<div class="update_record">
+
+		<div class="update_record_title">更新记录：</div>
+
+		<div class="update_record_box clearfix">
+
+			{volist name="l_con" id="vo"}
+
+				<div class="update_record_single hbj2">
+
+
+
+					<div class="update_record_single_right flex1">
+
+						{$vo}
+
+
+
+					</div>
+
+
+
+				</div>
+
+			{/volist}
+
+		</div>
+
+	</div>
+
+</div>
+
+<!--确认升级提示-->
+
+<div class="alertbox" style="display: none;" id="show_del">
+
+    <div class="alert2" style="height: 168px">
+
+        <div class="alert2_head">是否升级
+
+            <img src="__STATIC_ROOT__/image/close_alert.png" onclick="close_update()"/>
+
+        </div>
+
+        <div class="alert2_content hbj">
+
+            <div class="alert2_content_text">
+            <p style="color:red">升级前,请确认已经做好数据库和程序备份!</p>
+			<p style="text-align: center;">确定升级吗？</p>
+            </div>
+
+            <div class="alert2_content_btn1" onclick="update_yes()" style="cursor: pointer">确定</div>
+
+            <div class="alert2_content_btn2" onclick="close_update()" style="cursor: pointer">取消</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--确认升级提示-->
+
+<!--确认升级成功提示-->
+
+<div class="alertbox" style="display: none;"  id="del_success">
+
+    <div class="alert3">
+
+        <div class="alert2_head">提示
+
+        </div>
+
+        <div class="alert3_content">
+
+            <div class="alert3_content_icon iconfont icon-chenggong"></div>
+
+            <div class="alert3_content_text">正在升级，请不要关闭页面/跳转页面</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!--确认升级成功提示-->
+
+</body>
+
+
+
+<div class="update_record_single hbj2" style="display: none">
+
+	<div class="update_record_single_left">
+
+		<img src="__STATIC_ROOT__/image/label.png"/>
+
+		<div>V2.09</div>
+
+	</div>
+
+	<div class="update_record_single_right flex1">
+
+		<div class="update_record_time">更新时间：2018-08-06  19:03:21</div>
+
+		<div class="update_content_single">【修复】DIY视频提示优化，视频前端不显示修复 </div>
+
+
+
+	</div>
+
+</div>
+
+<script>
+	function msg(){
+		alert('授权已过期，如需更新请先联系客服续费，客服QQ：3007083743。');
+	}
+    function update_ver() {
+
+        $("#show_del").show();
+
+    }
+	function update_yes(){
+		$("#show_del").hide();
+		$("#del_success").show();
+		window.location.href="./upcaoz.html?vs={$lastver}";
+	}
+
+	function close_update(){
+		$("#show_del").hide();
+	}
+
+</script>
+
+</html>
+

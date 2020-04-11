@@ -1,0 +1,133 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	form {
+	     margin: 0 !important; 
+	    display: inline-block !important;
+	}
+	a{color:inherit;}
+	.yyzx_list a{height:auto;}	
+	a img{width: 60px;height: 60px;}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel100">
+
+<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+				<div class="yyzx_list clearfix">
+			<!-- 	  <a href="./index.php?c=home&amp;a=welcome&amp;do=ext&amp;m=sudu8_page_plugin_shop&amp;version_id=4">
+				    <img src="https://wxkf2.nttrip.cn/addons/sudu8_page_plugin_shop/icon.jpg?v=1532886168">
+				    <div>万能门店多商户</div></a> -->
+				    <?php
+			            $node_id = $_SESSION['node_id'];
+			         ?>
+
+					{if in_array('113', $node_id)}		  
+					<a href="{:Url('Cyindex/index')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_food.jpg?v=1532886168">
+						<div>餐饮小程序</div>
+					</a>
+					{/if}	
+
+					{if in_array('129', $node_id)}
+					<a href="{:Url('Customers/index')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_customer.jpg?v=1532886168">
+						<div>小程序手机客服</div>
+					</a>
+					{/if}	
+					{if in_array('130', $node_id)}
+					<a href="{:Url('Powerfulsh/cate')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_shop.jpg?v=1532886168">
+						<div>多商户</div>
+					</a>
+					{/if}	
+					{if in_array('139', $node_id)}
+					<a href="{:Url('Forum/func')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_forum.png?v=1532886168">
+						<div>微同城</div>
+					</a>
+					{/if}
+					{if in_array('145', $node_id)}
+					<a href="{:Url('Shake/index')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon.jpg?v=1532886168">
+						<div>摇一摇抽奖</div>
+					</a>
+					{/if}
+					{if in_array('154', $node_id)}
+					<a href="{:Url('Auction/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_auction.jpg?v=1532886168">
+						<div>拍卖小程序</div>
+					</a>
+					{/if}
+					{if in_array('167', $node_id)}
+					<a href="{:Url('Supply/release')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_supply.png?v=1532886168">
+						<div>供求关系</div>
+					</a>
+					{/if}
+					{if in_array('171', $node_id)}
+					<a href="{:Url('flashsale/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_supply.png?v=1532886168">
+						<div>秒杀商品</div>
+					</a>
+					{/if}
+					{if in_array('175', $node_id)}
+					<a href="{:Url('Reserve/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_reserve.jpg?v=1532886168">
+						<div>预约预定商品</div>
+					</a>
+					{/if}
+					{if in_array('106', $node_id)}
+					<a href="{:Url('Pt/set')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_pt.jpg?v=1532886168">
+						<div>拼团小程序</div>
+					</a>
+					{/if}
+					{if in_array('126', $node_id)}
+					<a href="{:Url('Sign/set')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_score.png?v=1532886168">
+						<div>积分签到小程序</div>
+					</a>
+					{/if}	
+					{if in_array('121', $node_id)}
+					<a href="{:Url('Exchangescore/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_exchange.jpg?v=1532886168">
+						<div>积分兑换商城</div>
+					</a>
+					{/if}
+					{if in_array('121', $node_id)}
+					<a href="{:Url('Exchangescore/catelist')}?appletid=<?php echo $_GET['appletid']?>">
+						<img src="/image/modals/icon_exchange.jpg?v=1532886168">
+						<div>积分兑换商城</div>
+					</a>
+					{/if}	
+					
+					
+<!-- 				  <a href="./index.php?c=home&amp;a=welcome&amp;do=ext&amp;m=sudu8_page_plugin_travel&amp;version_id=4">
+				    <img src="https://wxkf2.nttrip.cn/addons/sudu8_page_plugin_travel/icon.jpg?v=1532886168">
+				    <div>预约预订</div></a> -->
+		<!-- 		  <a href="./index.php?c=home&amp;a=welcome&amp;do=ext&amp;m=sudu8_page_plugin_food&amp;version_id=4">
+				    <img src="https://wxkf2.nttrip.cn/addons/sudu8_page_plugin_food/icon.jpg?v=1532886168">
+				    <div>餐饮小程序</div></a> -->
+				  
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+{include file="public/foot_more" /}

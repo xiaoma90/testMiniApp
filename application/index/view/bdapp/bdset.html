@@ -1,0 +1,67 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<!--侧边栏end-->
+<!--主体start-->
+<input type="hidden" id="nowhtml" value="navBaidu" class="navBaidu1">
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				<form action="{:Url('Bdapp/save')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+					<div class="control-group chongdingy">
+						<label class="control-label chongdingywz">小程序相关配置</label>
+					</div>
+					<div class="control-group">
+						<label class="control-label">小程序AppId <span style="color:red">*</span></label>
+						<div class="controls">
+							<input name="appid" type="text" id="appid" class="span3 m-wrap" value="{if $base}{$base.appid}{/if}" style="height: 35px !important;">
+							<span style="color:#999999; line-height:40px; margin-left:20px;">请在小程序后台查看AppId</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">百度小程序AppKey <span style="color:red">*</span></label>
+						<div class="controls">
+							<input name="appkey" type="text" id="appkey" class="span3 m-wrap" value="{if $base}{$base.appkey}{/if}" style="height: 35px !important;">
+							<span style="color:#999999; line-height:40px; margin-left:20px;">请在小程序后台查看AppKey</span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">百度小程序AppSecret <span style="color:red">*</span></label>
+						<div class="controls">
+							<input name="appsecret" id="appsecret" type="text" class="span3 m-wrap" value="{if $base}{$base.appsecret}{/if}" style="height: 35px !important;">
+							<span style="color:#999999; line-height:40px; margin-left:20px;">应用密钥,请正确填写</span>
+						</div>
+					</div>
+					
+					<div class="form-actions">
+						<button type="submit" class="btn green">确定</button>
+					</div>
+				</form>
+				<!-- END FORM-->
+			</div>
+		</div>
+	</div>
+	
+<script src="__STATIC_ROOT__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC_ROOT__/webuploader/js/webuploader.min.js"></script>
+<script type="text/javascript" >
+function checkinfo(){
+	var appid = $("#appid").val();
+	var appkey = $("#appkey").val();
+	var appsecret = $("#appsecret").val();
+	if(!appid){
+		alert("请设置小程序appid！");
+		return false;
+	}else if(!appkey){
+		alert("请设置小程序appkey！");
+		return false;
+	}else if(!appsecret){
+		alert("请设置小程序appsecret！");
+		return false;
+	}else{
+		return true;
+	}
+}
+
+</script>
+{include file="public/foot_more" /}

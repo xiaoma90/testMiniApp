@@ -1,0 +1,92 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style>
+	.navSale8{
+		display: block !important;
+	}
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+<input type="hidden" id="nowhtml" value="navModel" class="navSale8-2">
+	
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body">
+				
+				<div class="btn-group">
+					<a href="{:Url('Order/wnset')}?appletid=<?php echo $_GET['appletid']?>" >
+					<button id="sample_editable_1_new" class="btn" style="background: #4385ff;color: #fff;margin-right: 10px;text-align: center">
+					添加表单
+					</button>
+					</a>
+				</div>
+				<table id="sample_editable_1">
+					<thead>
+						<tr>
+							
+							<th style="text-align:left;padding-left: 10px;">表单名称</th>
+							
+							<th width="400px;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					{if $forms}
+						{foreach $forms as $item}
+							<tr>
+								<td style="text-align:left;padding-left: 10px;">
+									{$item.formtitle}
+								</td>
+								<td>
+									<a href="{:Url('Order/wnset')}?appletid=<?php echo $_GET['appletid']?>&formid={$item.id}" style="margin: 0 2px"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 6px;">编辑</button></a>
+									<form action="{:Url('Order/orderdel_f')}?appletid=<?php echo $_GET['appletid']?>&formid={$item.id}" style="margin:0;display:inline-block;margin: 0 2px"  method="post" enctype="multipart/form-data" onsubmit = "return del()">
+										<button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 6px;" type="submit">删除</button>
+									</form>
+									<a href="{:Url('Order/excel')}?appletid=<?php echo $_GET['appletid']?>&formid={$item.id}" style="margin: 0 2px">
+										<button style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px;padding: 1px 6px;">
+											导出excel
+										</button>
+									</a>
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+				</table>
+				<div>
+					<div class="fenye_right">
+						{$forms_list->render()}
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		function del(){
+			if(confirm('该删除操作不可逆，请谨慎操作?')){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	</script>
+	
+{include file="public/foot_more" /}

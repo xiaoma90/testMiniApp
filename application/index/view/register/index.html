@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+		<meta charset="utf-8" />
+
+		<link rel="stylesheet" href="__STATIC_ROOT__/css/new-index.css" />
+
+		<script src="__STATIC_ROOT__/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="__STATIC_ROOT__/js/new-index.js" type="text/javascript" charset="utf-8"></script>
+
+		<title>注册</title>
+        <style>
+        .register_div{
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 750px;
+            height: 668px;
+            box-shadow: 0px 5px 50px 0px rgba(99,132,251,0.1);
+            background: #fff;
+            text-align: center;
+        }
+        .content_div{
+            padding-top: 50px;
+            width: 460px;margin: 0 auto;
+        }
+        .login_form{
+            margin-top: 40px;
+        }
+        .login_user{
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .code{
+            width: 124px;
+            height: 48px;
+            line-height: 48px;
+            background: #4385ff;
+            color: #fff;
+            position: relative;
+            top: 0;
+            right: -20px;
+            cursor: pointer;
+        }
+        .vcode{
+            width: 170px;
+            height: 48px;
+            line-height: 48px;
+            background: #f2f2f2;
+            position: relative;
+            top: 0;
+            right: -20px;
+        }
+        .login_submit{
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .register{
+            text-align: center;
+        }
+        .register a{
+            display: inline-block;
+            font-size: 14px;
+            color: #4385ff;
+            margin: 0 auto;
+            border-bottom: 1px solid #4385ff;
+            height: 20px;
+        }
+        .verifyimg{margin-right: 0 !important;}
+        input{height: 30px;}
+        </style>
+
+
+	</head>
+
+	<body>
+
+		<div class="login_bg" style="background-image: url(/image/login_bg.png);">
+			<div class="register_div">
+            <div class="content_div">
+				<div class="login_title">注册</div>
+				<form class="login_form" action="{:Url('Register/sub')}" method="post" onsubmit = "return checkinfo();">
+					<div class="login_user hbj">
+						<input class="login_input flex1" type="text" name="username" id="username" value="" placeholder="用户名"/>
+					</div>
+					<div class="login_user hbj">
+						<input class="login_input flex1" type="password" name="password" id="password" value="" placeholder="密码" />
+					</div>
+					<div class="login_user hbj">
+						<input class="login_input flex1" type="password" name="password2" id="password2" value="" placeholder="确认密码" />
+					</div>
+					<div class="login_user hbj">
+						<input class="login_input flex1" type="text" name="tel" id="tel" value="" placeholder="手机号码"/>
+					</div>
+					{if $shortmsg == 1}
+					<div class="login_user hbj" >
+						<input class="login_input flex1" type="text" name="code" id="code" value="" placeholder="短信验证码"/>
+						<span class="code" onclick="getcode()">获取验证码</span>
+					</div>
+					{/if}
+<!-- 					<div class="login_user hbj">
+						<img src="__STATIC_ROOT__/image/admin.png"/>
+						<input class="login_input flex1" type="text" name="name" id="name" value="" placeholder="联系人"/>
+					</div>
+					<div class="login_user hbj">
+						<img src="__STATIC_ROOT__/image/admin.png"/>
+						<input class="login_input flex1" type="text" name="email" id="email" value="" placeholder="邮箱"/>
+					</div> -->
+                    <div class="login_user hbj" style="margin-bottom: 0px !important;">
+                        <input class="login_input flex1" type="text" name="vcode" id="vcode" value="" placeholder="图形验证码"/>
+                        <span class="vcode">
+                            <img src="{:captcha_src()}" alt="" class="verifyimg reloadverify">
+                        </span>
+                    </div>
+					<input class="login_submit" type="submit" value="注册"/>
+                    <div class="register"><a href="{:Url('Login/index')}">已有账号，立即登录</a></div>
+				</form>
+            </div>
+
+			</div>
+
+		</div>
+
+	</body>
+
+</html>
+
+<script>
+    var time = 60;
+    var flag = true;   //设置点击标记，防止60内再次点击生效
+	function getcode(){
+        $(this).attr("disabled", true);
+		var tel = $.trim($("#tel").val());
+        if(!tel){
+        	alert("请先输入手机号！");
+            $("#tel").focus();
+            $(this).attr("disabled", false);
+            return false;
+        }
+        if(!(/^1[3456789]\d{9}$/.test(tel))){ 
+			alert("请输入合法手机号！");
+            $("#tel").focus();
+            $(this).attr("disabled", false);
+            return false;
+        }
+        if(flag){
+            var timer = setInterval(function () {
+                if(time == 60 && flag){
+                    flag = false;
+                    $.ajax({
+                        url: "{:Url('Register/getcode')}",
+                        type: "post",
+                        dataType: "json", 
+                        data: {
+                            tel: tel,
+                        },
+                        success:(res)=>{
+                            if(res == 1){
+                                alert('短信参数错误');
+                                flag = true;
+                                time = 60;
+                                clearInterval(timer);
+                                return false;
+                            }else if(res == 2){
+                                alert('手机号已被注册，请修改');
+                                $("#tel").focus();
+                                $(this).attr("disabled", false);
+                                flag = true;
+                                time = 60;
+                                clearInterval(timer);
+                                return false;
+                            }else if(res == 3){
+                                alert('60s内只可获取一次验证码');
+                                $("#tel").focus();
+                                flag = true;
+                                time = 60;
+                                clearInterval(timer);
+                                return false;
+                            // }else if(res == 0){
+                            //     $(".code").html("已发送");
+                            //     clearInterval(timer);
+                            //     return false;
+                            }
+                        }
+                    })
+                }else if(time == 0){
+                    $(".code").removeAttr("disabled");
+                    $(".code").html("获取验证码");
+                    clearInterval(timer);
+                    time = 60;
+                    flag = true;
+                }else{
+                    $(".code").html("重发验证( " + time + "s )");
+                    time--;
+                }
+            },1000);
+        }
+        
+	}
+    function checkinfo(){
+        var username = $.trim($("#username").val());
+        var password = $.trim($("#password").val());
+        var password2 = $.trim($("#password2").val());
+        if(!username){
+            alert("用户名不能为空！");
+            $("#username").focus();
+            return false;
+        }
+
+        if(!password){
+            alert("密码不能为空！");
+            $("#password").focus();
+            return false;
+        }
+        if(!password2){
+            alert("确认密码不能为空！");
+            $("#password2").focus();
+            return false;
+        }
+        if(password != password2){
+        	alert("两次密码不相等！");
+            $("#password2").focus();
+            return false;
+        }
+
+        var tel = $.trim($("#tel").val());
+        if(!tel){
+        	alert("手机号不能为空！");
+            $("#tel").focus();
+            return false;
+        }
+        if(!(/^1[3456789]\d{9}$/.test(tel))){ 
+			alert("请输入合法手机号！");
+            $("#tel").focus();
+            return false;
+        }
+
+        var shortmsg = {$shortmsg};
+        var code = 0;
+        if(shortmsg == 1){
+	        code = $.trim($("#code").val());
+	        if(!code){
+	        	alert("短信验证码不能为空！");
+	            $("#code").focus();
+	            return false;
+	        }
+        }
+  //       var name = $("#name").val();
+  //       if(!name){
+  //       	alert("联系人不能为空！");
+  //           $("#name").focus();
+  //           return false;
+  //       }
+  //       var email = $("#email").val();
+  //       if(!email){
+  //       	alert("邮箱不能为空！");
+  //           $("#email").focus();
+  //           return false;
+  //       }
+  //       if (! /^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/.test(email)) {
+  //       	alert("请输入正确邮箱！");
+  //           $("#email").focus();
+  //           return false;
+		// }
+        var vcode = $.trim($("#vcode").val());
+        if(!vcode){
+            alert("图形验证码不能为空");
+            $("#vcode").focus();
+            return false;
+        }
+		var flag = false;
+        $.ajax({
+        	url: "{:Url('Register/check')}",
+        	type: "post",
+        	dataType: "json", 
+        	async: false,
+        	data: {
+        		username: username,
+        		vcode: vcode,
+        		shortmsg: shortmsg,
+        		code: code,
+        		tel: tel,
+        	},
+        	success:(res)=>{
+        		if(res == 1){
+        			alert('该用户名已被注册，请修改后提交');
+            		$("#username").focus();
+            		refresh_vcode();
+        			$("#vcode").val('');
+        			flag = true
+        		}else if(res == 3){
+        			alert('该手机号已被注册，请修改后提交');
+            		$("#tel").focus();
+            		refresh_vcode();
+        			$("#vcode").val('');
+        			flag = true
+        		}else if(res == 4){
+        			alert('短信验证码错误');
+            		$("#code").focus();
+        			refresh_vcode();
+        			$("#vcode").val('');
+        			flag = true
+        		}
+        	}
+        })
+        if(flag){
+        	return false;
+        }
+    }
+
+    $(function(){
+        var shortmsg = {$shortmsg};
+        if(shortmsg == 3){
+            alert('用户注册设置信息未设置，无法注册，请联系平台方！');
+            return false;
+        }
+
+        // 刷新验证码
+        var verifyimg = $(".verifyimg").attr("src");
+        $(".reloadverify").click(function(){
+            if( verifyimg.indexOf('?')>0){
+                $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+            }else{
+                $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+            }
+        });
+    })
+    //刷新验证码
+    function refresh_vcode(){
+        var verifyimg = $(".verifyimg").attr("src");
+		if( verifyimg.indexOf('?')>0){
+            $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+        }else{
+            $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+        }
+        
+    }
+
+</script>

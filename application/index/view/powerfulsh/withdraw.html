@@ -1,0 +1,139 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel6{
+		display: block !important;
+	}
+	form {
+		margin: 0 !important;
+		display: inline-block !important;
+	}
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel6-5">
+
+<div class="row-fluid">
+
+	<div class="span12">
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+					<tr>
+
+						<th style="width: 50px;">ID</th>
+						<th style="width: 50px;">商户名</th>
+						<th style="width: 100px;">申请金额</th>
+						<th style="width: 50px;">申请时间</th>
+						<th style="width: 100px;">提现方式</th>
+						<th style="width: 100px;">支付到</th>
+						<th style="width: 100px;">备注</th>
+						<th style="width: 100px;">状态</th>
+					</tr>
+
+					</thead>
+
+					<tbody>
+
+					{if $records}
+						{foreach $records as $item}
+							<tr>
+								<td>{$item.id}</td>
+								<td>{$item.shopname}</td>
+								<td>{$item.money}元</td>
+								<td>{$item.createtime|date="Y-m-d H:i:s",###}<br/>
+									{if $item.txtime}
+										{$item.txtime|date="Y-m-d H:i:s",###}
+									{/if}
+								</td>
+								<td>
+									{if $item.types == 1}
+									微信
+									{/if}
+									{if $item.types == 2}
+									支付宝
+									{/if}
+									{if $item.types == 3}
+									银行卡
+									{/if}
+								</td>
+								<td>{$item.account}</td>
+								<td>{$item.beizhu}</td>
+								<td>
+									
+									{if $item.flag == 1}
+										已打款
+									{/if}
+									{if $item.flag == 2}
+										已拒绝
+									{/if}
+									{if $item.flag == 0}
+										<a href="javascript:;" style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" onclick="tongguo({$item.id}, 1)">确认已打款</a>
+                            			<a href="javascript:;" style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px;padding: 1px 5px;cursor: pointer;" onclick="tongguo({$item.id}, 2)">拒绝</a>
+									{/if}
+								</td>
+							</tr>
+						{/foreach}
+					{/if}
+
+					</tbody>
+
+				</table>
+				<!-- 分页 -->
+				<div>
+                    <div class="fenye_right">
+                        {$records_list->render()}
+                    </div>
+                </div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+	function tongguo(id,val){
+		if(window.confirm('此操作不可恢复，确认执行吗？')){
+			location.href = "{:Url('Powerfulsh/withdrawpass')}?appletid=<?php echo $_GET['appletid']?>&op=shenhe&id="+id+"&val="+val;
+
+		}else{
+			return false;
+		}
+	}
+</script>
+
+
+
+{include file="public/foot_more" /}

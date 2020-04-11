@@ -1,0 +1,79 @@
+.body_list{
+  box-sizing: border-box;
+  background: #FFFFFF;
+  padding: 20px;
+}
+.quanbu_box{
+  float: left;
+  margin-right: 26px;
+  margin-bottom: 15px;
+}
+.quanbu_box a{
+  display: inline-block;
+  box-sizing: border-box;
+  width: 155px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  border: 1px solid #e3e3e3;
+}
+.quanbu_box:nth-child(6n+0){
+  margin-right: 0;
+}
+.quanbu_box a:hover{
+  background: #f07;
+  color: #FFFFFF;
+}
+.list_products{
+  padding: 25px;
+}
+.list_pro{
+  box-sizing: border-box;
+  display: inline-block;
+  width: 235px;
+  height: 285px;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  margin: 0 18px 20px 0;
+  overflow: hidden;
+}
+.list_pro:nth-child(4n+0){
+  margin-right: 0;
+}
+.list_pro a:hover img{
+  transform: scale(1.1);
+}
+.list_pro_img{
+  width: 215px;
+  height: 215px;
+  overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
+}
+.list_pro_img img{
+  width: 100%;
+  height: auto;
+  transition: all .3s ease-out 0s;
+}
+.list_pro_sales{
+  font-size: 14px;
+  color: #999;
+}
+.list_pro_text{
+  position: relative;
+}
+.list_pro_text_price{
+  font-size: 14px;
+  color: #cc0b0e;
+  position: absolute;
+  bottom: 17px;
+  right: 5px;
+}
+.list_pro_text_title{
+  font-size: 14px;
+  color: #333;
+  width: 210px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

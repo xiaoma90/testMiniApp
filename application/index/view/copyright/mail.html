@@ -1,0 +1,163 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<script type="text/javascript" src="__STATIC_ROOT__/js/jscolor.js"></script>
+<style type="text/css">
+.chongdingy{
+	background-color: #f9f9f9;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+.chongdingywz{
+	text-align: left !important;
+	font-size: 16px;
+	padding-left: 20px;
+}
+.jscolor{
+	width: 30px;
+	height: 30px;
+	border: 1px solid #dedede;
+	outline: none;
+}
+.m-wrap{
+	outline: none;
+	padding-left: 10px;
+}
+.form_nobg{
+	background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 216px;
+  right: 0;
+  height: 52px;
+  line-height: 52px;
+  box-shadow:0px 1px 8px 0px rgba(0, 0, 0, 0.08);
+	text-align: center;
+	padding: 0 !important;
+	margin: 0 !important;
+	z-index: 1000;
+}
+</style>
+
+<input type="hidden" id="nowhtml" value="navSystem" class="navSystem7">
+
+	<div class="row-fluid">
+
+		<div class="span12">
+
+			<div class="portlet box ">
+
+				<div class="portlet-body">
+					
+					<form action="{:Url('Copyright/savemail')}?appletid=<?php echo $_GET['appletid']?>" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+						
+						<div class="control-group chongdingy">
+							<label class="control-label chongdingywz">邮箱配置</label>
+						</div>
+
+						<div class="control-group chongdingy">
+							<label class="chongdingywz" style="margin-bottom:0;">发件箱请使用“个人QQ邮箱”，<a href="http://service.mail.qq.com/cgi-bin/help?subtype=1&&no=1001256&&id=28"  target="_blank">点击此处查看授权码获取教程</a></label>
+						</div>
+
+
+						<div class="control-group">
+							<label class="control-label">发件人邮箱</label>
+							<div class="controls">
+								<input name="mail_user" type="text" class="span3 m-wrap" value="{if $forminfo && $forminfo.mail_user}{$forminfo.mail_user}{/if}" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label">授权码</label>
+							<div class="controls">
+								<input name="mail_password" type="text" class="span3 m-wrap" value="{if $forminfo && $forminfo.mail_password}{$forminfo.mail_password}{/if}"/>
+								<span style="color:#c7cddb; line-height:40px; margin-left:20px;"><a style="color:#c7cddb;" href="http://service.mail.qq.com/cgi-bin/help?subtype=1&&no=1001256&&id=28" target="_blank">点击此处查看授权码获取教程</a></span>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">发件平台名称</label>
+							<div class="controls">
+								<input name="mail_user_name" type="text" class="span3 m-wrap" value="{if $forminfo && $forminfo.mail_user_name}{$forminfo.mail_user_name}{/if}"/>
+								<span style="color:#c7cddb; line-height:40px; margin-left:20px;">可写”XX公司小程序提醒系统“</span>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">收件人邮箱</label>
+							<div class="controls">
+								<input name="mail_sendto" type="text" class="span3 m-wrap" value="{if $forminfo && $forminfo.mail_sendto}{$forminfo.mail_sendto}{/if}"/>
+								<span style="color:#c7cddb;line-height:40px;margin-left:20px;">多个请用英文,隔开</span>
+							</div>
+						</div>
+
+						<div class="control-group chongdingy">
+							<label class="control-label chongdingywz">新订单短信配置</label>
+						</div>
+						<div class="control-group">
+		                    <label class="control-label">是否开启</label>
+		                    <div class="controls">
+		                        <label class="radio">
+		                            <input type="radio" name="sms_is" value="1" {if $forminfo.sms_is==1}checked=checked{/if}/>
+		                           	启用
+		                        </label>
+		                        <label class="radio">
+		                            <input type="radio" name="sms_is" value="2" {if $forminfo.sms_is==2}checked=checked{/if}/>
+		                            不启用
+		                        </label>
+		                        <span style="color:#c7cddb; line-height:40px; margin-left:20px;">设置了短信配置后，启用后，新订单可收到短信</span>
+		                    </div>
+		                </div>
+		                <div class="control-group">
+							<label class="control-label">短信模版CODE</label>
+							<div class="controls">
+								<input name="sms_code" type="text" class="span3 m-wrap" value="{if $forminfo && $forminfo.sms_code}{$forminfo.sms_code}{/if}"/>
+								<span style="color:#c7cddb;line-height:40px;margin-left:20px;">短信配置修改后，需相应修改</span>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">收信人手机号</label>
+							<div class="controls">
+								<input name="sms_tels" type="text" class="span3 m-wrap" value="{if $forminfo && $forminfo.sms_tels}{$forminfo.sms_tels}{/if}"/>
+								<span style="color:#c7cddb;line-height:40px;margin-left:20px;">多个请用英文,隔开</span>
+							</div>
+						</div>
+
+						<div class="weiz form_nobg" style="padding-top: 40px;">
+							<input type="submit" value="确定" class="btn" style="background:#4385ff;color:#fff;">
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{include file="public/foot_more" /}

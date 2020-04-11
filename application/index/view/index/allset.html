@@ -1,0 +1,1242 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<!--侧边栏end-->
+<!--主体start-->
+<style type="text/css">
+		.editors{
+			max-width: 770px;
+			min-height: 600px;
+			margin-left: 20px;
+		}
+		.w-e-text-container{
+			min-height: 600px !important;
+		}
+		.weiz{
+			margin-left:20px;
+			margin-top: 40px;
+			margin-bottom: 20px;
+		}
+		.chongdingy{
+			padding:10px 0;
+			border-bottom: 1px solid #cecdcd;
+		}
+		.chongdingywz{
+			text-align: left !important;
+			font-size: 16px;
+			padding-left: 10px;
+			font-weight: 800;
+		}
+		.font_w{
+			float: left;
+			width: 100px;
+			padding-top: 5px;
+			text-align: right;
+			font-weight: 800;
+		}
+		.control{
+			margin-left: 120px;
+		}
+		.list>div{
+			width: 304px;
+			margin: 10px 20px;
+			box-shadow:rgba(162, 162, 162, 0.2) 0px 0px 20px;
+			float: left;
+			text-align: center;
+			color: #434343;
+		}
+		.list::after{
+			clear: left;
+			content: '';
+			display: block;
+		}
+		.title{
+			font-size: 20px;
+			display: block;
+			font-weight: 800;
+			margin: 30px 0 10px 0;
+		}
+		.prompt{
+			font-size: 14px;
+			display: block;
+			height: 20px;
+		}
+		.btns{
+			width: 100%;
+			display: flex;
+		}
+		.btns>button{
+			flex: 1;
+			height: 50px;
+			line-height: 50px;
+			border-top: 1px solid #f7f7f7;
+			border-right: 1px solid #f7f7f7;
+			border-bottom:0;
+			border-left: 0;
+			background: none;
+            outline: none;
+			box-shadow: none;
+		}
+		.btns>button:hover{
+			border: 0;
+			background: #eeeeee;
+			outline: none;
+			box-shadow: none;
+		}
+		.pic{
+			width: 100%;
+			height: 147px;
+		}
+		.pic>img{
+			margin: auto;
+			width: 84px;
+			height: 84px;
+			margin-top: 58px;
+			display: block;
+		}
+		.bg_f6{
+			background-color: #f6f6f6;
+		}
+		.bg_eee{
+			background-color: #eeeeee;
+			margin-top: 25px;
+		}
+		.relative{
+			position: relative;
+		}
+		.relative>div:first-child{
+			width: 62px;
+			height: 62px;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+		.relative>div:first-child>span{
+			position: absolute;
+			top: 8px;
+			right: 0;
+			color: #fff;
+			font-size: 12px;
+			transform:rotate(45deg);
+			-ms-transform:rotate(45deg); 	/* IE 9 */
+			-moz-transform:rotate(45deg); 	/* Firefox */
+			-webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+			-o-transform:rotate(45deg); 	/* Opera */
+		}
+		.bbdd{
+		    position: fixed;
+		    z-index: 100001;
+		    background-color: #ffffff;
+		    width: 350px;
+		    height: 315px;
+		    top: 50%;
+		    left: 50%;
+		    margin-top: -200px;
+		    margin-left: -210px;
+		    border-radius:3px;
+		}
+		.ddhh{
+            height: 50px;
+		    line-height: 50px;
+            position: relative;
+            padding: 0 20px;
+            border-bottom: 1px solid #e5e5e5;
+		}
+		.ddxx{
+		    position: absolute;
+		    right: 15px;
+		    top:15px;
+		    cursor:pointer
+		}
+		.loader{
+		    position: fixed;
+		    left: 0;
+		    top: 0;
+		    width: 100%;
+		    height: 100%;
+		    z-index: 9999;
+		    background: #000 50% 50%;
+		    opacity: .3;
+		}
+        .zhezhao{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .zhezhao_main{
+            width: 600px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 0;
+            text-align: center;
+            border-radius: 3px;
+        }
+        .zhezhao_main>div{
+            box-sizing: border-box;
+        }
+        .zhezhao_bd{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .zhezhao_bd_main{
+            width: 600px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 0;
+            text-align: center;
+        }
+        .zhezhao_bd_main>div{
+            box-sizing: border-box;
+        }
+        .zhezhao_qq{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .zhezhao_qq_main{
+            width: 600px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 0;
+            text-align: center;
+        }
+        .zhezhao_qq_main>div{
+            box-sizing: border-box;
+        }
+        .zhezhao_bdance{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        .zhezhao_bdance_main{
+            width: 600px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 0;
+            text-align: center;
+        }
+        .zhezhao_bdance_main>div{
+            box-sizing: border-box;
+        }
+        .main_header{
+            height: 54px;
+            width: 100%;
+            line-height: 54px;
+            border-bottom: 1px solid #eeeeee;
+            padding: 20px 30px 0;
+        }
+        .main_header>label{
+            float: left;
+            vertical-align: middle;
+            font-size: 16px;
+            color: #434343;
+            font-weight: 800;
+        }
+        .main_header>img{
+            float: right;
+            width: 15px;
+            height: 15px;
+            display: block;
+            vertical-align: middle;
+        }
+        .main_header::after{
+            content: '';
+            clear: both;
+            display: block;
+        }
+        .main_container{
+            text-align: left;
+            font-size: 14px;
+            padding: 24px 30px;
+            box-sizing: border-box;
+        }
+        .main_container a{
+            color: #4385ff;
+            font-weight: 800;
+        }
+        .main_container a::after{
+            text-decoration: none;
+            color: #4385ff;
+        }
+        .main_foot{
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .main_foot>button{
+            width: 90px;
+            height: 30px;
+            display: block;
+            margin: auto;
+            border: 1px solid #4385ff;
+            background-color: rgba(67, 133, 255, 0.102);
+            font-size: 14px;
+            outline: none;
+			box-shadow: none;
+            color: #4385ff;
+            border-radius: 3px;
+        }
+	</style>
+<input type="hidden" id="nowhtml" value="navSystem" class="navSystem14">
+
+	<div class="row-fluid">
+		<div class="portlet box">
+			<div class="portlet-body form">
+
+				<div class='loader' style="display:none"></div>
+                <div class="portlet-body">
+                 <div class="bbdd" id="bbdd" style="display:none">
+                    <div class="ddhh">
+                        <span style="font-weight:bold;font-size:16px;">H5预览</span>
+                        <img src="__STATIC_ROOT__/image/close.png" alt=""  class="ddxx" onclick="ycc()">
+                    </div>
+                    <form class="form-horizontal" action="" method="post">
+                        <input type="hidden" id="orderfh" name="orderfh">
+						<div style="text-align: center;margin-top: 15px;">二维码</div>
+						<div style="text-align: center; margin: 10px 0;">
+							<img id="h5_qr" src="__STATIC_ROOT__/ewmimg/h5/118.png" style="width:164px;">
+						</div>
+                        <!-- <div style="text-align: center;" id="">https://four.nttrip.cn/addons/worldidc_sqtg/wnmend/coreh5/index.html?id=216</div>   'https://'.$_SERVER['SERVER_NAME']. STATIC_ROOT . '/h5/index.html?id='.$uniacid; -->
+                        <div style="text-align:center;"><button class="btn green js-clip" style="padding:5px 14px;background-color: #4385ff;" onclick="copyUrl()" data-clipboard-text="<?php echo 'https://'.$_SERVER['SERVER_NAME']. STATIC_ROOT . '/h5/index.html?id='.$_GET['appletid']; ?>">复制链接</button></div>
+                    </form>
+                </div>
+
+				<div class="list">
+					<div class="relative">
+						{if !in_array(0, $types)}
+						<div>
+							<img src="__STATIC_ROOT__/image/green.png" alt="" width="62px">
+							<span>未开通</span>
+						</div>
+						{/if}
+						<label class="title">微信小程序</label>
+						{if !in_array(0, $types)}
+						<label class="prompt"></label>
+						<label class="prompt"></label>
+						{else}
+						<label class="prompt">请先完成基础设置，方可进行</label>
+						<label class="prompt">其他设置</label>
+						{/if}
+
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/wx_new.png" alt="">
+						</div>
+						<div class="btns">
+							{if !in_array(0, $types)}
+							<button type="button">联系客服开通</button>
+							{else}
+							<button type="button" onclick="wxset()">立即设置</button>
+							<button type="button" onclick="wxshenhe()">上传审核</button>
+							{/if}
+						</div>
+					</div>
+					<div class="relative" >
+						{if !in_array(1, $types)}
+						<div>
+							<img src="__STATIC_ROOT__/image/green.png" alt="" width="62px">
+							<span>未开通</span>
+						</div>
+						{/if}
+						<label class="title">百度小程序</label>
+						{if !in_array(1, $types)}
+						<label class="prompt"></label>
+						<label class="prompt"></label>
+						{else}
+						<label class="prompt">请先完成基础设置，方可进行</label>
+						<label class="prompt">其他设置</label>
+						{/if}
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/baidu_new.png" alt="">
+						</div>
+						<div class="btns">
+							{if !in_array(1, $types)}
+							<button type="button">联系客服开通</button>
+							{else}
+							<button type="button" onclick="baiduset()">立即设置</button>
+							<button type="button" onclick="showdownloadbaidu()">下载码包</button>
+							{/if}
+						</div>
+					</div>
+
+					<div class="relative">
+						{if !in_array(2, $types)}
+						<div>
+							<img src="__STATIC_ROOT__/image/green.png" alt="" width="62px">
+							<span>未开通</span>
+						</div>
+						{/if}
+						<label class="title">支付宝小程序</label>
+						{if !in_array(2, $types)}
+						<label class="prompt"></label>
+						<label class="prompt"></label>
+						{else}
+						<label class="prompt">请先完成基础设置，方可进行</label>
+						<label class="prompt">其他设置</label>
+						{/if}
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/zhifubao.png" alt="">
+						</div>
+						<div class="btns">
+							{if !in_array(2, $types)}
+							<button type="button">联系客服开通</button>
+							{else}
+							<button type="button" onclick="aliset()">立即设置</button>
+							<button type="button" onclick="showdownloadAli()">下载码包</button>
+							{/if}
+						</div>
+					</div>
+
+					<div class="relative">
+						{if !in_array(4, $types)}
+						<div>
+							<img src="__STATIC_ROOT__/image/green.png" alt="" width="62px">
+							<span>未开通</span>
+						</div>
+						{/if}
+						<label class="title">H5</label>
+						{if !in_array(4, $types)}
+						<label class="prompt"></label>
+						<label class="prompt"></label>
+						{else}
+						<label class="prompt">请先完成基础设置，方可进行</label>
+						<label class="prompt">其他设置</label>
+						{/if}
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/h5_new.png" alt="">
+						</div>
+						<div class="btns">
+							{if !in_array(4, $types)}
+							<button type="button">联系客服开通</button>
+							{else}
+							<button type="button" onclick="h5set()">立即设置</button>
+							<button type="button" onclick="h5qrcode()">预览</button>
+							{/if}
+						</div>
+					</div>
+
+					<div class="relative">
+						{if !in_array(3, $types)}
+						<div>
+							<img src="__STATIC_ROOT__/image/green.png" alt="" width="62px">
+							<span>未开通</span>
+						</div>
+						{/if}
+						<label class="title">PC</label>
+						{if !in_array(3, $types)}
+						<label class="prompt"></label>
+						<label class="prompt"></label>
+						{else}
+						<label class="prompt">请先完成基础设置，方可进行</label>
+						<label class="prompt">其他设置</label>
+						{/if}
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/pc_new.png" alt="">
+						</div>
+						<div class="btns">
+							
+							{if !in_array(3, $types)}
+							<button type="button">联系客服开通</button>
+							{else}
+							<button type="button" onclick="pcset()">立即设置</button>
+							<button type="button" onclick="pc_show()">预览</button>
+							{/if}
+						</div>
+					</div>
+
+					<div class="relative">
+						{if !in_array(5, $types)}
+							<div>
+								<img src="__STATIC_ROOT__/image/green.png" alt="" width="62px">
+								<span>未开通</span>
+							</div>
+						{/if}
+						<label class="title">字节跳动小程序</label>
+						{if !in_array(5, $types)}
+						<label class="prompt"></label>
+						<label class="prompt"></label>
+						{else}
+						<label class="prompt">请先完成基础设置，方可进行</label>
+						<label class="prompt">其他设置</label>
+						{/if}
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/toutiao_new.png" alt="">
+						</div>
+						<div class="btns">
+							{if !in_array(5, $types)}
+							<button type="button">联系客服开通</button>
+							{else}
+								<button type="button" onclick="bdanceset()">立即设置</button>
+								<button type="button" onclick="showdownloadBdance()">下载码包</button>
+							{/if}
+						</div>
+					</div>
+
+					<div class="relative">
+						{if !in_array(6, $types)}
+							<div>
+								<img src="__STATIC_ROOT__/image/green.png" alt="" width="62px">
+								<span>未开通</span>
+							</div>
+						{/if}
+						<label class="title">QQ小程序</label>
+						{if !in_array(6, $types)}
+						<label class="prompt"></label>
+						<label class="prompt"></label>
+						{else}
+						<label class="prompt">请先完成基础设置，方可进行</label>
+						<label class="prompt">其他设置</label>
+						{/if}
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/qq_new.png" alt="">
+						</div>
+						<div class="btns">
+							{if !in_array(6, $types)}
+							<button type="button">联系客服开通</button>
+							{else}
+								<button type="button" onclick="qqset()">立即设置</button>
+								<button type="button" onclick="showdownloadqq()">下载码包</button>
+							{/if}
+						</div>
+					</div>
+
+
+					<div class="bg_f6" style="box-shadow:none;">
+						<label class="title">安卓APP</label>
+						<label class="prompt">敬请期待</label>
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/anzhuo_new.png" alt="">
+						</div>
+						<div class="btns bg_eee">
+							<button type="button" disabled>未上线</button>
+						</div>
+					</div>
+					<div class="bg_f6" style="box-shadow:none;">
+						<label class="title">IOS APP</label>
+						<label class="prompt">敬请期待</label>
+						<div class="pic">
+							<img src="__STATIC_ROOT__/image/ios_new.png" alt="">
+						</div>
+						<div class="btns bg_eee">
+							<button type="button" disabled>未上线</button>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+    <div class="zhezhao" style="display: none;" id="zhezhao">
+        <div class="zhezhao_main">
+            <div class="main_header">
+                <label>上传提示</label>
+                <img src="__STATIC_ROOT__/image/close.png" alt="" onclick="closeshowali()">
+            </div>
+            <div class="main_container">
+                <label>1. 点击下载码包-<a href="javascript:;" onclick="downloadAli()"><支付宝小程序前端包></a></label>
+                <label>2. 解压码包</label>
+                <label>3. 打开<a href="https://docs.alipay.com/mini/ide/download" target="_blank">支付宝开发者工具</a> > 打开项目 > 项目路径选择解压后的文件 > 打开</label>
+                <label>4. 打开后界面右上角上传按钮上传 > 前往支付宝小程序后台提交审核</label>
+            </div>
+            <div class="main_foot">
+                <button onclick="closeshowali()">关闭</button>
+            </div>
+        </div>
+    </div>
+    <div class="zhezhao_bdance" style="display: none;" id="zhezhao_bdance">
+        <div class="zhezhao_bdance_main">
+            <div class="main_header">
+                <label>上传提示</label>
+                <img src="__STATIC_ROOT__/image/close.png" alt="" onclick="closeshowbdance()">
+            </div>
+            <div class="main_container">
+                <label>1. 点击下载码包-<a href="javascript:;" onclick="downloadBdance()"><字节跳动小程序前端包></a></label>
+                <label>2. 解压码包</label>
+                <label>3. 打开<a href="https://developer.toutiao.com/docs/devtool/versionUpdate.html" target="_blank">字节跳动开发者工具</a> > 打开项目 > 项目路径选择解压后的文件 > 打开</label>
+                <label>4. 打开后界面右上角上传按钮上传 > 前往字节跳动小程序后台提交审核</label>
+            </div>
+            <div class="main_foot">
+                <button onclick="closeshowbdance()">关闭</button>
+            </div>
+        </div>
+    </div>
+    <div class="zhezhao_qq" style="display: none;" id="zhezhao_qq">
+        <div class="zhezhao_qq_main">
+            <div class="main_header">
+                <label>上传提示</label>
+                <img src="__STATIC_ROOT__/image/close.png" alt="" onclick="closeshowqq()">
+            </div>
+            <div class="main_container">
+                <label>1. 点击下载码包-<a href="javascript:;" onclick="downloadqq()">< QQ小程序前端包 ></a></label>
+                <label>2. 解压码包</label>
+                <label>3. 打开<a href="https://q.qq.com/wiki/devtool/changelog.html" target="_blank">QQ开发者工具</a> > 打开项目 > 项目路径选择解压后的文件 > 打开</label>
+                <label>4. 打开后界面右上角上传按钮上传 > 前往QQ小程序后台提交审核</label>
+            </div>
+            <div class="main_foot">
+                <button onclick="closeshowqq()">关闭</button>
+            </div>
+        </div>
+    </div>
+    <div class="zhezhao_bd" style="display: none;" id="zhezhao_bd">
+        <div class="zhezhao_bd_main">
+            <div class="main_header">
+                <label>上传提示</label>
+                <img src="__STATIC_ROOT__/image/close.png" alt="" onclick="closeshowbaidu()">
+            </div>
+            <div class="main_container">
+                <label>1. 点击下载码包-<a href="javascript:;" onclick="downloadbaidu()"><百度小程序前端包></a></label>
+                <label>2. 解压码包</label>
+                <label>3. 打开<a href="https://smartprogram.baidu.com/docs/introduction/tool/" target="_blank">开发者工具</a> > 打开项目 > 项目路径选择解压后的文件 > 打开</label>
+                <label>4. 打开后界面右上角上传按钮上传 > 前往百度小程序后台提交审核</label>
+            </div>
+            <div class="main_foot">
+                <button onclick="closeshowbaidu()">关闭</button>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC_ROOT__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC_ROOT__/webuploader/js/webuploader.min.js"></script>
+<script type="text/javascript" >
+function checkinfo(){
+	var xcxId = $("#xcxId").val();
+	var appID = $("#appID").val();
+	var appSecret = $("#appSecret").val();
+	// if(!xcxId){
+	// 	alert("请设置小程序原始id！");
+	// 	return false;
+	// }else if(!appID){
+	// 	alert("请设置小程序AppId！");
+	// 	return false;
+	// }else if(!appSecret){
+	// 	alert("请设置小程序AppSecret！");
+	// 	return false;
+	// }else{
+	// 	return true;
+	// }
+}
+function shenc(){
+	len = 32;
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+    var maxPos = $chars.length;
+    var pwd = '';
+    for (i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    $("#signkey").val(pwd);
+}
+function del(id){
+	if(confirm('你确定要删除这张图片嘛?')){
+		$("#li"+id).remove();
+		$.post("{:Url('Index/del')}",{"id":id},function(data){
+		})
+	}else{
+	        return false;
+	    }
+}
+
+function wxset(){
+	location.href = "{:Url('Index/wxset')}?appletid=<?php echo $_GET['appletid']?>";
+}
+
+function wxshenhe(){
+	location.href = "{:Url('Wxreview/wxxcxinfo')}?appletid=<?php echo $_GET['appletid']?>";
+}
+
+function aliset(){
+	location.href = "{:Url('Index/aliset')}?appletid=<?php echo $_GET['appletid']?>";
+}
+
+function showdownloadAli(){
+	$("#zhezhao").show();
+}
+
+
+function downloadAli(){
+	var uniacid = "<?php echo $_GET['appletid']; ?>";
+	location.href = "{:Url('Index/downloadAli')}?uniacid="+uniacid;
+	$("#zhezhao").hide();
+}
+
+function closeshowali(){
+	$("#zhezhao").hide();
+}
+
+function bdanceset(){
+	location.href = "{:Url('Index/bdanceset')}?appletid=<?php echo $_GET['appletid']?>";
+}
+
+function showdownloadBdance(){
+	$("#zhezhao_bdance").show();
+}
+
+function downloadBdance(){
+	var uniacid = "<?php echo $_GET['appletid']; ?>";
+	var appid = "<?php echo $applet['bdance_appID']; ?>";
+	if(!appid){
+		alert("请先设置小程序appID等相关信息！");
+		return false;
+	}
+	location.href = "{:Url('Index/downloadBdance')}?uniacid="+uniacid+"&appid="+appid;
+	$("#zhezhao_bdance").hide();
+}
+
+function closeshowbdance(){
+	$("#zhezhao_bdance").hide();
+}
+
+function showdownloadbaidu(){
+	$("#zhezhao_bd").show();
+}
+function downloadbaidu(){
+	var uniacid = "<?php echo $_GET['appletid']; ?>";
+	location.href = "{:Url('Index/downloadbaidu')}?uniacid="+uniacid;
+	$("#zhezhao_bd").hide();
+}
+function closeshowbaidu(){
+	$("#zhezhao_bd").hide();
+}
+
+function h5set(){
+	location.href = "{:Url('Index/h5set')}?appletid=<?php echo $_GET['appletid']?>";
+}
+
+function pcset(){
+	location.href = "{:Url('Index/pcset')}?appletid=<?php echo $_GET['appletid']?>";
+}
+function baiduset(){
+	location.href = "{:Url('Index/baiduset')}?appletid=<?php echo $_GET['appletid']?>";
+}
+function qqset(){
+	location.href = "{:Url('Index/qqset')}?appletid=<?php echo $_GET['appletid']?>";
+}
+function showdownloadqq(){
+	$("#zhezhao_qq").show();
+}
+
+
+function downloadqq(){
+	var uniacid = "<?php echo $_GET['appletid']; ?>";
+	location.href = "{:Url('Index/downloadqq')}?uniacid="+uniacid;
+	$("#zhezhao_qq").hide();
+}
+
+function closeshowqq(){
+	$("#zhezhao_qq").hide();
+}
+//PC预览
+function pc_show(){
+	var uniacid = "<?php echo $_GET['appletid']; ?>";
+	$.post("{:Url('Index/geturl')}",{"uniacid":uniacid},function(data){
+		window.open(data)
+	})
+}
+
+function ycc(){
+    $(".loader").hide();
+    $("#bbdd").hide();
+}
+
+//h5预览二维码
+function h5qrcode(){
+	var uniacid = "<?php echo $_GET['appletid']; ?>";
+	$.post("{:Url('Index/getqrcode')}",{"uniacid":uniacid},function(data){
+		var data = JSON.parse(data)
+		$('#h5_qr').attr('src',data['qr_code']);
+		$('#h5_url').html(data['url']);
+		$(".loader").show();
+        $("#bbdd").show();
+	})
+}
+
+
+function xians(me){
+	var b = $(me).find("div[class='beijingys']");
+	var s = $(me).find("div[class='sancann']");
+	$(b).show();
+	$(s).show();
+}
+function gb(me){
+	var b = $(me).find("div[class='beijingys']");
+	var s = $(me).find("div[class='sancann']");
+	$(b).hide();
+	$(s).hide();
+}
+(function( $ ){
+    // 当domReady的时候开始初始化
+    $(function() {
+        var $wrap = $('.uploader-list-container'),
+            // 图片容器
+            $queue = $( '<ul class="filelist" id="filelist"></ul>' )
+                .appendTo( $wrap.find( '.queueList' ) ),
+            // 状态栏，包括进度和控制按钮
+            $statusBar = $wrap.find( '.statusBar' ),
+            // 文件总体选择信息。
+            $info = $statusBar.find( '.info' ),
+            // 上传按钮
+            $upload = $wrap.find( '.uploadBtn' ),
+            // 没选择文件之前的内容。
+            $placeHolder = $wrap.find( '.placeholder' ),
+            $progress = $statusBar.find( '.progress' ).hide(),
+            // 添加的文件数量
+            fileCount = 0,
+            // 添加的文件总大小
+            fileSize = 0,
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+            // 缩略图大小
+            thumbnailWidth = 180 * ratio,
+            thumbnailHeight = 120 * ratio,
+            // 可能有pedding, ready, uploading, confirm, done.
+            state = 'pedding',
+            // 所有文件的进度信息，key为file id
+            percentages = {},
+            // 判断浏览器是否支持图片的base64
+            isSupportBase64 = ( function() {
+                var data = new Image();
+                var support = true;
+                data.onload = data.onerror = function() {
+                    if( this.width != 1 || this.height != 1 ) {
+                        support = false;
+                    }
+                }
+                data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                return support;
+            } )(),
+            // 检测是否已经安装flash，检测flash的版本
+            flashVersion = ( function() {
+                var version;
+                try {
+                    version = navigator.plugins[ 'Shockwave Flash' ];
+                    version = version.description;
+                } catch ( ex ) {
+                    try {
+                        version = new ActiveXObject('ShockwaveFlash.ShockwaveFlash')
+                                .GetVariable('$version');
+                    } catch ( ex2 ) {
+                        version = '0.0';
+                    }
+                }
+                version = version.match( /\d+/g );
+                return parseFloat( version[ 0 ] + '.' + version[ 1 ], 10 );
+            } )(),
+            supportTransition = (function(){
+                var s = document.createElement('p').style,
+                    r = 'transition' in s ||
+                            'WebkitTransition' in s ||
+                            'MozTransition' in s ||
+                            'msTransition' in s ||
+                            'OTransition' in s;
+                s = null;
+                return r;
+            })(),
+            // WebUploader实例
+            uploader;
+        // 实例化
+        uploader = WebUploader.create({
+            pick: {
+                id: '#filePicker-2',
+                label: '点击选择图片'
+            },
+            formData: {
+                uid: 123
+            },
+            dnd: '#dndArea',
+            paste: '#uploader',
+            swf: '/webuploader/Uploader.swf',
+            chunked: false,
+            chunkSize: 512 * 1024,
+            server: '{:Url('Index/imgupload')}?appletid=<?php echo $_GET['appletid']?>',
+            // runtimeOrder: 'flash',
+            // accept: {
+            //     title: 'Images',
+            //     extensions: 'gif,jpg,jpeg,bmp,png',
+            //     mimeTypes: 'image/*'
+            // },
+            // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
+            disableGlobalDnd: false,
+            fileNumLimit: 8,
+            fileSizeLimit: 200 * 1024 * 1024,    // 200 M
+            fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
+        });
+        // 拖拽时不接受 js, txt 文件。
+        uploader.on( 'dndAccept', function( items ) {
+            var denied = false,
+                len = items.length,
+                i = 0,
+                // 修改js类型
+                unAllowed = 'text/plain;application/javascript ';
+            for ( ; i < len; i++ ) {
+                // 如果在列表里面
+                if ( ~unAllowed.indexOf( items[ i ].type ) ) {
+                    denied = true;
+                    break;
+                }
+            }
+            return !denied;
+        });
+        uploader.on('dialogOpen', function() {
+            console.log('here');
+        });
+        // 添加“添加文件”的按钮，
+        uploader.addButton({
+            id: '#filePicker2',
+            label: '继续添加'
+        });
+        uploader.on('ready', function() {
+            window.uploader = uploader;
+        });
+        // 当有文件添加进来时执行，负责view的创建
+        function addFile( file ) {
+            var $li = $( '<li id="' + file.id + '">' +
+                    '<p class="imgWrap"></p>'+
+                    '</li>' ),
+                $btns = $('<div class="file-panel">' +
+                    '<span class="cancel" style="background-image: url(__STATIC_ROOT__/webuploader/css/images/icons.png)">删除</span>' +
+					'</div>').appendTo( $li ),
+                $prgress = $li.find('p.progress span'),
+                $wrap = $li.find( 'p.imgWrap' ),
+                $info = $('<p class="error"></p>'),
+                showError = function( code ) {
+                    switch( code ) {
+                        case 'exceed_size':
+                            text = '文件大小超出';
+                            break;
+                        case 'interrupt':
+                            text = '上传暂停';
+                            break;
+                        default:
+                            text = '上传失败，请重试';
+                            break;
+                    }
+                    $info.text( text ).appendTo( $li );
+                };
+            if ( file.getStatus() === 'invalid' ) {
+                showError( file.statusText );
+            } else {
+                // @todo lazyload
+                $wrap.text( '预览中' );
+                uploader.makeThumb( file, function( error, src ) {
+                    var img;
+                    if ( error ) {
+                        $wrap.text( '不能预览' );
+                        return;
+                    }
+                    if( isSupportBase64 ) {
+                        img = $('<img src="'+src+'">');
+                        $wrap.empty().append( img );
+                    } else {
+                        $.ajax('/webuploader/server/preview.php', {
+                            method: 'POST',
+                            data: src,
+                            dataType:'json'
+                        }).done(function( response ) {
+                            if (response.result) {
+                                img = $('<img src="'+response.result+'">');
+                                $wrap.empty().append( img );
+                            } else {
+                                $wrap.text("预览出错");
+                            }
+                        });
+                    }
+                }, thumbnailWidth, thumbnailHeight );
+                percentages[ file.id ] = [ file.size, 0 ];
+                file.rotation = 0;
+            }
+            file.on('statuschange', function( cur, prev ) {
+                if ( prev === 'progress' ) {
+                    $prgress.hide().width(0);
+                } else if ( prev === 'queued' ) {
+                    $li.off( 'mouseenter mouseleave' );
+                    $btns.remove();
+                }
+                // 成功
+                if ( cur === 'error' || cur === 'invalid' ) {
+                    console.log( file.statusText );
+                    showError( file.statusText );
+                    percentages[ file.id ][ 1 ] = 1;
+                } else if ( cur === 'interrupt' ) {
+                    showError( 'interrupt' );
+                } else if ( cur === 'queued' ) {
+                    percentages[ file.id ][ 1 ] = 0;
+                } else if ( cur === 'progress' ) {
+                    $info.remove();
+                    $prgress.css('display', 'block');
+                } else if ( cur === 'complete' ) {
+                    $li.append( '<span class="success"></span>' );
+                }
+                $li.removeClass( 'state-' + prev ).addClass( 'state-' + cur );
+            });
+            $li.on( 'mouseenter', function() {
+                $btns.stop().animate({height: 30});
+            });
+            $li.on( 'mouseleave', function() {
+                $btns.stop().animate({height: 0});
+            });
+            $btns.on( 'click', 'span', function() {
+                var index = $(this).index(),
+                    deg;
+                switch ( index ) {
+                    case 0:
+                        uploader.removeFile( file );
+                        return;
+                    case 1:
+                        file.rotation += 90;
+                        break;
+                    case 2:
+                        file.rotation -= 90;
+                        break;
+                }
+                if ( supportTransition ) {
+                    deg = 'rotate(' + file.rotation + 'deg)';
+                    $wrap.css({
+                        '-webkit-transform': deg,
+                        '-mos-transform': deg,
+                        '-o-transform': deg,
+                        'transform': deg
+                    });
+                } else {
+                    $wrap.css( 'filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation='+ (~~((file.rotation/90)%4 + 4)%4) +')');
+                    // use jquery animate to rotation
+                    // $({
+                    //     rotation: rotation
+                    // }).animate({
+                    //     rotation: file.rotation
+                    // }, {
+                    //     easing: 'linear',
+                    //     step: function( now ) {
+                    //         now = now * Math.PI / 180;
+                    //         var cos = Math.cos( now ),
+                    //             sin = Math.sin( now );
+                    //         $wrap.css( 'filter', "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos + ",SizingMethod='auto expand')");
+                    //     }
+                    // });
+                }
+            });
+            $li.appendTo( $queue );
+        }
+        // 负责view的销毁
+        function removeFile( file ) {
+            var $li = $('#'+file.id);
+            delete percentages[ file.id ];
+            updateTotalProgress();
+            $li.off().find('.file-panel').off().end().remove();
+        }
+        function updateTotalProgress() {
+            var loaded = 0,
+                total = 0,
+                spans = $progress.children(),
+                percent;
+            $.each( percentages, function( k, v ) {
+                total += v[ 0 ];
+                loaded += v[ 0 ] * v[ 1 ];
+            } );
+            percent = total ? loaded / total : 0;
+            spans.eq( 0 ).text( Math.round( percent * 100 ) + '%' );
+            spans.eq( 1 ).css( 'width', Math.round( percent * 100 ) + '%' );
+            updateStatus();
+        }
+        function updateStatus() {
+            var text = '', stats;
+            if ( state === 'ready' ) {
+                text = '选中' + fileCount + '张图片，共' +
+                        WebUploader.formatSize( fileSize ) + '。';
+            } else if ( state === 'confirm' ) {
+                stats = uploader.getStats();
+                if ( stats.uploadFailNum ) {
+                    text = '已成功上传' + stats.successNum+ '张照片至XX相册，'+
+                        stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
+                }
+            } else {
+                stats = uploader.getStats();
+                text = '共' + fileCount + '张（' +
+                        WebUploader.formatSize( fileSize )  +
+                        '），已上传' + stats.successNum + '张';
+                if ( stats.uploadFailNum ) {
+                    text += '，失败' + stats.uploadFailNum + '张';
+                }
+            }
+            $info.html( text );
+        }
+        function setState( val ) {
+            var file, stats;
+            if ( val === state ) {
+                return;
+            }
+            $upload.removeClass( 'state-' + state );
+            $upload.addClass( 'state-' + val );
+            state = val;
+            switch ( state ) {
+                case 'pedding':
+                console.log("pedding");
+                    $placeHolder.removeClass( 'element-invisible' );
+                    $queue.hide();
+                    $statusBar.addClass( 'element-invisible' );
+                    uploader.refresh();
+                    break;
+                case 'ready':
+                console.log("ready");
+                    $placeHolder.addClass( 'element-invisible' );
+                    $( '#filePicker2' ).removeClass( 'element-invisible');
+                    $queue.show();
+                    $statusBar.removeClass('element-invisible');
+                    uploader.refresh();
+                    break;
+                case 'uploading':
+                console.log("uploading");
+                    $( '#filePicker2' ).addClass( 'element-invisible' );
+                    $progress.show();
+                    $upload.text( '暂停上传' );
+                    break;
+                case 'paused':
+                console.log("paused");
+                    $progress.show();
+                    $upload.text( '继续上传' );
+                    break;
+                case 'confirm':
+                console.log("confirm");
+                    $progress.hide();
+                    $( '#filePicker2' ).removeClass( 'element-invisible' );
+                    $upload.text( '开始上传' );
+                    stats = uploader.getStats();
+                    if ( stats.successNum && !stats.uploadFailNum ) {
+                        setState( 'finish' );
+                        return;
+                    }
+                    break;
+                case 'finish':
+                console.log("finish");
+                    stats = uploader.getStats();
+                    if ( stats.successNum ) {
+                        $.post("{:Url('Index/getimg')}",{"id":<?php echo $_GET['appletid']?>},function(data){
+                        	var str="";
+                        	if(data){
+                        		for(var i=0; i<data.length; i++){
+                        			str+=	"<div class='paiwei' onmousemove='xians(this)' onmouseout='gb(this)' id='li"+data[i].id+"'>"+
+												"<img src='"+data[i].url+"' style='width: 140px; height:90px;'>"+
+												"<div class='beijingys'>"+
+												"</div>"+
+												"<div class='sancann' onclick='del("+data[i].id+")'>"+
+													"<span class='cancel'>删除</span>"+
+												"</div>"+
+											"</div>"
+                        		}
+                        		$("#imgzs").html(str);
+                        	}
+                        })
+                        alert( '上传成功' );
+                    } else {
+                        // 没有成功的图片，重设
+                        state = 'done';
+                    }
+                    break;
+            }
+            updateStatus();
+        }
+        uploader.onUploadProgress = function( file, percentage ) {
+            var $li = $('#'+file.id),
+                $percent = $li.find('.progress span');
+            $percent.css( 'width', percentage * 100 + '%' );
+            percentages[ file.id ][ 1 ] = percentage;
+            updateTotalProgress();
+        };
+        uploader.onFileQueued = function( file ) {
+            fileCount++;
+            fileSize += file.size;
+            if ( fileCount === 1 ) {
+                $placeHolder.addClass( 'element-invisible' );
+                $statusBar.show();
+            }
+            addFile( file );
+            setState( 'ready' );
+            updateTotalProgress();
+        };
+        uploader.onFileDequeued = function( file ) {
+            fileCount--;
+            fileSize -= file.size;
+            if ( !fileCount ) {
+                setState( 'pedding' );
+            }
+            removeFile( file );
+            updateTotalProgress();
+        };
+        uploader.on( 'all', function( type ) {
+            var stats;
+            switch( type ) {
+                case 'uploadFinished':
+                    setState( 'confirm' );
+                    break;
+                case 'startUpload':
+                    setState( 'uploading' );
+                    break;
+                case 'stopUpload':
+                    setState( 'paused' );
+                    break;
+            }
+        });
+        uploader.onError = function( code ) {
+            alert( 'Eroor: ' + code );
+        };
+        $upload.on('click', function() {
+            if ( $(this).hasClass( 'disabled' ) ) {
+                return false;
+            }
+            if ( state === 'ready' ) {
+                uploader.upload();
+            } else if ( state === 'paused' ) {
+                uploader.upload();
+            } else if ( state === 'uploading' ) {
+                uploader.stop();
+            }
+        });
+        $info.on( 'click', '.retry', function() {
+            uploader.retry();
+        } );
+        $info.on( 'click', '.ignore', function() {
+            alert( 'todo' );
+        } );
+        $upload.addClass( 'state-' + state );
+        updateTotalProgress();
+    });
+})( jQuery );
+
+    // 复制H5链接
+    function copyUrl(){
+        var clipboard = new Clipboard('.js-clip');
+        clipboard.on('success', function(e) {
+		    alert("链接复制成功");
+		    e.clearSelection();
+		});
+
+		clipboard.on('error', function(e) {
+		    alert("链接复制失败");
+		});
+	}
+</script>
+{include file="public/foot_more" /}

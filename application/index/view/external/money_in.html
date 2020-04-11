@@ -1,0 +1,109 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style>
+    thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		margin-bottom: 20px;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+</style>
+<input type="hidden" id="nowhtml" value="navModel" class="navModel15-4">
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box ">
+            <div class="portlet-body">
+                <table id="sample_editable_1">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>订单号</th>
+                        <th>商品/缩略图</th>
+                        <th>获得金额</th>
+                        <th>订单源</th>
+                        <th>推荐人</th>
+                        <th>创建时间</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {if $has}
+                        {volist name="lsData" id="item"}
+                            <tr>
+                                <td>{$item.id}</td>
+                                <td>{$item.order_sn}</td>
+                                <td>
+                                    <img width="80px" src="{$item.orderInfo.goods_thumbnail_url}">
+                                    {$item.orderInfo.goods_name}
+
+                                </td>
+                                <td>{$item.fanyong}元</td>
+                                <td>
+                                    {if $item.type == 'pdd'}
+                                        拼多多
+                                    {else}
+                                        京东
+                                    {/if}
+                                </td>
+                                <td>
+                                    {if $item.fxsid}
+                                        <img width="50px" src="{$item.fxs_avatar}">
+                                        {$item.fxs_nickname}
+                                    {else}
+                                        平台推荐
+                                    {/if}
+                                </td>
+                                <td>{$item.createtime|date="Y-m-d H:i:s",###}</td>
+                                <td>
+                                    {if $item.type == 'pdd'}
+                                        {eq name="$item.order_status" value="1"}已付款{/eq}
+                                        {eq name="$item.order_status" value="2"}已收货{/eq}
+                                        {eq name="$item.order_status" value="4"}无效订单{/eq}
+                                        {eq name="$item.order_status" value="5"}已结算{/eq}
+                                    {else}
+                                        {eq name="$item.order_status" value="4"}无效订单{/eq}
+                                        {eq name="$item.order_status" value="15"}待支付{/eq}
+                                        {eq name="$item.order_status" value="16"}已付款{/eq}
+                                        {eq name="$item.order_status" value="17"}已收货{/eq}
+                                        {eq name="$item.order_status" value="18"}已结算{/eq}
+                                    {/if}
+                                </td>
+                            </tr>
+                        {/volist}
+                    {else}
+                    <tr>
+                        <td colspan="8">暂无收入记录！</td>
+                    </tr>
+                    {/if}
+
+                    </tbody>
+                </table>
+                <!-- 分页 -->
+                <div>
+                    <div class="fenye_left">
+                         <!-- 一共查询到<font color="red" style="padding:0 10px;">{$count}</font>条数据 -->
+                    </div>
+                    <div class="fenye_right">
+                        {if $has}
+                            {$lsData ->render()}
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/foot_more" /}

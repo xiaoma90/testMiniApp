@@ -1,0 +1,302 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<style type="text/css">
+	.navModel16{
+		display: block !important;
+	}
+	.formlist{margin: 10px 0;}
+	form {
+		margin: 0 !important; 
+		display: inline-block !important;
+	}	
+	thead{
+		background: #fafafa;
+	}
+	table{
+		width: 100%;
+		text-align: center;
+		border: 1px solid #f0f0f0;
+	}
+	th,td{
+		border: 1px dashed #f0f0f0;
+		text-align: center;
+	}
+	th{
+		height: 45px;
+	}
+	td{
+		height: 62px;
+	}
+	.bbdd{
+		position: fixed;
+		z-index: 100001;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		width: 400px;
+		border:1px solid #e7e7e7;
+		border-radius: 6px;
+		background-color: #ffffff;
+	}
+	.ddhh{
+		height: 52px;;
+		line-height: 52px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 17px;
+		box-sizing: border-box;
+		border-bottom: 1px solid #e5e5e5;
+		color: #333;
+	}
+	.ddxx{
+		cursor:pointer
+	}
+	.loader{
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 9999;
+		background: #000 50% 50%;
+		opacity: .3;
+	}
+	.form_info{
+		box-sizing: border-box;
+		max-height: 420px;
+		overflow-y: auto;
+		margin: 25px 10px;
+		padding: 0 20px;
+		background: #f8f8f8; 
+	}
+	.form_info::-webkit-scrollbar{
+		display: none;
+	}
+</style>
+
+<input type="hidden" id="nowhtml" value="navModel" class="navModel16-2">
+
+	<div class="row-fluid">
+
+	<div class="span12">
+
+
+		<div class="portlet box ">
+
+
+			<div class="portlet-body">
+
+
+				<div class="input-box" style="margin-bottom: 10px; position: relative;">
+					<form class="form-horizontal">
+						<div style="margin-bottom:10px;">
+							状态：
+							<div style="display: inline-block;margin-right: 10px">
+								<select name="search_flag" id="search_flag" style="width: 120px">
+									<option value="0">全部</option>
+									<option value="1" {if $search_flag == '1'}selected="selected"{/if}>待审核</option> <!-- flag = 1 and nav = 1 -->
+									<option value="2" {if $search_flag == '2'}selected="selected"{/if}>待参加</option>
+									<option value="3" {if $search_flag == '3'}selected="selected"{/if}>已完成</option>
+									<option value="4" {if $search_flag == '4'}selected="selected"{/if}>审核未通过</option>
+								</select>
+							</div>
+							下单时间：
+							<div class="btn-group btn-group-sm" style="padding-right:0;padding-top: 10px">
+								<input type="text" value="{$starttime != 0 ? $starttime : ''}"  name="starttime" readonly id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii" placeholder="" class="form-control ng-pristine ng-untouched ng-valid ng-empty" >
+							</div>
+							-
+							<div class="btn-group btn-group-sm" style="padding-right:0;margin-right: 10px;padding-top:10px;">
+								<input type="text" value="{$endtime != 0 ? $endtime : ''}" name="endtime" readonly id="datetimepicker2" data-date-format="yyyy-mm-dd hh:ii" placeholder="" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+							</div>
+
+							<div style="display: inline-block;">
+								<input type="hidden" name="aid" id="aid" value="{$aid}">
+								<div class="btn" style="background: #4385ff;color: #fff;margin-left: 30px;" id="filter" onclick="search()">搜索</div>
+								<div class="btn" style="padding:5px 14px;background-color:rgba(67, 133, 255, 0.102);color: #4385ff;margin-left: 30px;border:1px solid #4385ff;" id="filter" style="display: inline-block;font-size: 12px;" onclick="daochu()">导出</div>
+							</div>
+						</div>
+			    	</form>
+			    	<div>活动名称：{$activename}</div>
+				</div>
+
+
+
+
+				<table id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+
+							<th style="">报名人昵称</th>
+
+							<th style="width: 100px;">头像</th>
+
+							<th style="width: 100px;">联系人姓名</th>
+
+							<th style="width: 100px;">联系人电话</th>
+
+							<th style="width: 200px;">报名时间</th>
+
+							<th style="width: 200px;">核销时间</th>
+
+							<th>状态</th>
+							
+							<th >操作</th>
+						</tr>
+
+					</thead>
+
+					<tbody>
+						
+						{if $list}
+							{foreach $list as $item}
+									<td>{$item.nickname}</td>
+									<td><img src="{$item.avatar}" style="width:30px; height:30px;"></td>
+									<td>{$item.username}</td>
+									<td>{$item.tel}</td>
+									<td>{$item.createtime}</td>
+									<td>{$item.hxtime}</td>
+									<td>
+										<!-- 状态 1待审核 2待参加 3已完成 4审核未通过 -->
+										{if $item.flag == 1}
+											<span class="btn red">待审核</span>
+										{/if}
+										{if $item.flag == 2}
+											<span class="btn green">待参加</span>
+										{/if}
+										{if $item.flag == 3}
+											<span class="btn gray">已完成</span>
+										{/if}
+										{if $item.flag == 4}
+											<span class="btn gray">审核未通过</span>
+										{/if}
+									</td>
+									<td>
+										{if $item.flag == 1}
+										<a onclick="return confirm('是否通过报名请求？审核后无法再次修改审核状态'); return false;" href="{:Url('Active/shenhe')}?appletid=<?php echo $_GET['appletid']?>&applyid={$item.id}&flag=2"><button style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px">通过</button></a>
+										<a onclick="return confirm('是否不通过报名请求？审核后无法再次修改审核状态'); return false;" href="{:Url('Active/shenhe')}?appletid=<?php echo $_GET['appletid']?>&applyid={$item.id}&flag=4"><button style="color: #d9534f;border:1px solid #d9534f;background:#fff;border-radius: 4px">不通过</button></a>
+										{/if}
+										{if $item.flag == 2}
+										<a onclick="return confirm('是否核销报名请求？'); return false;" href="{:Url('Active/shenhe')}?appletid=<?php echo $_GET['appletid']?>&applyid={$item.id}&flag=3"><button style="color: #35aa47;border:1px solid #35aa47;background:#fff;border-radius: 4px">立即核销</button></a>
+										{/if}
+										<a href="javascript:;" onclick="applyinfo({$item['id']})"><button style="color: #438cdd;border:1px solid #438cdd;background:#fff;border-radius: 4px">查看报名信息</button></a>
+									</td>
+								</tr>
+							{/foreach}
+						{/if}
+						
+					</tbody>
+
+				</table>
+				<div>
+					<div class="fenye_right">
+						{$applylist->render()}
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+<div class='loader' style="display:none"></div>
+
+<div class="bbdd" id="bbdd" style="display:none">
+        <div class="ddhh">
+						<span>报名信息</span>
+						<img class="ddxx" src="__STATIC_ROOT__/image/close.png" width="14px" height="14px" alt="" onclick="ycc()">
+        </div>
+   
+        <div id="forminfo" class="form_info">
+        </div>
+</div>
+<script type="text/javascript">
+	function applyinfo(id){
+		$(".loader").show();
+        $(".la-ball-clip-rotate").hide();
+        $("#bbdd").show();
+		$.ajax({
+			url:"{:Url('Active/applyinfo')}?appletid=<?php echo $_GET['appletid']?>",
+			dataType:'json',
+			type:'post',
+			data:{
+				applyid:id
+			},
+			success:function(res){
+				$("#forminfo").html(res);
+			}
+		})
+	}
+	function ycc(){
+        $(".loader").hide();
+        $("#bbdd").hide();
+    }
+	// function del(id){
+	// 	if(confirm('该删除操作不可逆，请谨慎操作?')){
+	// 		return true;
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }
+
+ //    $('#all').on('click',function(){
+
+ //        if(this.checked) {
+ //            $.uniform.update($("input[name='csb']").attr("checked", true));
+ //        }else {
+ //            $.uniform.update($("input[name='csb']").attr("checked", false));
+ //        }
+ //    });
+	// function delall(){
+	//     var array1=new Array();
+	// 	$.each($("input[name='csb']"),function(){
+	// 		if(this.checked){
+	// 			array1.push($(this).val());
+	// 		}
+	// 	});
+ //         if(array1.length>0){
+ //             if(window.confirm('确定删除这些活动？')){
+ //                 location.href = "{:Url('Active/delallactive')}?appletid=<?php echo $_GET['appletid']?>&aids="+array1;
+ //             }else{
+ //                 return false;
+ //             }
+	// 	 }else{
+ //             alert("您未选择删除对象");
+ //             return false;
+	// 	 }
+	// }
+
+	function search(){
+
+	    var aid=$("#aid").val();
+	    var search_flag=$("#search_flag").val();
+	    var starttime=$("#datetimepicker").val();
+	    var endtime=$("#datetimepicker2").val();
+
+		location.href = "{:Url('Active/applylist')}?appletid=<?php echo $_GET['appletid']?>&aid="+aid+"&search_flag="+search_flag+"&starttime="+starttime+"&endtime="+endtime;
+
+	}
+
+
+	function daochu(){
+	    var aid=$("#aid").val();
+	    var search_flag=$("#search_flag").val();
+	    var starttime=$("#datetimepicker").val();
+	    var endtime=$("#datetimepicker2").val();
+	    location.href = "{:Url('Active/excel')}?appletid=<?php echo $_GET['appletid']?>&aid="+aid+"&search_flag="+search_flag+"&starttime="+starttime+"&endtime="+endtime;
+	}
+
+
+
+</script>
+
+
+
+{include file="public/foot_more" /}

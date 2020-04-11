@@ -1,0 +1,204 @@
+{include file="public/head" /}
+<body class="page-header-fixed">
+
+<div class="page-container">
+{include file="public/left_setting" /}
+<div class="page_main">
+	<div class="content_head clearfix navbar" style="margin-bottom: 0">
+        <div class="content_head_left"></div>
+    </div>
+	<div class="page_content" id="container">
+
+
+<style type="text/css">
+    form {
+        margin: 0 !important;
+    }
+    .form_nobg{
+      background-color: #fff;
+      border-top: 0 !important;
+    }
+    .ptxz{margin-bottom: 10px;width: 200px;}
+</style>
+
+<input type="hidden" id="nowhtml" value="navRegister" class="navRegister1">
+
+<div class="row-fluid">
+
+  <div class="portlet box">
+    <div class="portlet-body form">
+      <form action="{:Url('Register/save')}" id="form_sample_2" class="form-horizontal" method="post" enctype="multipart/form-data" onsubmit = "return checkinfo();">
+        <div class="control-group">
+          <label class="control-label">注册</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="flag" value="1" {if $config}{if $config.flag==1}checked="checked"{/if}{/if}>
+
+              开启
+
+              </label>
+
+              <label class="radio">
+
+              <input type="radio" name="flag" value="2" {if $config}{if $config.flag==2}checked="checked"{/if}{else}checked="checked"{/if}>
+
+              关闭
+
+              </label> 
+
+          </div>
+        </div>  
+        <div class="control-group">
+          <label class="control-label">短信验证码</label>
+          <div class="controls">
+            <label class="radio">
+              <input type="radio" name="shortmsg" value="1" {if $config}{if $config.shortmsg==1}checked="checked"{/if}{/if}>
+
+              开启
+
+              </label>
+
+              <label class="radio">
+
+              <input type="radio" name="shortmsg" value="2" {if $config}{if $config.shortmsg==2}checked="checked"{/if}{else}checked="checked"{/if}>
+
+              关闭
+
+              </label> 
+
+          </div>
+        </div>  
+        <div class="control-group">
+          <label class="control-label">试用天数 <span style="color:red">*</span></label>
+          <div class="controls">
+            <input name="day" type="number" min="1" class="span3 m-wrap" value="{if $config}{$config.day}{/if}" style="height: 35px !important;">
+            <span style="color:#999999; line-height:40px; margin-left:20px;">天</span>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">项目 <span style="color:red">*</span></label>
+          <div class="controls">
+            <label class="ptxz hbj">
+
+                <input class="ptxz_checkbox" type="checkbox"  name="type[]"  value="0" <?php if(in_array(0, $type_arr)){echo " checked='checked'";}?>/>
+
+                <img src="__STATIC_ROOT__/image/wx_new.png" style="margin:0 1.5px;width: 20px;height: 20px"/>
+
+                微信小程序
+
+            </label>
+
+            <label class="ptxz hbj">
+
+                <input class="ptxz_checkbox" type="checkbox" name="type[]"  value="1" <?php if(in_array(1, $type_arr)){echo " checked='checked'";}?>/>
+
+                <img src="__STATIC_ROOT__/image/baidu_new.png" style="margin:0 1.5px;width: 20px;height: 20px"/>
+
+                百度智能小程序
+
+            </label>
+
+                <label class="ptxz hbj">
+
+                    <input class="ptxz_checkbox" type="checkbox" name="type[]"  value="2" <?php if(in_array(2, $type_arr)){echo " checked='checked'";}?> />
+
+                    <img src="__STATIC_ROOT__/image/zhifubao.png" style="margin:0 1.5px;width: 20px;height: 20px" />
+
+                    支付宝小程序
+
+                </label>
+
+                <label class="ptxz hbj">
+
+                    <input class="ptxz_checkbox" type="checkbox" name="type[]"  value="4" <?php if(in_array(4, $type_arr)){echo " checked='checked'";}?>/>
+
+                    <img src="__STATIC_ROOT__/image/h5_new.png" style="margin:0 1.5px;width: 20px;height: 20px" />
+
+                    H5应用
+
+                </label>
+
+                <label class="ptxz hbj">
+
+                    <input class="ptxz_checkbox" type="checkbox" name="type[]"  value="3" <?php if(in_array(3, $type_arr)){echo " checked='checked'";}?>/>
+
+                    <img src="__STATIC_ROOT__/image/pc_new.png" style="margin:0 1.5px;width: 20px;height: 20px" />
+
+                    PC网站
+
+                </label>
+
+                <label class="ptxz hbj">
+
+                    <input class="ptxz_checkbox" type="checkbox" name="type[]"  value="5" <?php if(in_array(5, $type_arr)){echo "checked='checked' ";}?>/>
+
+                    <img src="__STATIC_ROOT__/image/toutiao_new.png" style="margin:0 1.5px;width: 22px;height: 22px"/>
+
+                    字节跳动小程序
+
+                </label>
+
+                <label class="ptxz hbj">
+
+                    <input class="ptxz_checkbox" type="checkbox" name="type[]"  value="6" <?php if(in_array(6, $type_arr)){echo "checked='checked'";}?>/>
+
+                    <img src="__STATIC_ROOT__/image/qq_new.png" style="margin:0 1.5px;width: 20px;height: 20px"/>
+
+                    QQ小程序
+
+                </label>
+
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">项目套餐 <span style="color:red">*</span></label>
+          <div class="controls">
+            <select name="combo" class="span3 m-wrap" id="combo">
+                <option value="0">请选择项目套餐</option>
+                  {foreach $combo as $cateP}
+                    {if $config}
+                      <option value="{$cateP.id}" {if $cateP.id==$config.combo_id}selected{/if}>{$cateP.name}</option>
+                    {else}
+                      <option value="{$cateP.id}" >{$cateP.name}</option>
+                    {/if}
+                  {/foreach}
+            </select>
+          </div>
+        </div>
+        <div class="form-actions form_nobg" style="padding-top: 40px;">
+          <button type="submit" class="btn" style="color: #fff;background-color: #4385ff;margin-left: 45%">确定</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+  function checkinfo(){
+    var day = $("input[name='day']").val();
+    if(day == ''){
+      alert('请输入试用天数');
+      $("input[name='day']").focus()
+      return false;
+    }
+    var type = [];
+
+    $('input[name="type[]"]:checked:not(:disabled)').each(function(){
+        type.push($(this).val());//向数组中添加元素
+
+    });
+    if(type.length == 0){
+      alert('请选择试用项目')
+      return false;
+    }
+    var combo = $("#combo").val();
+    if(combo == 0){
+      alert('请选择项目套餐');
+      return false;
+    }
+  }
+</script>
+
+{include file="public/foot_more" /}

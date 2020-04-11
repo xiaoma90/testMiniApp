@@ -1,0 +1,596 @@
+{include file="public/head" /}
+{include file="public/top" /}
+<input type="hidden" id="nowhtml" value="navOrder" class="navOrder1">
+
+<style type="text/css">
+	.shuk{
+		outline: none;
+		border: 1px solid #dedede;
+		width: 300px;
+	}
+	.cesd{
+		height: 28px;
+		line-height: 28px;
+	    width: 28px;
+	    display: inline-block;
+	    vertical-align: top;
+	    cursor: pointer;
+	    border:1px solid #dedede;
+	    padding: 0 10px;
+	}
+	.zzcc{
+        position: fixed;
+        top: 0; 
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0.4;
+        z-index: 100000;
+
+    }
+	.bbdd{
+        position: fixed;
+        z-index: 100001;
+        background-color: #ffffff;
+        width: 400px;
+        height: 220px;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -110px;
+        padding: 10px;
+        border:1px solid #e7e7e7;
+    }
+    .ddhh{
+        line-height: 30px;
+        position: relative;
+    }
+    .ddxx{
+        position: absolute;
+        right: 0;
+        top:0;
+        cursor:pointer
+    }
+    .loader{
+    	position: fixed;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 9999;
+	    background: #000 50% 50%;
+	    opacity: .3;
+    }
+
+
+</style>
+
+<script type="text/javascript">
+    function shoscc(id){
+        $("#orderfh").val(id);
+        console.log(id);
+        $(".loader").show();
+        $(".la-ball-clip-rotate").hide();
+        //$('body').append('<div class="zzcc" id="zzcc" style="display:none"></div>');
+        $("#bbdd").show();
+    }
+    function ycc(){
+        $(".loader").hide();
+        $("#bbdd").hide();
+    }
+    function tijiao(){
+        var kuaidi = $("#kuaidi").val();
+        var kuaidihao = $("#kuaidihao").val();
+        if(kuaidi != -1){
+            if(kuaidihao == ''){
+                alert("快递单号不能为空！");
+                return false;
+            }
+        }
+
+        var order = $("#orderfh").val();
+        location.href = "{:Url('Orderlist/order')}?appletid=<?php echo $_GET['appletid']?>&op=fahuo&orderid="+order+"&kuaidi="+kuaidi+"&kuaidihao="+kuaidihao;
+
+    }
+    function hexiao(id){
+    	var orderid = id; 
+    	location.href = "{:Url('Orderlist/order')}?appletid=<?php echo $_GET['appletid']?>&op=hx&orderid="+orderid;
+
+    }
+
+    function quxiao(id){
+    	var orderid = id;
+    	if(confirm('确定允许客户取消该笔订单？退款将直接到账?')){
+			location.href = "{:Url('Orderlist/order')}?appletid=<?php echo $_GET['appletid']?>&op=confirmtk&orderid="+orderid;
+		}else{
+			return false;
+		}
+    }
+
+
+
+</script>
+
+<div class="row-fluid">
+	<div class="span12">
+		<div class="portlet box ">
+				<div class='loader' style="display:none"></div>
+				<div class="portlet-body">
+				   <div class="bbdd" id="bbdd" style="display:none">
+                        <div class="ddhh">
+                            <span>请填写快递单号</span>
+                            <div class="ddxx" onclick="ycc()">[关闭]</div>
+                        </div>
+                   
+                        <form class="form-horizontal" action="" method="post">
+                            <input type="hidden" id="orderfh" name="orderfh">
+                            <table class="table we7-table  vertical-middle" style="border:0">
+
+                                <tr>
+                                    <td style="width:110px">快递：</td>
+                                    <td >
+                                        <select style="width:200px" id="kuaidi" name="kuaidi">
+                                        	<option value="-1">商家配送</option>
+                                            <option value="顺丰速运">顺丰速运</option>
+                                            <option value="韵达">韵达</option>
+                                            <option value="天天">天天</option>
+                                            <option value="申通">申通</option>
+                                            <option value="圆通">圆通</option>
+                                            <option value="中通">中通</option>
+                                            <option value="国通">国通</option>
+                                            <option value="百世汇通">百世汇通</option>
+                                            <option value="EMS">EMS</option>
+                                            <option value="邮政">邮政</option>
+                                            <option value="广东邮政">广东邮政</option>
+                                            <option value="FEDEX联邦(国内件)">FEDEX联邦(国内件)</option>
+                                            <option value="宅急送">宅急送</option>
+                                            <option value="安捷快递">安捷快递</option>
+                                            <option value="大田物流">大田物流</option>
+                                            <option value="百福东方">百福东方</option>
+                                            <option value="德邦">德邦</option>
+                                            <option value="D速物流">D速物流</option>
+                                            <option value="COE东方快递">COE东方快递</option>
+                                            <option value="飞康达物流">飞康达物流</option>
+                                            <option value="共速达">共速达</option>
+                                            <option value="恒路物流">恒路物流</option>
+                                            <option value="华夏龙物流">华夏龙物流</option>
+                                            <option value="佳怡物流">佳怡物流</option>
+                                            <option value="京广速递">京广速递</option>
+                                            <option value="急先达">急先达</option>
+                                            <option value="加运美">加运美</option>
+                                            <option value="晋越快递">晋越快递</option>
+                                            <option value="全日通快递">全日通快递</option>
+                                            <option value="全晨快递">全晨快递</option>
+                                            <option value="门对门快递">门对门快递</option>
+                                            <option value="民航快递">民航快递</option>
+                                            <option value="美快">美快</option>
+                                            <option value="龙邦快递">龙邦快递</option>
+                                            <option value="联昊通速递">联昊通速递</option>
+                                            <option value="立即送">立即送</option>
+                                            <option value="全一快递">全一快递</option>
+                                            <option value="如风达">如风达</option>
+                                            <option value="速尔快递">速尔快递</option>
+                                            <option value="盛丰物流">盛丰物流</option>
+                                            <option value="赛澳递">赛澳递</option>
+                                            <option value="天地华宇">天地华宇</option>
+                                            <option value="TNT快递">TNT快递</option>
+                                            <option value="UPS">UPS</option>
+                                            <option value="万家物流">万家物流</option>
+                                            <option value="信丰物流">信丰物流</option>
+                                            <option value="亚风快递">亚风快递</option>
+                                            <option value="优速">优速</option>
+                                            <option value="远成物流">远成物流</option>
+                                            <option value="运通快递">运通快递</option>
+                                            <option value="源安达快递">源安达快递</option>
+                                            <option value="中铁快运">中铁快运</option>
+                                            <option value="中邮快递">中邮快递</option>
+                                            <option value="安能物流">安能物流</option>
+                                            <option value="微特派">微特派</option>
+                                            <option value="九曳供应链">九曳供应链</option>
+                                            <option value="晟邦物流">晟邦物流</option>
+                                            <option value="东骏快捷">东骏快捷</option>
+                                            <option value="万象">万象</option>
+                                            <option value="芝麻开门">芝麻开门</option>
+                                            <option value="南昌湘达物流">南昌湘达物流</option>
+                                            <option value="长吉物流">长吉物流</option>
+                                            <option value="济南泰山志通物流">济南泰山志通物流</option>
+                                            <option value="晋蒙（汇通）物流">晋蒙（汇通）物流</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr style="display: none;" class="kdd">
+                                    <td style="width:95px">快递号：</td>
+                                    <td >
+                                        <input type="text" id="kuaidihao" name="kuaidihao" value="" class="form-control ng-pristine ng-untouched ng-valid ng-empty" style="width: 187px;">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:95px"></td>
+                                    <td >
+                                        <a onclick="tijiao()" class="btn btn-success btn-sm">提交</a>
+                                    </td>
+                                </tr>
+                           		<script>
+                                    $("#kuaidi").change(function () {  
+                                        var ks = $("#kuaidi option:selected").val();
+                                        $("#kuaidihao").val("");
+                                        if(ks == -1){
+                                            $(".kdd").hide();
+                                        }else{
+                                            $(".kdd").show();
+                                        }
+                                    })
+                               </script>
+                            </table>
+                        </form>
+                </div>
+
+                <div class="bbdd" id="kdinfo" style="display:none; overflow: auto; width: 600px; height: 300px; margin-left: -15%;" >
+                        <div class="ddhh">
+                            <span>物流信息</span>
+                            <div class="ddxx" onclick="kdclose()">[关闭]</div>
+                        </div>
+                        
+                        <table class="table we7-table  vertical-middle" id='kd' style="border:0">
+
+                        </table>
+                </div>
+				<form class="form-horizontal">
+					<div style="margin-bottom:10px;">
+						<div style="display: inline-block;margin-right: 10px">
+							<select name="search_flag" id="search_flag" style="width: 120px">
+								<option value="">全部</option>
+								<option value="-2" {if $search_flag == '-2'}selected="selected"{/if}>订单无效</option>
+								<option value="-1" {if $search_flag == '-1'}selected="selected"{/if}>已关闭</option>
+								<option value="0" {if $search_flag == '0'}selected="selected"{/if}>未支付</option>
+								<option value="1" {if $search_flag == '1'}selected="selected"{/if}>待发货</option> <!-- flag = 1 and nav = 1 -->
+								<option value="10" {if $search_flag == '10'}selected="selected"{/if}>待消费</option> <!-- flag = 1 and nav = 2 -->
+								<option value="2" {if $search_flag == '2'}selected="selected"{/if}>已完成</option>
+								<option value="3" {if $search_flag == '3'}selected="selected"{/if}>已过期</option>
+								<option value="4" {if $search_flag == '4'}selected="selected"{/if}>已发货</option>
+								<option value="5" {if $search_flag == '5'}selected="selected"{/if}>已取消</option>
+								<option value="6" {if $search_flag == '6'}selected="selected"{/if}>取消中</option>
+								<option value="7" {if $search_flag == '7'}selected="selected"{/if}>退货中</option>
+								<option value="8" {if $search_flag == '8'}selected="selected"{/if}>退货成功</option>
+								<option value="9" {if $search_flag == '9'}selected="selected"{/if}>退货失败</option>
+							</select>
+						</div>
+						下单时间:
+						<div class="btn-group btn-group-sm" style="padding-right:0;padding-top: 10px">
+							<input type="text" value="{$start_get}"  name="start_get"   readonly id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii" placeholder="" class="form-control ng-pristine ng-untouched ng-valid ng-empty" >
+						</div>
+						-
+						<div class="btn-group btn-group-sm" style="padding-right:0;margin-right: 10px;padding-top:10px;">
+							<input type="text"   value="{$end_get}" name="end_get" readonly id="datetimepicker2" data-date-format="yyyy-mm-dd hh:ii" placeholder="" class="form-control ng-pristine ng-untouched ng-valid ng-empty">
+						</div>
+
+						<div style="display: inline-block;padding-top:10px;">
+							<select name="search_type" id="search_type" style="width: 120px">
+								<option value="1" {if $search_type == '1'}selected="selected"{/if}>订单号</option>
+								<option value="2" {if $search_type == '2'}selected="selected"{/if}>姓名</option>
+								<option value="3" {if $search_type == '3'}selected="selected"{/if}>手机</option>
+								<option value="4" {if $search_type == '4'}selected="selected"{/if}>地址</option>
+							</select>
+						</div>
+						<div class="btn-group btn-group-sm" style="padding-right:0;padding-top:10px;">
+							<input type="text" name="search_keys" id="search_keys" value="{$search_keys}" style="width: 150px" class="form-control ng-pristine ng-untouched ng-valid ng-empty"  placeholder="搜索关键字" autocomplete="off">
+						</div>
+						<div style="display: inline-block;">
+							<div class="btn btn-primary" id="filter" style="display: inline-block;font-size: 12px;" onclick="search()"/>提交</div>
+						<div class="btn btn-primary" id="filter" style="display: inline-block;font-size: 12px;" onclick="daochu()"/>导出订单列表</div>
+					</div>
+		    	</form>
+			</div>
+				<!--<div class="input-box" style="margin-bottom: 10px; position: relative; text-align:center; margin-top:20px; margin-bottom:40px; ">-->
+
+					<!--请输入订单号：-->
+
+					<!--<input type="text" placeholder="请输入搜索订单号" class="shuk" id="getorder">-->
+					<!---->
+					<!--<div class="cesd" onclick="search()">-->
+						<!--搜索-->
+					<!--</div> -->
+
+				<!--</div>-->
+				<!--<div class="btn-group" style="float:right">-->
+					<!--<a href="{:Url('Orderlist/orderdown')}?appletid=<?php echo $_GET['appletid']?>&is_more=0">-->
+						<!--<button id="sample_editable_1_new" class="btn green">-->
+						<!--导出订单列表 -->
+						<!--</button>-->
+					<!--</a>-->
+
+				<!--</div>-->
+
+				<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+
+					<thead>
+
+						<tr>
+							
+							<th>商品</th>
+				            <th>单价/数量</th>
+				            <th>营销活动</th>     <!--优惠券-->
+				            <th>运费</th>
+				            <th>实付金额</th>
+				            <th>联系方式</th>
+				            <th>状态</th>
+				            
+
+						</tr>
+
+					</thead>
+
+					<tbody>
+					{if $neworder}
+						{foreach $neworder['data'] as $item}
+							<tr>
+								<td colspan="2">订单编号: {$item.order_id}</td>
+								<td colspan="2" style="text-align:right">下单时间：{$item.creattime}</td>
+								<td colspan="3">备注：   {$item.beizhu} {if $item['beizhu_val'] != 'undefined'}{$item['beizhu_val']}{/if}</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="{$item.thumb}" onerror="this.src='__STATIC_ROOT__/image/noimage.jpg'" style="width:50px; height:50px; ">      {$item.product}
+								</td>
+								<td>
+									{if $item.is_more==0}
+				                    {$item.price}  x  {$item.num}
+									{/if}
+
+									{if $item.is_more==1}
+				                    	{foreach $item['order_duo'] as $ikm}
+				                    		{if $ikm[4] != 0}
+				                    			{$ikm[0]} : {$ikm[1]}  X {$ikm[4]} </br>
+				                    		{/if}
+				                    	{/foreach}
+									{/if}
+
+				                </td>
+								<td>
+									{if $item['yhInfo_msg']['yhInfo_mj']['msg']}
+							        <span class="textbg textbg2">减</span>{$item['yhInfo_msg']['yhInfo_mj']['msg']} - ￥{$item['yhInfo_msg']['yhInfo_mj']['money']}<br>
+							        {/if}
+							        {if $item['yhInfo_msg']['yhInfo_yhq']['msg'] != "未使用优惠券"}
+							        <span class="textbg">券</span>{$item['yhInfo_msg']['yhInfo_yhq']['msg']} - ￥{$item['yhInfo_msg']['yhInfo_yhq']['money']}<br>
+							        {/if}
+							        {if $item['yhInfo_msg']['yhInfo_score']['money'] > 0}
+							        <span class="textbg" style="background: #00c4ff">分</span>{$item['yhInfo_msg']['yhInfo_score']['msg']} - ￥{$item['yhInfo_msg']['yhInfo_score']['money']}
+							        {/if}
+								</td>
+								<td style="width:100px;">
+									￥{$item.yhInfo_msg.yhInfo_yunfei}
+								</td>
+								<td>
+									{$item.true_price}
+								</td>
+								<td>
+
+										{$item.name}<br/>
+										{$item.mobile}<br/>
+										{$item.address} {$item.more_address}<br/>
+								</td>
+								
+								<td style="width:250px;">
+									<!-- {if $item.flag==-2}
+									<font color="red">无效订单</font>
+									{elseif $item.flag==-1}
+									<font color="#f0ad4e">已关闭</font>
+									{elseif $item.flag==0}
+									未支付
+									{elseif $item.flag==1}
+									<form action="{:Url('Orderlist/hexiao')}?appletid=<?php echo $_GET['appletid']?>&order={$item.order_id}"  method="post" enctype="multipart/form-data" onsubmit = "return heixiao()">
+										<button style="background-color: #ca4242;border: 1px solid #d43f3a;color: #fff;border-radius: 3px;font-size: 12px;padding: 5px 10px;line-height: 1.5;">立即核销</button>
+									</form>
+									{elseif $item.flag==2}
+									<font color="#5cb85c">已完成</font>
+									{elseif $item.flag==3}
+									<form action="{:Url('Orderlist/queren')}?appletid=<?php echo $_GET['appletid']?>&order={$item.order_id}"  method="post" enctype="multipart/form-data" onsubmit = "return queren()">
+										<button style="background-color: green;border: 1px solid green;color: #fff;border-radius: 3px;font-size: 12px;padding: 5px 10px;line-height: 1.5;">确认订单</button>
+									</form>
+									{/if} -->
+									{if $item['flag'] ==0}<span class="btn btn-default btn-sm">未支付</span>{/if}
+										{if $item['flag'] ==1 && $item['nav'] == 1}
+							<button class="btn green" onclick="shoscc({$item['id']})"  >立即发货</button><!-- href="{php echo $this->createWebUrl('Orderset', array('opt' => 'hx','op'=>'display','cateid'=>$_GPC['cateid'],'chid'=>$_GPC['chid'],'order'=>$item['id']))}" -->
+							
+							<a style="background-color: #ca4242;border: 1px solid #d43f3a;color: #fff;border-radius: 3px;font-size: 12px;padding: 5px 10px;line-height: 1.5;" onclick="quxiao({$item['id']})">取消订单</a>
+				                        {/if}
+				                        {if $item['flag'] ==1 && $item['nav'] == 2}
+							<button class="btn green" onclick="hexiao({$item['id']})"  >立即核销</button>
+							<a style="background-color: #ca4242;border: 1px solid #d43f3a; color: #fff;border-radius: 3px;font-size: 12px;padding: 5px 10px;line-height: 1.5; " onclick="quxiao({$item['id']})">取消订单</a>
+				                        {/if}
+				                        {if $item['flag'] ==2} 
+							<font color="#5cb85c">已完成</font>
+											{if $item.hxinfo2}<br/>{$item.hxinfo2}{/if}
+										{/if}
+				                        {if $item['flag'] ==-1} 
+							<font color="#f0ad4e">已关闭</font>{/if}
+				                        {if $item['flag'] ==-2} 
+							<span class="btn btn-warning btn-sm">订单无效</span>{/if}
+										{if $item['flag'] == 4}
+											<span class="btn btn-default btn-sm">待收货</span>
+											{if $item['kuadi'] != -1}
+							                <br/>快递：{$item['kuadi']}<br/>
+							                    快递号：{$item['kuaidihao']}<br/>
+							                	<a onclick="getwuliu({$_GET['appletid']}, '{$item.kuadi}', '{$item.kuaidihao}')"><font color="#7979f1">查看物流</font> </a>
+							                {else}
+							                商家配送
+							                {/if}
+							            {/if}
+										{if $item['flag'] == 5}
+							<span class="btn btn-warning btn-sm">已取消</span>{/if}
+										{if $item['flag'] == 6}
+					                <button class="btn green" onclick="quxiao({$item['id']})"  >同意取消</button>
+					                <a style="background-color: #ca4242;border: 1px solid #d43f3a;color: #fff;border-radius: 3px;font-size: 12px;padding: 5px 10px;line-height: 1.5;" onclick="quxiao({$item['id']})" onclick="return confirm('确定拒绝该客户的退款请求？'); return false;" href="{php echo $this->createWebUrl('Orderset', array('opt' => 'refuseqx','op'=>'display','cateid'=>$_GPC['cateid'],'chid'=>$_GPC['chid'],'orderid'=>$item['id']))}" >拒绝取消</a>
+					            		{/if}
+					            		{if $item['flag'] ==8} <span class="btn btn-default btn-sm">已退货</span> {/if}
+					            		{if $item['flag'] ==9} <span class="btn btn-default btn-sm">已拒绝退货</span> {/if}
+					            	<br>
+									{if $item['flag']==1 || $item['flag']==2}
+						             {$item['custime']}
+						            {/if}
+						            {if $item['flag']==5}
+						            	{if $item['qxbeizhu']}
+						             		取消原因：{$item['qxbeizhu']}
+						            	{/if}
+						            {/if}
+								</td>
+							</tr>
+							<tr>
+								<td colspan="8" style="height:30px">
+									{if $item['forminfo']}
+									       {foreach $item['forminfo'] as $a}
+												{if $a['type']== 3}
+												{$a['name']}：
+												{foreach $a['val'] as  $a2}
+												{$a2},
+												{/foreach}
+												{/if}
+												{if $a['type']== 5}
+												{$a['name']}：
+									            {if isset($a['z_val'])}
+												{foreach $a['z_val'] as $a3}
+												<a href="{$a3}" target="_blank"><img src="{$a3}" alt="" style="width:60px"></a>
+												{/foreach}
+									             {/if}
+												{/if}
+												{if $a['type']== 16}
+												表单说明：{$a['val']}
+												{/if}
+												{if $a['type']!= 5 && $a['type']!= 3 && $a['type']!= 16}
+												{$a['name']}：{$a['val']}
+												{/if}
+												<br/>
+									      {/foreach}
+
+									{/if}
+								</td>
+							</tr>
+							<tr>
+								<td colspan="8" style="height:30px"></td>
+							</tr>
+						{/foreach}
+					{/if}
+					</tbody>
+
+				</table>
+
+
+				<!-- 分页 -->
+				<div>
+					<div class="fenye_left">
+						一共查询到<font color="red" style="padding:0 10px;">{$counts}</font>条数据
+					</div>
+					<div class="fenye_right">
+						{$order->render()}
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+		
+
+	</div>
+
+</div>
+
+<script type="text/javascript">
+
+
+
+function heixiao(){
+
+	if(confirm('你确定要核销该订单嘛?')){
+		return true;
+	}else{
+		return false;
+	}
+
+}
+
+function queren(){
+
+	if(confirm('你确定要确认该订单嘛?')){
+		return true;
+	}else{
+		return false;
+	}
+
+}
+
+function search(){
+
+    var search_flag=$("#search_flag").val();
+    var search_type=$("#search_type").val();
+    var search_keys=$("#search_keys").val();
+    var start_get=$("#datetimepicker").val();
+    var end_get=$("#datetimepicker2").val();
+
+	location.href = "{:Url('Orderlist/index')}?appletid=<?php echo $_GET['appletid']?>&search_flag="+search_flag+"&search_type="+search_type+"&search_keys="+search_keys+"&start_get="+start_get+"&end_get="+end_get;
+
+}
+
+
+function daochu(){
+    var search_flag=$("#search_flag").val();
+    var search_type=$("#search_type").val();
+    var search_keys=$("#search_keys").val();
+    var start_get=$("#datetimepicker").val();
+    var end_get=$("#datetimepicker2").val();
+
+    location.href = "{:Url('Orderlist/orderdown')}?appletid=<?php echo $_GET['appletid']?>&search_flag="+search_flag+"&search_type="+search_type+"&search_keys="+search_keys+"&start_get="+start_get+"&end_get="+end_get+"&is_more=0";
+
+}
+
+
+function getwuliu(uniacid, kuaidi, kuaidihao){
+	$.ajax({
+        url:"{:Url('Orderlist/getwuliu')}",
+        type:"post",
+        dataType:'json',
+        data:{
+            uniacid: uniacid,
+            kuaidi: kuaidi,
+            kuaidihao: kuaidihao
+        },
+        success:function(res){
+        	$(".loader").show();
+            $("#kdinfo").show();
+            var info = JSON.parse(res)
+            var html = ''
+            if(info['status'] == 0){
+            	if(info['type'] == 'ali'){
+	            	for(var i=0; i< info['list'].length; i++){
+		            	html += "<tr><td>" + info['list'][i]['status'] + "<br/>" +  info['list'][i]['time'] + "<td></tr>";
+		            }
+	            }else{
+	            	for(var i=0; i< info['list'].length; i++){
+		            	html += "<tr><td>" + info['list'][i]['AcceptStation'] + "<br/>" +  info['list'][i]['AcceptTime'] + "<td></tr>";
+		            }
+	            }
+            }else{
+            	html = '暂未查询到物流信息, 请稍后再试!'
+            }
+            $("#kd").empty();
+            $("#kd").append(html);
+        }
+    })
+}
+
+function kdclose(){
+	$(".loader").hide();
+	$("#kdinfo").hide();
+}
+
+
+</script>
+
+
+
+
+
+
+{include file="public/foot_more" /}
